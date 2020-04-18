@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BusinessLogic;
 
 namespace Tests
 {
@@ -9,11 +10,11 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
-            EntityTest entity1 = new EntityTest()
+            Entity entity1 = new Entity()
             {
                 Name = "Pepsi",
             };
-            EntityTest entity2 = new EntityTest()
+            Entity entity2 = new Entity()
             {
                 Name = "Limol",
             };
