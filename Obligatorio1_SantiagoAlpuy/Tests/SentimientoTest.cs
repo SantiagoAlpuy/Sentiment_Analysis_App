@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using BusinessLogic;
 
 namespace Tests
 {
@@ -16,8 +17,7 @@ namespace Tests
                 Category = true,
             };
             sentiment.AddSentiment(sentiment);
-            sentimentReturned = sentiment.ObtainSentiment(sentiment);
-            Assert.AreEqual(sentiment, sentimentReturned);
+            Assert.AreEqual(sentiment, sentiment.ObtainSentiment(sentiment.Description));
         }
     }
 }
