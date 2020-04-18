@@ -17,7 +17,7 @@ namespace BusinessLogic
 
         public void AddSentiment(Sentiment sentimiento)
         {
-            sentiment.Add(this);
+            sentiment.Add(sentimiento);
         }
 
         public Sentiment ObtainSentiment(string description)

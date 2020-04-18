@@ -9,15 +9,22 @@ namespace Tests
     public class SentimientoTest
     {
         [TestMethod]
-        public void RegisterSentiment()
+        public void RegisterSentiments()
         {
-            Sentiment sentiment = new Sentiment()
+            Sentiment happySentiment = new Sentiment()
             {
                 Description = "Me gusta",
                 Category = true,
             };
-            sentiment.AddSentiment(sentiment);
-            Assert.AreEqual(sentiment, sentiment.ObtainSentiment(sentiment.Description));
+            Sentiment sadSentiment = new Sentiment()
+            {
+                Description = "Odio",
+                Category = false,
+            };
+            happySentiment.AddSentiment(happySentiment);
+            happySentiment.AddSentiment(sadSentiment);
+            Assert.AreEqual(happySentiment, happySentiment.ObtainSentiment(happySentiment.Description));
+            Assert.AreEqual(sadSentiment, happySentiment.ObtainSentiment(sadSentiment.Description));
         }
     }
 }
