@@ -1,23 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BusinessLogic
 {
     public class Entity
     {
-        public Entity()
-        {
-        }
 
         public string Name { get; set; }
 
+        public List<Entity> entities;
+
+        public Entity()
+        {
+            entities = new List<Entity>();
+        }
+
         public void AddEntity(Entity entity1)
         {
-            throw new NotImplementedException();
+            entities.Add(entity1);
         }
 
         public Entity ObtainEntity(string name)
         {
-            throw new NotImplementedException();
+            return entities.Find(x => x.Name == name);
         }
     }
 }
