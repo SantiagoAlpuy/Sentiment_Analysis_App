@@ -133,12 +133,21 @@ namespace BusinessLogic
 
         public Entity ObtainEntity(string name)
         {
-            return entities.Find(x => x.Name == name);
+            Entity ent = entities.Find(x => x.Name == name);
+            if (ent != null)
+            {
+                return ent;
+            }
+            else
+            {
+                throw new EntityDoesNotExistsException();
+            }
         }
 
         public void RemoveEntity(string name)
         {
-            throw new NotImplementedException();
+            Entity ent = entities.Find(x => x.Name == name);
+            entities.Remove(ent);
         }
 
         public void AddPhrase(Phrase phrase)
