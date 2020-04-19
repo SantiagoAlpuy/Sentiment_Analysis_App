@@ -147,7 +147,16 @@ namespace BusinessLogic
         public void RemoveEntity(string name)
         {
             Entity ent = entities.Find(x => x.Name == name);
-            entities.Remove(ent);
+            if (ent != null)
+            {
+                entities.Remove(ent);
+            }
+            else
+            {
+                throw new EntityDoesNotExistsException();
+            }
+            
+            
         }
 
         public void AddPhrase(Phrase phrase)
