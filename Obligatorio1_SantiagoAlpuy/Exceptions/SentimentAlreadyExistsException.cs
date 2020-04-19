@@ -11,7 +11,4 @@ namespace Exceptions
             : base(message) { }
     }
 
-    class SerializableAttribute : Attribute
-    {
-    }
 }
