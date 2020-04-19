@@ -95,7 +95,15 @@ namespace BusinessLogic
 
         public Sentiment ObtainNegativeSentiment(string description)
         {
-            return negativeSentiments.Find(x => x.Description == description);
+            Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
+            if (sentiment != null)
+            {
+                return sentiment;
+            }
+            else
+            {
+                throw new SentimentDoesNotExistsException();
+            }
         }
 
         public void AddEntity(Entity entity1)
@@ -112,7 +120,8 @@ namespace BusinessLogic
 
         public void RemoveNegativeSentiment(string description)
         {
-            throw new NotImplementedException();
+            Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
+            negativeSentiments.Remove(sentiment);
         }
 
         public Entity ObtainEntity(string name)
