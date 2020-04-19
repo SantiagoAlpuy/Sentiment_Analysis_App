@@ -6,7 +6,7 @@ using BusinessLogic;
 namespace Tests
 {
     [TestClass]
-    public class SentimientoTest
+    public class SentimentTest
     {
         [TestMethod]
         public void RegisterSentiments()
