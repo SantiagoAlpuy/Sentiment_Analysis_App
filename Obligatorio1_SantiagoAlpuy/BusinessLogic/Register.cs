@@ -40,6 +40,7 @@ namespace BusinessLogic
             phrases.Clear();
         }
 
+
         public void AddPositiveSentiment(Sentiment sentiment)
         {
             if (!positiveSentiments.Contains(sentiment))
@@ -48,7 +49,7 @@ namespace BusinessLogic
             }
             else
             {
-                throw new PositiveSentimentAlreadyExistsException();
+                throw new SentimentAlreadyExistsException();
             }
             
         }
@@ -61,6 +62,7 @@ namespace BusinessLogic
 
         public void AddNegativeSentiment(Sentiment sentiment)
         {
+
             negativeSentiments.Add(sentiment);
         }
 

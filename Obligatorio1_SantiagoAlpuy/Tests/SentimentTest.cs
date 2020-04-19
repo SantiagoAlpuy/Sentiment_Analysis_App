@@ -62,17 +62,22 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(PositiveSentimentAlreadyExistsException))]
+        [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
             Register register = Register.Instance;
-            Sentiment positiveSentiment3 = new Sentiment()
-            {
-                Description = "Amo",
-                Category = true,
-            };
-            register.AddPositiveSentiment(positiveSentiment3);
-            register.AddPositiveSentiment(positiveSentiment3);
+            register.AddPositiveSentiment(positiveSentiment1);
+            register.AddPositiveSentiment(positiveSentiment1);
+            register.CleanLists();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        public void RegisterAlreadyRegisteredNegativeSentiment()
+        {
+            Register register = Register.Instance;
+            register.AddNegativeSentiment(negativeSentiment1);
+            register.AddNegativeSentiment(negativeSentiment1);
             register.CleanLists();
         }
 
