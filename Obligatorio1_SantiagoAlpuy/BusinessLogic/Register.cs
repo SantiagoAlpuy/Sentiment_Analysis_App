@@ -5,18 +5,30 @@ namespace BusinessLogic
 {
     public class Register
     {
-        public List<Sentiment> positiveSentiments;
-        public List<Sentiment> negativeSentiments;
-        public List<Entity> entities;
-        public List<Phrase> phrase;
+        private List<Sentiment> positiveSentiments;
+        private List<Sentiment> negativeSentiments;
+        private List<Entity> entities;
+        private List<Phrase> phrases;
 
-        public Register()
+        private static Register instance = null;
+
+        private Register()
         {
             positiveSentiments = new List<Sentiment>();
             negativeSentiments = new List<Sentiment>();
             entities = new List<Entity>();
-            phrase = new List<Phrase>();
+            phrases = new List<Phrase>();
+        }
 
+        public static Register Instance
+        {
+            get{
+                if (instance == null)
+                {
+                    instance = new Register();
+                }
+                return instance;
+            }
         }
 
         public void AddPositiveSentiment(Sentiment sentiment)
@@ -51,12 +63,12 @@ namespace BusinessLogic
 
         public void AddPhrase(Phrase phrase)
         {
-            this.phrase.Add(phrase);
+            this.phrases.Add(phrase);
         }
 
         public Phrase ObtainPhrase(string comment, DateTime date)
         {
-            return phrase.Find(x => x.Comment == comment && x.Date.Equals(date));
+            return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
 
     }

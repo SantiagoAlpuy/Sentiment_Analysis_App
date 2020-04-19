@@ -26,15 +26,15 @@ namespace Tests
                 Category = true,
             };
 
-            Sentiment negativeSentiment1 = new Sentiment()
+            negativeSentiment1 = new Sentiment()
             {
-                Description = "Me gusta",
-                Category = true,
+                Description = "Lo odio",
+                Category = false,
             };
-            Sentiment negativeSentiment2 = new Sentiment()
+            negativeSentiment2 = new Sentiment()
             {
-                Description = "Me encanta",
-                Category = true,
+                Description = "Me enfurece",
+                Category = false,
             };
         }
 
@@ -42,7 +42,7 @@ namespace Tests
         public void RegisterPositiveSentiments()
         {
             
-            Register register = new Register();
+            Register register = Register.Instance;
             register.AddPositiveSentiment(positiveSentiment1);
             register.AddPositiveSentiment(positiveSentiment2);
             Assert.AreEqual(positiveSentiment1, register.ObtainPositiveSentiment(positiveSentiment1.Description));
@@ -52,7 +52,7 @@ namespace Tests
         [TestMethod]
         public void RegisterNegativeSentiments()
         {
-            Register register = new Register();
+            Register register = Register.Instance;
             register.AddNegativeSentiment(negativeSentiment1);
             register.AddNegativeSentiment(negativeSentiment2);
             Assert.AreEqual(negativeSentiment1, register.ObtainNegativeSentiment(negativeSentiment1.Description));

@@ -21,7 +21,7 @@ namespace Tests
                 Comment = "Odio la Limol",
                 Date = now,
             };
-            Register register = new Register();
+            Register register = Register.Instance;
             register.AddPhrase(phrase1);
             register.AddPhrase(phrase2);
             Assert.AreEqual(phrase1, register.ObtainPhrase(phrase1.Comment, phrase1.Date));

@@ -18,7 +18,7 @@ namespace Tests
                 Name = "Limol",
             };
 
-            Register register = new Register();
+            Register register = Register.Instance;
             register.AddEntity(entity1);
             register.AddEntity(entity2);
             Assert.AreEqual(entity1, register.ObtainEntity(entity1.Name));
