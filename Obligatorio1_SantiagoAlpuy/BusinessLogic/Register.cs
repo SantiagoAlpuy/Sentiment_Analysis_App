@@ -70,7 +70,14 @@ namespace BusinessLogic
         public void RemovePositiveSentiment(string description)
         {
             Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
-            positiveSentiments.Remove(sentiment);
+            if (sentiment != null)
+            {
+                positiveSentiments.Remove(sentiment);
+            }
+            else
+            {
+                throw new SentimentDoesNotExistsException();
+            }
         }
 
         public void AddNegativeSentiment(Sentiment sentiment)
