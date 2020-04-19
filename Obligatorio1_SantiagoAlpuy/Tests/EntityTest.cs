@@ -55,5 +55,16 @@ namespace Tests
             register.RemoveEntity(entity1.Name);
             Entity ent = register.ObtainEntity(entity1.Name);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(EntityDoesNotExistsException))]
+        public void RemoveNonExistantEntityFromRegister()
+        {
+            Register register = Register.Instance;
+            register.CleanLists();
+            register.RemoveEntity("una entidad que no existe ni existira jamas");
+        }
+
+
     }
 }
