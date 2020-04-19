@@ -6,29 +6,26 @@ namespace Tests
     [TestClass]
     public class SentimentTest
     {
-        [TestMethod]
-        public void RegisterPositiveSentiments()
+
+        Sentiment positiveSentiment1;
+        Sentiment positiveSentiment2;
+        Sentiment negativeSentiment1;
+        Sentiment negativeSentiment2;
+
+        [TestInitialize]
+        public void Setup()
         {
-            Sentiment positiveSentiment1 = new Sentiment()
+            positiveSentiment1 = new Sentiment()
             {
                 Description = "Me gusta",
                 Category = true,
             };
-            Sentiment positiveSentiment2 = new Sentiment()
+            positiveSentiment2 = new Sentiment()
             {
                 Description = "Me encanta",
                 Category = true,
             };
-            Register register = new Register();
-            register.AddPositiveSentiment(positiveSentiment1);
-            register.AddPositiveSentiment(positiveSentiment2);
-            Assert.AreEqual(positiveSentiment1, register.ObtainPositiveSentiment(positiveSentiment1.Description));
-            Assert.AreEqual(positiveSentiment2, register.ObtainPositiveSentiment(positiveSentiment2.Description));
-        }
 
-        [TestMethod]
-        public void RegisterNegativeSentiments()
-        {
             Sentiment negativeSentiment1 = new Sentiment()
             {
                 Description = "Me gusta",
@@ -39,6 +36,22 @@ namespace Tests
                 Description = "Me encanta",
                 Category = true,
             };
+        }
+
+        [TestMethod]
+        public void RegisterPositiveSentiments()
+        {
+            
+            Register register = new Register();
+            register.AddPositiveSentiment(positiveSentiment1);
+            register.AddPositiveSentiment(positiveSentiment2);
+            Assert.AreEqual(positiveSentiment1, register.ObtainPositiveSentiment(positiveSentiment1.Description));
+            Assert.AreEqual(positiveSentiment2, register.ObtainPositiveSentiment(positiveSentiment2.Description));
+        }
+
+        [TestMethod]
+        public void RegisterNegativeSentiments()
+        {
             Register register = new Register();
             register.AddNegativeSentiment(negativeSentiment1);
             register.AddNegativeSentiment(negativeSentiment2);
