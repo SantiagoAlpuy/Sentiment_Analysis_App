@@ -56,7 +56,15 @@ namespace BusinessLogic
 
         public Sentiment ObtainPositiveSentiment(string description)
         {
-            return positiveSentiments.Find(x => x.Description == description);
+            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
+            if (sentiment != null)
+            {
+                return sentiment;
+            }
+            else
+            {
+                throw new SentimentDoesNotExistsException();
+            }
         }
 
         public void RemovePositiveSentiment(string description)
