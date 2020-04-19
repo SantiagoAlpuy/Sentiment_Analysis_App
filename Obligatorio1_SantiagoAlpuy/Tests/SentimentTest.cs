@@ -22,8 +22,8 @@ namespace Tests
             Register register = new Register();
             register.AddPositiveSentiment(positiveSentiment1);
             register.AddPositiveSentiment(positiveSentiment2);
-            Assert.AreEqual(positiveSentiment1, register.ObtainSentiment(positiveSentiment1.Description));
-            Assert.AreEqual(positiveSentiment2, register.ObtainSentiment(positiveSentiment2.Description));
+            Assert.AreEqual(positiveSentiment1, register.ObtainPositiveSentiment(positiveSentiment1.Description));
+            Assert.AreEqual(positiveSentiment2, register.ObtainPositiveSentiment(positiveSentiment2.Description));
         }
 
         [TestMethod]
@@ -42,8 +42,8 @@ namespace Tests
             Register register = new Register();
             register.AddNegativeSentiment(negativeSentiment1);
             register.AddNegativeSentiment(negativeSentiment2);
-            Assert.AreEqual(negativeSentiment1, register.ObtainSentiment(negativeSentiment1.Description));
-            Assert.AreEqual(negativeSentiment2, register.ObtainSentiment(negativeSentiment2.Description));
+            Assert.AreEqual(negativeSentiment1, register.ObtainNegativeSentiment(negativeSentiment1.Description));
+            Assert.AreEqual(negativeSentiment2, register.ObtainNegativeSentiment(negativeSentiment2.Description));
         }
     }
 }

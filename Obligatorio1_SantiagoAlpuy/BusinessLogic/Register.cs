@@ -5,26 +5,38 @@ namespace BusinessLogic
 {
     public class Register
     {
-        public List<Sentiment> sentiment;
+        public List<Sentiment> positiveSentiments;
+        public List<Sentiment> negativeSentiments;
         public List<Entity> entities;
         public List<Phrase> phrase;
 
         public Register()
         {
-            sentiment = new List<Sentiment>();
+            positiveSentiments = new List<Sentiment>();
+            negativeSentiments = new List<Sentiment>();
             entities = new List<Entity>();
             phrase = new List<Phrase>();
 
         }
 
-        public void AddSentiment(Sentiment sentimiento)
+        public void AddPositiveSentiment(Sentiment sentiment)
         {
-            sentiment.Add(sentimiento);
+            positiveSentiments.Add(sentiment);
         }
 
-        public Sentiment ObtainSentiment(string description)
+        public Sentiment ObtainPositiveSentiment(string description)
         {
-            return sentiment.Find(x => x.Description == description);
+            return positiveSentiments.Find(x => x.Description == description);
+        }
+
+        public void AddNegativeSentiment(Sentiment sentiment)
+        {
+            negativeSentiments.Add(sentiment);
+        }
+
+        public Sentiment ObtainNegativeSentiment(string description)
+        {
+            return negativeSentiments.Find(x => x.Description == description);
         }
 
         public void AddEntity(Entity entity1)
