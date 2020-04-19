@@ -63,7 +63,14 @@ namespace BusinessLogic
         public void AddNegativeSentiment(Sentiment sentiment)
         {
 
-            negativeSentiments.Add(sentiment);
+            if (!negativeSentiments.Contains(sentiment))
+            {
+                negativeSentiments.Add(sentiment);
+            }
+            else
+            {
+                throw new SentimentAlreadyExistsException();
+            }
         }
 
         public Sentiment ObtainNegativeSentiment(string description)
