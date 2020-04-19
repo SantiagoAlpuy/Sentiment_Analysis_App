@@ -68,7 +68,6 @@ namespace Tests
             Register register = Register.Instance;
             register.AddPositiveSentiment(positiveSentiment1);
             register.AddPositiveSentiment(positiveSentiment1);
-            register.CleanLists();
         }
 
         [TestMethod]
@@ -78,7 +77,17 @@ namespace Tests
             Register register = Register.Instance;
             register.AddNegativeSentiment(negativeSentiment1);
             register.AddNegativeSentiment(negativeSentiment1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        public void RemoveExistantPositiveSentimentFromRegister()
+        {
+            Register register = Register.Instance;
             register.CleanLists();
+            register.AddPositiveSentiment(positiveSentiment1);
+            register.RemovePositiveSentiment(positiveSentiment1.Description);
+            Sentiment sent = register.ObtainPositiveSentiment(positiveSentiment1.Description);
         }
 
     }
