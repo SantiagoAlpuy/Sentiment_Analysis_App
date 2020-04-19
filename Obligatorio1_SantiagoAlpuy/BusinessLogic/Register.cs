@@ -110,6 +110,11 @@ namespace BusinessLogic
             }
         }
 
+        public void RemoveNegativeSentiment(string description)
+        {
+            throw new NotImplementedException();
+        }
+
         public Entity ObtainEntity(string name)
         {
             return entities.Find(x => x.Name == name);
@@ -124,6 +129,5 @@ namespace BusinessLogic
         {
             return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
-
     }
 }
