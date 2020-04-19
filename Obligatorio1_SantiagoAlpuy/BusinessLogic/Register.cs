@@ -80,7 +80,14 @@ namespace BusinessLogic
 
         public void AddEntity(Entity entity1)
         {
-            entities.Add(entity1);
+            if (!entities.Contains(entity1))
+            {
+                entities.Add(entity1);
+            }
+            else
+            {
+                throw new EntityAlreadyExistsException();
+            }
         }
 
         public Entity ObtainEntity(string name)
