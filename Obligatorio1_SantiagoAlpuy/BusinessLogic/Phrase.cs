@@ -7,7 +7,7 @@ namespace BusinessLogic
     public class Phrase
     {
         public string Comment { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public List<Phrase> phrase;
 
@@ -21,9 +21,9 @@ namespace BusinessLogic
             this.phrase.Add(phrase);
         }
 
-        public Phrase ObtainPhrase(string comment, string date)
+        public Phrase ObtainPhrase(string comment, DateTime date)
         {
-            return phrase.Find(x => x.Comment == comment && x.Date == date);
+            return phrase.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
     }
 }

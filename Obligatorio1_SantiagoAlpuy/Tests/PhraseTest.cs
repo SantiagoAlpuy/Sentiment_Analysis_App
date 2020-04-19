@@ -10,15 +10,16 @@ namespace Tests
         [TestMethod]
         public void RegisterPhrase()
         {
+            DateTime now = DateTime.Now;
             Phrase phrase1 = new Phrase()
             {
                 Comment = "Me gusta la Pepsi",
-                Date = "01/12/2001",
+                Date = now,
             };
             Phrase phrase2 = new Phrase()
             {
                 Comment = "Odio la Limol",
-                Date = "01/01/2000",
+                Date = now,
             };
             phrase1.AddPhrase(phrase1);
             phrase1.AddPhrase(phrase2);
