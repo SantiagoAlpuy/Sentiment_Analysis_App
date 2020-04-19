@@ -90,5 +90,14 @@ namespace Tests
             Sentiment sent = register.ObtainPositiveSentiment(positiveSentiment1.Description);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        public void RemoveNonExistantPositiveSentimentFromRegister()
+        {
+            Register register = Register.Instance;
+            register.CleanLists();
+            register.RemovePositiveSentiment("sentimiento que no existe");
+        }
+
     }
 }
