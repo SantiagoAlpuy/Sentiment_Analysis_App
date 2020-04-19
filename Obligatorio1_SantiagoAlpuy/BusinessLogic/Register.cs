@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Exceptions;
 
 namespace BusinessLogic
 {
@@ -31,9 +32,25 @@ namespace BusinessLogic
             }
         }
 
+        public void CleanLists()
+        {
+            positiveSentiments.Clear();
+            negativeSentiments.Clear();
+            entities.Clear();
+            phrases.Clear();
+        }
+
         public void AddPositiveSentiment(Sentiment sentiment)
         {
-            positiveSentiments.Add(sentiment);
+            if (!positiveSentiments.Contains(sentiment))
+            {
+                positiveSentiments.Add(sentiment);
+            }
+            else
+            {
+                throw new PositiveSentimentAlreadyExistsException();
+            }
+            
         }
 
         public Sentiment ObtainPositiveSentiment(string description)
