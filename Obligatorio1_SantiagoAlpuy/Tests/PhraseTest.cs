@@ -21,10 +21,11 @@ namespace Tests
                 Comment = "Odio la Limol",
                 Date = now,
             };
-            phrase1.AddPhrase(phrase1);
-            phrase1.AddPhrase(phrase2);
-            Assert.AreEqual(phrase1, phrase1.ObtainPhrase(phrase1.Comment, phrase1.Date));
-            Assert.AreEqual(phrase2, phrase1.ObtainPhrase(phrase2.Comment, phrase2.Date));
+            Register register = new Register();
+            register.AddPhrase(phrase1);
+            register.AddPhrase(phrase2);
+            Assert.AreEqual(phrase1, register.ObtainPhrase(phrase1.Comment, phrase1.Date));
+            Assert.AreEqual(phrase2, register.ObtainPhrase(phrase2.Comment, phrase2.Date));
         }
     }
 }

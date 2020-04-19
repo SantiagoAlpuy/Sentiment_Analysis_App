@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 
 namespace Tests
@@ -11,20 +9,21 @@ namespace Tests
         [TestMethod]
         public void RegisterSentiments()
         {
-            Sentiment happySentiment = new Sentiment()
+            Sentiment sentiment1 = new Sentiment()
             {
                 Description = "Me gusta",
                 Category = true,
             };
-            Sentiment sadSentiment = new Sentiment()
+            Sentiment sentiment2 = new Sentiment()
             {
-                Description = "Odio",
-                Category = false,
+                Description = "Me encanta",
+                Category = true,
             };
-            happySentiment.AddSentiment(happySentiment);
-            happySentiment.AddSentiment(sadSentiment);
-            Assert.AreEqual(happySentiment, happySentiment.ObtainSentiment(happySentiment.Description));
-            Assert.AreEqual(sadSentiment, happySentiment.ObtainSentiment(sadSentiment.Description));
+            Register register = new Register();
+            register.AddSentiment(sentiment1);
+            register.AddSentiment(sentiment2);
+            Assert.AreEqual(sentiment1, register.ObtainSentiment(sentiment1.Description));
+            Assert.AreEqual(sentiment2, register.ObtainSentiment(sentiment2.Description));
         }
     }
 }
