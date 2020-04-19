@@ -106,18 +106,6 @@ namespace BusinessLogic
             }
         }
 
-        public void AddEntity(Entity entity1)
-        {
-            if (!entities.Contains(entity1))
-            {
-                entities.Add(entity1);
-            }
-            else
-            {
-                throw new EntityAlreadyExistsException();
-            }
-        }
-
         public void RemoveNegativeSentiment(string description)
         {
             Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
@@ -131,9 +119,26 @@ namespace BusinessLogic
             }
         }
 
+        public void AddEntity(Entity entity1)
+        {
+            if (!entities.Contains(entity1))
+            {
+                entities.Add(entity1);
+            }
+            else
+            {
+                throw new EntityAlreadyExistsException();
+            }
+        }
+
         public Entity ObtainEntity(string name)
         {
             return entities.Find(x => x.Name == name);
+        }
+
+        public void RemoveEntity(string name)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddPhrase(Phrase phrase)

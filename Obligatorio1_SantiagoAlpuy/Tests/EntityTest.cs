@@ -44,5 +44,16 @@ namespace Tests
             register.AddEntity(entity1);
             register.CleanLists();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(EntityDoesNotExistsException))]
+        public void RemoveExistantEntityFromRegister()
+        {
+            Register register = Register.Instance;
+            register.CleanLists();
+            register.AddEntity(entity1);
+            register.RemoveEntity(entity1.Name);
+            Entity ent = register.ObtainEntity(entity1.Name);
+        }
     }
 }
