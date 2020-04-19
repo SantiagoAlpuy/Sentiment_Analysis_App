@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{FDBEAAA9-4789-493B-8A4C-F3B81F91E18F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{48F65EC8-9CFD-494D-BB0F-9A10804C5202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FDBEAAA9-4789-493B-8A4C-F3B81F91E18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDBEAAA9-4789-493B-8A4C-F3B81F91E18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDBEAAA9-4789-493B-8A4C-F3B81F91E18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48F65EC8-9CFD-494D-BB0F-9A10804C5202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48F65EC8-9CFD-494D-BB0F-9A10804C5202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48F65EC8-9CFD-494D-BB0F-9A10804C5202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48F65EC8-9CFD-494D-BB0F-9A10804C5202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

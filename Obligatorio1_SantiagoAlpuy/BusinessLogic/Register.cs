@@ -41,6 +41,7 @@ namespace BusinessLogic
             return positiveSentiments.Find(x => x.Description == description);
         }
 
+
         public void AddNegativeSentiment(Sentiment sentiment)
         {
             negativeSentiments.Add(sentiment);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
+using Exceptions;
 
 namespace Tests
 {
@@ -41,7 +42,6 @@ namespace Tests
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
-            
             Register register = Register.Instance;
             register.AddPositiveSentiment(positiveSentiment1);
             register.AddPositiveSentiment(positiveSentiment2);
@@ -58,5 +58,20 @@ namespace Tests
             Assert.AreEqual(negativeSentiment1, register.ObtainNegativeSentiment(negativeSentiment1.Description));
             Assert.AreEqual(negativeSentiment2, register.ObtainNegativeSentiment(negativeSentiment2.Description));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(PositiveSentimentAlreadyExistsException))]
+        public void RegisterAlreadyRegisteredPositiveSentiment()
+        {
+            Register register = Register.Instance;
+            Sentiment positiveSentiment3 = new Sentiment()
+            {
+                Description = "Amo",
+                Category = true,
+            };
+            register.AddPositiveSentiment(positiveSentiment3);
+            register.AddPositiveSentiment(positiveSentiment3);
+        }
+
     }
 }
