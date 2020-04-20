@@ -36,5 +36,18 @@ namespace Tests
             Register register = Register.Instance;
             register.AddPhrase(null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterPhraseWithEmptyDescription()
+        {
+            Register register = Register.Instance;
+            Phrase phraseWithEmptyComment = new Phrase()
+            {
+                Comment = "",
+                Date = DateTime.Now,
+            };
+            register.AddPhrase(phraseWithEmptyComment);
+        }
     }
 }
