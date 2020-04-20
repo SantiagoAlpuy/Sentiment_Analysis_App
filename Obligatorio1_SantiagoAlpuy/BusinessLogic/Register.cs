@@ -201,6 +201,10 @@ namespace BusinessLogic
             {
                 throw new NullPhraseException();
             }
+            else if (phrase.Comment == null)
+            {
+                throw new NullParameterException();
+            }
             else if (phrase.Comment == "")
             {
                 throw new LackOfObligatoryParametersException();
