@@ -140,5 +140,14 @@ namespace Tests
             register.AddPositiveSentiment(noDescriptionSentiment);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(NullSentimentException))]
+        public void RegisterNullSentiment()
+        {
+            Register register = Register.Instance;
+            register.AddPositiveSentiment(null);
+            register.AddNegativeSentiment(null);
+        }
+
     }
 }
