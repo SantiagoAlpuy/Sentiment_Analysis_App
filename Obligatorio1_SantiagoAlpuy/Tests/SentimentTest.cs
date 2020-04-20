@@ -12,6 +12,7 @@ namespace Tests
         Sentiment positiveSentiment2;
         Sentiment negativeSentiment1;
         Sentiment negativeSentiment2;
+        Sentiment emptySentiment;
 
         [TestInitialize]
         public void Setup()
@@ -37,6 +38,8 @@ namespace Tests
                 Description = "Me enfurece",
                 Category = false,
             };
+
+            emptySentiment = new Sentiment();
         }
 
         [TestMethod]
@@ -118,5 +121,15 @@ namespace Tests
             register.CleanLists();
             register.RemoveNegativeSentiment("sentimiento que no existe");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterSentimentWithEmptyDescription()
+        {
+            Register register = Register.Instance;
+            register.AddNegativeSentiment(emptySentiment);
+            register.AddPositiveSentiment(emptySentiment);
+        }
+
     }
 }
