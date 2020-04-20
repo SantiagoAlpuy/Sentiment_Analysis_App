@@ -11,6 +11,7 @@ namespace Tests
         Phrase phrase1;
         Phrase phrase2;
         Phrase phraseWithEmptyComment;
+        Phrase nullCommentPhrase;
 
 
         [TestInitialize]
@@ -34,6 +35,8 @@ namespace Tests
                 Comment = "",
                 Date = now,
             };
+
+            nullCommentPhrase = new Phrase();
         }
 
         [TestMethod]
@@ -61,6 +64,14 @@ namespace Tests
         {
             Register register = Register.Instance;
             register.AddPhrase(phraseWithEmptyComment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullParameterException))]
+        public void RegisterPhraseWithNullComment()
+        {
+            Register register = Register.Instance;
+            register.AddPhrase(nullCommentPhrase);
         }
     }
 }
