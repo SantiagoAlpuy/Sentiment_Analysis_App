@@ -140,14 +140,5 @@ namespace Tests
             register.AddPositiveSentiment(noDescriptionSentiment);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
-        public void RegisterSentimentWithNoCategory()
-        {
-            Register register = Register.Instance;
-            register.AddNegativeSentiment(noCategorySentiment);
-            register.AddPositiveSentiment(noCategorySentiment);
-        }
-
     }
 }

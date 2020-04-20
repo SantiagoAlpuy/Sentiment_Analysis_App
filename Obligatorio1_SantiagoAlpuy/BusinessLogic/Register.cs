@@ -93,7 +93,6 @@ namespace BusinessLogic
                 throw new LackOfObligatoryParametersException();
             }
 
-
             if (!negativeSentiments.Contains(sentiment))
             {
                 negativeSentiments.Add(sentiment);
