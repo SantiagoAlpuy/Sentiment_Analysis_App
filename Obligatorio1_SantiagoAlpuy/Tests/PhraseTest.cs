@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
-using Exceptions;
+using BusinessLogic.Exceptions;
 
 namespace Tests
 {

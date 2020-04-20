@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exceptions
+namespace BusinessLogic.Exceptions
 {
     [Serializable]
     public class SentimentAlreadyExistsException : Exception
