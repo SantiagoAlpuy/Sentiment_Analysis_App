@@ -147,6 +147,11 @@ namespace BusinessLogic
 
         public void AddEntity(Entity entity1)
         {
+            if(entity1.Name == "")
+            {
+                throw new LackOfObligatoryParametersException();
+            }
+
             if (!entities.Contains(entity1))
             {
                 entities.Add(entity1);
