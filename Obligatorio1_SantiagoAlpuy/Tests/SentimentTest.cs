@@ -14,6 +14,7 @@ namespace Tests
         Sentiment negativeSentiment2;
         Sentiment noDescriptionSentiment;
         Sentiment containsNumberSentiment;
+        Sentiment nullDescriptionSentiment;
 
         [TestInitialize]
         public void Setup()
@@ -49,6 +50,8 @@ namespace Tests
             {
                 Description = "1337",
             };
+
+            nullDescriptionSentiment = new Sentiment();
         }
 
         [TestMethod]
@@ -156,6 +159,15 @@ namespace Tests
             Register register = Register.Instance;
             register.AddNegativeSentiment(containsNumberSentiment);
             register.AddPositiveSentiment(containsNumberSentiment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullParameterException))]
+        public void RegisterSentimentWithNullDescription()
+        {
+            Register register = Register.Instance;
+            register.AddPositiveSentiment(nullDescriptionSentiment);
+            register.AddNegativeSentiment(nullDescriptionSentiment);
         }
 
     }

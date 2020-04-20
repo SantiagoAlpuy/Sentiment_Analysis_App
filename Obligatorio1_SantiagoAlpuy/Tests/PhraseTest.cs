@@ -73,5 +73,6 @@ namespace Tests
             Register register = Register.Instance;
             register.AddPhrase(nullCommentPhrase);
         }
+
     }
 }
