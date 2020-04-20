@@ -10,6 +10,7 @@ namespace Tests
 
         Entity entity1;
         Entity entity2;
+        Entity emptyNameEntity;
 
         [TestInitialize]
         public void Setup()
@@ -21,6 +22,10 @@ namespace Tests
             entity2 = new Entity()
             {
                 Name = "Limol",
+            };
+            emptyNameEntity = new Entity()
+            {
+                Name = "",
             };
         }
 
@@ -63,6 +68,14 @@ namespace Tests
             Register register = Register.Instance;
             register.CleanLists();
             register.RemoveEntity("una entidad que no existe ni existira jamas");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterEntityWithEmptyDescription()
+        {
+            Register register = Register.Instance;
+            register.AddEntity(emptyNameEntity);
         }
 
 
