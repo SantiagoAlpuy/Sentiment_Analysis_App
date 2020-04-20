@@ -8,20 +8,38 @@ namespace Tests
     [TestClass]
     public class PhraseTest
     {
-        [TestMethod]
-        public void RegisterPhrase()
+        Phrase phrase1;
+        Phrase phrase2;
+        Phrase phraseWithEmptyComment;
+
+
+        [TestInitialize]
+        public void Setup()
         {
             DateTime now = DateTime.Now;
-            Phrase phrase1 = new Phrase()
+            phrase1 = new Phrase()
             {
                 Comment = "Me gusta la Pepsi",
                 Date = now,
             };
-            Phrase phrase2 = new Phrase()
+
+            phrase2 = new Phrase()
             {
                 Comment = "Odio la Limol",
                 Date = now,
             };
+
+            phraseWithEmptyComment = new Phrase()
+            {
+                Comment = "",
+                Date = now,
+            };
+        }
+
+        [TestMethod]
+        public void RegisterPhrase()
+        {
+            
             Register register = Register.Instance;
             register.AddPhrase(phrase1);
             register.AddPhrase(phrase2);
@@ -42,11 +60,6 @@ namespace Tests
         public void RegisterPhraseWithEmptyDescription()
         {
             Register register = Register.Instance;
-            Phrase phraseWithEmptyComment = new Phrase()
-            {
-                Comment = "",
-                Date = DateTime.Now,
-            };
             register.AddPhrase(phraseWithEmptyComment);
         }
     }
