@@ -50,7 +50,7 @@ namespace BusinessLogic
             }
             else if (sentiment.Description == null)
             {
-                throw new NullParameterException();
+                throw new NullAttributeInObjectException();
             }
             else if (sentiment.Description == "")
             {
@@ -101,7 +101,7 @@ namespace BusinessLogic
             }
             else if (sentiment.Description == null)
             {
-                throw new NullParameterException();
+                throw new NullAttributeInObjectException();
             }
             else if (sentiment.Description == "")
             {
@@ -153,13 +153,15 @@ namespace BusinessLogic
             {
                 throw new NullEntityException();
             }
-
-            if(entity1.Name == "")
+            else if (entity1.Name == null)
+            {
+                throw new NullAttributeInObjectException();
+            }
+            else if(entity1.Name == "")
             {
                 throw new LackOfObligatoryParametersException();
             }
-
-            if (!entities.Contains(entity1))
+            else if (!entities.Contains(entity1))
             {
                 entities.Add(entity1);
             }
@@ -205,7 +207,7 @@ namespace BusinessLogic
             }
             else if (phrase.Comment == null)
             {
-                throw new NullParameterException();
+                throw new NullAttributeInObjectException();
             }
             else if (phrase.Comment == "")
             {

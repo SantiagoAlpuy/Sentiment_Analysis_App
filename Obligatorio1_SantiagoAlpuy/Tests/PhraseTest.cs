@@ -67,7 +67,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullParameterException))]
+        [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
             Register register = Register.Instance;

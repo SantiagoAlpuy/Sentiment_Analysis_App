@@ -162,7 +162,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullParameterException))]
+        [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterSentimentWithNullDescription()
         {
             Register register = Register.Instance;
