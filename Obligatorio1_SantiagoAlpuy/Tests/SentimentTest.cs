@@ -13,7 +13,7 @@ namespace Tests
         Sentiment negativeSentiment1;
         Sentiment negativeSentiment2;
         Sentiment noDescriptionSentiment;
-        Sentiment noCategorySentiment;
+        Sentiment containsNumberSentiment;
 
         [TestInitialize]
         public void Setup()
@@ -45,9 +45,9 @@ namespace Tests
                 Description = "",
             };
 
-            noCategorySentiment = new Sentiment()
+            containsNumberSentiment = new Sentiment()
             {
-                Description = "Me fascina mucho",
+                Description = "1337",
             };
         }
 
@@ -147,6 +147,15 @@ namespace Tests
             Register register = Register.Instance;
             register.AddPositiveSentiment(null);
             register.AddNegativeSentiment(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ContainsNumbersException))]
+        public void RegisterSentimentWithNumbersInItsDescriptionException()
+        {
+            Register register = Register.Instance;
+            register.AddNegativeSentiment(containsNumberSentiment);
+            register.AddPositiveSentiment(containsNumberSentiment);
         }
 
     }
