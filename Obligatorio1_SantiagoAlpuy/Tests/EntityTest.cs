@@ -79,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullSentimentException))]
+        [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
             Register register = Register.Instance;
