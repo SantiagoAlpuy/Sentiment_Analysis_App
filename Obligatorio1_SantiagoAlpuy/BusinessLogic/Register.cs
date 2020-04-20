@@ -197,7 +197,14 @@ namespace BusinessLogic
 
         public void AddPhrase(Phrase phrase)
         {
-            this.phrases.Add(phrase);
+            if (phrase == null)
+            {
+                throw new NullPhraseException();
+            }
+            else
+            {
+                this.phrases.Add(phrase);
+            }
         }
 
         public Phrase ObtainPhrase(string comment, DateTime date)
