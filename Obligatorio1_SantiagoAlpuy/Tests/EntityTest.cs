@@ -11,6 +11,7 @@ namespace Tests
         Entity entity1;
         Entity entity2;
         Entity emptyNameEntity;
+        Entity nullNameEntity;
 
         [TestInitialize]
         public void Setup()
@@ -27,6 +28,7 @@ namespace Tests
             {
                 Name = "",
             };
+            nullNameEntity = new Entity();
         }
 
         [TestMethod]
@@ -84,6 +86,14 @@ namespace Tests
         {
             Register register = Register.Instance;
             register.AddEntity(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullParameterException))]
+        public void RegisterEntityWithNullName()
+        {
+            Register register = Register.Instance;
+            register.AddEntity(nullNameEntity);
         }
 
 
