@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Exceptions;
 
@@ -101,6 +102,11 @@ namespace BusinessLogic
             if (sentiment.Description == "")
             {
                 throw new LackOfObligatoryParametersException();
+            }
+            
+            if (sentiment.Description.Any(letter => char.IsDigit(letter)))
+            {
+                throw new ContainsNumbersException();
             }
 
             if (!negativeSentiments.Contains(sentiment))
