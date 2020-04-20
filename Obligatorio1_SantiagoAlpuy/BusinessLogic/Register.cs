@@ -43,6 +43,12 @@ namespace BusinessLogic
 
         public void AddPositiveSentiment(Sentiment sentiment)
         {
+            if (sentiment.Description == "")
+            {
+                throw new LackOfObligatoryParametersException();
+            }
+
+
             if (!positiveSentiments.Contains(sentiment))
             {
                 positiveSentiments.Add(sentiment);
@@ -82,6 +88,11 @@ namespace BusinessLogic
 
         public void AddNegativeSentiment(Sentiment sentiment)
         {
+            if (sentiment.Description == "")
+            {
+                throw new LackOfObligatoryParametersException();
+            }
+
 
             if (!negativeSentiments.Contains(sentiment))
             {

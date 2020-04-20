@@ -12,7 +12,8 @@ namespace Tests
         Sentiment positiveSentiment2;
         Sentiment negativeSentiment1;
         Sentiment negativeSentiment2;
-        Sentiment emptySentiment;
+        Sentiment noDescriptionSentiment;
+        Sentiment noCategorySentiment;
 
         [TestInitialize]
         public void Setup()
@@ -39,7 +40,15 @@ namespace Tests
                 Category = false,
             };
 
-            emptySentiment = new Sentiment();
+            noDescriptionSentiment = new Sentiment()
+            {
+                Description = "",
+            };
+
+            noCategorySentiment = new Sentiment()
+            {
+                Description = "Me fascina mucho",
+            };
         }
 
         [TestMethod]
@@ -127,8 +136,17 @@ namespace Tests
         public void RegisterSentimentWithEmptyDescription()
         {
             Register register = Register.Instance;
-            register.AddNegativeSentiment(emptySentiment);
-            register.AddPositiveSentiment(emptySentiment);
+            register.AddNegativeSentiment(noDescriptionSentiment);
+            register.AddPositiveSentiment(noDescriptionSentiment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterSentimentWithNoCategory()
+        {
+            Register register = Register.Instance;
+            register.AddNegativeSentiment(noCategorySentiment);
+            register.AddPositiveSentiment(noCategorySentiment);
         }
 
     }
