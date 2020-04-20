@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
+using Exceptions;
 
 namespace Tests
 {
@@ -26,6 +27,14 @@ namespace Tests
             register.AddPhrase(phrase2);
             Assert.AreEqual(phrase1, register.ObtainPhrase(phrase1.Comment, phrase1.Date));
             Assert.AreEqual(phrase2, register.ObtainPhrase(phrase2.Comment, phrase2.Date));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullPhraseException))]
+        public void RegisterNullPhrase()
+        {
+            Register register = Register.Instance;
+            register.AddPhrase(null);
         }
     }
 }
