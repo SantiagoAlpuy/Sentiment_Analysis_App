@@ -43,6 +43,11 @@ namespace BusinessLogic
 
         public void AddPositiveSentiment(Sentiment sentiment)
         {
+            if (sentiment == null)
+            {
+                throw new NullSentimentException();
+            }
+
             if (sentiment.Description == "")
             {
                 throw new LackOfObligatoryParametersException();
@@ -88,6 +93,11 @@ namespace BusinessLogic
 
         public void AddNegativeSentiment(Sentiment sentiment)
         {
+            if (sentiment == null)
+            {
+                throw new NullSentimentException();
+            }
+
             if (sentiment.Description == "")
             {
                 throw new LackOfObligatoryParametersException();
