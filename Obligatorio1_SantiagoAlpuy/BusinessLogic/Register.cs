@@ -48,14 +48,15 @@ namespace BusinessLogic
             {
                 throw new NullSentimentException();
             }
-
-            if (sentiment.Description == "")
+            else if (sentiment.Description == null)
+            {
+                throw new NullParameterException();
+            }
+            else if (sentiment.Description == "")
             {
                 throw new LackOfObligatoryParametersException();
             }
-
-
-            if (!positiveSentiments.Contains(sentiment))
+            else if (!positiveSentiments.Contains(sentiment))
             {
                 positiveSentiments.Add(sentiment);
             }
@@ -98,18 +99,19 @@ namespace BusinessLogic
             {
                 throw new NullSentimentException();
             }
-
-            if (sentiment.Description == "")
+            else if (sentiment.Description == null)
+            {
+                throw new NullParameterException();
+            }
+            else if (sentiment.Description == "")
             {
                 throw new LackOfObligatoryParametersException();
             }
-            
-            if (sentiment.Description.Any(letter => char.IsDigit(letter)))
+            else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
             {
                 throw new ContainsNumbersException();
             }
-
-            if (!negativeSentiments.Contains(sentiment))
+            else if (!negativeSentiments.Contains(sentiment))
             {
                 negativeSentiments.Add(sentiment);
             }
