@@ -34,66 +34,66 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
-            Register register = Register.Instance;
-            register.AddEntity(entity1);
-            register.AddEntity(entity2);
-            Assert.AreEqual(entity1, register.ObtainEntity(entity1.Name));
-            Assert.AreEqual(entity2, register.ObtainEntity(entity2.Name));
-            register.CleanLists();
+            Repository repository = Repository.Instance;
+            repository.AddEntity(entity1);
+            repository.AddEntity(entity2);
+            Assert.AreEqual(entity1, repository.ObtainEntity(entity1.Name));
+            Assert.AreEqual(entity2, repository.ObtainEntity(entity2.Name));
+            repository.CleanLists();
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityAlreadyExistsException))]
         public void RegisterAlreadyRegisteredEntity()
         {
-            Register register = Register.Instance;
-            register.AddEntity(entity1);
-            register.AddEntity(entity1);
-            register.CleanLists();
+            Repository repository = Repository.Instance;
+            repository.AddEntity(entity1);
+            repository.AddEntity(entity1);
+            repository.CleanLists();
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveExistantEntityFromRegister()
         {
-            Register register = Register.Instance;
-            register.CleanLists();
-            register.AddEntity(entity1);
-            register.RemoveEntity(entity1.Name);
-            Entity ent = register.ObtainEntity(entity1.Name);
+            Repository repository = Repository.Instance;
+            repository.CleanLists();
+            repository.AddEntity(entity1);
+            repository.RemoveEntity(entity1.Name);
+            Entity ent = repository.ObtainEntity(entity1.Name);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveNonExistantEntityFromRegister()
         {
-            Register register = Register.Instance;
-            register.CleanLists();
-            register.RemoveEntity("una entidad que no existe ni existira jamas");
+            Repository repository = Repository.Instance;
+            repository.CleanLists();
+            repository.RemoveEntity("una entidad que no existe ni existira jamas");
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterEntityWithEmptyDescription()
         {
-            Register register = Register.Instance;
-            register.AddEntity(emptyNameEntity);
+            Repository repository = Repository.Instance;
+            repository.AddEntity(emptyNameEntity);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
-            Register register = Register.Instance;
-            register.AddEntity(null);
+            Repository repository = Repository.Instance;
+            repository.AddEntity(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterEntityWithNullName()
         {
-            Register register = Register.Instance;
-            register.AddEntity(nullNameEntity);
+            Repository repository = Repository.Instance;
+            repository.AddEntity(nullNameEntity);
         }
 
 

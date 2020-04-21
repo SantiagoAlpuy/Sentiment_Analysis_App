@@ -43,35 +43,35 @@ namespace Tests
         public void RegisterPhrase()
         {
             
-            Register register = Register.Instance;
-            register.AddPhrase(phrase1);
-            register.AddPhrase(phrase2);
-            Assert.AreEqual(phrase1, register.ObtainPhrase(phrase1.Comment, phrase1.Date));
-            Assert.AreEqual(phrase2, register.ObtainPhrase(phrase2.Comment, phrase2.Date));
+            Repository repository = Repository.Instance;
+            repository.AddPhrase(phrase1);
+            repository.AddPhrase(phrase2);
+            Assert.AreEqual(phrase1, repository.ObtainPhrase(phrase1.Comment, phrase1.Date));
+            Assert.AreEqual(phrase2, repository.ObtainPhrase(phrase2.Comment, phrase2.Date));
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullPhraseException))]
         public void RegisterNullPhrase()
         {
-            Register register = Register.Instance;
-            register.AddPhrase(null);
+            Repository repository = Repository.Instance;
+            repository.AddPhrase(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            Register register = Register.Instance;
-            register.AddPhrase(phraseWithEmptyComment);
+            Repository repository = Repository.Instance;
+            repository.AddPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
-            Register register = Register.Instance;
-            register.AddPhrase(nullCommentPhrase);
+            Repository repository = Repository.Instance;
+            repository.AddPhrase(nullCommentPhrase);
         }
 
     }

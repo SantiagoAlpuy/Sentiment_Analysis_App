@@ -5,16 +5,16 @@ using BusinessLogic.Exceptions;
 
 namespace BusinessLogic
 {
-    public class Register
+    public class Repository
     {
         private List<Sentiment> positiveSentiments;
         private List<Sentiment> negativeSentiments;
         private List<Entity> entities;
         private List<Phrase> phrases;
 
-        private static Register instance = null;
+        private static Repository instance = null;
 
-        private Register()
+        private Repository()
         {
             positiveSentiments = new List<Sentiment>();
             negativeSentiments = new List<Sentiment>();
@@ -22,12 +22,12 @@ namespace BusinessLogic
             phrases = new List<Phrase>();
         }
 
-        public static Register Instance
+        public static Repository Instance
         {
             get{
                 if (instance == null)
                 {
-                    instance = new Register();
+                    instance = new Repository();
                 }
                 return instance;
             }
