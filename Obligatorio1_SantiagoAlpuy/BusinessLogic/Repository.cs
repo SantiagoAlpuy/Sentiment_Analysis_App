@@ -41,59 +41,25 @@ namespace BusinessLogic
             phrases.Clear();
         }
 
-
-        public void AddPositiveSentiment(Sentiment sentiment)
+        public void addSentiment(Sentiment sentiment)
         {
-            if (sentiment == null)
-            {
-                throw new NullSentimentException();
-            }
-            else if (sentiment.Description == null)
-            {
-                throw new NullAttributeInObjectException();
-            }
-            else if (sentiment.Description == "")
-            {
-                throw new LackOfObligatoryParametersException();
-            }
-            else if (!positiveSentiments.Contains(sentiment))
+            validateSentiment(sentiment);
+            addSentimentToRepository(sentiment);
+        }
+
+        private void addSentimentToRepository(Sentiment sentiment)
+        {
+            if (sentiment.Category)
             {
                 positiveSentiments.Add(sentiment);
             }
             else
             {
-                throw new SentimentAlreadyExistsException();
-            }
-            
-        }
-
-        public Sentiment ObtainPositiveSentiment(string description)
-        {
-            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
-            if (sentiment != null)
-            {
-                return sentiment;
-            }
-            else
-            {
-                throw new SentimentDoesNotExistsException();
+                negativeSentiments.Add(sentiment);
             }
         }
 
-        public void RemovePositiveSentiment(string description)
-        {
-            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
-            if (sentiment != null)
-            {
-                positiveSentiments.Remove(sentiment);
-            }
-            else
-            {
-                throw new SentimentDoesNotExistsException();
-            }
-        }
-
-        public void AddNegativeSentiment(Sentiment sentiment)
+        private void validateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
             {
@@ -111,22 +77,59 @@ namespace BusinessLogic
             {
                 throw new ContainsNumbersException();
             }
-            else if (!negativeSentiments.Contains(sentiment))
+            else if (sentiment.Category && positiveSentiments.Contains(sentiment))
             {
-                negativeSentiments.Add(sentiment);
+                throw new SentimentAlreadyExistsException();
             }
-            else
+            else if (!sentiment.Category && negativeSentiments.Contains(sentiment))
             {
                 throw new SentimentAlreadyExistsException();
             }
         }
 
-        public Sentiment ObtainNegativeSentiment(string description)
+        public Sentiment obtainSentiment(string description, bool category)
+        {
+            Sentiment sentiment = null;
+            if (category)
+                sentiment = obtainPositiveSentiment(description);
+            else
+                sentiment = obtainNegativeSentiment(description);
+            return sentiment;
+        }
+
+        private Sentiment obtainPositiveSentiment(string description)
+        {
+            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
+            if (sentiment != null)
+                return sentiment;
+            else
+                throw new SentimentDoesNotExistsException();
+        }
+
+        private Sentiment obtainNegativeSentiment(string description)
         {
             Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
             if (sentiment != null)
-            {
                 return sentiment;
+            else
+                throw new SentimentDoesNotExistsException();
+        }
+
+
+        public void removeSentiment(string description, bool category)
+        {
+            if (category)
+                removePositiveSentiment(description);
+            else
+                removeNegativeSentiment(description);
+        }
+
+        private void removePositiveSentiment(string description)
+        {
+            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
+            if (sentiment != null)
+            {
+                positiveSentiments.Remove(sentiment);
             }
             else
             {
@@ -134,7 +137,7 @@ namespace BusinessLogic
             }
         }
 
-        public void RemoveNegativeSentiment(string description)
+        private void removeNegativeSentiment(string description)
         {
             Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
             if (sentiment != null)

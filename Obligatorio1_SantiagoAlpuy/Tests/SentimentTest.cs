@@ -58,10 +58,10 @@ namespace Tests
         public void RegisterPositiveSentiments()
         {
             Repository repository = Repository.Instance;
-            repository.AddPositiveSentiment(positiveSentiment1);
-            repository.AddPositiveSentiment(positiveSentiment2);
-            Assert.AreEqual(positiveSentiment1, repository.ObtainPositiveSentiment(positiveSentiment1.Description));
-            Assert.AreEqual(positiveSentiment2, repository.ObtainPositiveSentiment(positiveSentiment2.Description));
+            repository.addSentiment(positiveSentiment1);
+            repository.addSentiment(positiveSentiment2);
+            Assert.AreEqual(positiveSentiment1, repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
+            Assert.AreEqual(positiveSentiment2, repository.obtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
             repository.CleanLists();
         }
 
@@ -69,10 +69,10 @@ namespace Tests
         public void RegisterNegativeSentiments()
         {
             Repository repository = Repository.Instance;
-            repository.AddNegativeSentiment(negativeSentiment1);
-            repository.AddNegativeSentiment(negativeSentiment2);
-            Assert.AreEqual(negativeSentiment1, repository.ObtainNegativeSentiment(negativeSentiment1.Description));
-            Assert.AreEqual(negativeSentiment2, repository.ObtainNegativeSentiment(negativeSentiment2.Description));
+            repository.addSentiment(negativeSentiment1);
+            repository.addSentiment(negativeSentiment2);
+            Assert.AreEqual(negativeSentiment1, repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
+            Assert.AreEqual(negativeSentiment2, repository.obtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
             repository.CleanLists();
         }
 
@@ -81,8 +81,8 @@ namespace Tests
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
             Repository repository = Repository.Instance;
-            repository.AddPositiveSentiment(positiveSentiment1);
-            repository.AddPositiveSentiment(positiveSentiment1);
+            repository.addSentiment(positiveSentiment1);
+            repository.addSentiment(positiveSentiment1);
         }
 
         [TestMethod]
@@ -90,8 +90,8 @@ namespace Tests
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
             Repository repository = Repository.Instance;
-            repository.AddNegativeSentiment(negativeSentiment1);
-            repository.AddNegativeSentiment(negativeSentiment1);
+            repository.addSentiment(negativeSentiment1);
+            repository.addSentiment(negativeSentiment1);
         }
 
         [TestMethod]
@@ -100,9 +100,9 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.AddPositiveSentiment(positiveSentiment1);
-            repository.RemovePositiveSentiment(positiveSentiment1.Description);
-            Sentiment sent = repository.ObtainPositiveSentiment(positiveSentiment1.Description);
+            repository.addSentiment(positiveSentiment1);
+            repository.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
+            Sentiment sent = repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.RemovePositiveSentiment("sentimiento que no existe");
+            repository.removeSentiment("sentimiento que no existe", true);
         }
 
         [TestMethod]
@@ -120,9 +120,9 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.AddNegativeSentiment(negativeSentiment1);
-            repository.RemoveNegativeSentiment(negativeSentiment1.Description);
-            Sentiment sent = repository.ObtainNegativeSentiment(negativeSentiment1.Description);
+            repository.addSentiment(negativeSentiment1);
+            repository.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
+            Sentiment sent = repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.RemoveNegativeSentiment("sentimiento que no existe");
+            repository.removeSentiment("sentimiento que no existe", false);
         }
 
         [TestMethod]
@@ -139,8 +139,7 @@ namespace Tests
         public void RegisterSentimentWithEmptyDescription()
         {
             Repository repository = Repository.Instance;
-            repository.AddNegativeSentiment(noDescriptionSentiment);
-            repository.AddPositiveSentiment(noDescriptionSentiment);
+            repository.addSentiment(noDescriptionSentiment);
         }
 
         [TestMethod]
@@ -148,8 +147,7 @@ namespace Tests
         public void RegisterNullSentiment()
         {
             Repository repository = Repository.Instance;
-            repository.AddPositiveSentiment(null);
-            repository.AddNegativeSentiment(null);
+            repository.addSentiment(null);
         }
 
         [TestMethod]
@@ -157,8 +155,7 @@ namespace Tests
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
             Repository repository = Repository.Instance;
-            repository.AddNegativeSentiment(containsNumberSentiment);
-            repository.AddPositiveSentiment(containsNumberSentiment);
+            repository.addSentiment(containsNumberSentiment);
         }
 
         [TestMethod]
@@ -166,8 +163,7 @@ namespace Tests
         public void RegisterSentimentWithNullDescription()
         {
             Repository repository = Repository.Instance;
-            repository.AddPositiveSentiment(nullDescriptionSentiment);
-            repository.AddNegativeSentiment(nullDescriptionSentiment);
+            repository.addSentiment(nullDescriptionSentiment);
         }
 
     }
