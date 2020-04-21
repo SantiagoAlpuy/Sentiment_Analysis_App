@@ -54,6 +54,13 @@ namespace Tests
             nullDescriptionSentiment = new Sentiment();
         }
 
+        [TestCleanup]
+        public void ClassCleanup()
+        {
+            Repository repository = Repository.Instance;
+            repository.CleanLists();
+        }
+
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
@@ -62,7 +69,6 @@ namespace Tests
             repository.addSentiment(positiveSentiment2);
             Assert.AreEqual(positiveSentiment1, repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
             Assert.AreEqual(positiveSentiment2, repository.obtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
-            repository.CleanLists();
         }
 
         [TestMethod]
@@ -73,7 +79,6 @@ namespace Tests
             repository.addSentiment(negativeSentiment2);
             Assert.AreEqual(negativeSentiment1, repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
             Assert.AreEqual(negativeSentiment2, repository.obtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
-            repository.CleanLists();
         }
 
         [TestMethod]
@@ -99,7 +104,6 @@ namespace Tests
         public void RemoveExistantPositiveSentimentFromRegister()
         {
             Repository repository = Repository.Instance;
-            repository.CleanLists();
             repository.addSentiment(positiveSentiment1);
             repository.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
             Sentiment sent = repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
@@ -110,7 +114,6 @@ namespace Tests
         public void RemoveNonExistantPositiveSentimentFromRegister()
         {
             Repository repository = Repository.Instance;
-            repository.CleanLists();
             repository.removeSentiment("sentimiento que no existe", true);
         }
 
@@ -119,7 +122,6 @@ namespace Tests
         public void RemoveExistantNegativeSentimentFromRegister()
         {
             Repository repository = Repository.Instance;
-            repository.CleanLists();
             repository.addSentiment(negativeSentiment1);
             repository.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
             Sentiment sent = repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
@@ -130,7 +132,6 @@ namespace Tests
         public void RemoveNonExistantNegativeSentimentFromRegister()
         {
             Repository repository = Repository.Instance;
-            repository.CleanLists();
             repository.removeSentiment("sentimiento que no existe", false);
         }
 
