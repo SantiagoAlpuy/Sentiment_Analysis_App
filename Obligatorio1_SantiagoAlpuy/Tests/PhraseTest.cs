@@ -44,10 +44,10 @@ namespace Tests
         {
             
             Repository repository = Repository.Instance;
-            repository.AddPhrase(phrase1);
-            repository.AddPhrase(phrase2);
-            Assert.AreEqual(phrase1, repository.ObtainPhrase(phrase1.Comment, phrase1.Date));
-            Assert.AreEqual(phrase2, repository.ObtainPhrase(phrase2.Comment, phrase2.Date));
+            repository.addPhrase(phrase1);
+            repository.addPhrase(phrase2);
+            Assert.AreEqual(phrase1, repository.obtainPhrase(phrase1.Comment, phrase1.Date));
+            Assert.AreEqual(phrase2, repository.obtainPhrase(phrase2.Comment, phrase2.Date));
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Tests
         public void RegisterNullPhrase()
         {
             Repository repository = Repository.Instance;
-            repository.AddPhrase(null);
+            repository.addPhrase(null);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace Tests
         public void RegisterPhraseWithEmptyDescription()
         {
             Repository repository = Repository.Instance;
-            repository.AddPhrase(phraseWithEmptyComment);
+            repository.addPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Tests
         public void RegisterPhraseWithNullComment()
         {
             Repository repository = Repository.Instance;
-            repository.AddPhrase(nullCommentPhrase);
+            repository.addPhrase(nullCommentPhrase);
         }
 
     }

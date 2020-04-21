@@ -35,10 +35,10 @@ namespace Tests
         public void RegisterEntity()
         {
             Repository repository = Repository.Instance;
-            repository.AddEntity(entity1);
-            repository.AddEntity(entity2);
-            Assert.AreEqual(entity1, repository.ObtainEntity(entity1.Name));
-            Assert.AreEqual(entity2, repository.ObtainEntity(entity2.Name));
+            repository.addEntity(entity1);
+            repository.addEntity(entity2);
+            Assert.AreEqual(entity1, repository.obtainEntity(entity1.Name));
+            Assert.AreEqual(entity2, repository.obtainEntity(entity2.Name));
             repository.CleanLists();
         }
 
@@ -47,8 +47,8 @@ namespace Tests
         public void RegisterAlreadyRegisteredEntity()
         {
             Repository repository = Repository.Instance;
-            repository.AddEntity(entity1);
-            repository.AddEntity(entity1);
+            repository.addEntity(entity1);
+            repository.addEntity(entity1);
             repository.CleanLists();
         }
 
@@ -58,9 +58,9 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.AddEntity(entity1);
-            repository.RemoveEntity(entity1.Name);
-            Entity ent = repository.ObtainEntity(entity1.Name);
+            repository.addEntity(entity1);
+            repository.removeEntity(entity1.Name);
+            Entity ent = repository.obtainEntity(entity1.Name);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Tests
         {
             Repository repository = Repository.Instance;
             repository.CleanLists();
-            repository.RemoveEntity("una entidad que no existe ni existira jamas");
+            repository.removeEntity("una entidad que no existe ni existira jamas");
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace Tests
         public void RegisterEntityWithEmptyDescription()
         {
             Repository repository = Repository.Instance;
-            repository.AddEntity(emptyNameEntity);
+            repository.addEntity(emptyNameEntity);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace Tests
         public void RegisterNullEntity()
         {
             Repository repository = Repository.Instance;
-            repository.AddEntity(null);
+            repository.addEntity(null);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace Tests
         public void RegisterEntityWithNullName()
         {
             Repository repository = Repository.Instance;
-            repository.AddEntity(nullNameEntity);
+            repository.addEntity(nullNameEntity);
         }
 
 

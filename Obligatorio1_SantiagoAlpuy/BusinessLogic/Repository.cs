@@ -24,11 +24,10 @@ namespace BusinessLogic
 
         public static Repository Instance
         {
-            get{
+            get
+            {
                 if (instance == null)
-                {
                     instance = new Repository();
-                }
                 return instance;
             }
         }
@@ -50,41 +49,25 @@ namespace BusinessLogic
         private void addSentimentToRepository(Sentiment sentiment)
         {
             if (sentiment.Category)
-            {
                 positiveSentiments.Add(sentiment);
-            }
             else
-            {
                 negativeSentiments.Add(sentiment);
-            }
         }
 
         private void validateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
-            {
                 throw new NullSentimentException();
-            }
             else if (sentiment.Description == null)
-            {
                 throw new NullAttributeInObjectException();
-            }
             else if (sentiment.Description == "")
-            {
                 throw new LackOfObligatoryParametersException();
-            }
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
-            {
                 throw new ContainsNumbersException();
-            }
             else if (sentiment.Category && positiveSentiments.Contains(sentiment))
-            {
                 throw new SentimentAlreadyExistsException();
-            }
             else if (!sentiment.Category && negativeSentiments.Contains(sentiment))
-            {
                 throw new SentimentAlreadyExistsException();
-            }
         }
 
         public Sentiment obtainSentiment(string description, bool category)
@@ -126,103 +109,68 @@ namespace BusinessLogic
 
         private void removePositiveSentiment(string description)
         {
-            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
-            if (sentiment != null)
-            {
-                positiveSentiments.Remove(sentiment);
-            }
-            else
-            {
-                throw new SentimentDoesNotExistsException();
-            }
+            Sentiment sentiment = obtainPositiveSentiment(description);
+            positiveSentiments.Remove(sentiment);
+
         }
 
         private void removeNegativeSentiment(string description)
         {
-            Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
-            if (sentiment != null)
-            {
-                negativeSentiments.Remove(sentiment);
-            }
-            else
-            {
-                throw new SentimentDoesNotExistsException();
-            }
+            Sentiment sentiment = obtainNegativeSentiment(description);
+            negativeSentiments.Remove(sentiment);
         }
 
-        public void AddEntity(Entity entity1)
+        public void addEntity(Entity entity)
         {
-            if (entity1 == null)
-            {
+            validateEntity(entity);
+            entities.Add(entity);
+        }
+
+        private void validateEntity(Entity entity)
+        {
+            if (entity == null)
                 throw new NullEntityException();
-            }
-            else if (entity1.Name == null)
-            {
+            else if (entity.Name == null)
                 throw new NullAttributeInObjectException();
-            }
-            else if(entity1.Name == "")
-            {
+            else if (entity.Name == "")
                 throw new LackOfObligatoryParametersException();
-            }
-            else if (!entities.Contains(entity1))
-            {
-                entities.Add(entity1);
-            }
-            else
-            {
+            else if (entities.Contains(entity))
                 throw new EntityAlreadyExistsException();
-            }
         }
 
-        public Entity ObtainEntity(string name)
+        public Entity obtainEntity(string name)
         {
-            Entity ent = entities.Find(x => x.Name == name);
-            if (ent != null)
-            {
-                return ent;
-            }
+            Entity entity = entities.Find(x => x.Name == name);
+            if (entity != null)
+                return entity;
             else
-            {
                 throw new EntityDoesNotExistsException();
-            }
         }
 
-        public void RemoveEntity(string name)
+        public void removeEntity(string name)
         {
-            Entity ent = entities.Find(x => x.Name == name);
-            if (ent != null)
-            {
-                entities.Remove(ent);
-            }
-            else
-            {
-                throw new EntityDoesNotExistsException();
-            }
-            
-            
+            entities.Remove(obtainEntity(name));
+
         }
 
-        public void AddPhrase(Phrase phrase)
+
+        public void addPhrase(Phrase phrase)
+        {
+            validatePhrase(phrase);
+            phrases.Add(phrase);
+        }
+
+        private void validatePhrase(Phrase phrase)
         {
             if (phrase == null)
-            {
                 throw new NullPhraseException();
-            }
             else if (phrase.Comment == null)
-            {
                 throw new NullAttributeInObjectException();
-            }
             else if (phrase.Comment == "")
-            {
                 throw new LackOfObligatoryParametersException();
-            }
-            else
-            {
-                this.phrases.Add(phrase);
-            }
         }
 
-        public Phrase ObtainPhrase(string comment, DateTime date)
+        public Phrase obtainPhrase(string comment, DateTime date)
         {
             return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
