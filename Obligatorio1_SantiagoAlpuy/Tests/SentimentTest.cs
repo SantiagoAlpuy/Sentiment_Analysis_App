@@ -68,95 +68,95 @@ namespace Tests
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
-            sentimentController.addSentiment(positiveSentiment1);
-            sentimentController.addSentiment(positiveSentiment2);
-            Assert.AreEqual(positiveSentiment1, sentimentController.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
-            Assert.AreEqual(positiveSentiment2, sentimentController.obtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment2);
+            Assert.AreEqual(positiveSentiment1, sentimentController.ObtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
+            Assert.AreEqual(positiveSentiment2, sentimentController.ObtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
         }
 
         [TestMethod]
         public void RegisterNegativeSentiments()
         {
-            sentimentController.addSentiment(negativeSentiment1);
-            sentimentController.addSentiment(negativeSentiment2);
-            Assert.AreEqual(negativeSentiment1, sentimentController.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
-            Assert.AreEqual(negativeSentiment2, sentimentController.obtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
+            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment2);
+            Assert.AreEqual(negativeSentiment1, sentimentController.ObtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
+            Assert.AreEqual(negativeSentiment2, sentimentController.ObtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
-            sentimentController.addSentiment(positiveSentiment1);
-            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
-            sentimentController.addSentiment(negativeSentiment1);
-            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
-            sentimentController.addSentiment(positiveSentiment1);
-            sentimentController.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
-            Sentiment sent = sentimentController.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.RemoveSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
+            Sentiment sent = sentimentController.ObtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantPositiveSentimentFromRegister()
         {
-            sentimentController.removeSentiment("sentimiento que no existe", true);
+            sentimentController.RemoveSentiment("sentimiento que no existe", true);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
-            sentimentController.addSentiment(negativeSentiment1);
-            sentimentController.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
-            Sentiment sent = sentimentController.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
+            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.RemoveSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
+            Sentiment sent = sentimentController.ObtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantNegativeSentimentFromRegister()
         {
-            sentimentController.removeSentiment("sentimiento que no existe", false);
+            sentimentController.RemoveSentiment("sentimiento que no existe", false);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterSentimentWithEmptyDescription()
         {
-            sentimentController.addSentiment(noDescriptionSentiment);
+            sentimentController.AddSentiment(noDescriptionSentiment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullSentimentException))]
         public void RegisterNullSentiment()
         {
-            sentimentController.addSentiment(null);
+            sentimentController.AddSentiment(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ContainsNumbersException))]
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
-            sentimentController.addSentiment(containsNumberSentiment);
+            sentimentController.AddSentiment(containsNumberSentiment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterSentimentWithNullDescription()
         {
-            sentimentController.addSentiment(nullDescriptionSentiment);
+            sentimentController.AddSentiment(nullDescriptionSentiment);
         }
 
     }

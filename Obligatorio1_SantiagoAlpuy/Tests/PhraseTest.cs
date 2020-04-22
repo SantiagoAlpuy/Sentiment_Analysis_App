@@ -235,7 +235,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOnePositiveSentiment()
         {
-            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("positive", phrase1.Category);
         }
@@ -243,7 +243,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
         {
-            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AnalyzePhrase(phrase2);
             Assert.AreEqual("negative", phrase2.Category);
         }
@@ -251,10 +251,10 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithMultipleNegativeAndOPositiveSentiments()
         {
-            sentimentController.addSentiment(negativeSentiment1);
-            sentimentController.addSentiment(positiveSentiment1);
-            sentimentController.addSentiment(negativeSentiment2);
-            sentimentController.addSentiment(positiveSentiment2);
+            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(negativeSentiment2);
+            sentimentController.AddSentiment(positiveSentiment2);
             phraseController.AnalyzePhrase(neutroPhrase);
             Assert.AreEqual("neutro", neutroPhrase.Category);
         }
@@ -262,7 +262,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
         {
-            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AddPhrase(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual("positive",phraseWithUpperAndLower1.Category);
@@ -271,7 +271,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatNegativeSentiment()
         {
-            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AddPhrase(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
             Assert.AreEqual("negative", phraseWithUpperAndLower2.Category);

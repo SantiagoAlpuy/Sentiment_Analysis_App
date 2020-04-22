@@ -17,13 +17,13 @@ namespace BusinessLogic.Controllers
             negativeSentiments = repository.negativeSentiments;
         }
 
-        public void addSentiment(Sentiment sentiment)
+        public void AddSentiment(Sentiment sentiment)
         {
-            validateSentiment(sentiment);
-            addSentimentToRepository(sentiment);
+            ValidateSentiment(sentiment);
+            AddSentimentToRepository(sentiment);
         }
 
-        private void addSentimentToRepository(Sentiment sentiment)
+        private void AddSentimentToRepository(Sentiment sentiment)
         {
             if (sentiment.Category)
                 positiveSentiments.Add(sentiment);
@@ -31,7 +31,7 @@ namespace BusinessLogic.Controllers
                 negativeSentiments.Add(sentiment);
         }
 
-        private void validateSentiment(Sentiment sentiment)
+        private void ValidateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
                 throw new NullSentimentException();
@@ -47,54 +47,37 @@ namespace BusinessLogic.Controllers
                 throw new SentimentAlreadyExistsException();
         }
 
-        public Sentiment obtainSentiment(string description, bool category)
+        public Sentiment ObtainSentiment(string description, bool category)
         {
             Sentiment sentiment = null;
             if (category)
-                sentiment = obtainPositiveSentiment(description);
+                sentiment = ObtainSentiment(description, positiveSentiments);
             else
-                sentiment = obtainNegativeSentiment(description);
+                sentiment = ObtainSentiment(description, negativeSentiments);
             return sentiment;
         }
 
-        private Sentiment obtainPositiveSentiment(string description)
+        private Sentiment ObtainSentiment(string description, List<Sentiment> sentiments)
         {
-            Sentiment sentiment = positiveSentiments.Find(x => x.Description == description);
+            Sentiment sentiment = sentiments.Find(x => x.Description == description);
             if (sentiment != null)
                 return sentiment;
             else
                 throw new SentimentDoesNotExistsException();
         }
 
-        private Sentiment obtainNegativeSentiment(string description)
-        {
-            Sentiment sentiment = negativeSentiments.Find(x => x.Description == description);
-            if (sentiment != null)
-                return sentiment;
-            else
-                throw new SentimentDoesNotExistsException();
-        }
-
-
-        public void removeSentiment(string description, bool category)
+        public void RemoveSentiment(string description, bool category)
         {
             if (category)
-                removePositiveSentiment(description);
+                RemoveSentiment(description, positiveSentiments);
             else
-                removeNegativeSentiment(description);
+                RemoveSentiment(description, negativeSentiments);
         }
 
-        private void removePositiveSentiment(string description)
+        private void RemoveSentiment(string description, List<Sentiment> sentiments)
         {
-            Sentiment sentiment = obtainPositiveSentiment(description);
-            positiveSentiments.Remove(sentiment);
-
-        }
-
-        private void removeNegativeSentiment(string description)
-        {
-            Sentiment sentiment = obtainNegativeSentiment(description);
-            negativeSentiments.Remove(sentiment);
+            Sentiment sentiment = ObtainSentiment(description, sentiments);
+            sentiments.Remove(sentiment);
         }
     }
 }
