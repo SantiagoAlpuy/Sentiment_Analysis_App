@@ -8,7 +8,7 @@ namespace BusinessLogic
         public string Comment { get; set; }
         public DateTime Date { get; set; }
 
-        public String Entity { get; set; }
+        public string Entity { get; set; }
         public CategoryType Category { get; set; }
     }
 }
