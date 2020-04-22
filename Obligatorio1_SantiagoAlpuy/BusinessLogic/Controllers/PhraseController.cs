@@ -60,13 +60,13 @@ namespace BusinessLogic.Controllers
         private void SetPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
         {
             if (!hasPositive && !hasNegative)
-                phrase.Category = "neutro";
+                phrase.Category = CategoryType.Neutro;
             else if (hasPositive && hasNegative)
-                phrase.Category = "neutro";
+                phrase.Category = CategoryType.Neutro;
             else if (hasPositive)
-                phrase.Category = "positive";
+                phrase.Category = CategoryType.Positive;
             else
-                phrase.Category = "negative";
+                phrase.Category = CategoryType.Negative;
         }
 
         private bool FindSentiment(Phrase phrase, List<Sentiment> sentiments)

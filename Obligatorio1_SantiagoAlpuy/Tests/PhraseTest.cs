@@ -229,7 +229,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithNoSentiments()
         {
             phraseController.AnalyzePhrase(phraseWithNoSent);
-            Assert.AreEqual("neutro", phraseWithNoSent.Category);
+            Assert.AreEqual(CategoryType.Neutro, phraseWithNoSent.Category);
         }
 
         [TestMethod]
@@ -237,7 +237,7 @@ namespace Tests
         {
             sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AnalyzePhrase(phrase1);
-            Assert.AreEqual("positive", phrase1.Category);
+            Assert.AreEqual(CategoryType.Positive, phrase1.Category);
         }
 
         [TestMethod]
@@ -245,7 +245,7 @@ namespace Tests
         {
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AnalyzePhrase(phrase2);
-            Assert.AreEqual("negative", phrase2.Category);
+            Assert.AreEqual(CategoryType.Negative, phrase2.Category);
         }
 
         [TestMethod]
@@ -256,7 +256,7 @@ namespace Tests
             sentimentController.AddSentiment(negativeSentiment2);
             sentimentController.AddSentiment(positiveSentiment2);
             phraseController.AnalyzePhrase(neutroPhrase);
-            Assert.AreEqual("neutro", neutroPhrase.Category);
+            Assert.AreEqual(CategoryType.Neutro, neutroPhrase.Category);
         }
 
         [TestMethod]
@@ -265,7 +265,7 @@ namespace Tests
             sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AddPhrase(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
-            Assert.AreEqual("positive",phraseWithUpperAndLower1.Category);
+            Assert.AreEqual(CategoryType.Positive, phraseWithUpperAndLower1.Category);
         }
 
         [TestMethod]
@@ -274,7 +274,7 @@ namespace Tests
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AddPhrase(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
-            Assert.AreEqual("negative", phraseWithUpperAndLower2.Category);
+            Assert.AreEqual(CategoryType.Negative, phraseWithUpperAndLower2.Category);
         }
     }
 }
