@@ -74,5 +74,20 @@ namespace Tests
             repository.addPhrase(nullCommentPhrase);
         }
 
+        [TestMethod]
+        public void ObtainTheOnlyEntityFromPhrase()
+        {
+            Entity entity = new Entity()
+            {
+                Name = "Pepsi",
+            };
+            analizePhrase(phrase1, entity);
+            Assert.AreEqual("Pepsi", phrase1.Entity);
+        }
+
+        private void analizePhrase(Phrase phrase1, Entity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
