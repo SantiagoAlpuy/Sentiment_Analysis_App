@@ -9,5 +9,6 @@ namespace BusinessLogic
         public DateTime Date { get; set; }
 
         public String Entity { get; set; }
+        public bool Category { get; set; }
     }
 }
