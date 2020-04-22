@@ -87,7 +87,8 @@ namespace Tests
 
         private void analizePhrase(Phrase phrase1, Entity entity)
         {
-            throw new NotImplementedException();
+            if (phrase1.Comment.Contains(entity.Name))
+                phrase1.Entity = entity.Name;
         }
     }
 }
