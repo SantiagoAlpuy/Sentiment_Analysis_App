@@ -11,17 +11,26 @@ namespace Tests
     {
         Repository repository;
         AlertController alertController;
+        PhraseController phraseController;
+        SentimentController sentimentController;
+        EntityController entityController;
         Entity entity1;
         Alert alert1;
         Alert alert2;
         Alert alert3;
         Alert alert4;
+        Alert alert5;
+        Phrase phrase1;
+        Phrase phrase2;
 
         [TestInitialize]
         public void Setup()
         {
             repository = Repository.Instance;
             alertController = new AlertController();
+            phraseController = new PhraseController();
+            sentimentController = new SentimentController();
+            entityController = new EntityController();
 
             entity1 = new Entity()
             {
@@ -58,6 +67,14 @@ namespace Tests
                 Category = true,
                 Posts = 2,
                 Time = -34,
+            };
+
+            alert5 = new Alert()
+            {
+                Entity = entity1,
+                Category = true,
+                Posts = 2,
+                Time = 50000000,
             };
         }
 
@@ -100,6 +117,45 @@ namespace Tests
         public void AddNullAlertToRepository()
         {
             alertController.AddAlert(null);
+        }
+
+        [TestMethod]
+        public void PhraseTurnsAlertOn()
+        {
+            phrase1 = new Phrase()
+            {
+                Comment = "Me encanta tomar pepsi",
+                Date = new DateTime(2020, 04, 01),
+            };
+            phrase2 = new Phrase()
+            {
+                Comment = "Amo tomar pepsi",
+                Date = new DateTime(2020, 04, 01),
+            };
+            Sentiment sentiment1 = new Sentiment()
+            {
+                Description = "AMO",
+                Category = true,
+            };
+            Sentiment sentiment2 = new Sentiment()
+            {
+                Description = "me encanta",
+                Category = true,
+            };
+            Entity entity1 = new Entity()
+            {
+                Name = "pepsi",
+            };
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            entityController.AddEntity(entity1);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AnalyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase2);
+            alertController.CheckAlertsActivation();
+            Assert.IsTrue(alert5.Activated);
+
         }
     }
 }

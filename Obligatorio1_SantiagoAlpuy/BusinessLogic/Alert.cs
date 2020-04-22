@@ -6,5 +6,6 @@
     public bool Category { get; set; }
     public int Posts { get; set; }
     public int Time { get; set; }
+    public bool Activated { get; set; }
 }
 }

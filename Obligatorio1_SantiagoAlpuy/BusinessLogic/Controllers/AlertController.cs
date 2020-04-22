@@ -39,5 +39,9 @@ namespace BusinessLogic.Controllers
             return alerts.Find(x => x.Equals(alert));
         }
 
+        public void CheckAlertsActivation()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
