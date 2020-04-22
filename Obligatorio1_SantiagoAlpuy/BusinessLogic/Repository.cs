@@ -12,6 +12,8 @@ namespace BusinessLogic
         public List<Entity> entities { get; set; }
         public List<Phrase> phrases { get; set; }
 
+        public List<Alert> alerts { get; set; }
+
         private static Repository instance = null;
 
         private Repository()
@@ -38,6 +40,16 @@ namespace BusinessLogic
             negativeSentiments.Clear();
             entities.Clear();
             phrases.Clear();
+        }
+
+        public void AddAlert(Alert positiveAlert)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Alert ObtainAlert(Alert positiveAlert)
+        {
+            throw new NotImplementedException();
         }
     }
 }
