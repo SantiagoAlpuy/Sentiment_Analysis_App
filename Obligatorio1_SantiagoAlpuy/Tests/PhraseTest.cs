@@ -211,7 +211,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AnalyzeEntityOfPhraseWithUpperAndLowerLetters()
+        public void AnalyzeEntityOfPhraseWithDifferentUpperAndLowerLettersFormat()
         {
             entityController.addEntity(entity);
             phraseController.analyzePhrase(phraseWithUpperAndLower);
