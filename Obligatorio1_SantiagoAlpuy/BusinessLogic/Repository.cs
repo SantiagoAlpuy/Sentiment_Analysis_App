@@ -46,10 +46,14 @@ namespace BusinessLogic
 
         public void AddAlert(Alert alert)
         {
+            if (alert == null)
+                throw new NullAlertException();
             if (alert.Entity == null)
                 throw new NullEntityException();
             else if (alert.Posts < 0)
                 throw new NegativePostCountException();
+            else if (alert.Time < 0)
+                throw new NegativeTimeException();
             else
                 alerts.Add(alert);
         }

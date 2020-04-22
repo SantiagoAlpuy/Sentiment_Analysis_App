@@ -14,6 +14,7 @@ namespace Tests
         Alert alert1;
         Alert alert2;
         Alert alert3;
+        Alert alert4;
 
         [TestInitialize]
         public void Setup()
@@ -26,7 +27,7 @@ namespace Tests
             alert1 = new Alert()
             {
                 Entity = entity1,
-                Category = CategoryType.Positive,
+                Category = true,
                 Posts = 10,
                 Time = 12334,
             };
@@ -34,7 +35,7 @@ namespace Tests
             alert2 = new Alert()
             {
                 Entity = null,
-                Category = CategoryType.Positive,
+                Category = true,
                 Posts = 10,
                 Time = 12334,
             };
@@ -42,9 +43,17 @@ namespace Tests
             alert3 = new Alert()
             {
                 Entity = entity1,
-                Category = CategoryType.Positive,
+                Category = true,
                 Posts = -2,
                 Time = 12334,
+            };
+
+            alert4 = new Alert()
+            {
+                Entity = entity1,
+                Category = true,
+                Posts = 2,
+                Time = -34,
             };
         }
 
@@ -60,7 +69,6 @@ namespace Tests
         public void GenerateAlertWithNullEntity()
         {
             repository.AddAlert(alert2);
-            Assert.AreEqual(alert2, repository.ObtainAlert(alert2));
         }
 
         [TestMethod]
@@ -68,7 +76,20 @@ namespace Tests
         public void GenerateAlertWithNegativePosts()
         {
             repository.AddAlert(alert3);
-            Assert.AreEqual(alert3, repository.ObtainAlert(alert3));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NegativeTimeException))]
+        public void GenerateAlertWithNegativeTime()
+        {
+            repository.AddAlert(alert4);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullAlertException))]
+        public void AddNullAlertToRepository()
+        {
+            repository.AddAlert(null);
         }
     }
 }
