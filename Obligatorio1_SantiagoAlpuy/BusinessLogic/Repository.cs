@@ -214,6 +214,8 @@ namespace BusinessLogic
             }
             if (!hasPositive && !hasNegative)
                 phrase1.Category = "neutro";
+            else if (hasPositive && hasNegative)
+                phrase1.Category = "neutro";
             else if (hasPositive)
                 phrase1.Category = "positive";
             else
