@@ -190,6 +190,16 @@ namespace BusinessLogic
                 phrase1.Entity = ent.Name;
             else
                 phrase1.Entity = "";
+
+            
+            foreach(Sentiment sentiment in positiveSentiments)
+            {
+                if (phrase1.Comment.Contains(sentiment.Description))
+                {
+                    phrase1.Category = true;
+                    break;
+                }
+            }
             
         }
     }
