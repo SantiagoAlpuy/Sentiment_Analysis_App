@@ -257,6 +257,7 @@ namespace Tests
         {
             sentimentController.addSentiment(positiveSentiment1);
             phraseController.addPhrase(phraseWithUpperAndLower);
+            phraseController.analyzePhrase(phraseWithUpperAndLower);
             Assert.AreEqual("positive",phraseWithUpperAndLower.Category);
         }
     }
