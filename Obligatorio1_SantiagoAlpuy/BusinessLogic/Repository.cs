@@ -40,6 +40,8 @@ namespace BusinessLogic
             phrases.Clear();
         }
 
+        
+
         public void addSentiment(Sentiment sentiment)
         {
             validateSentiment(sentiment);
@@ -191,12 +193,13 @@ namespace BusinessLogic
             else
                 phrase1.Entity = "";
 
-            
+            bool hasPositive = false;
+            bool hasNegative = false;
             foreach(Sentiment sentiment in positiveSentiments)
             {
                 if (phrase1.Comment.Contains(sentiment.Description))
                 {
-                    phrase1.Category = true;
+                    hasPositive = true;
                     break;
                 }
             }
@@ -205,10 +208,16 @@ namespace BusinessLogic
             {
                 if (phrase1.Comment.Contains(sentiment.Description))
                 {
-                    phrase1.Category = false;
+                    hasNegative = true;
                     break;
                 }
             }
+            if (!hasPositive && !hasNegative)
+                phrase1.Category = "neutro";
+            else if (hasPositive)
+                phrase1.Category = "positive";
+            else
+                phrase1.Category = "negative";
 
         }
     }

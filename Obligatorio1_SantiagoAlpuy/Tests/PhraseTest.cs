@@ -171,7 +171,7 @@ namespace Tests
             Repository repository = Repository.Instance;
             repository.addSentiment(positiveSentiment1);
             repository.analyzePhrase(phrase1);
-            Assert.IsTrue(phrase1.Category);
+            Assert.AreEqual("positive", phrase1.Category);
         }
 
         [TestMethod]
@@ -180,7 +180,7 @@ namespace Tests
             Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.analyzePhrase(phrase2);
-            Assert.IsFalse(phrase2.Category);
+            Assert.AreEqual("negative", phrase2.Category);
         }
     }
 }
