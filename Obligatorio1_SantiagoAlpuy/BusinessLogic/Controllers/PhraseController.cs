@@ -117,7 +117,7 @@ namespace BusinessLogic.Controllers
             Entity ent = null;
             foreach (Entity entity in entities)
             {
-                if (phrase.Comment.Contains(entity.Name))
+                if (phrase.Comment.ToUpper().Contains(entity.Name.ToUpper()))
                 {
                     ent = entity;
                     break;

@@ -15,6 +15,7 @@ namespace Tests
         EntityController entityController;
         Phrase phrase1;
         Phrase phrase2;
+        Phrase phraseWithUpperAndLower;
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
         Phrase oldPhrase;
@@ -49,6 +50,12 @@ namespace Tests
             phrase2 = new Phrase()
             {
                 Comment = "Odio la Limol",
+                Date = now,
+            };
+
+            phraseWithUpperAndLower = new Phrase()
+            {
+                Comment = "mE GUsTa La pEPsI",
                 Date = now,
             };
 
@@ -201,6 +208,14 @@ namespace Tests
             entityController.addEntity(entity2);
             phraseController.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
+        }
+
+        [TestMethod]
+        public void AnalyzeEntityOfPhraseWithUpperAndLowerLetters()
+        {
+            entityController.addEntity(entity);
+            phraseController.analyzePhrase(phraseWithUpperAndLower);
+            Assert.AreEqual("Pepsi", phraseWithUpperAndLower.Entity);
         }
 
         [TestMethod]
