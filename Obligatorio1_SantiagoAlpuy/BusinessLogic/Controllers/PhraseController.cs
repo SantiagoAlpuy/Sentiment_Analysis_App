@@ -36,6 +36,8 @@ namespace BusinessLogic.Controllers
                 throw new NullAttributeInObjectException();
             else if (phrase.Comment == "")
                 throw new LackOfObligatoryParametersException();
+            else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
+                throw new DateOlderThanOneYearException();
         }
 
         public Phrase obtainPhrase(string comment, DateTime date)
