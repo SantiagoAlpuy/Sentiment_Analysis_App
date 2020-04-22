@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.Controllers;
 
 namespace Tests
 {
@@ -8,6 +9,7 @@ namespace Tests
     public class EntityTest
     {
         Repository repository;
+        EntityController entityController;
         Entity entity1;
         Entity entity2;
         Entity emptyNameEntity;
@@ -17,6 +19,7 @@ namespace Tests
         public void Setup()
         {
             repository = Repository.Instance;
+            entityController = new EntityController();
 
             entity1 = new Entity()
             {
@@ -33,62 +36,64 @@ namespace Tests
             nullNameEntity = new Entity();
         }
 
+        [TestCleanup]
+        public void ClassCleanup()
+        {
+            repository.cleanLists();
+        }
+
         [TestMethod]
         public void RegisterEntity()
         {
-            repository.addEntity(entity1);
-            repository.addEntity(entity2);
-            Assert.AreEqual(entity1, repository.obtainEntity(entity1.Name));
-            Assert.AreEqual(entity2, repository.obtainEntity(entity2.Name));
-            repository.CleanLists();
+            entityController.addEntity(entity1);
+            entityController.addEntity(entity2);
+            Assert.AreEqual(entity1, entityController.obtainEntity(entity1.Name));
+            Assert.AreEqual(entity2, entityController.obtainEntity(entity2.Name));
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityAlreadyExistsException))]
         public void RegisterAlreadyRegisteredEntity()
         {
-            repository.addEntity(entity1);
-            repository.addEntity(entity1);
-            repository.CleanLists();
+            entityController.addEntity(entity1);
+            entityController.addEntity(entity1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveExistantEntityFromRegister()
         {
-            repository.CleanLists();
-            repository.addEntity(entity1);
-            repository.removeEntity(entity1.Name);
-            Entity ent = repository.obtainEntity(entity1.Name);
+            entityController.addEntity(entity1);
+            entityController.removeEntity(entity1.Name);
+            Entity ent = entityController.obtainEntity(entity1.Name);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveNonExistantEntityFromRegister()
         {
-            repository.CleanLists();
-            repository.removeEntity("una entidad que no existe ni existira jamas");
+            entityController.removeEntity("una entidad que no existe ni existira jamas");
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterEntityWithEmptyDescription()
         {
-            repository.addEntity(emptyNameEntity);
+            entityController.addEntity(emptyNameEntity);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
-            repository.addEntity(null);
+            entityController.addEntity(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterEntityWithNullName()
         {
-            repository.addEntity(nullNameEntity);
+            entityController.addEntity(nullNameEntity);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.Controllers;
 
 namespace Tests
 {
@@ -8,6 +9,7 @@ namespace Tests
     public class SentimentTest
     {
         Repository repository;
+        SentimentController sentimentController;
         Sentiment positiveSentiment1;
         Sentiment positiveSentiment2;
         Sentiment negativeSentiment1;
@@ -20,6 +22,7 @@ namespace Tests
         public void Setup()
         {
             repository = Repository.Instance;
+            sentimentController = new SentimentController();
 
             positiveSentiment1 = new Sentiment()
             {
@@ -59,101 +62,101 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.CleanLists();
+            repository.cleanLists();
         }
 
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
-            repository.addSentiment(positiveSentiment1);
-            repository.addSentiment(positiveSentiment2);
-            Assert.AreEqual(positiveSentiment1, repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
-            Assert.AreEqual(positiveSentiment2, repository.obtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
+            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.addSentiment(positiveSentiment2);
+            Assert.AreEqual(positiveSentiment1, sentimentController.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
+            Assert.AreEqual(positiveSentiment2, sentimentController.obtainSentiment(positiveSentiment2.Description, positiveSentiment1.Category));
         }
 
         [TestMethod]
         public void RegisterNegativeSentiments()
         {
-            repository.addSentiment(negativeSentiment1);
-            repository.addSentiment(negativeSentiment2);
-            Assert.AreEqual(negativeSentiment1, repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
-            Assert.AreEqual(negativeSentiment2, repository.obtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
+            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.addSentiment(negativeSentiment2);
+            Assert.AreEqual(negativeSentiment1, sentimentController.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
+            Assert.AreEqual(negativeSentiment2, sentimentController.obtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
-            repository.addSentiment(positiveSentiment1);
-            repository.addSentiment(positiveSentiment1);
+            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.addSentiment(positiveSentiment1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
-            repository.addSentiment(negativeSentiment1);
-            repository.addSentiment(negativeSentiment1);
+            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.addSentiment(negativeSentiment1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
-            repository.addSentiment(positiveSentiment1);
-            repository.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
-            Sentiment sent = repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
+            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
+            Sentiment sent = sentimentController.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantPositiveSentimentFromRegister()
         {
-            repository.removeSentiment("sentimiento que no existe", true);
+            sentimentController.removeSentiment("sentimiento que no existe", true);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
-            repository.addSentiment(negativeSentiment1);
-            repository.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
-            Sentiment sent = repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
+            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
+            Sentiment sent = sentimentController.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
         }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantNegativeSentimentFromRegister()
         {
-            repository.removeSentiment("sentimiento que no existe", false);
+            sentimentController.removeSentiment("sentimiento que no existe", false);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterSentimentWithEmptyDescription()
         {
-            repository.addSentiment(noDescriptionSentiment);
+            sentimentController.addSentiment(noDescriptionSentiment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullSentimentException))]
         public void RegisterNullSentiment()
         {
-            repository.addSentiment(null);
+            sentimentController.addSentiment(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ContainsNumbersException))]
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
-            repository.addSentiment(containsNumberSentiment);
+            sentimentController.addSentiment(containsNumberSentiment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterSentimentWithNullDescription()
         {
-            repository.addSentiment(nullDescriptionSentiment);
+            sentimentController.addSentiment(nullDescriptionSentiment);
         }
 
     }

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.Controllers;
 
 namespace Tests
 {
@@ -9,6 +10,9 @@ namespace Tests
     public class PhraseTest
     {
         Repository repository;
+        SentimentController sentimentController;
+        PhraseController phraseController;
+        EntityController entityController;
         Phrase phrase1;
         Phrase phrase2;
         Phrase phraseWithEmptyComment;
@@ -29,6 +33,9 @@ namespace Tests
         public void Setup()
         {
             repository = Repository.Instance;
+            sentimentController = new SentimentController();
+            phraseController = new PhraseController();
+            entityController = new EntityController();
 
             DateTime now = DateTime.Now;
             phrase1 = new Phrase()
@@ -110,96 +117,96 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.CleanLists();
+            repository.cleanLists();
         }
 
         [TestMethod]
         public void RegisterPhrase()
         {
-            repository.addPhrase(phrase1);
-            repository.addPhrase(phrase2);
-            Assert.AreEqual(phrase1, repository.obtainPhrase(phrase1.Comment, phrase1.Date));
-            Assert.AreEqual(phrase2, repository.obtainPhrase(phrase2.Comment, phrase2.Date));
+            phraseController.addPhrase(phrase1);
+            phraseController.addPhrase(phrase2);
+            Assert.AreEqual(phrase1, phraseController.obtainPhrase(phrase1.Comment, phrase1.Date));
+            Assert.AreEqual(phrase2, phraseController.obtainPhrase(phrase2.Comment, phrase2.Date));
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullPhraseException))]
         public void RegisterNullPhrase()
         {
-            repository.addPhrase(null);
+            phraseController.addPhrase(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            repository.addPhrase(phraseWithEmptyComment);
+            phraseController.addPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
-            repository.addPhrase(nullCommentPhrase);
+            phraseController.addPhrase(nullCommentPhrase);
         }
 
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
         {
-            repository.analyzePhrase(phrase1);
+            phraseController.analyzePhrase(phrase1);
             Assert.AreEqual("", phrase1.Entity);
         }
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
-            repository.addEntity(entity);
-            repository.analyzePhrase(phrase1);
+            entityController.addEntity(entity);
+            phraseController.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithMultipleEntities()
         {
-            repository.addEntity(entity);
-            repository.addEntity(entity1);
-            repository.addEntity(entity2);
-            repository.analyzePhrase(phrase1);
+            entityController.addEntity(entity);
+            entityController.addEntity(entity1);
+            entityController.addEntity(entity2);
+            phraseController.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithNoSentiments()
         {
-            repository.analyzePhrase(phraseWithNoSent);
+            phraseController.analyzePhrase(phraseWithNoSent);
             Assert.AreEqual("neutro", phraseWithNoSent.Category);
         }
 
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOnePositiveSentiment()
         {
-            repository.addSentiment(positiveSentiment1);
-            repository.analyzePhrase(phrase1);
+            sentimentController.addSentiment(positiveSentiment1);
+            phraseController.analyzePhrase(phrase1);
             Assert.AreEqual("positive", phrase1.Category);
         }
 
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
         {
-            repository.addSentiment(negativeSentiment1);
-            repository.analyzePhrase(phrase2);
+            sentimentController.addSentiment(negativeSentiment1);
+            phraseController.analyzePhrase(phrase2);
             Assert.AreEqual("negative", phrase2.Category);
         }
 
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithMultipleNegativeAndOPositiveSentiments()
         {
-            repository.addSentiment(negativeSentiment1);
-            repository.addSentiment(positiveSentiment1);
-            repository.addSentiment(negativeSentiment2);
-            repository.addSentiment(positiveSentiment2);
-            repository.analyzePhrase(neutroPhrase);
+            sentimentController.addSentiment(negativeSentiment1);
+            sentimentController.addSentiment(positiveSentiment1);
+            sentimentController.addSentiment(negativeSentiment2);
+            sentimentController.addSentiment(positiveSentiment2);
+            phraseController.analyzePhrase(neutroPhrase);
             Assert.AreEqual("neutro", neutroPhrase.Category);
         }
     }
