@@ -102,6 +102,8 @@ namespace Tests
         {
             if (phrase1.Comment.Contains(entity.Name))
                 phrase1.Entity = entity.Name;
+            else
+                phrase1.Entity = "";
         }
 
         
