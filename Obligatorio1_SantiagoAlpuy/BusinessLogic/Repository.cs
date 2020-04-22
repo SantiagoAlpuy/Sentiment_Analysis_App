@@ -177,50 +177,86 @@ namespace BusinessLogic
             return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
 
-        public void analyzePhrase(Phrase phrase1)
+        public void analyzePhrase(Phrase phrase)
+        {
+            bool hasPositive;
+            bool hasNegative;
+            analyzeEntityFromPhrase(phrase);
+            hasPositive = findPositiveSentiment(phrase);
+            hasNegative = findNegativeSentiment(phrase);
+            setPhraseCategory(phrase, hasPositive, hasNegative);
+        }
+
+        private void setPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
+        {
+            if (!hasPositive && !hasNegative)
+                phrase.Category = "neutro";
+            else if (hasPositive && hasNegative)
+                phrase.Category = "neutro";
+            else if (hasPositive)
+                phrase.Category = "positive";
+            else
+                phrase.Category = "negative";
+        }
+
+        private bool findPositiveSentiment(Phrase phrase)
+        {
+            bool hasPositive = false;
+            foreach (Sentiment sentiment in positiveSentiments)
+            {
+                if (phrase.Comment.Contains(sentiment.Description))
+                {
+                    hasPositive = true;
+                    break;
+                }
+            }
+            return hasPositive;
+        }
+
+        private bool findNegativeSentiment(Phrase phrase)
+        {
+            bool hasNegative = false;
+            foreach (Sentiment sentiment in negativeSentiments)
+            {
+                if (phrase.Comment.Contains(sentiment.Description))
+                {
+                    hasNegative = true;
+                    break;
+                }
+            }
+            return hasNegative;
+        }
+
+        private void analyzeEntityFromPhrase(Phrase phrase)
+        {
+            try
+            {
+                Entity ent = findEntityInPhrase(phrase);
+                phrase.Entity = ent.Name;
+            }
+            catch(NullEntityException e)
+            {
+                phrase.Entity = "";
+            }
+            
+            
+        }
+
+        private Entity findEntityInPhrase(Phrase phrase)
         {
             Entity ent = null;
-            foreach(Entity entity in entities)
+            foreach (Entity entity in entities)
             {
-                if (phrase1.Comment.Contains(entity.Name))
+                if (phrase.Comment.Contains(entity.Name))
                 {
                     ent = entity;
                     break;
                 }
             }
             if (ent != null)
-                phrase1.Entity = ent.Name;
+                return ent;
             else
-                phrase1.Entity = "";
-
-            bool hasPositive = false;
-            bool hasNegative = false;
-            foreach(Sentiment sentiment in positiveSentiments)
-            {
-                if (phrase1.Comment.Contains(sentiment.Description))
-                {
-                    hasPositive = true;
-                    break;
-                }
-            }
-
-            foreach (Sentiment sentiment in negativeSentiments)
-            {
-                if (phrase1.Comment.Contains(sentiment.Description))
-                {
-                    hasNegative = true;
-                    break;
-                }
-            }
-            if (!hasPositive && !hasNegative)
-                phrase1.Category = "neutro";
-            else if (hasPositive && hasNegative)
-                phrase1.Category = "neutro";
-            else if (hasPositive)
-                phrase1.Category = "positive";
-            else
-                phrase1.Category = "negative";
-
+                throw new NullEntityException();
         }
     }
 }

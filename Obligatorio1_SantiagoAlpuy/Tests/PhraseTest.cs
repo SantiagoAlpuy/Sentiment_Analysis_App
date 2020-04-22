@@ -20,6 +20,8 @@ namespace Tests
         Entity entity2;
         Sentiment positiveSentiment1;
         Sentiment negativeSentiment1;
+        Sentiment positiveSentiment2;
+        Sentiment negativeSentiment2;
 
 
         [TestInitialize]
@@ -59,7 +61,7 @@ namespace Tests
 
             neutroPhrase = new Phrase()
             {
-                Comment = "Me gusta la Coca pero Odio la Nix",
+                Comment = "Me gusta, Me encanta la Coca pero Odio la Nix y la detesto",
             };
 
             entity = new Entity()
@@ -86,6 +88,18 @@ namespace Tests
             negativeSentiment1 = new Sentiment()
             {
                 Description = "Odio",
+                Category = false,
+            };
+
+            positiveSentiment2 = new Sentiment()
+            {
+                Description = "Me encanta",
+                Category = true,
+            };
+
+            negativeSentiment2 = new Sentiment()
+            {
+                Description = "detesto",
                 Category = false,
             };
         }
@@ -190,11 +204,13 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AnalyzeCategoryOfPhraseWithOneNegativeAndOnePositiveSentiment()
+        public void AnalyzeCategoryOfPhraseWithMultipleNegativeAndOPositiveSentiments()
         {
             Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.addSentiment(positiveSentiment1);
+            repository.addSentiment(negativeSentiment2);
+            repository.addSentiment(positiveSentiment2);
             repository.analyzePhrase(neutroPhrase);
             Assert.AreEqual("neutro", neutroPhrase.Category);
         }
