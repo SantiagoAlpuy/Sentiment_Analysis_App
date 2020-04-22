@@ -74,6 +74,18 @@ namespace Tests
             repository.addPhrase(nullCommentPhrase);
         }
 
+
+        [TestMethod]
+        public void AnalyzePhraseWithNoRegisteredEntity()
+        {
+            Entity entity = new Entity()
+            {
+                Name = "Coca",
+            };
+            analizePhrase(phrase1, entity);
+            Assert.AreEqual("", phrase1.Entity);
+        }
+
         [TestMethod]
         public void ObtainTheOnlyEntityFromPhrase()
         {
@@ -85,10 +97,14 @@ namespace Tests
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
+
         private void analizePhrase(Phrase phrase1, Entity entity)
         {
             if (phrase1.Comment.Contains(entity.Name))
                 phrase1.Entity = entity.Name;
         }
+
+        
+
     }
 }
