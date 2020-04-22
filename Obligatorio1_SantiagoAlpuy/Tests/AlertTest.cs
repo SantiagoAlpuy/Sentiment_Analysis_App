@@ -2,14 +2,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.Controllers;
 
 namespace Tests
 {
     [TestClass]
     public class AlertTest
     {
-        Repository repository = Repository.Instance;
-
+        Repository repository;
+        AlertController alertController;
         Entity entity1;
         Alert alert1;
         Alert alert2;
@@ -19,6 +20,9 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
+            repository = Repository.Instance;
+            alertController = new AlertController();
+
             entity1 = new Entity()
             {
                 Name = "Pepsi",
@@ -57,39 +61,45 @@ namespace Tests
             };
         }
 
+        [TestCleanup]
+        public void ClassCleanup()
+        {
+            repository.cleanLists();
+        }
+
         [TestMethod]
         public void GenerateAlertToEntity()
         {
-            repository.AddAlert(alert1);
-            Assert.AreEqual(alert1, repository.ObtainAlert(alert1));
+            alertController.AddAlert(alert1);
+            Assert.AreEqual(alert1, alertController.ObtainAlert(alert1));
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullEntityException))]
         public void GenerateAlertWithNullEntity()
         {
-            repository.AddAlert(alert2);
+            alertController.AddAlert(alert2);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NegativePostCountException))]
         public void GenerateAlertWithNegativePosts()
         {
-            repository.AddAlert(alert3);
+            alertController.AddAlert(alert3);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NegativeTimeException))]
         public void GenerateAlertWithNegativeTime()
         {
-            repository.AddAlert(alert4);
+            alertController.AddAlert(alert4);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAlertException))]
         public void AddNullAlertToRepository()
         {
-            repository.AddAlert(null);
+            alertController.AddAlert(null);
         }
     }
 }
