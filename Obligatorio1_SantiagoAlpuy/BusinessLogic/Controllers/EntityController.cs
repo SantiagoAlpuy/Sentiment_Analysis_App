@@ -16,13 +16,13 @@ namespace BusinessLogic.Controllers
             entities = repository.entities;
         }
 
-        public void addEntity(Entity entity)
+        public void AddEntity(Entity entity)
         {
-            validateEntity(entity);
+            ValidateEntity(entity);
             entities.Add(entity);
         }
 
-        private void validateEntity(Entity entity)
+        private void ValidateEntity(Entity entity)
         {
             if (entity == null)
                 throw new NullEntityException();
@@ -34,7 +34,7 @@ namespace BusinessLogic.Controllers
                 throw new EntityAlreadyExistsException();
         }
 
-        public Entity obtainEntity(string name)
+        public Entity ObtainEntity(string name)
         {
             Entity entity = entities.Find(x => x.Name == name);
             if (entity != null)
@@ -43,9 +43,9 @@ namespace BusinessLogic.Controllers
                 throw new EntityDoesNotExistsException();
         }
 
-        public void removeEntity(string name)
+        public void RemoveEntity(string name)
         {
-            entities.Remove(obtainEntity(name));
+            entities.Remove(ObtainEntity(name));
 
         }
     }

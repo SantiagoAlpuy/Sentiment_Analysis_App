@@ -202,7 +202,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
-            entityController.addEntity(entity);
+            entityController.AddEntity(entity);
             phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
@@ -210,9 +210,9 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithMultipleEntities()
         {
-            entityController.addEntity(entity);
-            entityController.addEntity(entity1);
-            entityController.addEntity(entity2);
+            entityController.AddEntity(entity);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
             phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
@@ -220,7 +220,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithDifferentUpperAndLowerLettersFormat()
         {
-            entityController.addEntity(entity);
+            entityController.AddEntity(entity);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual("Pepsi", phraseWithUpperAndLower1.Entity);
         }

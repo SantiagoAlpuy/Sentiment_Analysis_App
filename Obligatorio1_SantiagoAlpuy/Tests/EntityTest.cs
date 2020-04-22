@@ -45,55 +45,55 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
-            entityController.addEntity(entity1);
-            entityController.addEntity(entity2);
-            Assert.AreEqual(entity1, entityController.obtainEntity(entity1.Name));
-            Assert.AreEqual(entity2, entityController.obtainEntity(entity2.Name));
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            Assert.AreEqual(entity1, entityController.ObtainEntity(entity1.Name));
+            Assert.AreEqual(entity2, entityController.ObtainEntity(entity2.Name));
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityAlreadyExistsException))]
         public void RegisterAlreadyRegisteredEntity()
         {
-            entityController.addEntity(entity1);
-            entityController.addEntity(entity1);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveExistantEntityFromRegister()
         {
-            entityController.addEntity(entity1);
-            entityController.removeEntity(entity1.Name);
-            Entity ent = entityController.obtainEntity(entity1.Name);
+            entityController.AddEntity(entity1);
+            entityController.RemoveEntity(entity1.Name);
+            Entity ent = entityController.ObtainEntity(entity1.Name);
         }
 
         [TestMethod]
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveNonExistantEntityFromRegister()
         {
-            entityController.removeEntity("una entidad que no existe ni existira jamas");
+            entityController.RemoveEntity("una entidad que no existe ni existira jamas");
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterEntityWithEmptyDescription()
         {
-            entityController.addEntity(emptyNameEntity);
+            entityController.AddEntity(emptyNameEntity);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
-            entityController.addEntity(null);
+            entityController.AddEntity(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterEntityWithNullName()
         {
-            entityController.addEntity(nullNameEntity);
+            entityController.AddEntity(nullNameEntity);
         }
 
 
