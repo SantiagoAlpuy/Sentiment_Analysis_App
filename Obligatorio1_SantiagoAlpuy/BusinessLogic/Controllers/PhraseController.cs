@@ -22,13 +22,13 @@ namespace BusinessLogic.Controllers
             entities = repository.entities;
         }
 
-        public void addPhrase(Phrase phrase)
+        public void AddPhrase(Phrase phrase)
         {
-            validatePhrase(phrase);
+            ValidatePhrase(phrase);
             phrases.Add(phrase);
         }
 
-        private void validatePhrase(Phrase phrase)
+        private void ValidatePhrase(Phrase phrase)
         {
             if (phrase == null)
                 throw new NullPhraseException();
@@ -42,22 +42,22 @@ namespace BusinessLogic.Controllers
                 throw new DateFromFutureException();
         }
 
-        public Phrase obtainPhrase(string comment, DateTime date)
+        public Phrase ObtainPhrase(string comment, DateTime date)
         {
             return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
 
-        public void analyzePhrase(Phrase phrase)
+        public void AnalyzePhrase(Phrase phrase)
         {
             bool hasPositive;
             bool hasNegative;
-            analyzeEntityFromPhrase(phrase);
-            hasPositive = findPositiveSentiment(phrase);
-            hasNegative = findNegativeSentiment(phrase);
-            setPhraseCategory(phrase, hasPositive, hasNegative);
+            AnalyzeEntityFromPhrase(phrase);
+            hasPositive = FindSentiment(phrase, positiveSentiments);
+            hasNegative = FindSentiment(phrase, negativeSentiments);
+            SetPhraseCategory(phrase, hasPositive, hasNegative);
         }
 
-        private void setPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
+        private void SetPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
         {
             if (!hasPositive && !hasNegative)
                 phrase.Category = "neutro";
@@ -69,39 +69,30 @@ namespace BusinessLogic.Controllers
                 phrase.Category = "negative";
         }
 
-        private bool findPositiveSentiment(Phrase phrase)
+        private bool FindSentiment(Phrase phrase, List<Sentiment> sentiments)
         {
-            bool hasPositive = false;
-            foreach (Sentiment sentiment in positiveSentiments)
+            bool hasSentiment = false;
+            foreach (Sentiment sentiment in sentiments)
             {
-                if (phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper()))
+                if (PhraseContainsSentiment(phrase, sentiment))
                 {
-                    hasPositive = true;
+                    hasSentiment = true;
                     break;
                 }
             }
-            return hasPositive;
+            return hasSentiment;
         }
 
-        private bool findNegativeSentiment(Phrase phrase)
+        private bool PhraseContainsSentiment(Phrase phrase, Sentiment sentiment)
         {
-            bool hasNegative = false;
-            foreach (Sentiment sentiment in negativeSentiments)
-            {
-                if (phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper()))
-                {
-                    hasNegative = true;
-                    break;
-                }
-            }
-            return hasNegative;
+            return phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper());
         }
 
-        private void analyzeEntityFromPhrase(Phrase phrase)
+        private void AnalyzeEntityFromPhrase(Phrase phrase)
         {
             try
             {
-                Entity ent = findEntityInPhrase(phrase);
+                Entity ent = FindEntityInPhrase(phrase);
                 phrase.Entity = ent.Name;
             }
             catch (NullEntityException)
@@ -112,12 +103,12 @@ namespace BusinessLogic.Controllers
 
         }
 
-        private Entity findEntityInPhrase(Phrase phrase)
+        private Entity FindEntityInPhrase(Phrase phrase)
         {
             Entity ent = null;
             foreach (Entity entity in entities)
             {
-                if (phrase.Comment.ToUpper().Contains(entity.Name.ToUpper()))
+                if (PhraseContainsEntity(phrase, entity))
                 {
                     ent = entity;
                     break;
@@ -127,6 +118,11 @@ namespace BusinessLogic.Controllers
                 return ent;
             else
                 throw new NullEntityException();
+        }
+
+        private bool PhraseContainsEntity(Phrase phrase, Entity entity)
+        {
+            return phrase.Comment.ToUpper().Contains(entity.Name.ToUpper());
         }
 
     }

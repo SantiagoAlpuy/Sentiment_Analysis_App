@@ -151,51 +151,51 @@ namespace Tests
         [TestMethod]
         public void RegisterPhrase()
         {
-            phraseController.addPhrase(phrase1);
-            phraseController.addPhrase(phrase2);
-            Assert.AreEqual(phrase1, phraseController.obtainPhrase(phrase1.Comment, phrase1.Date));
-            Assert.AreEqual(phrase2, phraseController.obtainPhrase(phrase2.Comment, phrase2.Date));
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            Assert.AreEqual(phrase1, phraseController.ObtainPhrase(phrase1.Comment, phrase1.Date));
+            Assert.AreEqual(phrase2, phraseController.ObtainPhrase(phrase2.Comment, phrase2.Date));
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullPhraseException))]
         public void RegisterNullPhrase()
         {
-            phraseController.addPhrase(null);
+            phraseController.AddPhrase(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            phraseController.addPhrase(phraseWithEmptyComment);
+            phraseController.AddPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
-            phraseController.addPhrase(nullCommentPhrase);
+            phraseController.AddPhrase(nullCommentPhrase);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DateOlderThanOneYearException))]
         public void RegisterPhraseWithDateOlderThanOneYear()
         {
-            phraseController.addPhrase(oldPhrase);
+            phraseController.AddPhrase(oldPhrase);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DateFromFutureException))]
         public void RegisterPhraseWithDateFromFuture()
         {
-            phraseController.addPhrase(futurePhrase);
+            phraseController.AddPhrase(futurePhrase);
         }
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
         {
-            phraseController.analyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("", phrase1.Entity);
         }
 
@@ -203,7 +203,7 @@ namespace Tests
         public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
             entityController.addEntity(entity);
-            phraseController.analyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
@@ -213,7 +213,7 @@ namespace Tests
             entityController.addEntity(entity);
             entityController.addEntity(entity1);
             entityController.addEntity(entity2);
-            phraseController.analyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
@@ -221,14 +221,14 @@ namespace Tests
         public void AnalyzeEntityOfPhraseWithDifferentUpperAndLowerLettersFormat()
         {
             entityController.addEntity(entity);
-            phraseController.analyzePhrase(phraseWithUpperAndLower1);
+            phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual("Pepsi", phraseWithUpperAndLower1.Entity);
         }
 
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithNoSentiments()
         {
-            phraseController.analyzePhrase(phraseWithNoSent);
+            phraseController.AnalyzePhrase(phraseWithNoSent);
             Assert.AreEqual("neutro", phraseWithNoSent.Category);
         }
 
@@ -236,7 +236,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithOnePositiveSentiment()
         {
             sentimentController.addSentiment(positiveSentiment1);
-            phraseController.analyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("positive", phrase1.Category);
         }
 
@@ -244,7 +244,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
         {
             sentimentController.addSentiment(negativeSentiment1);
-            phraseController.analyzePhrase(phrase2);
+            phraseController.AnalyzePhrase(phrase2);
             Assert.AreEqual("negative", phrase2.Category);
         }
 
@@ -255,7 +255,7 @@ namespace Tests
             sentimentController.addSentiment(positiveSentiment1);
             sentimentController.addSentiment(negativeSentiment2);
             sentimentController.addSentiment(positiveSentiment2);
-            phraseController.analyzePhrase(neutroPhrase);
+            phraseController.AnalyzePhrase(neutroPhrase);
             Assert.AreEqual("neutro", neutroPhrase.Category);
         }
 
@@ -263,8 +263,8 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
         {
             sentimentController.addSentiment(positiveSentiment1);
-            phraseController.addPhrase(phraseWithUpperAndLower1);
-            phraseController.analyzePhrase(phraseWithUpperAndLower1);
+            phraseController.AddPhrase(phraseWithUpperAndLower1);
+            phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual("positive",phraseWithUpperAndLower1.Category);
         }
 
@@ -272,8 +272,8 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatNegativeSentiment()
         {
             sentimentController.addSentiment(negativeSentiment1);
-            phraseController.addPhrase(phraseWithUpperAndLower1);
-            phraseController.analyzePhrase(phraseWithUpperAndLower2);
+            phraseController.AddPhrase(phraseWithUpperAndLower1);
+            phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
             Assert.AreEqual("negative", phraseWithUpperAndLower2.Category);
         }
     }
