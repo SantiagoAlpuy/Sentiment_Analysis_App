@@ -19,9 +19,9 @@ namespace Tests
         }
 
         [TestMethod]
-        public void GeneratePositiveAlertToEntity()
+        public void GenerateAlertToEntity()
         {
-            Alert positiveAlert = new Alert()
+            Alert alert = new Alert()
             {
                 Entity = entity1,
                 Category = CategoryType.Positive,
@@ -29,8 +29,8 @@ namespace Tests
                 Time = 12334,
             };
             Repository repository = Repository.Instance;
-            repository.AddAlert(positiveAlert);
-            Assert.AreEqual(positiveAlert, repository.ObtainAlert(positiveAlert));
+            repository.AddAlert(alert);
+            Assert.AreEqual(alert, repository.ObtainAlert(alert));
         }
     }
 }
