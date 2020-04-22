@@ -8,6 +8,7 @@ namespace Tests
     [TestClass]
     public class PhraseTest
     {
+        Repository repository;
         Phrase phrase1;
         Phrase phrase2;
         Phrase phraseWithEmptyComment;
@@ -27,6 +28,8 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
+            repository = Repository.Instance;
+
             DateTime now = DateTime.Now;
             phrase1 = new Phrase()
             {
@@ -107,15 +110,12 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            Repository repository = Repository.Instance;
             repository.CleanLists();
         }
 
         [TestMethod]
         public void RegisterPhrase()
         {
-            
-            Repository repository = Repository.Instance;
             repository.addPhrase(phrase1);
             repository.addPhrase(phrase2);
             Assert.AreEqual(phrase1, repository.obtainPhrase(phrase1.Comment, phrase1.Date));
@@ -126,7 +126,6 @@ namespace Tests
         [ExpectedException(typeof(NullPhraseException))]
         public void RegisterNullPhrase()
         {
-            Repository repository = Repository.Instance;
             repository.addPhrase(null);
         }
 
@@ -134,7 +133,6 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            Repository repository = Repository.Instance;
             repository.addPhrase(phraseWithEmptyComment);
         }
 
@@ -142,7 +140,6 @@ namespace Tests
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
-            Repository repository = Repository.Instance;
             repository.addPhrase(nullCommentPhrase);
         }
 
@@ -150,7 +147,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
         {
-            Repository repository = Repository.Instance;
             repository.analyzePhrase(phrase1);
             Assert.AreEqual("", phrase1.Entity);
         }
@@ -158,8 +154,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
-            
-            Repository repository = Repository.Instance;
             repository.addEntity(entity);
             repository.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
@@ -168,8 +162,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithMultipleEntities()
         {
-            
-            Repository repository = Repository.Instance;
             repository.addEntity(entity);
             repository.addEntity(entity1);
             repository.addEntity(entity2);
@@ -180,7 +172,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithNoSentiments()
         {
-            Repository repository = Repository.Instance;
             repository.analyzePhrase(phraseWithNoSent);
             Assert.AreEqual("neutro", phraseWithNoSent.Category);
         }
@@ -188,7 +179,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOnePositiveSentiment()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(positiveSentiment1);
             repository.analyzePhrase(phrase1);
             Assert.AreEqual("positive", phrase1.Category);
@@ -197,7 +187,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.analyzePhrase(phrase2);
             Assert.AreEqual("negative", phrase2.Category);
@@ -206,7 +195,6 @@ namespace Tests
         [TestMethod]
         public void AnalyzeCategoryOfPhraseWithMultipleNegativeAndOPositiveSentiments()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.addSentiment(positiveSentiment1);
             repository.addSentiment(negativeSentiment2);

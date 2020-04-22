@@ -234,7 +234,7 @@ namespace BusinessLogic
                 Entity ent = findEntityInPhrase(phrase);
                 phrase.Entity = ent.Name;
             }
-            catch(NullEntityException e)
+            catch(NullEntityException)
             {
                 phrase.Entity = "";
             }

@@ -7,7 +7,7 @@ namespace Tests
     [TestClass]
     public class EntityTest
     {
-
+        Repository repository;
         Entity entity1;
         Entity entity2;
         Entity emptyNameEntity;
@@ -16,6 +16,8 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
+            repository = Repository.Instance;
+
             entity1 = new Entity()
             {
                 Name = "Pepsi",
@@ -34,7 +36,6 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
-            Repository repository = Repository.Instance;
             repository.addEntity(entity1);
             repository.addEntity(entity2);
             Assert.AreEqual(entity1, repository.obtainEntity(entity1.Name));
@@ -46,7 +47,6 @@ namespace Tests
         [ExpectedException(typeof(EntityAlreadyExistsException))]
         public void RegisterAlreadyRegisteredEntity()
         {
-            Repository repository = Repository.Instance;
             repository.addEntity(entity1);
             repository.addEntity(entity1);
             repository.CleanLists();
@@ -56,7 +56,6 @@ namespace Tests
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveExistantEntityFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.CleanLists();
             repository.addEntity(entity1);
             repository.removeEntity(entity1.Name);
@@ -67,7 +66,6 @@ namespace Tests
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveNonExistantEntityFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.CleanLists();
             repository.removeEntity("una entidad que no existe ni existira jamas");
         }
@@ -76,7 +74,6 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterEntityWithEmptyDescription()
         {
-            Repository repository = Repository.Instance;
             repository.addEntity(emptyNameEntity);
         }
 
@@ -84,7 +81,6 @@ namespace Tests
         [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
-            Repository repository = Repository.Instance;
             repository.addEntity(null);
         }
 
@@ -92,7 +88,6 @@ namespace Tests
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterEntityWithNullName()
         {
-            Repository repository = Repository.Instance;
             repository.addEntity(nullNameEntity);
         }
 

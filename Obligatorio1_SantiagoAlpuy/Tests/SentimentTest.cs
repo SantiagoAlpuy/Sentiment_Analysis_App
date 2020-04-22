@@ -7,7 +7,7 @@ namespace Tests
     [TestClass]
     public class SentimentTest
     {
-
+        Repository repository;
         Sentiment positiveSentiment1;
         Sentiment positiveSentiment2;
         Sentiment negativeSentiment1;
@@ -19,6 +19,8 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
+            repository = Repository.Instance;
+
             positiveSentiment1 = new Sentiment()
             {
                 Description = "Me gusta",
@@ -57,14 +59,12 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            Repository repository = Repository.Instance;
             repository.CleanLists();
         }
 
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(positiveSentiment1);
             repository.addSentiment(positiveSentiment2);
             Assert.AreEqual(positiveSentiment1, repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
@@ -74,7 +74,6 @@ namespace Tests
         [TestMethod]
         public void RegisterNegativeSentiments()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.addSentiment(negativeSentiment2);
             Assert.AreEqual(negativeSentiment1, repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
@@ -85,7 +84,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(positiveSentiment1);
             repository.addSentiment(positiveSentiment1);
         }
@@ -94,7 +92,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.addSentiment(negativeSentiment1);
         }
@@ -103,7 +100,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(positiveSentiment1);
             repository.removeSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
             Sentiment sent = repository.obtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
@@ -113,7 +109,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantPositiveSentimentFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.removeSentiment("sentimiento que no existe", true);
         }
 
@@ -121,7 +116,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(negativeSentiment1);
             repository.removeSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
             Sentiment sent = repository.obtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
@@ -131,7 +125,6 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveNonExistantNegativeSentimentFromRegister()
         {
-            Repository repository = Repository.Instance;
             repository.removeSentiment("sentimiento que no existe", false);
         }
 
@@ -139,7 +132,6 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterSentimentWithEmptyDescription()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(noDescriptionSentiment);
         }
 
@@ -147,7 +139,6 @@ namespace Tests
         [ExpectedException(typeof(NullSentimentException))]
         public void RegisterNullSentiment()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(null);
         }
 
@@ -155,7 +146,6 @@ namespace Tests
         [ExpectedException(typeof(ContainsNumbersException))]
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(containsNumberSentiment);
         }
 
@@ -163,7 +153,6 @@ namespace Tests
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterSentimentWithNullDescription()
         {
-            Repository repository = Repository.Instance;
             repository.addSentiment(nullDescriptionSentiment);
         }
 
