@@ -15,7 +15,8 @@ namespace Tests
         EntityController entityController;
         Phrase phrase1;
         Phrase phrase2;
-        Phrase phraseWithUpperAndLower;
+        Phrase phraseWithUpperAndLower1;
+        Phrase phraseWithUpperAndLower2;
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
         Phrase oldPhrase;
@@ -53,9 +54,15 @@ namespace Tests
                 Date = now,
             };
 
-            phraseWithUpperAndLower = new Phrase()
+            phraseWithUpperAndLower1 = new Phrase()
             {
                 Comment = "mE GUsTa La pEPsI",
+                Date = now,
+            };
+
+            phraseWithUpperAndLower2 = new Phrase()
+            {
+                Comment = "oDIo la guaRaNA",
                 Date = now,
             };
 
@@ -214,8 +221,8 @@ namespace Tests
         public void AnalyzeEntityOfPhraseWithDifferentUpperAndLowerLettersFormat()
         {
             entityController.addEntity(entity);
-            phraseController.analyzePhrase(phraseWithUpperAndLower);
-            Assert.AreEqual("Pepsi", phraseWithUpperAndLower.Entity);
+            phraseController.analyzePhrase(phraseWithUpperAndLower1);
+            Assert.AreEqual("Pepsi", phraseWithUpperAndLower1.Entity);
         }
 
         [TestMethod]
@@ -256,9 +263,18 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
         {
             sentimentController.addSentiment(positiveSentiment1);
-            phraseController.addPhrase(phraseWithUpperAndLower);
-            phraseController.analyzePhrase(phraseWithUpperAndLower);
-            Assert.AreEqual("positive",phraseWithUpperAndLower.Category);
+            phraseController.addPhrase(phraseWithUpperAndLower1);
+            phraseController.analyzePhrase(phraseWithUpperAndLower1);
+            Assert.AreEqual("positive",phraseWithUpperAndLower1.Category);
+        }
+
+        [TestMethod]
+        public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatNegativeSentiment()
+        {
+            sentimentController.addSentiment(negativeSentiment1);
+            phraseController.addPhrase(phraseWithUpperAndLower1);
+            phraseController.analyzePhrase(phraseWithUpperAndLower2);
+            Assert.AreEqual("negative", phraseWithUpperAndLower2.Category);
         }
     }
 }
