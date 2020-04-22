@@ -17,6 +17,7 @@ namespace Tests
         Entity entity1;
         Entity entity2;
         Sentiment positiveSentiment1;
+        Sentiment negativeSentiment1;
 
 
         [TestInitialize]
@@ -67,6 +68,12 @@ namespace Tests
             positiveSentiment1 = new Sentiment()
             {
                 Description = "Me gusta",
+                Category = true,
+            };
+
+            negativeSentiment1 = new Sentiment()
+            {
+                Description = "Odio",
                 Category = true,
             };
         }
@@ -144,6 +151,15 @@ namespace Tests
             repository.addSentiment(positiveSentiment1);
             repository.analyzePhrase(phrase1);
             Assert.IsTrue(phrase1.Category);
+        }
+
+        [TestMethod]
+        public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
+        {
+            Repository repository = Repository.Instance;
+            repository.addSentiment(negativeSentiment1);
+            repository.analyzePhrase(phrase2);
+            Assert.IsFalse(phrase2.Category);
         }
     }
 }
