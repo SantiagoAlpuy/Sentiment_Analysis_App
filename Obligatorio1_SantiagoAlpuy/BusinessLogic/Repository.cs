@@ -174,5 +174,23 @@ namespace BusinessLogic
         {
             return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
+
+        public void analyzePhrase(Phrase phrase1)
+        {
+            Entity ent = null;
+            foreach(Entity entity in entities)
+            {
+                if (phrase1.Comment.Contains(entity.Name))
+                {
+                    ent = entity;
+                    break;
+                }
+            }
+            if (ent != null)
+                phrase1.Entity = ent.Name;
+            else
+                phrase1.Entity = "";
+            
+        }
     }
 }

@@ -12,6 +12,10 @@ namespace Tests
         Phrase phrase2;
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
+        Phrase phraseWith3Entities;
+        Entity entity;
+        Entity entity1;
+        Entity entity2;
 
 
         [TestInitialize]
@@ -37,6 +41,27 @@ namespace Tests
             };
 
             nullCommentPhrase = new Phrase();
+
+            phraseWith3Entities = new Phrase()
+            {
+                Comment = "Me gusta la Coca, la Nix, y la Pepsi",
+                Date = now,
+            };
+
+            entity = new Entity()
+            {
+                Name = "Pepsi",
+            };
+            
+            entity1 = new Entity()
+            {
+                Name = "Coca",
+            };
+
+            entity2 = new Entity()
+            {
+                Name = "Nix",
+            };
         }
 
         [TestMethod]
@@ -76,37 +101,33 @@ namespace Tests
 
 
         [TestMethod]
-        public void AnalyzePhraseWithNoRegisteredEntity()
+        public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
         {
-            Entity entity = new Entity()
-            {
-                Name = "Coca",
-            };
-            analizePhrase(phrase1, entity);
+            Repository repository = Repository.Instance;
+            repository.analyzePhrase(phrase1);
             Assert.AreEqual("", phrase1.Entity);
         }
 
         [TestMethod]
-        public void ObtainTheOnlyEntityFromPhrase()
+        public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
-            Entity entity = new Entity()
-            {
-                Name = "Pepsi",
-            };
-            analizePhrase(phrase1, entity);
+            
+            Repository repository = Repository.Instance;
+            repository.addEntity(entity);
+            repository.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
         }
 
-
-        private void analizePhrase(Phrase phrase1, Entity entity)
+        [TestMethod]
+        public void AnalyzeEntityOfPhraseWithMultipleEntities()
         {
-            if (phrase1.Comment.Contains(entity.Name))
-                phrase1.Entity = entity.Name;
-            else
-                phrase1.Entity = "";
+            
+            Repository repository = Repository.Instance;
+            repository.addEntity(entity);
+            repository.addEntity(entity1);
+            repository.addEntity(entity2);
+            repository.analyzePhrase(phrase1);
+            Assert.AreEqual("Pepsi", phrase1.Entity);
         }
-
-        
-
     }
 }
