@@ -46,7 +46,14 @@ namespace BusinessLogic
 
         public void AddAlert(Alert alert)
         {
-            alerts.Add(alert);
+            if (alert.Entity == null)
+            {
+                throw new NullEntityException();
+            }
+            else
+            {
+                alerts.Add(alert);
+            }
         }
 
         public Alert ObtainAlert(Alert alert)
