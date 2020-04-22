@@ -74,8 +74,15 @@ namespace Tests
             negativeSentiment1 = new Sentiment()
             {
                 Description = "Odio",
-                Category = true,
+                Category = false,
             };
+        }
+
+        [TestCleanup]
+        public void ClassCleanup()
+        {
+            Repository repository = Repository.Instance;
+            repository.CleanLists();
         }
 
         [TestMethod]

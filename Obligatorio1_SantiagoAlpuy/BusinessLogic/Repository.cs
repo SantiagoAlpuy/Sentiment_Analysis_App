@@ -200,7 +200,16 @@ namespace BusinessLogic
                     break;
                 }
             }
-            
+
+            foreach (Sentiment sentiment in negativeSentiments)
+            {
+                if (phrase1.Comment.Contains(sentiment.Description))
+                {
+                    phrase1.Category = false;
+                    break;
+                }
+            }
+
         }
     }
 }
