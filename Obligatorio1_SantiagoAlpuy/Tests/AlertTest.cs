@@ -13,6 +13,7 @@ namespace Tests
         Entity entity1;
         Alert alert1;
         Alert alert2;
+        Alert alert3;
 
         [TestInitialize]
         public void Setup()
@@ -29,6 +30,22 @@ namespace Tests
                 Posts = 10,
                 Time = 12334,
             };
+
+            alert2 = new Alert()
+            {
+                Entity = null,
+                Category = CategoryType.Positive,
+                Posts = 10,
+                Time = 12334,
+            };
+
+            alert3 = new Alert()
+            {
+                Entity = entity1,
+                Category = CategoryType.Positive,
+                Posts = -2,
+                Time = 12334,
+            };
         }
 
         [TestMethod]
@@ -42,15 +59,16 @@ namespace Tests
         [ExpectedException(typeof(NullEntityException))]
         public void GenerateAlertWithNullEntity()
         {
-            alert2 = new Alert()
-            {
-                Entity = null,
-                Category = CategoryType.Positive,
-                Posts = 10,
-                Time = 12334,
-            };
             repository.AddAlert(alert2);
-            Assert.AreEqual(alert1, repository.ObtainAlert(alert2));
+            Assert.AreEqual(alert2, repository.ObtainAlert(alert2));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NegativePostCountException))]
+        public void GenerateAlertWithNegativePosts()
+        {
+            repository.AddAlert(alert3);
+            Assert.AreEqual(alert3, repository.ObtainAlert(alert3));
         }
     }
 }
