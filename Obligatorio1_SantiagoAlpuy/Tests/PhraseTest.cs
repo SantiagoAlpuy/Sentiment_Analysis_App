@@ -18,6 +18,7 @@ namespace Tests
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
         Phrase oldPhrase;
+        Phrase futurePhrase;
         Phrase phraseWith3Entities;
         Phrase phraseWithNoSent;
         Phrase neutroPhrase;
@@ -63,6 +64,12 @@ namespace Tests
             {
                 Comment = "Frase con fecha inferior a un año",
                 Date = new DateTime(2019,01,01),
+            };
+
+            futurePhrase = new Phrase()
+            {
+                Comment = "Frase con fecha del futuro",
+                Date = new DateTime(2025,01,1),
             };
 
             phraseWithNoSent = new Phrase()
@@ -162,6 +169,13 @@ namespace Tests
         public void RegisterPhraseWithDateOlderThanOneYear()
         {
             phraseController.addPhrase(oldPhrase);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DateFromFutureException))]
+        public void RegisterPhraseWithDateFromFuture()
+        {
+            phraseController.addPhrase(futurePhrase);
         }
 
         [TestMethod]
