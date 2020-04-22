@@ -20,6 +20,7 @@ namespace Tests
         Alert alert3;
         Alert alert4;
         Alert alert5;
+        Alert alert6;
         Phrase phrase1;
         Phrase phrase2;
 
@@ -42,7 +43,7 @@ namespace Tests
                 Entity = entity1,
                 Category = true,
                 Posts = 10,
-                Time = 12334,
+                Days = 12,
             };
 
             alert2 = new Alert()
@@ -50,7 +51,7 @@ namespace Tests
                 Entity = null,
                 Category = true,
                 Posts = 10,
-                Time = 12334,
+                Days = 2,
             };
 
             alert3 = new Alert()
@@ -58,7 +59,7 @@ namespace Tests
                 Entity = entity1,
                 Category = true,
                 Posts = -2,
-                Time = 12334,
+                Days = 3,
             };
 
             alert4 = new Alert()
@@ -66,7 +67,7 @@ namespace Tests
                 Entity = entity1,
                 Category = true,
                 Posts = 2,
-                Time = -34,
+                Days = -34,
             };
 
             alert5 = new Alert()
@@ -74,7 +75,15 @@ namespace Tests
                 Entity = entity1,
                 Category = true,
                 Posts = 2,
-                Time = 50000000,
+                Days = 50000000,
+            };
+
+            alert6 = new Alert()
+            {
+                Entity = entity1,
+                Category = true,
+                Posts = 2,
+                Hours = -2,
             };
         }
 
@@ -106,10 +115,17 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NegativeTimeException))]
-        public void GenerateAlertWithNegativeTime()
+        [ExpectedException(typeof(NegativeDayException))]
+        public void GenerateAlertWithNegativeDays()
         {
             alertController.AddAlert(alert4);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NegativeHourException))]
+        public void GenerateAlertWithNegativeHours()
+        {
+            alertController.AddAlert(alert6);
         }
 
         [TestMethod]
@@ -117,45 +133,6 @@ namespace Tests
         public void AddNullAlertToRepository()
         {
             alertController.AddAlert(null);
-        }
-
-        [TestMethod]
-        public void PhraseTurnsAlertOn()
-        {
-            phrase1 = new Phrase()
-            {
-                Comment = "Me encanta tomar pepsi",
-                Date = new DateTime(2020, 04, 01),
-            };
-            phrase2 = new Phrase()
-            {
-                Comment = "Amo tomar pepsi",
-                Date = new DateTime(2020, 04, 01),
-            };
-            Sentiment sentiment1 = new Sentiment()
-            {
-                Description = "AMO",
-                Category = true,
-            };
-            Sentiment sentiment2 = new Sentiment()
-            {
-                Description = "me encanta",
-                Category = true,
-            };
-            Entity entity1 = new Entity()
-            {
-                Name = "pepsi",
-            };
-            sentimentController.AddSentiment(sentiment1);
-            sentimentController.AddSentiment(sentiment2);
-            entityController.AddEntity(entity1);
-            phraseController.AddPhrase(phrase1);
-            phraseController.AddPhrase(phrase2);
-            phraseController.AnalyzePhrase(phrase1);
-            phraseController.AnalyzePhrase(phrase2);
-            alertController.CheckAlertsActivation();
-            Assert.IsTrue(alert5.Activated);
-
         }
     }
 }

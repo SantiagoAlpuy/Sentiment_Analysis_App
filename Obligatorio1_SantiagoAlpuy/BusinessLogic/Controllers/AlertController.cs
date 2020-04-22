@@ -10,10 +10,12 @@ namespace BusinessLogic.Controllers
     {
         Repository repository = Repository.Instance;
         private List<Alert> alerts;
+        private List<Phrase> phrases;
 
         public AlertController()
         {
             alerts = repository.alerts;
+            phrases = repository.phrases;
         }
 
         public void AddAlert(Alert alert)
@@ -30,18 +32,15 @@ namespace BusinessLogic.Controllers
                 throw new NullEntityException();
             else if (alert.Posts < 0)
                 throw new NegativePostCountException();
-            else if (alert.Time < 0)
-                throw new NegativeTimeException();
+            else if (alert.Days < 0)
+                throw new NegativeDayException();
+            else if (alert.Hours < 0)
+                throw new NegativeHourException();
         }
 
         public Alert ObtainAlert(Alert alert)
         {
             return alerts.Find(x => x.Equals(alert));
-        }
-
-        public void CheckAlertsActivation()
-        {
-            throw new NotImplementedException();
         }
     }
 }
