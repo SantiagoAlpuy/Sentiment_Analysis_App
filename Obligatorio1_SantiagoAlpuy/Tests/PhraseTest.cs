@@ -17,6 +17,7 @@ namespace Tests
         Phrase phrase2;
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
+        Phrase oldPhrase;
         Phrase phraseWith3Entities;
         Phrase phraseWithNoSent;
         Phrase neutroPhrase;
@@ -57,6 +58,12 @@ namespace Tests
             };
 
             nullCommentPhrase = new Phrase();
+
+            oldPhrase = new Phrase()
+            {
+                Comment = "Frase con fecha inferior a un año",
+                Date = new DateTime(2019,01,01),
+            };
 
             phraseWithNoSent = new Phrase()
             {
@@ -150,6 +157,12 @@ namespace Tests
             phraseController.addPhrase(nullCommentPhrase);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(DateOlderThanOneYearException))]
+        public void RegisterPhraseWithDateOlderThanOneYear()
+        {
+            phraseController.addPhrase(oldPhrase);
+        }
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
