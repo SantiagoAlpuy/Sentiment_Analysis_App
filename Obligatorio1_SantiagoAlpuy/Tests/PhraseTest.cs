@@ -13,6 +13,7 @@ namespace Tests
         Phrase phraseWithEmptyComment;
         Phrase nullCommentPhrase;
         Phrase phraseWith3Entities;
+        Phrase phraseWithNoSent;
         Entity entity;
         Entity entity1;
         Entity entity2;
@@ -43,6 +44,11 @@ namespace Tests
             };
 
             nullCommentPhrase = new Phrase();
+
+            phraseWithNoSent = new Phrase()
+            {
+                Comment = "Mike Tyson",
+            };
 
             phraseWith3Entities = new Phrase()
             {
@@ -149,6 +155,14 @@ namespace Tests
             repository.addEntity(entity2);
             repository.analyzePhrase(phrase1);
             Assert.AreEqual("Pepsi", phrase1.Entity);
+        }
+
+        [TestMethod]
+        public void AnalyzeCategoryOfPhraseWithNoSentiments()
+        {
+            Repository repository = Repository.Instance;
+            repository.analyzePhrase(phraseWithNoSent);
+            Assert.AreEqual("neutro", phraseWithNoSent.Category);
         }
 
         [TestMethod]
