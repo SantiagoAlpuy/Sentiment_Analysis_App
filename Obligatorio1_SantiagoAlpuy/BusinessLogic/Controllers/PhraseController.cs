@@ -38,6 +38,8 @@ namespace BusinessLogic.Controllers
                 throw new LackOfObligatoryParametersException();
             else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
                 throw new DateOlderThanOneYearException();
+            else if (phrase.Date.CompareTo(DateTime.Now) > 0)
+                throw new DateFromFutureException();
         }
 
         public Phrase obtainPhrase(string comment, DateTime date)
