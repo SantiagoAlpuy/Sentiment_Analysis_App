@@ -251,5 +251,13 @@ namespace Tests
             phraseController.analyzePhrase(neutroPhrase);
             Assert.AreEqual("neutro", neutroPhrase.Category);
         }
+
+        [TestMethod]
+        public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
+        {
+            sentimentController.addSentiment(positiveSentiment1);
+            phraseController.addPhrase(phraseWithUpperAndLower);
+            Assert.AreEqual("positive",phraseWithUpperAndLower.Category);
+        }
     }
 }
