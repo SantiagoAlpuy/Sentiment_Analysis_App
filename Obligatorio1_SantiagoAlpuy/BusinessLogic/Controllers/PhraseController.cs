@@ -74,7 +74,7 @@ namespace BusinessLogic.Controllers
             bool hasPositive = false;
             foreach (Sentiment sentiment in positiveSentiments)
             {
-                if (phrase.Comment.Contains(sentiment.Description))
+                if (phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper()))
                 {
                     hasPositive = true;
                     break;
