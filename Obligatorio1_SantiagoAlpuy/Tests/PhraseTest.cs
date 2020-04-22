@@ -14,6 +14,7 @@ namespace Tests
         Phrase nullCommentPhrase;
         Phrase phraseWith3Entities;
         Phrase phraseWithNoSent;
+        Phrase neutroPhrase;
         Entity entity;
         Entity entity1;
         Entity entity2;
@@ -54,6 +55,11 @@ namespace Tests
             {
                 Comment = "Me gusta la Coca, la Nix, y la Pepsi",
                 Date = now,
+            };
+
+            neutroPhrase = new Phrase()
+            {
+                Comment = "Me gusta la Coca pero Odio la Nix",
             };
 
             entity = new Entity()
@@ -181,6 +187,16 @@ namespace Tests
             repository.addSentiment(negativeSentiment1);
             repository.analyzePhrase(phrase2);
             Assert.AreEqual("negative", phrase2.Category);
+        }
+
+        [TestMethod]
+        public void AnalyzeCategoryOfPhraseWithOneNegativeAndOnePositiveSentiment()
+        {
+            Repository repository = Repository.Instance;
+            repository.addSentiment(negativeSentiment1);
+            repository.addSentiment(positiveSentiment1);
+            repository.analyzePhrase(neutroPhrase);
+            Assert.AreEqual("neutro", neutroPhrase.Category);
         }
     }
 }
