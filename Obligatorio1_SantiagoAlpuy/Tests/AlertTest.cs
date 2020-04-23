@@ -137,7 +137,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void PhrasesTurnsAlertOn()
+        public void ActivateAlertNormalFlow()
         {
             phrase1 = new Phrase()
             {
