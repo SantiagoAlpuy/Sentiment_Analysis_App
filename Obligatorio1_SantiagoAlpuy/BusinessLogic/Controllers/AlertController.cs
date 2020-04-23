@@ -73,7 +73,7 @@ namespace BusinessLogic.Controllers
 
         private bool validateCategories(Phrase phrase, Alert alert)
         {
-            return phrase.Category.Equals(alert.Category);
+            return phrase.Category.Equals(alert.Category) && !phrase.Category.Equals(CategoryType.Neutro);
         }
 
         private bool validateEntitiesAndCategories(Phrase phrase, Alert alert)
