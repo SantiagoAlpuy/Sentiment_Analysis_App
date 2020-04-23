@@ -15,6 +15,7 @@ namespace Tests
         SentimentController sentimentController;
         EntityController entityController;
         Entity entity1;
+        Entity entity2;
         Alert alert1;
         Alert alert2;
         Alert alert3;
@@ -22,6 +23,7 @@ namespace Tests
         Alert alert5;
         Alert alert6;
         Alert alert7;
+        Alert alert8;
         Phrase positive1PhraseEntity1;
         Phrase positive2PhraseEntity1;
         Phrase neutroPhrase1;
@@ -41,6 +43,11 @@ namespace Tests
             entity1 = new Entity()
             {
                 Name = "pepsi",
+            };
+
+            entity2 = new Entity()
+            {
+                Name = "PEpSI",
             };
 
             alert1 = new Alert()
@@ -99,6 +106,14 @@ namespace Tests
                 Days = 5,
             };
 
+            alert8 = new Alert()
+            {
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
+                Posts = 2,
+                Days = 2,
+            };
+
             positive1PhraseEntity1 = new Phrase()
             {
                 Comment = "Me encanta tomar pepsi",
@@ -134,11 +149,7 @@ namespace Tests
                 Description = "Me encanta",
                 Category = true,
             };
-
-            entity1 = new Entity()
-            {
-                Name = "pepsi",
-            };
+            
         }
 
         [TestCleanup]
@@ -204,13 +215,23 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ActivateAlertOfPhrasesWithNeutroCategory()
+        public void DontActivateAlertOfPhrasesWithNeutroCategory()
         {
             entityController.AddEntity(entity1);
             phraseController.AddPhrase(neutroPhrase1);
             alertController.AddAlert(alert7);
             alertController.CheckAlertActivation();
             Assert.IsFalse(alert7.Activated);
+        }
+
+        [TestMethod]
+        public void ActivateAlertOfPhrasesWithEntityWithDifferentLetterFormat()
+        {
+            entityController.AddEntity(entity2);
+            phraseController.AddPhrase(positive1PhraseEntity1);
+            alertController.AddAlert(alert8);
+            alertController.CheckAlertActivation();
+            Assert.IsTrue(alert8.Activated);
         }
     }
 }
