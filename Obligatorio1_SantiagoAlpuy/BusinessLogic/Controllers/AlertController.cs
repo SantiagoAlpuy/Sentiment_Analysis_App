@@ -54,7 +54,11 @@ namespace BusinessLogic.Controllers
                 {
                     if (validateEntitiesAndCategories(phrase,alert))
                     {
+                        lowerLimitAlert = calculateLowerLimitAlert(alert);
+                        if (isInsideAlertRange(lowerLimitAlert, phrase))
+                        {
                         count++;
+                        }
                     }
                 }
                 ActivateAlarm(alert, count);

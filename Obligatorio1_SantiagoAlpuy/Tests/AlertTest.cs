@@ -219,7 +219,7 @@ namespace Tests
         {
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
-            positive1PhraseEntity1.Date = DateTime.Now.AddYears(-10);
+            positive1PhraseEntity1.Date = DateTime.Now.AddYears(-1);
             phraseController.AddPhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert8);
             alertController.CheckAlertActivation();
