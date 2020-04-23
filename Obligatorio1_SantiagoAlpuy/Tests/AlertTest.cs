@@ -21,8 +21,11 @@ namespace Tests
         Alert alert4;
         Alert alert5;
         Alert alert6;
+        Alert alert7;
         Phrase positive1PhraseEntity1;
         Phrase positive2PhraseEntity1;
+        Phrase neutroPhrase1;
+        Phrase neutroPhrase2;
         Sentiment positive2;
         Sentiment positive1;
 
@@ -88,6 +91,14 @@ namespace Tests
                 Hours = -2,
             };
 
+            alert7 = new Alert()
+            {
+                Entity = entity1.Name,
+                Category = CategoryType.Neutro,
+                Posts = 2,
+                Days = 5,
+            };
+
             positive1PhraseEntity1 = new Phrase()
             {
                 Comment = "Me encanta tomar pepsi",
@@ -97,6 +108,18 @@ namespace Tests
             positive2PhraseEntity1 = new Phrase()
             {
                 Comment = "Amo tomar pepsi",
+                Date = DateTime.Now.AddDays(-1),
+            };
+
+            neutroPhrase1 = new Phrase()
+            {
+                Comment = "nacanaca pepsi",
+                Date = DateTime.Now.AddDays(-1),
+            };
+
+            neutroPhrase2 = new Phrase()
+            {
+                Comment = "noconoco pepsi",
                 Date = DateTime.Now.AddDays(-1),
             };
 
@@ -181,16 +204,16 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ActiveteAlertIfDateNotInActivationRange()
+        public void ActivateAlertOfPhrasesWithNeutroCategory()
         {
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
-            phraseController.AddPhrase(positive1PhraseEntity1);
-            phraseController.AddPhrase(positive2PhraseEntity1);
-            alertController.AddAlert(alert5);
+            phraseController.AddPhrase(neutroPhrase1);
+            phraseController.AddPhrase(neutroPhrase2);
+            alertController.AddAlert(alert7);
             alertController.CheckAlertActivation();
-            Assert.IsFalse(alert5.Activated);
+            Assert.IsFalse(alert7.Activated);
         }
     }
 }
