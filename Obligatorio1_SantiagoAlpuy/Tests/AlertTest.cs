@@ -215,7 +215,19 @@ namespace Tests
         }
 
         [TestMethod]
-        public void DontActivateAlertOfPhrasesWithNeutroCategory()
+        public void ActivateAlertIfDateNotInActivationRange()
+        {
+            entityController.AddEntity(entity2);
+            sentimentController.AddSentiment(positive1);
+            positive1PhraseEntity1.Date = DateTime.Now.AddYears(-10);
+            phraseController.AddPhrase(positive1PhraseEntity1);
+            alertController.AddAlert(alert8);
+            alertController.CheckAlertActivation();
+            Assert.IsFalse(alert8.Activated);
+        }
+
+        [TestMethod]
+        public void ActivateAlertOfPhrasesWithNeutroCategory()
         {
             entityController.AddEntity(entity1);
             phraseController.AddPhrase(neutroPhrase1);
