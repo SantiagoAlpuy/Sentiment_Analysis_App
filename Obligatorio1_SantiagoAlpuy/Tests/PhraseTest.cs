@@ -151,8 +151,8 @@ namespace Tests
         [TestMethod]
         public void RegisterPhrase()
         {
-            phraseController.AddPhrase(phrase1);
-            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhraseToRepository(phrase1);
+            phraseController.AddPhraseToRepository(phrase2);
             Assert.AreEqual(phrase1, phraseController.ObtainPhrase(phrase1.Comment, phrase1.Date));
             Assert.AreEqual(phrase2, phraseController.ObtainPhrase(phrase2.Comment, phrase2.Date));
         }
@@ -161,35 +161,35 @@ namespace Tests
         [ExpectedException(typeof(NullPhraseException))]
         public void RegisterNullPhrase()
         {
-            phraseController.AddPhrase(null);
+            phraseController.AddPhraseToRepository(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            phraseController.AddPhrase(phraseWithEmptyComment);
+            phraseController.AddPhraseToRepository(phraseWithEmptyComment);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterPhraseWithNullComment()
         {
-            phraseController.AddPhrase(nullCommentPhrase);
+            phraseController.AddPhraseToRepository(nullCommentPhrase);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DateOlderThanOneYearException))]
         public void RegisterPhraseWithDateOlderThanOneYear()
         {
-            phraseController.AddPhrase(oldPhrase);
+            phraseController.AddPhraseToRepository(oldPhrase);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DateFromFutureException))]
         public void RegisterPhraseWithDateFromFuture()
         {
-            phraseController.AddPhrase(futurePhrase);
+            phraseController.AddPhraseToRepository(futurePhrase);
         }
 
         [TestMethod]
@@ -263,7 +263,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
         {
             sentimentController.AddSentiment(positiveSentiment1);
-            phraseController.AddPhrase(phraseWithUpperAndLower1);
+            phraseController.AddPhraseToRepository(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual(CategoryType.Positive, phraseWithUpperAndLower1.Category);
         }
@@ -272,7 +272,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatNegativeSentiment()
         {
             sentimentController.AddSentiment(negativeSentiment1);
-            phraseController.AddPhrase(phraseWithUpperAndLower1);
+            phraseController.AddPhraseToRepository(phraseWithUpperAndLower1);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
             Assert.AreEqual(CategoryType.Negative, phraseWithUpperAndLower2.Category);
         }

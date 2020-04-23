@@ -21,8 +21,10 @@ namespace Tests
         Alert alert4;
         Alert alert5;
         Alert alert6;
-        Phrase phrase1;
-        Phrase phrase2;
+        Phrase positive1PhraseEntity1;
+        Phrase positive2PhraseEntity1;
+        Sentiment positive2;
+        Sentiment positive1;
 
         [TestInitialize]
         public void Setup()
@@ -85,6 +87,35 @@ namespace Tests
                 Posts = 2,
                 Hours = -2,
             };
+
+            positive1PhraseEntity1 = new Phrase()
+            {
+                Comment = "Me encanta tomar pepsi",
+                Date = DateTime.Now.AddDays(-1),
+            };
+
+            positive2PhraseEntity1 = new Phrase()
+            {
+                Comment = "Amo tomar pepsi",
+                Date = DateTime.Now.AddDays(-1),
+            };
+
+            positive2 = new Sentiment()
+            {
+                Description = "Amo",
+                Category = true,
+            };
+
+            positive1 = new Sentiment()
+            {
+                Description = "Me encanta",
+                Category = true,
+            };
+
+            entity1 = new Entity()
+            {
+                Name = "pepsi",
+            };
         }
 
         [TestCleanup]
@@ -139,37 +170,11 @@ namespace Tests
         [TestMethod]
         public void ActivateAlertNormalFlow()
         {
-            phrase1 = new Phrase()
-            {
-                Comment = "Me encanta tomar pepsi",
-                Date = DateTime.Now.AddDays(-1),
-            };
-            phrase2 = new Phrase()
-            {
-                Comment = "Amo tomar pepsi",
-                Date = DateTime.Now.AddDays(-1),
-            };
-            Sentiment sentiment1 = new Sentiment()
-            {
-                Description = "Amo",
-                Category = true,
-            };
-            Sentiment sentiment2 = new Sentiment()
-            {
-                Description = "Me encanta",
-                Category = true,
-            };
-            Entity entity1 = new Entity()
-            {
-                Name = "pepsi",
-            };
-            sentimentController.AddSentiment(sentiment1);
-            sentimentController.AddSentiment(sentiment2);
+            sentimentController.AddSentiment(positive1);
+            sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
-            phraseController.AddPhrase(phrase1);
-            phraseController.AddPhrase(phrase2);
-            phraseController.AnalyzePhrase(phrase1);
-            phraseController.AnalyzePhrase(phrase2);
+            phraseController.AddPhrase(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive2PhraseEntity1);
             alertController.AddAlert(alert5);
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert5.Activated);

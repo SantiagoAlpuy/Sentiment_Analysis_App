@@ -24,6 +24,12 @@ namespace BusinessLogic.Controllers
 
         public void AddPhrase(Phrase phrase)
         {
+            AddPhraseToRepository(phrase);
+            AnalyzePhrase(phrase);
+        }
+
+        public void AddPhraseToRepository(Phrase phrase)
+        {
             ValidatePhrase(phrase);
             phrases.Add(phrase);
         }
