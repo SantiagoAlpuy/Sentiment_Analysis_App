@@ -54,6 +54,48 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UC_AlertConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_AlertConfig.Designer.cs">
+      <DependentUpon>UC_AlertConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_AlertReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_AlertReport.Designer.cs">
+      <DependentUpon>UC_AlertReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_AnalysisReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_AnalysisReport.Designer.cs">
+      <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ManageEntities.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ManageEntities.Designer.cs">
+      <DependentUpon>UC_ManageEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ManageNegSentiment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ManageNegSentiment.Designer.cs">
+      <DependentUpon>UC_ManageNegSentiment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ManagePhrases.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ManagePhrases.Designer.cs">
+      <DependentUpon>UC_ManagePhrases.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_ManagePosSentiment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ManagePosSentiment.Designer.cs">
+      <DependentUpon>UC_ManagePosSentiment.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -61,6 +103,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_AlertConfig.resx">
+      <DependentUpon>UC_AlertConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_AlertReport.resx">
+      <DependentUpon>UC_AlertReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_AnalysisReport.resx">
+      <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ManageEntities.resx">
+      <DependentUpon>UC_ManageEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ManageNegSentiment.resx">
+      <DependentUpon>UC_ManageNegSentiment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ManagePhrases.resx">
+      <DependentUpon>UC_ManagePhrases.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ManagePosSentiment.resx">
+      <DependentUpon>UC_ManagePosSentiment.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
