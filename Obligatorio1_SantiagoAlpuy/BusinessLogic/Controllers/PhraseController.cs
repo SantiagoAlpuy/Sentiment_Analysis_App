@@ -9,6 +9,7 @@ namespace BusinessLogic.Controllers
     public class PhraseController
     {
         Repository repository = Repository.Instance;
+        AlertController alertController = new AlertController();
         private List<Phrase> phrases;
         private List<Sentiment> positiveSentiments;
         private List<Sentiment> negativeSentiments;
@@ -26,6 +27,7 @@ namespace BusinessLogic.Controllers
         {
             AddPhraseToRepository(phrase);
             AnalyzePhrase(phrase);
+            alertController.CheckAlertActivation();
         }
 
         public void AddPhraseToRepository(Phrase phrase)

@@ -207,8 +207,10 @@ namespace Tests
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
-            phraseController.AddPhrase(positive1PhraseEntity1);
-            phraseController.AddPhrase(positive2PhraseEntity1);
+            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AddPhraseToRepository(positive2PhraseEntity1);
+            phraseController.AnalyzePhrase(positive1PhraseEntity1);
+            phraseController.AnalyzePhrase(positive2PhraseEntity1);
             alertController.AddAlert(alert5);
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert5.Activated);
@@ -220,7 +222,8 @@ namespace Tests
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
             positive1PhraseEntity1.Date = DateTime.Now.AddYears(-1);
-            phraseController.AddPhrase(positive1PhraseEntity1);
+            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert8);
             alertController.CheckAlertActivation();
             Assert.IsFalse(alert8.Activated);
@@ -230,7 +233,8 @@ namespace Tests
         public void ActivateAlertOfPhrasesWithNeutroCategory()
         {
             entityController.AddEntity(entity1);
-            phraseController.AddPhrase(neutroPhrase1);
+            phraseController.AddPhraseToRepository(neutroPhrase1);
+            phraseController.AnalyzePhrase(neutroPhrase1);
             alertController.AddAlert(alert7);
             alertController.CheckAlertActivation();
             Assert.IsFalse(alert7.Activated);
@@ -241,7 +245,8 @@ namespace Tests
         {
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
-            phraseController.AddPhrase(positive1PhraseEntity1);
+            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert8);
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert8.Activated);
