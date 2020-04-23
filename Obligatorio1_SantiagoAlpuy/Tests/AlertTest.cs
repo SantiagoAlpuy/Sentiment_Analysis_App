@@ -110,7 +110,7 @@ namespace Tests
             {
                 Entity = entity1.Name,
                 Category = CategoryType.Positive,
-                Posts = 2,
+                Posts = 1,
                 Days = 2,
             };
 
@@ -228,6 +228,7 @@ namespace Tests
         public void ActivateAlertOfPhrasesWithEntityWithDifferentLetterFormat()
         {
             entityController.AddEntity(entity2);
+            sentimentController.AddSentiment(positive1);
             phraseController.AddPhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert8);
             alertController.CheckAlertActivation();

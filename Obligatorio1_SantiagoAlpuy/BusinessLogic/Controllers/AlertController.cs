@@ -68,7 +68,7 @@ namespace BusinessLogic.Controllers
 
         private bool validateEntities(Phrase phrase, Alert alert)
         {
-            return phrase.Entity == alert.Entity;
+            return phrase.Entity.ToUpper() == alert.Entity.ToUpper();
         }
 
         private bool validateCategories(Phrase phrase, Alert alert)
