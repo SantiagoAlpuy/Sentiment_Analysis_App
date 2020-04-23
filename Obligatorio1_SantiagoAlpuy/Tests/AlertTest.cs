@@ -168,7 +168,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ActivateAlertNormalFlow()
+        public void ActivateAlertIfDateInActivationRange()
         {
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
@@ -178,6 +178,19 @@ namespace Tests
             alertController.AddAlert(alert5);
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert5.Activated);
+        }
+
+        [TestMethod]
+        public void ActiveteAlertIfDateNotInActivationRange()
+        {
+            sentimentController.AddSentiment(positive1);
+            sentimentController.AddSentiment(positive2);
+            entityController.AddEntity(entity1);
+            phraseController.AddPhrase(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive2PhraseEntity1);
+            alertController.AddAlert(alert5);
+            alertController.CheckAlertActivation();
+            Assert.IsFalse(alert5.Activated);
         }
     }
 }
