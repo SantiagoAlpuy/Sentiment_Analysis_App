@@ -75,7 +75,7 @@ namespace Tests
                 Entity = entity1,
                 Category = true,
                 Posts = 2,
-                Days = 50000000,
+                Days = 2,
             };
 
             alert6 = new Alert()
@@ -133,6 +133,46 @@ namespace Tests
         public void AddNullAlertToRepository()
         {
             alertController.AddAlert(null);
+        }
+
+        [TestMethod]
+        public void PhraseTurnsAlertOn()
+        {
+            phrase1 = new Phrase()
+            {
+                Comment = "Me encanta tomar pepsi",
+                Date = new DateTime(2020, 04, 01),
+            };
+            phrase2 = new Phrase()
+            {
+                Comment = "Amo tomar pepsi",
+                Date = new DateTime(2020, 04, 01),
+            };
+            Sentiment sentiment1 = new Sentiment()
+            {
+                Description = "AMO",
+                Category = true,
+            };
+            Sentiment sentiment2 = new Sentiment()
+            {
+                Description = "me encanta",
+                Category = true,
+            };
+            Entity entity1 = new Entity()
+            {
+                Name = "pepsi",
+            }; 
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            entityController.AddEntity(entity1);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AnalyzePhrase(phrase1);
+            phraseController.AnalyzePhrase(phrase2);
+            alertController.AddAlert(alert5);
+            alertController.CheckAlertsActivation();
+            Assert.IsTrue(alert5.Activated);
+
         }
     }
 }
