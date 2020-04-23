@@ -35,13 +35,13 @@ namespace Tests
 
             entity1 = new Entity()
             {
-                Name = "Pepsi",
+                Name = "pepsi",
             };
 
             alert1 = new Alert()
             {
-                Entity = entity1,
-                Category = true,
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
                 Posts = 10,
                 Days = 12,
             };
@@ -49,39 +49,39 @@ namespace Tests
             alert2 = new Alert()
             {
                 Entity = null,
-                Category = true,
+                Category = CategoryType.Positive,
                 Posts = 10,
                 Days = 2,
             };
 
             alert3 = new Alert()
             {
-                Entity = entity1,
-                Category = true,
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
                 Posts = -2,
                 Days = 3,
             };
 
             alert4 = new Alert()
             {
-                Entity = entity1,
-                Category = true,
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
                 Posts = 2,
                 Days = -34,
             };
 
             alert5 = new Alert()
             {
-                Entity = entity1,
-                Category = true,
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
                 Posts = 2,
                 Days = 2,
             };
 
             alert6 = new Alert()
             {
-                Entity = entity1,
-                Category = true,
+                Entity = entity1.Name,
+                Category = CategoryType.Positive,
                 Posts = 2,
                 Hours = -2,
             };
@@ -106,6 +106,7 @@ namespace Tests
         {
             alertController.AddAlert(alert2);
         }
+
 
         [TestMethod]
         [ExpectedException(typeof(NegativePostCountException))]
@@ -136,32 +137,32 @@ namespace Tests
         }
 
         [TestMethod]
-        public void PhraseTurnsAlertOn()
+        public void PhrasesTurnsAlertOn()
         {
             phrase1 = new Phrase()
             {
                 Comment = "Me encanta tomar pepsi",
-                Date = new DateTime(2020, 04, 01),
+                Date = DateTime.Now.AddDays(-1),
             };
             phrase2 = new Phrase()
             {
                 Comment = "Amo tomar pepsi",
-                Date = new DateTime(2020, 04, 01),
+                Date = DateTime.Now.AddDays(-1),
             };
             Sentiment sentiment1 = new Sentiment()
             {
-                Description = "AMO",
+                Description = "Amo",
                 Category = true,
             };
             Sentiment sentiment2 = new Sentiment()
             {
-                Description = "me encanta",
+                Description = "Me encanta",
                 Category = true,
             };
             Entity entity1 = new Entity()
             {
                 Name = "pepsi",
-            }; 
+            };
             sentimentController.AddSentiment(sentiment1);
             sentimentController.AddSentiment(sentiment2);
             entityController.AddEntity(entity1);
@@ -170,9 +171,8 @@ namespace Tests
             phraseController.AnalyzePhrase(phrase1);
             phraseController.AnalyzePhrase(phrase2);
             alertController.AddAlert(alert5);
-            alertController.CheckAlertsActivation();
+            alertController.CheckAlertActivation();
             Assert.IsTrue(alert5.Activated);
-
         }
     }
 }

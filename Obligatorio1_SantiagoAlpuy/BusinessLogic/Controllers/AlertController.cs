@@ -45,7 +45,32 @@ namespace BusinessLogic.Controllers
 
         public void CheckAlertActivation()
         {
-            throw new NotImplementedException();
+            DateTime now = DateTime.Now;
+            DateTime lowerLimitAlert = new DateTime();
+            int count;
+            foreach (Alert alert in alerts)
+            {
+                count = 0;
+                foreach (Phrase phrase in phrases)
+                {
+                    if (phrase.Entity == alert.Entity)
+                    {
+                        if (phrase.Category.Equals(alert.Category))
+                        {
+                            lowerLimitAlert = now.AddHours(-(alert.Hours + alert.Days * 24));
+                            if (lowerLimitAlert.CompareTo(phrase.Date) < 0)
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                }
+                if (alert.Posts == count)
+                {
+                    alert.Activated = true;
+                }
+            }
+            
         }
     }
 }
