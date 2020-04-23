@@ -45,7 +45,6 @@ namespace BusinessLogic.Controllers
 
         public void CheckAlertActivation()
         {
-            DateTime now = DateTime.Now;
             DateTime lowerLimitAlert = new DateTime();
             int count;
             foreach (Alert alert in alerts)
@@ -53,24 +52,52 @@ namespace BusinessLogic.Controllers
                 count = 0;
                 foreach (Phrase phrase in phrases)
                 {
-                    if (phrase.Entity == alert.Entity)
+                    if (validateEntitiesAndCategories(phrase,alert))
                     {
-                        if (phrase.Category.Equals(alert.Category))
+                        lowerLimitAlert = calculateLowerLimitAlert(alert);
+                        if (isInsideAlertRange(lowerLimitAlert, phrase))
                         {
-                            lowerLimitAlert = now.AddHours(-(alert.Hours + alert.Days * 24));
-                            if (lowerLimitAlert.CompareTo(phrase.Date) < 0)
-                            {
-                                count++;
-                            }
+                            count++;
                         }
                     }
                 }
-                if (alert.Posts == count)
-                {
-                    alert.Activated = true;
-                }
+                ActivateAlarm(alert, count);
             }
             
+        }
+
+        private bool validateEntities(Phrase phrase, Alert alert)
+        {
+            return phrase.Entity == alert.Entity;
+        }
+
+        private bool validateCategories(Phrase phrase, Alert alert)
+        {
+            return phrase.Category.Equals(alert.Category);
+        }
+
+        private bool validateEntitiesAndCategories(Phrase phrase, Alert alert)
+        {
+            return validateEntities(phrase, alert) && validateCategories(phrase, alert);
+        }
+
+        private DateTime calculateLowerLimitAlert(Alert alert)
+        {
+            int hours = -(alert.Hours + alert.Days * 24);
+            return DateTime.Now.AddHours(hours);
+        }
+
+        private bool isInsideAlertRange(DateTime date, Phrase phrase)
+        {
+            return date.CompareTo(phrase.Date) < 0;
+        }
+
+        private void ActivateAlarm(Alert alert, int count)
+        {
+            if (alert.Posts == count)
+            {
+                alert.Activated = true;
+            }
         }
     }
 }
