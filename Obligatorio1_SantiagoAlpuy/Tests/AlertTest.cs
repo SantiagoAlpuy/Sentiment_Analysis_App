@@ -206,11 +206,8 @@ namespace Tests
         [TestMethod]
         public void ActivateAlertOfPhrasesWithNeutroCategory()
         {
-            sentimentController.AddSentiment(positive1);
-            sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
             phraseController.AddPhrase(neutroPhrase1);
-            phraseController.AddPhrase(neutroPhrase2);
             alertController.AddAlert(alert7);
             alertController.CheckAlertActivation();
             Assert.IsFalse(alert7.Activated);
