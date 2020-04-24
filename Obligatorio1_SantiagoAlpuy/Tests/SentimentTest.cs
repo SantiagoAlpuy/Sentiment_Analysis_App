@@ -88,8 +88,10 @@ namespace Tests
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
+            negativeSentiment1 = new Sentiment() { Description = "No me gusta", Category = false };
+            negativeSentiment2 = new Sentiment() { Description = "No me gusta", Category = false };
             sentimentController.AddSentiment(negativeSentiment1);
-            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(negativeSentiment2);
         }
 
         [TestMethod]
