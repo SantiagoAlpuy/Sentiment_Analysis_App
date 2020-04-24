@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManagePosSentiment : UserControl
     {
         SentimentController sentimentController;
+        Repository repository;
         private const string WRITE_POSITIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones positivas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
@@ -27,6 +28,7 @@ namespace UserInterface
         {
             InitializeComponent();
             sentimentController = new SentimentController();
+            repository = Repository.Instance;
             LoadDataGridPositiveSentiments();
             dataGridPositiveSentiments.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGridPositiveSentiments.Columns[1].Visible = false;
@@ -34,7 +36,7 @@ namespace UserInterface
 
         private void LoadDataGridPositiveSentiments()
         {
-            this.dataGridPositiveSentiments.DataSource = sentimentController.positiveSentiments.ToList();
+            this.dataGridPositiveSentiments.DataSource = repository.positiveSentiments.ToList();
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)

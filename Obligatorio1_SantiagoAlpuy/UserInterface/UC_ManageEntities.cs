@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManageEntities : UserControl
     {
         EntityController entityController;
+        Repository repository;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
         private const string ENTITY_NOT_ADDED = "Por favor ingrese una entidad valida.";
         private const string ENTITY_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
@@ -26,12 +27,14 @@ namespace UserInterface
         {
             InitializeComponent();
             entityController = new EntityController();
+            repository = Repository.Instance;
+            LoadDataGridEntities();
             dataGridPositiveSentiments.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
         }
 
-        private void LoadDataGridPositiveSentiments()
+        private void LoadDataGridEntities()
         {
-            this.dataGridPositiveSentiments.DataSource = entityController.entities.ToList();
+            this.dataGridPositiveSentiments.DataSource = repository.entities.ToList();
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
@@ -76,7 +79,7 @@ namespace UserInterface
                 MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, textBox1.Text));
                 textBox1.Text = WRITE_ENTITY_MESSAGE;
                 textBox1.ForeColor = Color.Gray;
-                LoadDataGridPositiveSentiments();
+                LoadDataGridEntities();
             }
             catch (LackOfObligatoryParametersException e)
             {
@@ -94,7 +97,7 @@ namespace UserInterface
             {
                 entityController.RemoveEntity(row.Cells[0].Value.ToString());
             }
-            LoadDataGridPositiveSentiments();
+            LoadDataGridEntities();
         }
     }
 }

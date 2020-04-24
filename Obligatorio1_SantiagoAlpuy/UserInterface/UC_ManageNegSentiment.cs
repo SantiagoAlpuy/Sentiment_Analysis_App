@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManageNegSentiment : UserControl
     {
         SentimentController sentimentController;
+        Repository repository;
         private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
@@ -28,14 +29,15 @@ namespace UserInterface
         {
             InitializeComponent();
             sentimentController = new SentimentController();
-            LoadDataGridPositiveSentiments();
+            repository = Repository.Instance;
+            LoadDataGridnegativeSentiments();
             dataGridPositiveSentiments.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGridPositiveSentiments.Columns[1].Visible = false;
         }
 
-        private void LoadDataGridPositiveSentiments()
+        private void LoadDataGridnegativeSentiments()
         {
-            this.dataGridPositiveSentiments.DataSource = sentimentController.negativeSentiments.ToList();
+            this.dataGridPositiveSentiments.DataSource = repository.negativeSentiments.ToList();
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
@@ -81,7 +83,7 @@ namespace UserInterface
                 MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, textBox1.Text));
                 textBox1.Text = WRITE_NEGATIVE_WORD_MESSAGE;
                 textBox1.ForeColor = Color.Gray;
-                LoadDataGridPositiveSentiments();
+                LoadDataGridnegativeSentiments();
             }
             catch (LackOfObligatoryParametersException e)
             {
@@ -103,7 +105,7 @@ namespace UserInterface
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
             }
-            LoadDataGridPositiveSentiments();
+            LoadDataGridnegativeSentiments();
         }
     }
 }
