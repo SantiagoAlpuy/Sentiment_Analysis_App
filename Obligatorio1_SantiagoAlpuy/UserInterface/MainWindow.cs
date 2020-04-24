@@ -19,90 +19,49 @@ namespace UserInterface
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
+            this.PrincipalPanel.Controls.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnManagePositiveSentiment_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_ManagePosSentiment1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_ManagePosSentiment());
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnManageNegativeSentiment_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_ManageNegSentiment());
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnManageEntities_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_ManageEntities1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_ManageEntities());
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnManagePhrases_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_ManagePhrases1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_ManagePhrases());
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnAlertConfig_Click(object sender, EventArgs e)
         {
-            uC_AlertReport1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_AlertConfig1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_AlertConfig());
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnAnalysisReport_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_AnalysisReport1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_AnalysisReport());
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnAlertReport_Click(object sender, EventArgs e)
         {
-            uC_AlertConfig1.Hide();
-            uC_AnalysisReport1.Hide();
-            uC_ManageEntities1.Hide();
-            uC_ManagePhrases1.Hide();
-            uC_ManagePosSentiment1.Hide();
-            uC_ManageNegSentiment1.Hide();
-            uC_AlertReport1.Show();
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_AlertReport());
         }
     }
 }
