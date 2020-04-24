@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.phraseBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnAdd = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // phraseBox
             // 
-            this.textBox1.AccessibleDescription = "";
-            this.textBox1.AccessibleName = "";
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Gray;
-            this.textBox1.Location = new System.Drawing.Point(44, 56);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(526, 35);
-            this.textBox1.TabIndex = 21;
-            this.textBox1.Text = "Ingrese una frase";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            this.phraseBox.AccessibleDescription = "";
+            this.phraseBox.AccessibleName = "";
+            this.phraseBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.phraseBox.ForeColor = System.Drawing.Color.Gray;
+            this.phraseBox.Location = new System.Drawing.Point(44, 56);
+            this.phraseBox.Multiline = true;
+            this.phraseBox.Name = "phraseBox";
+            this.phraseBox.Size = new System.Drawing.Size(526, 35);
+            this.phraseBox.TabIndex = 21;
+            this.phraseBox.Text = "Ingrese una frase";
+            this.phraseBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.phraseBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.phraseBox_KeyDown);
+            this.phraseBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.phraseBox_KeyUp);
             // 
             // label1
             // 
@@ -67,26 +67,26 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Agregar Frases";
             // 
-            // pictureBox1
+            // btnAdd
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::UserInterface.Properties.Resources.icons8_add_36;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(39, 38);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.btnAdd.BackColor = System.Drawing.Color.Transparent;
+            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnAdd.Image = global::UserInterface.Properties.Resources.icons8_add_36;
+            this.btnAdd.Location = new System.Drawing.Point(0, 0);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(39, 38);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.TabStop = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Location = new System.Drawing.Point(577, 69);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
@@ -117,12 +117,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.phraseBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Name = "UC_ManagePhrases";
             this.Size = new System.Drawing.Size(762, 408);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -132,9 +132,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox phraseBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btnAdd;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;

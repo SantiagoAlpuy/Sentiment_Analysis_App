@@ -37,6 +37,21 @@ namespace UserInterface
             this.dataGrid.DataSource = repository.entities.ToList();
         }
 
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGrid.SelectedRows)
+                entityController.RemoveEntity(row.Cells[0].Value.ToString());
+
+            LoadDataGridEntities();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (entityBox.Text != WRITE_ENTITY_MESSAGE)
+                CreateAndAddEntity();
+            else
+                MessageBox.Show(ENTITY_NOT_ADDED);
+        }
 
         private void CreateAndAddEntity()
         {
@@ -59,28 +74,6 @@ namespace UserInterface
             }
         }
 
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGrid.SelectedRows)
-            {
-                entityController.RemoveEntity(row.Cells[0].Value.ToString());
-            }
-            LoadDataGridEntities();
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (entityBox.Text != WRITE_ENTITY_MESSAGE)
-            {
-                CreateAndAddEntity();
-
-            }
-            else
-            {
-                MessageBox.Show(ENTITY_NOT_ADDED);
-            }
-        }
 
         private void entityBox_KeyDown(object sender, KeyEventArgs e)
         {

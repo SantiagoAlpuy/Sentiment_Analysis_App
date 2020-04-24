@@ -60,22 +60,17 @@ namespace UserInterface
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
-            {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
-            }
+
             LoadDataGridPositiveSentiments();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (sentimentBox.Text != WRITE_POSITIVE_WORD_MESSAGE)
-            {
                 CreateAndAddSentiment();
-            }
             else
-            {
                 MessageBox.Show(SENTIMENT_NOT_ADDED);
-            }
         }
 
         private void CreateAndAddSentiment()

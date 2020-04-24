@@ -15,7 +15,7 @@ namespace UserInterface
 {
     public partial class UC_ManagePhrases : UserControl
     {
-        PhraseController phraseController = new PhraseController();
+        PhraseController phraseController;
         Repository repository;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
         private const string PHRASE_NOT_ADDED = "Ingrese una frase válida.";
@@ -30,48 +30,17 @@ namespace UserInterface
             repository = Repository.Instance;
         }
 
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == "")
-            {
-                textBox1.Text = WRITE_PHRASE_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
-            }
-
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == WRITE_PHRASE_MESSAGE)
-            {
-                textBox1.Text = "";
-                textBox1.ForeColor = Color.Black;
-            }
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            if (textBox1.Text != WRITE_PHRASE_MESSAGE)
-            {
-                CreateAndAddPhrase();
-            }
-            else
-            {
-                MessageBox.Show(PHRASE_NOT_ADDED);
-            }
-        }
 
         private void CreateAndAddPhrase()
         {
             try
             {
                 DateTime date = dateTimePicker1.Value;
-                Phrase phrase = new Phrase() { Comment = textBox1.Text, Date = date};
+                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date};
                 phraseController.AddPhrase(phrase);
-                MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, textBox1.Text));
-                textBox1.Text = WRITE_PHRASE_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
+                MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text));
+                phraseBox.Text = WRITE_PHRASE_MESSAGE;
+                phraseBox.ForeColor = Color.Gray;
             }
             catch (LackOfObligatoryParametersException e)
             {
@@ -87,6 +56,30 @@ namespace UserInterface
             }
         }
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (phraseBox.Text != WRITE_PHRASE_MESSAGE)
+                CreateAndAddPhrase();
+            else
+                MessageBox.Show(PHRASE_NOT_ADDED);
+        }
 
+        private void phraseBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (phraseBox.Text == WRITE_PHRASE_MESSAGE)
+            {
+                phraseBox.Text = "";
+                phraseBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void phraseBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (phraseBox.Text == "")
+            {
+                phraseBox.Text = WRITE_PHRASE_MESSAGE;
+                phraseBox.ForeColor = Color.Gray;
+            }
+        }
     }
 }

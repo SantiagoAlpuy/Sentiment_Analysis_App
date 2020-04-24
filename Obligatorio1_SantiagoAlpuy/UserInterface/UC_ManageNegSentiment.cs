@@ -68,21 +68,16 @@ namespace UserInterface
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (sentimentBox.Text != WRITE_NEGATIVE_WORD_MESSAGE)
-            {
                 CreateAndAddSentiment();
-            }
             else
-            {
                 MessageBox.Show(SENTIMENT_NOT_ADDED);
-            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
-            {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
-            }
+
             LoadDataGridnegativeSentiments();
         }
         
