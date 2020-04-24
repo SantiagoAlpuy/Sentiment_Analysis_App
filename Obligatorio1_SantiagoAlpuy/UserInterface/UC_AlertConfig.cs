@@ -26,6 +26,7 @@ namespace UserInterface
         private const string NEGATIVE_POST_COUNT = "No puedes ingresar cantidad de posts negativos.";
         private const string NEGATIVE_DAY_COUNT = "No puedes ingresar cantidad de posts negativos.";
         private const string NEGATIVE_HOUR_COUNT = "No puedes ingresar cantidad de posts negativos.";
+        private const string MAIN_MESSAGE_CATEGORY = "Seleccione una categoría positiva o negativa";
 
 
         public UC_AlertConfig()
@@ -123,7 +124,7 @@ namespace UserInterface
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text != WRITE_ENTITY_MESSAGE && textBox3.Text != WRITE_POST_COUNT_MESSAGE && textBox4.Text != WRITE_DAY_COUNT_MESSAGE && 
-                textBox5.Text != WRITE_HOUR_COUNT_MESSAGE)
+                textBox5.Text != WRITE_HOUR_COUNT_MESSAGE && comboBox1.Text != MAIN_MESSAGE_CATEGORY)
             {
                 CreateAndAddAlarm();
 
@@ -141,7 +142,7 @@ namespace UserInterface
                 Alert alert = new Alert()
                 {
                     Entity = textBox1.Text,
-                    Category = CategoryType.Positive,
+                    Category = (CategoryType)comboBox1.SelectedItem,
                     Posts = Int32.Parse(textBox3.Text),
                     Days = Int32.Parse(textBox4.Text),
                     Hours = Int32.Parse(textBox5.Text)
@@ -172,6 +173,35 @@ namespace UserInterface
             catch (NegativeHourException e)
             {
                 MessageBox.Show(NEGATIVE_HOUR_COUNT);
+            }
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            comboBox1.ForeColor = Color.Black;
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }
