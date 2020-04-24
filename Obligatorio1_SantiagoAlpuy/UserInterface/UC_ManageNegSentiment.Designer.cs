@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnRemove = new System.Windows.Forms.PictureBox();
             this.btnDelete = new System.Windows.Forms.Panel();
-            this.dataGridPositiveSentiments = new System.Windows.Forms.DataGridView();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnAdd = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.sentimentBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).BeginInit();
             this.btnDelete.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,42 +54,42 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Eliminar";
             // 
-            // pictureBox2
+            // btnRemove
             // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBox2.Image = global::UserInterface.Properties.Resources.icons8_delete_36;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(41, 41);
-            this.pictureBox2.TabIndex = 6;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnRemove.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnRemove.Image = global::UserInterface.Properties.Resources.icons8_delete_36;
+            this.btnRemove.Location = new System.Drawing.Point(3, 0);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(41, 41);
+            this.btnRemove.TabIndex = 6;
+            this.btnRemove.TabStop = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnDelete
             // 
             this.btnDelete.BackColor = System.Drawing.Color.Transparent;
             this.btnDelete.Controls.Add(this.label2);
-            this.btnDelete.Controls.Add(this.pictureBox2);
+            this.btnDelete.Controls.Add(this.btnRemove);
             this.btnDelete.Location = new System.Drawing.Point(325, 353);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(148, 43);
             this.btnDelete.TabIndex = 12;
             // 
-            // dataGridPositiveSentiments
+            // dataGrid
             // 
-            this.dataGridPositiveSentiments.AllowUserToResizeColumns = false;
-            this.dataGridPositiveSentiments.AllowUserToResizeRows = false;
-            this.dataGridPositiveSentiments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridPositiveSentiments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPositiveSentiments.Location = new System.Drawing.Point(44, 125);
-            this.dataGridPositiveSentiments.MultiSelect = false;
-            this.dataGridPositiveSentiments.Name = "dataGridPositiveSentiments";
-            this.dataGridPositiveSentiments.ReadOnly = true;
-            this.dataGridPositiveSentiments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridPositiveSentiments.Size = new System.Drawing.Size(665, 222);
-            this.dataGridPositiveSentiments.TabIndex = 10;
+            this.dataGrid.AllowUserToResizeColumns = false;
+            this.dataGrid.AllowUserToResizeRows = false;
+            this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Location = new System.Drawing.Point(44, 125);
+            this.dataGrid.MultiSelect = false;
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.ReadOnly = true;
+            this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGrid.Size = new System.Drawing.Size(665, 222);
+            this.dataGrid.TabIndex = 10;
             // 
             // label3
             // 
@@ -101,46 +101,46 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Agregar";
             // 
-            // pictureBox1
+            // btnAdd
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::UserInterface.Properties.Resources.icons8_add_36;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(39, 38);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.btnAdd.BackColor = System.Drawing.Color.Transparent;
+            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnAdd.Image = global::UserInterface.Properties.Resources.icons8_add_36;
+            this.btnAdd.Location = new System.Drawing.Point(0, 0);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(39, 38);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.TabStop = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Location = new System.Drawing.Point(577, 53);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
             this.panel1.TabIndex = 13;
             // 
-            // textBox1
+            // sentimentBox
             // 
-            this.textBox1.AccessibleDescription = "";
-            this.textBox1.AccessibleName = "";
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Gray;
-            this.textBox1.Location = new System.Drawing.Point(44, 56);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(526, 35);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "Ingrese palabras o combinaciones negativas";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            this.sentimentBox.AccessibleDescription = "";
+            this.sentimentBox.AccessibleName = "";
+            this.sentimentBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sentimentBox.ForeColor = System.Drawing.Color.Gray;
+            this.sentimentBox.Location = new System.Drawing.Point(44, 56);
+            this.sentimentBox.Multiline = true;
+            this.sentimentBox.Name = "sentimentBox";
+            this.sentimentBox.Size = new System.Drawing.Size(526, 35);
+            this.sentimentBox.TabIndex = 11;
+            this.sentimentBox.Text = "Ingrese palabras o combinaciones negativas";
+            this.sentimentBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.sentimentBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sentimentBox_KeyDown);
+            this.sentimentBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sentimentBox_KeyUp);
             // 
             // label1
             // 
@@ -161,17 +161,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.dataGridPositiveSentiments);
+            this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.sentimentBox);
             this.Controls.Add(this.label1);
             this.Name = "UC_ManageNegSentiment";
             this.Size = new System.Drawing.Size(762, 408);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).EndInit();
             this.btnDelete.ResumeLayout(false);
             this.btnDelete.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -182,13 +182,13 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox btnRemove;
         private System.Windows.Forms.Panel btnDelete;
-        private System.Windows.Forms.DataGridView dataGridPositiveSentiments;
+        private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btnAdd;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox sentimentBox;
         private System.Windows.Forms.Label label1;
     }
 }

@@ -31,58 +31,24 @@ namespace UserInterface
             sentimentController = new SentimentController();
             repository = Repository.Instance;
             LoadDataGridnegativeSentiments();
-            dataGridPositiveSentiments.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
-            dataGridPositiveSentiments.Columns[1].Visible = false;
+            dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
+            dataGrid.Columns[1].Visible = false;
         }
 
         private void LoadDataGridnegativeSentiments()
         {
-            this.dataGridPositiveSentiments.DataSource = repository.negativeSentiments.ToList();
-        }
-
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == "")
-            {
-                textBox1.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
-            }
-
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == WRITE_NEGATIVE_WORD_MESSAGE)
-            {
-                textBox1.Text = "";
-                textBox1.ForeColor = Color.Black;
-            }
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            if (textBox1.Text != WRITE_NEGATIVE_WORD_MESSAGE)
-            {
-                CreateAndAddSentiment();
-
-            }
-            else
-            {
-                MessageBox.Show(SENTIMENT_NOT_ADDED);
-            }
-
-        }
+            this.dataGrid.DataSource = repository.negativeSentiments.ToList();
+        }        
 
         private void CreateAndAddSentiment()
         {
             try
             {
-                Sentiment sentiment = new Sentiment() { Description = textBox1.Text, Category = false };
+                Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
                 sentimentController.AddSentiment(sentiment);
-                MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, textBox1.Text));
-                textBox1.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
+                MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
+                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
+                sentimentBox.ForeColor = Color.Gray;
                 LoadDataGridnegativeSentiments();
             }
             catch (LackOfObligatoryParametersException e)
@@ -99,13 +65,44 @@ namespace UserInterface
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridPositiveSentiments.SelectedRows)
+            if (sentimentBox.Text != WRITE_NEGATIVE_WORD_MESSAGE)
+            {
+                CreateAndAddSentiment();
+            }
+            else
+            {
+                MessageBox.Show(SENTIMENT_NOT_ADDED);
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
             }
             LoadDataGridnegativeSentiments();
+        }
+        
+
+        private void sentimentBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sentimentBox.Text == "")
+            {
+                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
+                sentimentBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void sentimentBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (sentimentBox.Text == WRITE_NEGATIVE_WORD_MESSAGE)
+            {
+                sentimentBox.Text = "";
+                sentimentBox.ForeColor = Color.Black;
+            }
         }
     }
 }

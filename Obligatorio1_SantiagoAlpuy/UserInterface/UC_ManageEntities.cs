@@ -29,56 +29,24 @@ namespace UserInterface
             entityController = new EntityController();
             repository = Repository.Instance;
             LoadDataGridEntities();
-            dataGridPositiveSentiments.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
+            dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
         }
 
         private void LoadDataGridEntities()
         {
-            this.dataGridPositiveSentiments.DataSource = repository.entities.ToList();
+            this.dataGrid.DataSource = repository.entities.ToList();
         }
 
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == "")
-            {
-                textBox1.Text = WRITE_ENTITY_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
-            }
-
-        }
-
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (textBox1.Text == WRITE_ENTITY_MESSAGE)
-            {
-                textBox1.Text = "";
-                textBox1.ForeColor = Color.Black;
-            }
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            if (textBox1.Text != WRITE_ENTITY_MESSAGE)
-            {
-                CreateAndAddEntity();
-
-            }
-            else
-            {
-                MessageBox.Show(ENTITY_NOT_ADDED);
-            }
-        }
 
         private void CreateAndAddEntity()
         {
             try
             {
-                Entity entity = new Entity() { Name = textBox1.Text };
+                Entity entity = new Entity() { Name = entityBox.Text };
                 entityController.AddEntity(entity);
-                MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, textBox1.Text));
-                textBox1.Text = WRITE_ENTITY_MESSAGE;
-                textBox1.ForeColor = Color.Gray;
+                MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
+                entityBox.Text = WRITE_ENTITY_MESSAGE;
+                entityBox.ForeColor = Color.Gray;
                 LoadDataGridEntities();
             }
             catch (LackOfObligatoryParametersException e)
@@ -91,13 +59,45 @@ namespace UserInterface
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        private void btnRemove_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridPositiveSentiments.SelectedRows)
+            foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 entityController.RemoveEntity(row.Cells[0].Value.ToString());
             }
             LoadDataGridEntities();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (entityBox.Text != WRITE_ENTITY_MESSAGE)
+            {
+                CreateAndAddEntity();
+
+            }
+            else
+            {
+                MessageBox.Show(ENTITY_NOT_ADDED);
+            }
+        }
+
+        private void entityBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (entityBox.Text == WRITE_ENTITY_MESSAGE)
+            {
+                entityBox.Text = "";
+                entityBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void entityBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (entityBox.Text == "")
+            {
+                entityBox.Text = WRITE_ENTITY_MESSAGE;
+                entityBox.ForeColor = Color.Gray;
+            }
         }
     }
 }
