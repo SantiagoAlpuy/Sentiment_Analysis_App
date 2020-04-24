@@ -41,7 +41,7 @@ namespace BusinessLogic.Controllers
                 throw new LackOfObligatoryParametersException();
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
                 throw new ContainsNumbersException();
-            else if (sentiment.Category && positiveSentiments.Contains(sentiment))
+            else if (sentiment.Category && positiveSentiments.Find(x => x.Description == sentiment.Description) != null)
                 throw new SentimentAlreadyExistsException();
             else if (!sentiment.Category && negativeSentiments.Contains(sentiment))
                 throw new SentimentAlreadyExistsException();

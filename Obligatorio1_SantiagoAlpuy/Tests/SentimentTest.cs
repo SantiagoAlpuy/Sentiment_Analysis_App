@@ -83,17 +83,10 @@ namespace Tests
             Assert.AreEqual(negativeSentiment2, sentimentController.ObtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(SentimentAlreadyExistsException))]
-        public void RegisterSameAlreadyRegisteredPositiveSentimentObject()
-        {
-            sentimentController.AddSentiment(positiveSentiment1);
-            sentimentController.AddSentiment(positiveSentiment1);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
-        public void RegisterSameAlreadyRegisteredNegativeSentimentObject()
+        public void RegisterAlreadyRegisteredNegativeSentiment()
         {
             sentimentController.AddSentiment(negativeSentiment1);
             sentimentController.AddSentiment(negativeSentiment1);
@@ -101,7 +94,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
-        public void RegisterAlreadyRegisteredPositiveSentimentButDifferentObject()
+        public void RegisterAlreadyRegisteredPositiveSentiment()
         {
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
             positiveSentiment2 = new Sentiment() { Description = "Me gusta", Category = true };
