@@ -23,25 +23,11 @@ namespace UserInterface
         private const string NO_COMMENT_PHRASE = "Por favor, ingrese una frase o comentario.";
         private const string PHRASE_DATE_OLDER_THAN_ONE_YEAR = "No puede ingresar una fecha más vieja que un año atras.";
         private const string PHRASE_DATE_FROM_FUTURE = "No puede ingresar una fecha del futuro.";
-        private const string FIRST_COLUMN_NAME = "Comentario";
-        private const string SECOND_COLUMN_NAME = "Fecha";
-        private const string THIRD_COLUMN_NAME = "Entidad";
-        private const string FOURTH_COLUMN_NAME = "Categoría";
         public UC_ManagePhrases()
         {
             InitializeComponent();
             phraseController = new PhraseController();
             repository = Repository.Instance;
-            LoadDataGridPhrases();
-            dataGridPositiveSentiments.Columns[0].HeaderText = FIRST_COLUMN_NAME;
-            dataGridPositiveSentiments.Columns[1].HeaderText = SECOND_COLUMN_NAME;
-            dataGridPositiveSentiments.Columns[2].HeaderText = THIRD_COLUMN_NAME;
-            dataGridPositiveSentiments.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
-        }
-
-        private void LoadDataGridPhrases()
-        {
-            this.dataGridPositiveSentiments.DataSource = repository.phrases.ToList();
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
@@ -69,7 +55,6 @@ namespace UserInterface
             if (textBox1.Text != WRITE_PHRASE_MESSAGE)
             {
                 CreateAndAddPhrase();
-
             }
             else
             {
@@ -87,7 +72,6 @@ namespace UserInterface
                 MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, textBox1.Text));
                 textBox1.Text = WRITE_PHRASE_MESSAGE;
                 textBox1.ForeColor = Color.Gray;
-                LoadDataGridPhrases();
             }
             catch (LackOfObligatoryParametersException e)
             {

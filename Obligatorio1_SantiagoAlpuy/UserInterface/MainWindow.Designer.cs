@@ -157,7 +157,7 @@
             this.btnAlertReport.Name = "btnAlertReport";
             this.btnAlertReport.Size = new System.Drawing.Size(205, 52);
             this.btnAlertReport.TabIndex = 6;
-            this.btnAlertReport.Text = "Reporte de Alarmas";
+            this.btnAlertReport.Text = "Reporte de Alarmas Activas";
             this.btnAlertReport.UseVisualStyleBackColor = false;
             this.btnAlertReport.Click += new System.EventHandler(this.btnAlertReport_Click);
             // 

@@ -33,11 +33,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridPositiveSentiments = new System.Windows.Forms.DataGridView();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -104,20 +102,6 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Agregar";
             // 
-            // dataGridPositiveSentiments
-            // 
-            this.dataGridPositiveSentiments.AllowUserToResizeColumns = false;
-            this.dataGridPositiveSentiments.AllowUserToResizeRows = false;
-            this.dataGridPositiveSentiments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridPositiveSentiments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPositiveSentiments.Location = new System.Drawing.Point(44, 137);
-            this.dataGridPositiveSentiments.MultiSelect = false;
-            this.dataGridPositiveSentiments.Name = "dataGridPositiveSentiments";
-            this.dataGridPositiveSentiments.ReadOnly = true;
-            this.dataGridPositiveSentiments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridPositiveSentiments.Size = new System.Drawing.Size(665, 210);
-            this.dataGridPositiveSentiments.TabIndex = 20;
-            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
@@ -136,13 +120,11 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridPositiveSentiments);
             this.Name = "UC_ManagePhrases";
             this.Size = new System.Drawing.Size(762, 408);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,7 +137,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridPositiveSentiments;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

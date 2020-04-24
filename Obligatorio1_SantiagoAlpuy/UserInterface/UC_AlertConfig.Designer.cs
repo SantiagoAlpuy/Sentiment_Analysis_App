@@ -28,36 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.entityBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnAdd = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridPositiveSentiments = new System.Windows.Forms.DataGridView();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.postBox = new System.Windows.Forms.TextBox();
+            this.daysBox = new System.Windows.Forms.TextBox();
+            this.hoursBox = new System.Windows.Forms.TextBox();
+            this.categoryComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // entityBox
             // 
-            this.textBox1.AccessibleDescription = "";
-            this.textBox1.AccessibleName = "";
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Gray;
-            this.textBox1.Location = new System.Drawing.Point(44, 56);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(526, 35);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.Text = "Ingrese el nombre de una entidad";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            this.entityBox.AccessibleDescription = "";
+            this.entityBox.AccessibleName = "";
+            this.entityBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.entityBox.ForeColor = System.Drawing.Color.Gray;
+            this.entityBox.Location = new System.Drawing.Point(44, 56);
+            this.entityBox.Multiline = true;
+            this.entityBox.Name = "entityBox";
+            this.entityBox.Size = new System.Drawing.Size(526, 35);
+            this.entityBox.TabIndex = 10;
+            this.entityBox.Text = "Ingrese el nombre de una entidad";
+            this.entityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.entityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyDown);
+            this.entityBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyUp);
             // 
             // label1
             // 
@@ -82,129 +83,143 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Agregar";
             // 
-            // pictureBox1
+            // btnAdd
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::UserInterface.Properties.Resources.icons8_add_36;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(39, 38);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.btnAdd.BackColor = System.Drawing.Color.Transparent;
+            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnAdd.Image = global::UserInterface.Properties.Resources.icons8_add_36;
+            this.btnAdd.Location = new System.Drawing.Point(0, 0);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(39, 38);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.TabStop = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Location = new System.Drawing.Point(590, 135);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
             this.panel1.TabIndex = 13;
             // 
-            // dataGridPositiveSentiments
+            // dataGrid
             // 
-            this.dataGridPositiveSentiments.AllowUserToResizeColumns = false;
-            this.dataGridPositiveSentiments.AllowUserToResizeRows = false;
-            this.dataGridPositiveSentiments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridPositiveSentiments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridPositiveSentiments.Location = new System.Drawing.Point(44, 272);
-            this.dataGridPositiveSentiments.MultiSelect = false;
-            this.dataGridPositiveSentiments.Name = "dataGridPositiveSentiments";
-            this.dataGridPositiveSentiments.ReadOnly = true;
-            this.dataGridPositiveSentiments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridPositiveSentiments.Size = new System.Drawing.Size(665, 118);
-            this.dataGridPositiveSentiments.TabIndex = 11;
+            this.dataGrid.AllowUserToResizeColumns = false;
+            this.dataGrid.AllowUserToResizeRows = false;
+            this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Location = new System.Drawing.Point(44, 290);
+            this.dataGrid.MultiSelect = false;
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.ReadOnly = true;
+            this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGrid.Size = new System.Drawing.Size(665, 100);
+            this.dataGrid.TabIndex = 11;
             // 
-            // textBox3
+            // postBox
             // 
-            this.textBox3.AccessibleDescription = "";
-            this.textBox3.AccessibleName = "";
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Gray;
-            this.textBox3.Location = new System.Drawing.Point(44, 128);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(526, 35);
-            this.textBox3.TabIndex = 15;
-            this.textBox3.Text = "Ingrese la cantidad de posts para activar la alarma";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
-            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
-            this.textBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyUp);
+            this.postBox.AccessibleDescription = "";
+            this.postBox.AccessibleName = "";
+            this.postBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.postBox.ForeColor = System.Drawing.Color.Gray;
+            this.postBox.Location = new System.Drawing.Point(44, 128);
+            this.postBox.Multiline = true;
+            this.postBox.Name = "postBox";
+            this.postBox.Size = new System.Drawing.Size(526, 35);
+            this.postBox.TabIndex = 15;
+            this.postBox.Text = "Ingrese la cantidad de posts para activar la alarma";
+            this.postBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.postBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.postBox_KeyDown);
+            this.postBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.postBox_KeyPress);
+            this.postBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.postBox_KeyUp);
             // 
-            // textBox4
+            // daysBox
             // 
-            this.textBox4.AccessibleDescription = "";
-            this.textBox4.AccessibleName = "";
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.Gray;
-            this.textBox4.Location = new System.Drawing.Point(44, 169);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(526, 35);
-            this.textBox4.TabIndex = 16;
-            this.textBox4.Text = "Ingrese el rango de días para activar la alarma";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox4_KeyDown);
-            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
-            this.textBox4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox4_KeyUp);
+            this.daysBox.AccessibleDescription = "";
+            this.daysBox.AccessibleName = "";
+            this.daysBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.daysBox.ForeColor = System.Drawing.Color.Gray;
+            this.daysBox.Location = new System.Drawing.Point(44, 169);
+            this.daysBox.Multiline = true;
+            this.daysBox.Name = "daysBox";
+            this.daysBox.Size = new System.Drawing.Size(526, 35);
+            this.daysBox.TabIndex = 16;
+            this.daysBox.Text = "Ingrese el rango de días para activar la alarma";
+            this.daysBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.daysBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.daysBox_KeyDown);
+            this.daysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.daysBox_KeyPress);
+            this.daysBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.daysBox_KeyUp);
             // 
-            // textBox5
+            // hoursBox
             // 
-            this.textBox5.AccessibleDescription = "";
-            this.textBox5.AccessibleName = "";
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.Gray;
-            this.textBox5.Location = new System.Drawing.Point(44, 210);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(526, 35);
-            this.textBox5.TabIndex = 17;
-            this.textBox5.Text = "Ingrese el rango de horas para activar la alarma";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox5_KeyDown);
-            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
-            this.textBox5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox5_KeyUp);
+            this.hoursBox.AccessibleDescription = "";
+            this.hoursBox.AccessibleName = "";
+            this.hoursBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hoursBox.ForeColor = System.Drawing.Color.Gray;
+            this.hoursBox.Location = new System.Drawing.Point(44, 210);
+            this.hoursBox.Multiline = true;
+            this.hoursBox.Name = "hoursBox";
+            this.hoursBox.Size = new System.Drawing.Size(526, 35);
+            this.hoursBox.TabIndex = 17;
+            this.hoursBox.Text = "Ingrese el rango de horas para activar la alarma";
+            this.hoursBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.hoursBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.hoursBox_KeyDown);
+            this.hoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.hoursBox_KeyPress);
+            this.hoursBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.hoursBox_KeyUp);
             // 
-            // comboBox1
+            // categoryComboBox
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.categoryComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.ForeColor = System.Drawing.Color.Gray;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(44, 98);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(526, 24);
-            this.comboBox1.TabIndex = 18;
-            this.comboBox1.Text = "Seleccione una categoría positiva o negativa";
-            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
+            this.categoryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.categoryComboBox.ForeColor = System.Drawing.Color.Gray;
+            this.categoryComboBox.FormattingEnabled = true;
+            this.categoryComboBox.Location = new System.Drawing.Point(44, 98);
+            this.categoryComboBox.Name = "categoryComboBox";
+            this.categoryComboBox.Size = new System.Drawing.Size(526, 24);
+            this.categoryComboBox.TabIndex = 18;
+            this.categoryComboBox.Text = "Seleccione una categoría positiva o negativa";
+            this.categoryComboBox.SelectedValueChanged += new System.EventHandler(this.categoryComboBox_SelectedValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(300, 271);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(139, 16);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Todas las Alarmas";
             // 
             // UC_AlertConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.categoryComboBox);
+            this.Controls.Add(this.hoursBox);
+            this.Controls.Add(this.daysBox);
+            this.Controls.Add(this.postBox);
+            this.Controls.Add(this.entityBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridPositiveSentiments);
+            this.Controls.Add(this.dataGrid);
             this.Name = "UC_AlertConfig";
             this.Size = new System.Drawing.Size(762, 408);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridPositiveSentiments)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,15 +227,16 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox entityBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btnAdd;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridPositiveSentiments;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridView dataGrid;
+        private System.Windows.Forms.TextBox postBox;
+        private System.Windows.Forms.TextBox daysBox;
+        private System.Windows.Forms.TextBox hoursBox;
+        private System.Windows.Forms.ComboBox categoryComboBox;
+        private System.Windows.Forms.Label label2;
     }
 }
