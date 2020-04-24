@@ -9,7 +9,7 @@ namespace BusinessLogic.Controllers
     public class EntityController
     {
         Repository repository = Repository.Instance;
-        private List<Entity> entities;
+        public List<Entity> entities;
 
         public EntityController()
         {

@@ -8,8 +8,8 @@ namespace BusinessLogic.Controllers
     public class SentimentController
     {
         Repository repository = Repository.Instance;
-        private List<Sentiment> positiveSentiments;
-        private List<Sentiment> negativeSentiments;
+        public List<Sentiment> positiveSentiments;
+        public List<Sentiment> negativeSentiments;
 
         public SentimentController()
         {
