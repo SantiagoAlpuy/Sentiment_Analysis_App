@@ -167,7 +167,7 @@ namespace Tests
         public void ActivateAlertOfPhrasesWithEntityWithSameNameButBlankSpacesInEdges()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            entity2 = new Entity() { Name = "  pepsi  " };
+            entity2 = new Entity() { Name = "  pepsi   " };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1) };
             alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
