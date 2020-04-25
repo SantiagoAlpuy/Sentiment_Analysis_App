@@ -186,13 +186,16 @@ namespace Tests
             entity1 = new Entity() { Name = "pepsi" };
             alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
             phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1) };
+            positive1 = new Sentiment() { Description = "Me encanta", Category = true };
+            sentimentController.AddSentiment(positive1);
+            alertController.AddAlert(alert);
             phraseController.AddPhraseToRepository(phrase1);
-            phraseController.AnalyzePhrase(phrase1);
+            entityController.AddEntity(entity1);
             alertController.CheckAlertActivation();
-            Assert.IsTrue(alert.Category.Equals(CategoryType.Positive));
+            Assert.IsTrue(alert.Activated);
             entityController.RemoveEntity(entity1.Name);
             alertController.CheckAlertActivation();
-            Assert.IsFalse(alert.Category.Equals(CategoryType.Positive));
+            Assert.IsFalse(alert.Activated);
         }
     }
 }

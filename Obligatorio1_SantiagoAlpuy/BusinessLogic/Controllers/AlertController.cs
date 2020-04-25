@@ -47,11 +47,13 @@ namespace BusinessLogic.Controllers
         {
             DateTime lowerLimitAlert = new DateTime();
             int count;
+            PhraseController phraseController = new PhraseController();
             foreach (Alert alert in alerts)
             {
                 count = 0;
                 foreach (Phrase phrase in phrases)
                 {
+                    phraseController.AnalyzePhrase(phrase);
                     if (validateEntitiesAndCategories(phrase,alert))
                     {
                         lowerLimitAlert = calculateLowerLimitAlert(alert);
@@ -95,9 +97,9 @@ namespace BusinessLogic.Controllers
         private void ActivateAlarm(Alert alert, int count)
         {
             if (alert.Posts == count)
-            {
                 alert.Activated = true;
-            }
+            else
+                alert.Activated = false;
         }
     }
 }
