@@ -63,9 +63,19 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(EntityAlreadyExistsException))]
-        public void RegisterEntityWithDescriptionWithBlankSpacesInBetween()
+        public void RegisterExistantEntityWithDescriptionWithBlankSpacesInBetween()
         {
-            Entity entity1 = new Entity() { Name = "  pepsi  " };
+            Entity entity1 = new Entity() { Name = "pepsi" };
+            Entity entity2 = new Entity() { Name = "  pepsi  " };
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EntityAlreadyExistsException))]
+        public void RegisterAlreadyRegisteredEntityWithDifferentMayusMinusFormat()
+        {
+            Entity entity1 = new Entity() { Name = "PepSI" };
             Entity entity2 = new Entity() { Name = "pepsi" };
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
