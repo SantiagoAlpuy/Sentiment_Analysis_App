@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_ManagePhrases : UserControl
     {
-        PhraseController phraseController;
-        AlertController alertController;
+        IPhraseController phraseController;
+        IAlertController alertController;
         Repository repository;
         FlowLayoutPanel mainPanel;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";

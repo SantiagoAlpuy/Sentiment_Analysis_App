@@ -3,10 +3,11 @@ using System;
 using System.Linq;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
 {
-    public class EntityController
+    public class EntityController : IEntityController
     {
         Repository repository = Repository.Instance;
         private List<Entity> entities;

@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BusinessLogic.Controllers;
 using BusinessLogic;
+using BusinessLogic.Controllers;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_ManagePosSentiment : UserControl
     {
-        SentimentController sentimentController;
-        PhraseController phraseController;
-        AlertController alertController;
+        ISentimentController sentimentController;
+        IPhraseController phraseController;
+        IAlertController alertController;
         Repository repository;
         private const string WRITE_POSITIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones positivas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";

@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_AlertConfig : UserControl
     {
         Repository repository;
-        AlertController alertController;
+        IAlertController alertController;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese el nombre de una entidad";
         private const string WRITE_POST_COUNT_MESSAGE = "Ingrese la cantidad de posts para activar la alarma";
         private const string WRITE_DAY_COUNT_MESSAGE = "Ingrese el rango de días para activar la alarma";

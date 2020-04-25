@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.Exceptions;
-using BusinessLogic;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_ManageNegSentiment : UserControl
     {
-        SentimentController sentimentController;
-        PhraseController phraseController;
-        AlertController alertController;
+        ISentimentController sentimentController;
+        IPhraseController phraseController;
+        IAlertController alertController;
         Repository repository;
         private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";

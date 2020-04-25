@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BusinessLogic.Controllers;
 using BusinessLogic;
+using BusinessLogic.Controllers;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_ManageEntities : UserControl
     {
-        EntityController entityController;
-        AlertController alertController;
-        PhraseController phraseController;
+        IEntityController entityController;
+        IAlertController alertController;
+        IPhraseController phraseController;
         Repository repository;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
         private const string ENTITY_NOT_ADDED = "Por favor ingrese una entidad valida.";

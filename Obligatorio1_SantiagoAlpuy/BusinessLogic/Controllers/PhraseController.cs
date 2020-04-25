@@ -3,10 +3,11 @@ using System;
 using System.Linq;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
 {
-    public class PhraseController
+    public class PhraseController : IPhraseController
     {
         Repository repository = Repository.Instance;
         AlertController alertController = new AlertController();

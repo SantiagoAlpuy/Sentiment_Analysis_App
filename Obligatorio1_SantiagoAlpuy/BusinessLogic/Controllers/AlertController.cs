@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
+using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
 {
-    public class AlertController
+    public class AlertController : IAlertController
     {
         Repository repository = Repository.Instance;
         private List<Alert> alerts;
