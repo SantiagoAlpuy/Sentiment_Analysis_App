@@ -10,7 +10,7 @@ namespace BusinessLogic.IControllers
 
         Phrase ObtainPhrase(string comment, DateTime date);
 
-        void AnalyzePhrase(Phrase phrase)
+        void AnalyzePhrase(Phrase phrase);
 
         void AnalyzeAllPhrases();
 
