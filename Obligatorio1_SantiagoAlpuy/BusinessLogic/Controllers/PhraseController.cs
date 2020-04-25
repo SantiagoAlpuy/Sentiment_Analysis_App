@@ -42,7 +42,7 @@ namespace BusinessLogic.Controllers
                 throw new NullPhraseException();
             else if (phrase.Comment == null)
                 throw new NullAttributeInObjectException();
-            else if (phrase.Comment == "")
+            else if (phrase.Comment.Trim() == "")
                 throw new LackOfObligatoryParametersException();
             else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
                 throw new DateOlderThanOneYearException();
