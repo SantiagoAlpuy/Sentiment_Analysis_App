@@ -22,7 +22,7 @@ namespace UserInterface
         FlowLayoutPanel mainPanel;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
         private const string PHRASE_NOT_ADDED = "Ingrese una frase válida.";
-        private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
+        private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente. ¿Quiere ver las alarmas activas?";
         private const string NO_COMMENT_PHRASE = "Por favor, ingrese una frase o comentario.";
         private const string PHRASE_DATE_OLDER_THAN_ONE_YEAR = "No puede ingresar una fecha más vieja que un año atras.";
         private const string PHRASE_DATE_FROM_FUTURE = "No puede ingresar una fecha del futuro.";
@@ -60,9 +60,7 @@ namespace UserInterface
                 phraseController.AddPhraseToRepository(phrase);
                 phraseController.AnalyzePhrase(phrase);
                 alertController.CheckAlertActivation();
-                MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text));
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(new UC_AlertReport());
+                ShowMessageAndGoToAlerts();
                 phraseBox.Text = WRITE_PHRASE_MESSAGE;
                 phraseBox.ForeColor = Color.Gray;
             }
@@ -77,6 +75,16 @@ namespace UserInterface
             catch (DateFromFutureException e)
             {
                 MessageBox.Show(PHRASE_DATE_FROM_FUTURE);
+            }
+        }
+
+        private void ShowMessageAndGoToAlerts()
+        {
+            DialogResult messageWindow = MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text), "", MessageBoxButtons.YesNo);
+            if (messageWindow == DialogResult.Yes)
+            {
+                mainPanel.Controls.Clear();
+                mainPanel.Controls.Add(new UC_AlertReport());
             }
         }
 

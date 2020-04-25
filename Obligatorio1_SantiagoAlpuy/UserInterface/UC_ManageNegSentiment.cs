@@ -27,6 +27,7 @@ namespace UserInterface
         private const string NO_DESCRIPTION_SENTIMENT = "No agrego una descripción.";
         private const string SENTIMENT_HAS_NUMBERS = "No se supone que un sentimiento tenga numeros.";
         private const string SENTIMENT_ALREADY_ADDED = "Ese sentimiento ya fue añadido!";
+        private const string SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST = "Ese sentimiento ya ha sido agregado como positivo.";
 
         public UC_ManageNegSentiment()
         {
@@ -77,6 +78,10 @@ namespace UserInterface
             catch (SentimentAlreadyExistsException e)
             {
                 MessageBox.Show(SENTIMENT_ALREADY_ADDED);
+            }
+            catch (SentimentRegisteredWithOppositeCategoryException)
+            {
+                MessageBox.Show(SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST);
             }
         }
 
