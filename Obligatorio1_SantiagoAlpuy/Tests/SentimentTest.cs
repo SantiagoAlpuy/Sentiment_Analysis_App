@@ -64,6 +64,16 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(SentimentRegisteredWithOppositeCategoryException))]
+        public void RegisterNegativeSentimentThatWasAlreadyRegisteredAsPositive()
+        {
+            negativeSentiment1 = new Sentiment() { Description = "Lo Odio", Category = false };
+            positiveSentiment1 = new Sentiment() { Description = "Lo Odio", Category = true };
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(negativeSentiment1);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
