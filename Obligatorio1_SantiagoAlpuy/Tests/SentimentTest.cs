@@ -23,40 +23,6 @@ namespace Tests
         {
             repository = Repository.Instance;
             sentimentController = new SentimentController();
-
-            positiveSentiment1 = new Sentiment()
-            {
-                Description = "Me gusta",
-                Category = true,
-            };
-            positiveSentiment2 = new Sentiment()
-            {
-                Description = "Me encanta",
-                Category = true,
-            };
-
-            negativeSentiment1 = new Sentiment()
-            {
-                Description = "Lo odio",
-                Category = false,
-            };
-            negativeSentiment2 = new Sentiment()
-            {
-                Description = "Me enfurece",
-                Category = false,
-            };
-
-            noDescriptionSentiment = new Sentiment()
-            {
-                Description = "",
-            };
-
-            containsNumberSentiment = new Sentiment()
-            {
-                Description = "1337",
-            };
-
-            nullDescriptionSentiment = new Sentiment();
         }
 
         [TestCleanup]
@@ -68,6 +34,8 @@ namespace Tests
         [TestMethod]
         public void RegisterPositiveSentiments()
         {
+            positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
+            positiveSentiment2 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positiveSentiment1);
             sentimentController.AddSentiment(positiveSentiment2);
             Assert.AreEqual(positiveSentiment1, sentimentController.ObtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category));
@@ -77,6 +45,8 @@ namespace Tests
         [TestMethod]
         public void RegisterNegativeSentiments()
         {
+            negativeSentiment1 = new Sentiment() { Description = "Lo odio", Category = false };
+            negativeSentiment2 = new Sentiment() { Description = "Me enfurece", Category = false };
             sentimentController.AddSentiment(negativeSentiment1);
             sentimentController.AddSentiment(negativeSentiment2);
             Assert.AreEqual(negativeSentiment1, sentimentController.ObtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category));
@@ -129,6 +99,7 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
+            positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
             sentimentController.AddSentiment(positiveSentiment1);
             sentimentController.RemoveSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
             Sentiment sent = sentimentController.ObtainSentiment(positiveSentiment1.Description, positiveSentiment1.Category);
@@ -145,6 +116,7 @@ namespace Tests
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
+            negativeSentiment1 = new Sentiment() { Description = "Lo odio", Category = false };
             sentimentController.AddSentiment(negativeSentiment1);
             sentimentController.RemoveSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
             Sentiment sent = sentimentController.ObtainSentiment(negativeSentiment1.Description, negativeSentiment1.Category);
@@ -161,6 +133,7 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterSentimentWithEmptyDescription()
         {
+            noDescriptionSentiment = new Sentiment() { Description = "" };
             sentimentController.AddSentiment(noDescriptionSentiment);
         }
 
@@ -168,6 +141,7 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterSentimentWithManyBlankSpace()
         {
+
             Sentiment blankSpacedSentiment = new Sentiment() { Description = "  ", Category = true};
             sentimentController.AddSentiment(blankSpacedSentiment);
         }
@@ -183,6 +157,7 @@ namespace Tests
         [ExpectedException(typeof(ContainsNumbersException))]
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
+            containsNumberSentiment = new Sentiment() { Description = "1337" };
             sentimentController.AddSentiment(containsNumberSentiment);
         }
 
@@ -190,6 +165,7 @@ namespace Tests
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterSentimentWithNullDescription()
         {
+            nullDescriptionSentiment = new Sentiment();
             sentimentController.AddSentiment(nullDescriptionSentiment);
         }
 

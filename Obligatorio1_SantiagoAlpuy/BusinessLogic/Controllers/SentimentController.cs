@@ -41,15 +41,15 @@ namespace BusinessLogic.Controllers
                 throw new LackOfObligatoryParametersException();
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
                 throw new ContainsNumbersException();
-            else if (sentiment.Category && FindSentiment(positiveSentiments, sentiment))
+            else if (sentiment.Category && isSentimentInRepo(positiveSentiments, sentiment))
                 throw new SentimentAlreadyExistsException();
-            else if (!sentiment.Category && FindSentiment(negativeSentiments, sentiment))
+            else if (!sentiment.Category && isSentimentInRepo(negativeSentiments, sentiment))
                 throw new SentimentAlreadyExistsException();
         }
 
-        private bool FindSentiment(List<Sentiment> sentiments, Sentiment sentiment)
+        private bool isSentimentInRepo(List<Sentiment> sentiments, Sentiment sentiment)
         {
-            return sentiments.Find(x => x.Description.Trim() == sentiment.Description.Trim()) != null;
+            return sentiments.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()) != null;
         }
 
         public Sentiment ObtainSentiment(string description, bool category)
