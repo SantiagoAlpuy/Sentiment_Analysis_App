@@ -28,7 +28,7 @@ namespace BusinessLogic.Controllers
                 throw new NullEntityException();
             else if (entity.Name == null)
                 throw new NullAttributeInObjectException();
-            else if (entity.Name == "")
+            else if (entity.Name.Trim() == "")
                 throw new LackOfObligatoryParametersException();
             else if (entities.Contains(entity))
                 throw new EntityAlreadyExistsException();
