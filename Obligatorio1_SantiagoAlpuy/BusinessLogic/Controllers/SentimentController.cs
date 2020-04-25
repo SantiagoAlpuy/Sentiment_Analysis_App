@@ -37,7 +37,7 @@ namespace BusinessLogic.Controllers
                 throw new NullSentimentException();
             else if (sentiment.Description == null)
                 throw new NullAttributeInObjectException();
-            else if (sentiment.Description == "")
+            else if (sentiment.Description.Trim() == "")
                 throw new LackOfObligatoryParametersException();
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
                 throw new ContainsNumbersException();

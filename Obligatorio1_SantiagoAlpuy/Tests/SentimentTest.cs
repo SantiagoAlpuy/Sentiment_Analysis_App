@@ -146,7 +146,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
-        public void RegisterPositiveSentimentWithManyBlankSpace()
+        public void RegisterSentimentWithManyBlankSpace()
         {
             Sentiment blankSpacedSentiment = new Sentiment() { Description = "  ", Category = true};
             sentimentController.AddSentiment(blankSpacedSentiment);
