@@ -100,8 +100,14 @@ namespace BusinessLogic.Controllers
             {
                 phrase.Entity = "";
             }
+        }
 
-
+        public void AnalyzeAllPhrases()
+        {
+            foreach(Phrase phrase in phrases)
+            {
+                AnalyzePhrase(phrase);
+            }
         }
 
         private Entity FindEntityInPhrase(Phrase phrase)

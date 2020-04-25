@@ -191,10 +191,14 @@ namespace Tests
             alertController.AddAlert(alert);
             phraseController.AddPhraseToRepository(phrase1);
             entityController.AddEntity(entity1);
+            phraseController.AnalyzePhrase(phrase1);
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert.Activated);
             entityController.RemoveEntity(entity1.Name);
+
+            phraseController.AnalyzeAllPhrases();
             alertController.CheckAlertActivation();
+
             Assert.IsFalse(alert.Activated);
         }
     }
