@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManagePhrases : UserControl
     {
         PhraseController phraseController;
+        AlertController alertController;
         Repository repository;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
         private const string PHRASE_NOT_ADDED = "Ingrese una frase válida.";
@@ -27,6 +28,7 @@ namespace UserInterface
         {
             InitializeComponent();
             phraseController = new PhraseController();
+            alertController = new AlertController();
             repository = Repository.Instance;
         }
 
@@ -37,7 +39,9 @@ namespace UserInterface
             {
                 DateTime date = dateTimePicker1.Value;
                 Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date};
-                phraseController.AddPhrase(phrase);
+                phraseController.AddPhraseToRepository(phrase);
+                phraseController.AnalyzePhrase(phrase);
+                alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text));
                 phraseBox.Text = WRITE_PHRASE_MESSAGE;
                 phraseBox.ForeColor = Color.Gray;

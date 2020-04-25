@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManageEntities : UserControl
     {
         EntityController entityController;
+        AlertController alertController;
         Repository repository;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
         private const string ENTITY_NOT_ADDED = "Por favor ingrese una entidad valida.";
@@ -27,6 +28,7 @@ namespace UserInterface
         {
             InitializeComponent();
             entityController = new EntityController();
+            alertController = new AlertController();
             repository = Repository.Instance;
             LoadDataGridEntities();
             dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
@@ -40,8 +42,10 @@ namespace UserInterface
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
+            {
                 entityController.RemoveEntity(row.Cells[0].Value.ToString());
-
+                alertController.CheckAlertActivation();
+            }
             LoadDataGridEntities();
         }
 
@@ -59,6 +63,7 @@ namespace UserInterface
             {
                 Entity entity = new Entity() { Name = entityBox.Text };
                 entityController.AddEntity(entity);
+                alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
                 entityBox.Text = WRITE_ENTITY_MESSAGE;
                 entityBox.ForeColor = Color.Gray;

@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManagePosSentiment : UserControl
     {
         SentimentController sentimentController;
+        AlertController alertController;
         Repository repository;
         private const string WRITE_POSITIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones positivas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
@@ -28,6 +29,7 @@ namespace UserInterface
         {
             InitializeComponent();
             sentimentController = new SentimentController();
+            alertController = new AlertController();
             repository = Repository.Instance;
             LoadDataGridPositiveSentiments();
             dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
@@ -60,7 +62,10 @@ namespace UserInterface
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
+            {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
+                alertController.CheckAlertActivation();
+            }
 
             LoadDataGridPositiveSentiments();
         }
@@ -79,6 +84,7 @@ namespace UserInterface
             {
                 Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
                 sentimentController.AddSentiment(sentiment);
+                alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
                 sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
                 sentimentBox.ForeColor = Color.Gray;

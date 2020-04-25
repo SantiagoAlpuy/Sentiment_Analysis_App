@@ -179,5 +179,20 @@ namespace Tests
             alertController.CheckAlertActivation();
             Assert.IsTrue(alert.Activated);
         }
+
+        [TestMethod]
+        public void ActivateAlertAndThenTurnItOff()
+        {
+            entity1 = new Entity() { Name = "pepsi" };
+            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
+            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1) };
+            phraseController.AddPhraseToRepository(phrase1);
+            phraseController.AnalyzePhrase(phrase1);
+            alertController.CheckAlertActivation();
+            Assert.IsTrue(alert.Category.Equals(CategoryType.Positive));
+            entityController.RemoveEntity(entity1.Name);
+            alertController.CheckAlertActivation();
+            Assert.IsFalse(alert.Category.Equals(CategoryType.Positive));
+        }
     }
 }

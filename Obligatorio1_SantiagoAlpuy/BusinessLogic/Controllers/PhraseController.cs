@@ -23,13 +23,6 @@ namespace BusinessLogic.Controllers
             entities = repository.entities;
         }
 
-        public void AddPhrase(Phrase phrase)
-        {
-            AddPhraseToRepository(phrase);
-            AnalyzePhrase(phrase);
-            alertController.CheckAlertActivation();
-        }
-
         public void AddPhraseToRepository(Phrase phrase)
         {
             ValidatePhrase(phrase);

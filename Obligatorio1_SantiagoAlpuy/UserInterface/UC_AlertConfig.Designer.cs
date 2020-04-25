@@ -177,6 +177,7 @@
             // 
             this.categoryComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.categoryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryComboBox.ForeColor = System.Drawing.Color.Gray;
             this.categoryComboBox.FormattingEnabled = true;
@@ -184,7 +185,6 @@
             this.categoryComboBox.Name = "categoryComboBox";
             this.categoryComboBox.Size = new System.Drawing.Size(526, 24);
             this.categoryComboBox.TabIndex = 18;
-            this.categoryComboBox.Text = "Seleccione una categoría positiva o negativa";
             this.categoryComboBox.SelectedValueChanged += new System.EventHandler(this.categoryComboBox_SelectedValueChanged);
             // 
             // label2
