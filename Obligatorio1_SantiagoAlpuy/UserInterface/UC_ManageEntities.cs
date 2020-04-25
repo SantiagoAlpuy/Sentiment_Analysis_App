@@ -17,6 +17,7 @@ namespace UserInterface
     {
         EntityController entityController;
         AlertController alertController;
+        PhraseController phraseController;
         Repository repository;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
         private const string ENTITY_NOT_ADDED = "Por favor ingrese una entidad valida.";
@@ -29,6 +30,7 @@ namespace UserInterface
             InitializeComponent();
             entityController = new EntityController();
             alertController = new AlertController();
+            phraseController = new PhraseController();
             repository = Repository.Instance;
             LoadDataGridEntities();
             dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
@@ -44,6 +46,7 @@ namespace UserInterface
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 entityController.RemoveEntity(row.Cells[0].Value.ToString());
+                phraseController.AnalyzeAllPhrases();
                 alertController.CheckAlertActivation();
             }
             LoadDataGridEntities();
@@ -63,6 +66,7 @@ namespace UserInterface
             {
                 Entity entity = new Entity() { Name = entityBox.Text };
                 entityController.AddEntity(entity);
+                phraseController.AnalyzeAllPhrases();
                 alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
                 entityBox.Text = WRITE_ENTITY_MESSAGE;

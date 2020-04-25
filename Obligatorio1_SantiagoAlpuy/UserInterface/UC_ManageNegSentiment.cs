@@ -16,6 +16,7 @@ namespace UserInterface
     public partial class UC_ManageNegSentiment : UserControl
     {
         SentimentController sentimentController;
+        PhraseController phraseController;
         AlertController alertController;
         Repository repository;
         private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
@@ -30,6 +31,7 @@ namespace UserInterface
         {
             InitializeComponent();
             sentimentController = new SentimentController();
+            phraseController = new PhraseController();
             alertController = new AlertController();
             repository = Repository.Instance;
             LoadDataGridnegativeSentiments();
@@ -56,6 +58,7 @@ namespace UserInterface
             {
                 Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
                 sentimentController.AddSentiment(sentiment);
+                phraseController.AnalyzeAllPhrases();
                 alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
                 sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
@@ -81,6 +84,7 @@ namespace UserInterface
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
+                phraseController.AnalyzeAllPhrases();
                 alertController.CheckAlertActivation();
             }
 
