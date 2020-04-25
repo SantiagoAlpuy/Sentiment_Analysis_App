@@ -46,6 +46,7 @@ namespace UserInterface
                     categoryComboBox.Items.Add(item);
             }
             LoadDataGridAlerts();
+            categoryComboBox.SelectedIndex = 0;
             dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
@@ -75,7 +76,7 @@ namespace UserInterface
         private bool ValidateIfAllFieldsAreNotEmpty()
         {
             return (entityBox.Text != WRITE_ENTITY_MESSAGE && postBox.Text != WRITE_POST_COUNT_MESSAGE && daysBox.Text != WRITE_DAY_COUNT_MESSAGE &&
-                hoursBox.Text != WRITE_HOUR_COUNT_MESSAGE && categoryComboBox.Text != MAIN_MESSAGE_CATEGORY);
+                hoursBox.Text != WRITE_HOUR_COUNT_MESSAGE && categoryComboBox.SelectedItem.ToString() != MAIN_MESSAGE_CATEGORY );
         }
         private void CreateAndAddAlarm()
         {
@@ -134,7 +135,10 @@ namespace UserInterface
         
         private void categoryComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            categoryComboBox.ForeColor = Color.Black;
+            if (categoryComboBox.SelectedIndex == 0)
+                categoryComboBox.ForeColor = Color.Gray;
+            else
+                categoryComboBox.ForeColor = Color.Black;
         }
         
         private void postBox_KeyDown(object sender, KeyEventArgs e)
