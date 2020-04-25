@@ -60,8 +60,8 @@ namespace BusinessLogic.Controllers
             bool hasPositive;
             bool hasNegative;
             AnalyzeEntityFromPhrase(phrase);
-            hasPositive = FindSentiment(phrase, positiveSentiments);
-            hasNegative = FindSentiment(phrase, negativeSentiments);
+            hasPositive = IsSentimentOnRepo(phrase, positiveSentiments);
+            hasNegative = IsSentimentOnRepo(phrase, negativeSentiments);
             SetPhraseCategory(phrase, hasPositive, hasNegative);
         }
 
@@ -77,12 +77,12 @@ namespace BusinessLogic.Controllers
                 phrase.Category = CategoryType.Negative;
         }
 
-        private bool FindSentiment(Phrase phrase, List<Sentiment> sentiments)
+        private bool IsSentimentOnRepo(Phrase phrase, List<Sentiment> sentiments)
         {
             bool hasSentiment = false;
             foreach (Sentiment sentiment in sentiments)
             {
-                if (PhraseContainsSentiment(phrase, sentiment))
+                if (IsSentimentOnPhrase(phrase, sentiment))
                 {
                     hasSentiment = true;
                     break;
@@ -91,7 +91,7 @@ namespace BusinessLogic.Controllers
             return hasSentiment;
         }
 
-        private bool PhraseContainsSentiment(Phrase phrase, Sentiment sentiment)
+        private bool IsSentimentOnPhrase(Phrase phrase, Sentiment sentiment)
         {
             return phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper());
         }

@@ -135,9 +135,9 @@ namespace Tests
             entityController.AddEntity(entity);
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
-            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate };
-            phraseController.AnalyzePhrase(phrase1);
-            Assert.AreEqual("Pepsi", phrase1.Entity);
+            phraseWith3Entities = new Phrase() { Comment = "Me gusta la Pepsi la Coca y la Nix", Date = currentDate };
+            phraseController.AnalyzePhrase(phraseWith3Entities);
+            Assert.AreEqual("Pepsi", phraseWith3Entities.Entity);
         }
 
         [TestMethod]
