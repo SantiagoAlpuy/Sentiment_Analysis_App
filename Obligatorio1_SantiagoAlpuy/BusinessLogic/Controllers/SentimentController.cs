@@ -49,7 +49,7 @@ namespace BusinessLogic.Controllers
 
         private bool FindSentiment(List<Sentiment> sentiments, Sentiment sentiment)
         {
-            return sentiments.Find(x => x.Description == sentiment.Description) != null;
+            return sentiments.Find(x => x.Description.Trim() == sentiment.Description.Trim()) != null;
         }
 
         public Sentiment ObtainSentiment(string description, bool category)
