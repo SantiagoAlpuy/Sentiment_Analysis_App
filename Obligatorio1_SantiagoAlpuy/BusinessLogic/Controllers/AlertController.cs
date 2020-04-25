@@ -66,6 +66,11 @@ namespace BusinessLogic.Controllers
             
         }
 
+        private bool validateEntitiesAndCategories(Phrase phrase, Alert alert)
+        {
+            return validateEntities(phrase, alert) && validateCategories(phrase, alert);
+        }
+
         private bool validateEntities(Phrase phrase, Alert alert)
         {
             return phrase.Entity.ToUpper() == alert.Entity.ToUpper();
@@ -74,11 +79,6 @@ namespace BusinessLogic.Controllers
         private bool validateCategories(Phrase phrase, Alert alert)
         {
             return phrase.Category.Equals(alert.Category) && !phrase.Category.Equals(CategoryType.Neutro);
-        }
-
-        private bool validateEntitiesAndCategories(Phrase phrase, Alert alert)
-        {
-            return validateEntities(phrase, alert) && validateCategories(phrase, alert);
         }
 
         private DateTime calculateLowerLimitAlert(Alert alert)
