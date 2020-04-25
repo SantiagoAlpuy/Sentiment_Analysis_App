@@ -53,6 +53,13 @@ namespace Tests
             Assert.AreEqual(negativeSentiment2, sentimentController.ObtainSentiment(negativeSentiment2.Description, negativeSentiment2.Category));
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(SentimentRegisteredWithOppositeCategoryException))]
+        public void RegisterPositiveSentimentThatWasAlreadyRegisteredAsNegative()
+        {
+            negativeSentiment1 = new Sentiment() { Description = "Lo Odio", Category = false };
+            positiveSentiment1 = new Sentiment() { Description = "Lo Odio", Category = true };
+        }
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
