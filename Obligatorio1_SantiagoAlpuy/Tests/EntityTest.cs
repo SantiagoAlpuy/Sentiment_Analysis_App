@@ -55,8 +55,10 @@ namespace Tests
         [ExpectedException(typeof(EntityAlreadyExistsException))]
         public void RegisterAlreadyRegisteredEntity()
         {
+            Entity entity1 = new Entity() { Name = "Pepsi" };
+            Entity entity2 = new Entity() { Name = "Pepsi" };
             entityController.AddEntity(entity1);
-            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
         }
 
         [TestMethod]
