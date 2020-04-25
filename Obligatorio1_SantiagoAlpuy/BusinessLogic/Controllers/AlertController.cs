@@ -94,7 +94,7 @@ namespace BusinessLogic.Controllers
 
         private void ActivateAlarm(Alert alert, int count)
         {
-            if (alert.Posts == count)
+            if (alert.Posts <= count)
                 alert.Activated = true;
             else
                 alert.Activated = false;

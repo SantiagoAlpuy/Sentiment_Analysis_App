@@ -90,6 +90,7 @@ namespace UserInterface
                     Hours = Int32.Parse(hoursBox.Text)
                 };
                 alertController.AddAlert(alert);
+                alertController.CheckAlertActivation();
                 MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
                 SetFieldsToDefaultValue();
                 LoadDataGridAlerts();

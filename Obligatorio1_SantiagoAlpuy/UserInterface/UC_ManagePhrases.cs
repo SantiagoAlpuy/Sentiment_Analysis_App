@@ -32,13 +32,20 @@ namespace UserInterface
             repository = Repository.Instance;
         }
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (phraseBox.Text != WRITE_PHRASE_MESSAGE)
+                CreateAndAddPhrase();
+            else
+                MessageBox.Show(PHRASE_NOT_ADDED);
+        }
 
         private void CreateAndAddPhrase()
         {
             try
             {
                 DateTime date = dateTimePicker1.Value;
-                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date};
+                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date };
                 phraseController.AddPhraseToRepository(phrase);
                 phraseController.AnalyzePhrase(phrase);
                 alertController.CheckAlertActivation();
@@ -58,14 +65,6 @@ namespace UserInterface
             {
                 MessageBox.Show(PHRASE_DATE_FROM_FUTURE);
             }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (phraseBox.Text != WRITE_PHRASE_MESSAGE)
-                CreateAndAddPhrase();
-            else
-                MessageBox.Show(PHRASE_NOT_ADDED);
         }
 
         private void phraseBox_KeyDown(object sender, KeyEventArgs e)
