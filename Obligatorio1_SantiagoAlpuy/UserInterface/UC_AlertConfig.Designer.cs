@@ -37,8 +37,8 @@
             this.postBox = new System.Windows.Forms.TextBox();
             this.daysBox = new System.Windows.Forms.TextBox();
             this.hoursBox = new System.Windows.Forms.TextBox();
-            this.categoryComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.categoryComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
@@ -173,6 +173,19 @@
             this.hoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.hoursBox_KeyPress);
             this.hoursBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.hoursBox_KeyUp);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.Location = new System.Drawing.Point(300, 271);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(139, 16);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Todas las Alarmas";
+            // 
             // categoryComboBox
             // 
             this.categoryComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -188,19 +201,6 @@
             this.categoryComboBox.Size = new System.Drawing.Size(526, 24);
             this.categoryComboBox.TabIndex = 18;
             this.categoryComboBox.SelectedValueChanged += new System.EventHandler(this.categoryComboBox_SelectedValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(300, 271);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 16);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Todas las Alarmas";
             // 
             // UC_AlertConfig
             // 
@@ -238,7 +238,7 @@
         private System.Windows.Forms.TextBox postBox;
         private System.Windows.Forms.TextBox daysBox;
         private System.Windows.Forms.TextBox hoursBox;
-        private System.Windows.Forms.ComboBox categoryComboBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox categoryComboBox;
     }
 }

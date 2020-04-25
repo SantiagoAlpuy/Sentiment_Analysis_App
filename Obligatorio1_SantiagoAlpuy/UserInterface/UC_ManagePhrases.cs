@@ -18,18 +18,28 @@ namespace UserInterface
         PhraseController phraseController;
         AlertController alertController;
         Repository repository;
+        FlowLayoutPanel mainPanel;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
         private const string PHRASE_NOT_ADDED = "Ingrese una frase válida.";
         private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         private const string NO_COMMENT_PHRASE = "Por favor, ingrese una frase o comentario.";
         private const string PHRASE_DATE_OLDER_THAN_ONE_YEAR = "No puede ingresar una fecha más vieja que un año atras.";
         private const string PHRASE_DATE_FROM_FUTURE = "No puede ingresar una fecha del futuro.";
+
         public UC_ManagePhrases()
         {
             InitializeComponent();
             phraseController = new PhraseController();
             alertController = new AlertController();
+        }
+
+        public UC_ManagePhrases(FlowLayoutPanel panel)
+        {
+            InitializeComponent();
+            phraseController = new PhraseController();
+            alertController = new AlertController();
             repository = Repository.Instance;
+            mainPanel = panel;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -50,6 +60,8 @@ namespace UserInterface
                 phraseController.AnalyzePhrase(phrase);
                 alertController.CheckAlertActivation();
                 MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text));
+                mainPanel.Controls.Clear();
+                mainPanel.Controls.Add(new UC_AlertReport());
                 phraseBox.Text = WRITE_PHRASE_MESSAGE;
                 phraseBox.ForeColor = Color.Gray;
             }

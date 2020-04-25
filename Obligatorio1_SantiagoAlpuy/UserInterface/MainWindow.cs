@@ -43,7 +43,7 @@ namespace UserInterface
         private void btnManagePhrases_Click(object sender, EventArgs e)
         {
             this.PrincipalPanel.Controls.Clear();
-            this.PrincipalPanel.Controls.Add(new UC_ManagePhrases());
+            this.PrincipalPanel.Controls.Add(new UC_ManagePhrases(this.PrincipalPanel));
         }
 
         private void btnAlertConfig_Click(object sender, EventArgs e)
