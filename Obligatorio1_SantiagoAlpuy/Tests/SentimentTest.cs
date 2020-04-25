@@ -103,6 +103,7 @@ namespace Tests
             sentimentController.AddSentiment(positiveSentiment1);
             sentimentController.AddSentiment(positiveSentiment2);
         }
+        
 
         [TestMethod]
         [ExpectedException(typeof(SentimentDoesNotExistsException))]
@@ -141,6 +142,14 @@ namespace Tests
         public void RegisterSentimentWithEmptyDescription()
         {
             sentimentController.AddSentiment(noDescriptionSentiment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterPositiveSentimentWithManyBlankSpace()
+        {
+            Sentiment blankSpacedSentiment = new Sentiment() { Description = "  ", Category = true};
+            sentimentController.AddSentiment(blankSpacedSentiment);
         }
 
         [TestMethod]

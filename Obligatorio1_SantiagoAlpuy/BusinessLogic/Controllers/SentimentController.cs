@@ -52,6 +52,16 @@ namespace BusinessLogic.Controllers
             return sentiments.Find(x => x.Description == sentiment.Description) != null;
         }
 
+        public Sentiment ObtainSentiment(string description, bool category)
+        {
+            Sentiment sentiment = null;
+            if (category)
+                sentiment = ObtainSentiment(description, positiveSentiments);
+            else
+                sentiment = ObtainSentiment(description, negativeSentiments);
+            return sentiment;
+        }
+
         private Sentiment ObtainSentiment(string description, List<Sentiment> sentiments)
         {
             Sentiment sentiment = sentiments.Find(x => x.Description == description);
@@ -59,6 +69,14 @@ namespace BusinessLogic.Controllers
                 return sentiment;
             else
                 throw new SentimentDoesNotExistsException();
+        }
+
+        public void RemoveSentiment(string description, bool category)
+        {
+            if (category)
+                RemoveSentiment(description, positiveSentiments);
+            else
+                RemoveSentiment(description, negativeSentiments);
         }
 
         private void RemoveSentiment(string description, List<Sentiment> sentiments)
