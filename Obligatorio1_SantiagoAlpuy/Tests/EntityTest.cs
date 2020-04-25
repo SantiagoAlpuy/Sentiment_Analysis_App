@@ -83,6 +83,14 @@ namespace Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterEntityWithDescriptionWithOnlyManyBlankSpaces()
+        {
+            Entity entity = new Entity() { Name = "   " };
+            entityController.AddEntity(entity);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NullEntityException))]
         public void RegisterNullEntity()
         {
