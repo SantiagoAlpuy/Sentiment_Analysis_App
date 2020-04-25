@@ -51,7 +51,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(EntityAlreadyExistsException))]
-        public void RegisterExistantEntityWithDescriptionWithBlankSpacesInBetween()
+        public void RegisterEntityWithDescriptionWithBlankSpacesInBetween()
         {
             Entity entity1 = new Entity() { Name = "pepsi" };
             Entity entity2 = new Entity() { Name = "  pepsi  " };
