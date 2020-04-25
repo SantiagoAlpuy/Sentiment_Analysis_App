@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class NullSentimentException : Exception
     {
         public NullSentimentException() { }
-
-        public NullSentimentException(string message)
-            : base(message) { }
     }
 
 }

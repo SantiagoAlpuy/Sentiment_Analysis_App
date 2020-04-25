@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class SentimentDoesNotExistsException : Exception
     {
         public SentimentDoesNotExistsException() { }
-
-        public SentimentDoesNotExistsException(string message)
-            : base(message) { }
     }
 
 }

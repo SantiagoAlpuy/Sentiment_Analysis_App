@@ -6,8 +6,5 @@ namespace BusinessLogic.Exceptions
     public class EntityDoesNotExistsException : Exception
     {
         public EntityDoesNotExistsException() { }
-
-        public EntityDoesNotExistsException(string message)
-            : base(message) { }
     }
 }

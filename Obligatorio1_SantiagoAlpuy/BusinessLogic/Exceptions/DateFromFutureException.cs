@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class DateFromFutureException : Exception
     {
         public DateFromFutureException() { }
-
-        public DateFromFutureException(string message)
-            : base(message) { }
     }
 
 }

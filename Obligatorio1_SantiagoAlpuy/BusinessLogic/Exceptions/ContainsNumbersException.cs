@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class ContainsNumbersException : Exception
     {
         public ContainsNumbersException() { }
-
-        public ContainsNumbersException(string message)
-            : base(message) { }
     }
 
 }

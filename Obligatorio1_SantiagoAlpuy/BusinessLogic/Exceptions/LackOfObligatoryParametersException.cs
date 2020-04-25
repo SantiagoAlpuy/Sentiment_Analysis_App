@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class LackOfObligatoryParametersException : Exception
     {
         public LackOfObligatoryParametersException() { }
-
-        public LackOfObligatoryParametersException(string message)
-            : base(message) { }
     }
 
 }

@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class DateOlderThanOneYearException : Exception
     {
         public DateOlderThanOneYearException() { }
-
-        public DateOlderThanOneYearException(string message)
-            : base(message) { }
     }
 
 }

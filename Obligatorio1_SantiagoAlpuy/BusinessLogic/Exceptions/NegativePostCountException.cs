@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class NegativePostCountException : Exception
     {
         public NegativePostCountException() { }
-
-        public NegativePostCountException(string message)
-            : base(message) { }
     }
 
 }

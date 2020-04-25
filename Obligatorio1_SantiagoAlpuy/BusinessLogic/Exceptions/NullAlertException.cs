@@ -6,9 +6,6 @@ namespace BusinessLogic.Exceptions
     public class NullAlertException : Exception
     {
         public NullAlertException() { }
-
-        public NullAlertException(string message)
-            : base(message) { }
     }
 
 }
