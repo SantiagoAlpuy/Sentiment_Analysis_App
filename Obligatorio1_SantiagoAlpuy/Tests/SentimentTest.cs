@@ -106,9 +106,19 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(SentimentAlreadyExistsException))]
-        public void RegisterAlreadyRegisteredPositiveSentimentWithoutSpaceTrim()
+        public void RegisterAlreadyRegisteredSentimentWithoutSpaceTrim()
         {
             positiveSentiment1 = new Sentiment() { Description = "   Me gusta   ", Category = true };
+            positiveSentiment2 = new Sentiment() { Description = "Me gusta", Category = true };
+            sentimentController.AddSentiment(positiveSentiment1);
+            sentimentController.AddSentiment(positiveSentiment2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        public void RegisterAlreadyRegisteredSentimentWithDifferentMayusMinusFormat()
+        {
+            positiveSentiment1 = new Sentiment() { Description = "ME gUStA", Category = true };
             positiveSentiment2 = new Sentiment() { Description = "Me gusta", Category = true };
             sentimentController.AddSentiment(positiveSentiment1);
             sentimentController.AddSentiment(positiveSentiment2);
