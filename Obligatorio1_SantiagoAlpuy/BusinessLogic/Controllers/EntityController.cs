@@ -30,8 +30,13 @@ namespace BusinessLogic.Controllers
                 throw new NullAttributeInObjectException();
             else if (entity.Name.Trim() == "")
                 throw new LackOfObligatoryParametersException();
-            else if (entities.Contains(entity))
+            else if (IsEntityInRepo(entity))
                 throw new EntityAlreadyExistsException();
+        }
+
+        private bool IsEntityInRepo(Entity entity)
+        {
+            return entities.Find(x => x.Name.Trim() == entity.Name.Trim()) != null;
         }
 
         public Entity ObtainEntity(string name)
