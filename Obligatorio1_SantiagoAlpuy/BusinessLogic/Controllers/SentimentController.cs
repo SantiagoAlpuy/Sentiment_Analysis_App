@@ -46,6 +46,8 @@ namespace BusinessLogic.Controllers
                 throw new SentimentAlreadyExistsException();
             else if (!sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
                 throw new SentimentAlreadyExistsException();
+            else if (sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
+                throw new SentimentRegisteredWithOppositeCategoryException();
         }
 
         private bool IsSentimentInRepo(List<Sentiment> sentiments, Sentiment sentiment)

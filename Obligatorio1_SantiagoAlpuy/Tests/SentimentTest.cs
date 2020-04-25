@@ -59,6 +59,8 @@ namespace Tests
         {
             negativeSentiment1 = new Sentiment() { Description = "Lo Odio", Category = false };
             positiveSentiment1 = new Sentiment() { Description = "Lo Odio", Category = true };
+            sentimentController.AddSentiment(negativeSentiment1);
+            sentimentController.AddSentiment(positiveSentiment1);
         }
 
         [TestMethod]
