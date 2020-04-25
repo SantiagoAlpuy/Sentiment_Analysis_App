@@ -36,7 +36,7 @@ namespace BusinessLogic.Controllers
 
         private bool IsEntityInRepo(Entity entity)
         {
-            return entities.Find(x => x.Name.Trim() == entity.Name.Trim()) != null;
+            return entities.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower()) != null;
         }
 
         public Entity ObtainEntity(string name)
