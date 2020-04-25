@@ -51,7 +51,6 @@ namespace BusinessLogic.Controllers
         public void RemoveEntity(string name)
         {
             entities.Remove(ObtainEntity(name));
-
         }
     }
 }

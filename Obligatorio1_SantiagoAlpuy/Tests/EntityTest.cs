@@ -20,20 +20,6 @@ namespace Tests
         {
             repository = Repository.Instance;
             entityController = new EntityController();
-
-            entity1 = new Entity()
-            {
-                Name = "Pepsi",
-            };
-            entity2 = new Entity()
-            {
-                Name = "Limol",
-            };
-            emptyNameEntity = new Entity()
-            {
-                Name = "",
-            };
-            nullNameEntity = new Entity();
         }
 
         [TestCleanup]
@@ -45,6 +31,8 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
+            entity1 = new Entity() { Name = "Pepsi" };
+            entity2 = new Entity() { Name = "Limol" };
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
             Assert.AreEqual(entity1, entityController.ObtainEntity(entity1.Name));
@@ -85,6 +73,7 @@ namespace Tests
         [ExpectedException(typeof(EntityDoesNotExistsException))]
         public void RemoveExistantEntityFromRegister()
         {
+            entity1 = new Entity() { Name = "Pepsi" };
             entityController.AddEntity(entity1);
             entityController.RemoveEntity(entity1.Name);
             Entity ent = entityController.ObtainEntity(entity1.Name);
@@ -101,6 +90,7 @@ namespace Tests
         [ExpectedException(typeof(LackOfObligatoryParametersException))]
         public void RegisterEntityWithEmptyDescription()
         {
+            emptyNameEntity = new Entity() { Name = "" };
             entityController.AddEntity(emptyNameEntity);
         }
 
@@ -123,6 +113,7 @@ namespace Tests
         [ExpectedException(typeof(NullAttributeInObjectException))]
         public void RegisterEntityWithNullName()
         {
+            nullNameEntity = new Entity();
             entityController.AddEntity(nullNameEntity);
         }
 
