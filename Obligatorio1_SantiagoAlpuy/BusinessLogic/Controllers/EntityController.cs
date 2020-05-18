@@ -14,7 +14,7 @@ namespace BusinessLogic.Controllers
 
         public EntityController()
         {
-            entities = repository.entities;
+            entities = repository.Entities;
         }
 
         public void AddEntity(Entity entity)

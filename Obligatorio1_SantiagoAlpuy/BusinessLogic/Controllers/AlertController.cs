@@ -15,8 +15,8 @@ namespace BusinessLogic.Controllers
 
         public AlertController()
         {
-            alerts = repository.alerts;
-            phrases = repository.phrases;
+            alerts = repository.Alerts;
+            phrases = repository.Phrases;
         }
 
         public void AddAlert(Alert alert)
@@ -44,7 +44,7 @@ namespace BusinessLogic.Controllers
             return alerts.Find(x => x.Equals(alert));
         }
 
-        public void CheckAlertActivation()
+        public void EvaluateAlert()
         {
             DateTime lowerLimitAlert = new DateTime();
             int count;
@@ -53,10 +53,10 @@ namespace BusinessLogic.Controllers
                 count = 0;
                 foreach (Phrase phrase in phrases)
                 {
-                    if (validateEntitiesAndCategories(phrase,alert))
+                    if (ValidateEntitiesAndCategories(phrase,alert))
                     {
-                        lowerLimitAlert = calculateLowerLimitAlert(alert);
-                        if (isInsideAlertRange(lowerLimitAlert, phrase))
+                        lowerLimitAlert = CalculateLowerLimitAlert(alert);
+                        if (IsInsideAlertRange(lowerLimitAlert, phrase))
                         {
                         count++;
                         }
@@ -67,28 +67,28 @@ namespace BusinessLogic.Controllers
             
         }
 
-        private bool validateEntitiesAndCategories(Phrase phrase, Alert alert)
+        private bool ValidateEntitiesAndCategories(Phrase phrase, Alert alert)
         {
-            return validateEntities(phrase, alert) && validateCategories(phrase, alert);
+            return ValidateEntities(phrase, alert) && ValidateCategories(phrase, alert);
         }
 
-        private bool validateEntities(Phrase phrase, Alert alert)
+        private bool ValidateEntities(Phrase phrase, Alert alert)
         {
             return phrase.Entity.ToUpper().Trim() == alert.Entity.ToUpper().Trim();
         }
 
-        private bool validateCategories(Phrase phrase, Alert alert)
+        private bool ValidateCategories(Phrase phrase, Alert alert)
         {
             return phrase.Category.Equals(alert.Category) && !phrase.Category.Equals(CategoryType.Neutro);
         }
 
-        private DateTime calculateLowerLimitAlert(Alert alert)
+        private DateTime CalculateLowerLimitAlert(Alert alert)
         {
             int hours = -(alert.Hours + alert.Days * 24);
             return DateTime.Now.AddHours(hours);
         }
 
-        private bool isInsideAlertRange(DateTime date, Phrase phrase)
+        private bool IsInsideAlertRange(DateTime date, Phrase phrase)
         {
             return date.CompareTo(phrase.Date) < 0;
         }

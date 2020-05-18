@@ -2,6 +2,7 @@
 using BusinessLogic;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
 
 namespace Tests
 {
@@ -9,7 +10,7 @@ namespace Tests
     public class EntityTest
     {
         Repository repository;
-        EntityController entityController;
+        IEntityController entityController;
         Entity entity1;
         Entity entity2;
         Entity emptyNameEntity;
@@ -25,7 +26,7 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.cleanLists();
+            repository.CleanLists();
         }
 
         [TestMethod]

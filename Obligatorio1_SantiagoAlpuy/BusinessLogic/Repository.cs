@@ -7,22 +7,22 @@ namespace BusinessLogic
 {
     public class Repository
     {
-        public List<Sentiment> positiveSentiments { get; set; }
-        public List<Sentiment> negativeSentiments { get; set; }
-        public List<Entity> entities { get; set; }
-        public List<Phrase> phrases { get; set; }
+        public List<Sentiment> PositiveSentiments { get; set; }
+        public List<Sentiment> NegativeSentiments { get; set; }
+        public List<Entity> Entities { get; set; }
+        public List<Phrase> Phrases { get; set; }
 
-        public List<Alert> alerts { get; set; }
+        public List<Alert> Alerts { get; set; }
 
         private static Repository instance = null;
 
         private Repository()
         {
-            positiveSentiments = new List<Sentiment>();
-            negativeSentiments = new List<Sentiment>();
-            entities = new List<Entity>();
-            phrases = new List<Phrase>();
-            alerts = new List<Alert>();
+            PositiveSentiments = new List<Sentiment>();
+            NegativeSentiments = new List<Sentiment>();
+            Entities = new List<Entity>();
+            Phrases = new List<Phrase>();
+            Alerts = new List<Alert>();
         }
 
         public static Repository Instance
@@ -35,13 +35,13 @@ namespace BusinessLogic
             }
         }
 
-        public void cleanLists()
+        public void CleanLists()
         {
-            positiveSentiments.Clear();
-            negativeSentiments.Clear();
-            entities.Clear();
-            phrases.Clear();
-            alerts.Clear();
+            PositiveSentiments.Clear();
+            NegativeSentiments.Clear();
+            Entities.Clear();
+            Phrases.Clear();
+            Alerts.Clear();
         }
     }
 }

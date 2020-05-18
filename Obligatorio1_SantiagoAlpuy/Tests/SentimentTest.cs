@@ -2,14 +2,14 @@
 using BusinessLogic;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
-
+using BusinessLogic.IControllers;
 namespace Tests
 {
     [TestClass]
     public class SentimentTest
     {
         Repository repository;
-        SentimentController sentimentController;
+        ISentimentController sentimentController;
         Sentiment positiveSentiment1;
         Sentiment positiveSentiment2;
         Sentiment negativeSentiment1;
@@ -28,7 +28,7 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.cleanLists();
+            repository.CleanLists();
         }
 
         [TestMethod]

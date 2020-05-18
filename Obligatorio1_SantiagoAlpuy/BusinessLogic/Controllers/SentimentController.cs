@@ -14,8 +14,8 @@ namespace BusinessLogic.Controllers
 
         public SentimentController()
         {
-            positiveSentiments = repository.positiveSentiments;
-            negativeSentiments = repository.negativeSentiments;
+            positiveSentiments = repository.PositiveSentiments;
+            negativeSentiments = repository.NegativeSentiments;
         }
 
         public void AddSentiment(Sentiment sentiment)

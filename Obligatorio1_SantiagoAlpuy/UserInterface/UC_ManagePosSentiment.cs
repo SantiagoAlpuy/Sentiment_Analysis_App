@@ -42,7 +42,7 @@ namespace UserInterface
 
         private void LoadDataGridPositiveSentiments()
         {
-            this.dataGrid.DataSource = repository.positiveSentiments.ToList();
+            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
         }
 
         private void sentimentBox_KeyDown(object sender, KeyEventArgs e)
@@ -69,7 +69,7 @@ namespace UserInterface
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
             }
 
             LoadDataGridPositiveSentiments();
@@ -90,7 +90,7 @@ namespace UserInterface
                 Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
                 sentimentController.AddSentiment(sentiment);
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
                 MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
                 sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
                 sentimentBox.ForeColor = Color.Gray;

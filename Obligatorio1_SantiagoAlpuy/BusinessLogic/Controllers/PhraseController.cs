@@ -18,10 +18,10 @@ namespace BusinessLogic.Controllers
 
         public PhraseController()
         {
-            phrases = repository.phrases;
-            positiveSentiments = repository.positiveSentiments;
-            negativeSentiments = repository.negativeSentiments;
-            entities = repository.entities;
+            phrases = repository.Phrases;
+            positiveSentiments = repository.PositiveSentiments;
+            negativeSentiments = repository.NegativeSentiments;
+            entities = repository.Entities;
         }
 
         public void AddPhraseToRepository(Phrase phrase)

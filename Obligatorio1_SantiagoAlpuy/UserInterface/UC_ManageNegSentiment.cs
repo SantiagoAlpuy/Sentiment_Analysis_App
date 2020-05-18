@@ -43,7 +43,7 @@ namespace UserInterface
 
         private void LoadDataGridnegativeSentiments()
         {
-            this.dataGrid.DataSource = repository.negativeSentiments.ToList();
+            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
         }      
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace UserInterface
                 Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
                 sentimentController.AddSentiment(sentiment);
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
                 MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
                 sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
                 sentimentBox.ForeColor = Color.Gray;
@@ -91,7 +91,7 @@ namespace UserInterface
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
             }
 
             LoadDataGridnegativeSentiments();

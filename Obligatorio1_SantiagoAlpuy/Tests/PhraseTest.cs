@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
 
 namespace Tests
 {
@@ -10,9 +11,9 @@ namespace Tests
     public class PhraseTest
     {
         Repository repository;
-        SentimentController sentimentController;
-        PhraseController phraseController;
-        EntityController entityController;
+        ISentimentController sentimentController;
+        IPhraseController phraseController;
+        IEntityController entityController;
         Phrase phrase1;
         Phrase phrase2;
         Phrase phraseWithUpperAndLower1;
@@ -47,7 +48,7 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.cleanLists();
+            repository.CleanLists();
         }
 
         [TestMethod]

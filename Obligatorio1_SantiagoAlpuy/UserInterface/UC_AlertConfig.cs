@@ -58,7 +58,7 @@ namespace UserInterface
 
         private void LoadDataGridAlerts()
         {
-            this.dataGrid.DataSource = repository.alerts.ToList();
+            this.dataGrid.DataSource = repository.Alerts.ToList();
         }
 
 
@@ -92,7 +92,7 @@ namespace UserInterface
                     Hours = Int32.Parse(hoursBox.Text)
                 };
                 alertController.AddAlert(alert);
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
                 MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
                 SetFieldsToDefaultValue();
                 LoadDataGridAlerts();

@@ -39,7 +39,7 @@ namespace UserInterface
 
         private void LoadDataGridEntities()
         {
-            this.dataGrid.DataSource = repository.entities.ToList();
+            this.dataGrid.DataSource = repository.Entities.ToList();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace UserInterface
             {
                 entityController.RemoveEntity(row.Cells[0].Value.ToString());
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
             }
             LoadDataGridEntities();
         }
@@ -68,7 +68,7 @@ namespace UserInterface
                 Entity entity = new Entity() { Name = entityBox.Text };
                 entityController.AddEntity(entity);
                 phraseController.AnalyzeAllPhrases();
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
                 MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
                 entityBox.Text = WRITE_ENTITY_MESSAGE;
                 entityBox.ForeColor = Color.Gray;

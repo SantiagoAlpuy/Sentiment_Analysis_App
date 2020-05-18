@@ -59,7 +59,7 @@ namespace UserInterface
                 Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date };
                 phraseController.AddPhraseToRepository(phrase);
                 phraseController.AnalyzePhrase(phrase);
-                alertController.CheckAlertActivation();
+                alertController.EvaluateAlert();
                 ShowMessageAndGoToAlerts();
                 phraseBox.Text = WRITE_PHRASE_MESSAGE;
                 phraseBox.ForeColor = Color.Gray;

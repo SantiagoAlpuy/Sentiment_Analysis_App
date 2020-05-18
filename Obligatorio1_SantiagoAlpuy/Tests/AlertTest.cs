@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
 
 namespace Tests
 {
@@ -11,9 +12,9 @@ namespace Tests
     {
         Repository repository;
         AlertController alertController;
-        PhraseController phraseController;
-        SentimentController sentimentController;
-        EntityController entityController;
+        IPhraseController phraseController;
+        ISentimentController sentimentController;
+        IEntityController entityController;
 
         Entity entity1;
         Entity entity2;
@@ -37,7 +38,7 @@ namespace Tests
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.cleanLists();
+            repository.CleanLists();
         }
 
         [TestMethod]
@@ -110,7 +111,7 @@ namespace Tests
             phraseController.AnalyzePhrase(positive2PhraseEntity1);
             alertController.AddAlert(alert);
 
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
 
             Assert.IsTrue(alert.Activated);
         }
@@ -128,7 +129,7 @@ namespace Tests
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
             Assert.IsFalse(alert.Activated);
         }
 
@@ -142,7 +143,7 @@ namespace Tests
             phraseController.AddPhraseToRepository(phrase1);
             phraseController.AnalyzePhrase(phrase1);
             alertController.AddAlert(alert);
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
             Assert.IsFalse(alert.Activated);
         }
 
@@ -159,7 +160,7 @@ namespace Tests
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
             Assert.IsTrue(alert.Activated);
         }
 
@@ -176,7 +177,7 @@ namespace Tests
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
             Assert.IsTrue(alert.Activated);
         }
 
@@ -192,12 +193,12 @@ namespace Tests
             phraseController.AddPhraseToRepository(phrase1);
             entityController.AddEntity(entity1);
             phraseController.AnalyzePhrase(phrase1);
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
             Assert.IsTrue(alert.Activated);
             entityController.RemoveEntity(entity1.Name);
 
             phraseController.AnalyzeAllPhrases();
-            alertController.CheckAlertActivation();
+            alertController.EvaluateAlert();
 
             Assert.IsFalse(alert.Activated);
         }

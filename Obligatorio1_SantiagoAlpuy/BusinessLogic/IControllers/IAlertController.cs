@@ -8,6 +8,6 @@ namespace BusinessLogic.IControllers
     {
         void AddAlert(Alert alert);
 
-        void CheckAlertActivation();
+        void EvaluateAlert();
     }
 }

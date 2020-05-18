@@ -33,7 +33,7 @@ namespace UserInterface
 
         private void LoadDataGridPhrases()
         {
-            this.dataGrid.DataSource = repository.phrases.ToList();
+            this.dataGrid.DataSource = repository.Phrases.ToList();
         }
     }
 }
