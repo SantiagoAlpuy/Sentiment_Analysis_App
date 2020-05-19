@@ -43,8 +43,10 @@ namespace UserInterface
             alertController = new AlertController();
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
             {
-                if (!item.Equals(CategoryType.Neutro))
-                    categoryComboBox.Items.Add(item);
+                if (item.Equals(CategoryType.Positive))
+                    categoryComboBox.Items.Add("Positivo");
+                else if (item.Equals(CategoryType.Negative))
+                    categoryComboBox.Items.Add("Negativo");
             }
             LoadDataGridAlerts();
             categoryComboBox.SelectedIndex = 0;
@@ -86,7 +88,7 @@ namespace UserInterface
                 Alert alert = new Alert()
                 {
                     Entity = entityBox.Text,
-                    Category = (CategoryType)categoryComboBox.SelectedItem,
+                    Category = StringToCategory((string)categoryComboBox.SelectedItem),
                     Posts = Int32.Parse(postBox.Text),
                     Days = Int32.Parse(daysBox.Text),
                     Hours = Int32.Parse(hoursBox.Text)
@@ -109,6 +111,17 @@ namespace UserInterface
             {
                 MessageBox.Show(NEGATIVE_HOUR_COUNT);
             }
+        }
+
+        private CategoryType StringToCategory(string category)
+        {
+            CategoryType cat = CategoryType.Neutro;
+            if (category.Equals("Positivo"))
+                cat = CategoryType.Positive;
+            else
+                cat = CategoryType.Negative;
+            return cat;
+
         }
 
         private void SetFieldsToDefaultValue()
