@@ -42,5 +42,13 @@ namespace Tests
             authorController.AddAuthor(author);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterAuthorWithoutSurname()
+        {
+            Author author = new Author() { Username = "testuser1", Name = "name1", Born = DateTime.Now };
+            authorController.AddAuthor(author);
+        }
+
     }
 }
