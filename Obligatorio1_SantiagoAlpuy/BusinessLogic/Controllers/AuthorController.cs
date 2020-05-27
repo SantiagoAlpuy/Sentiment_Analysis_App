@@ -10,7 +10,8 @@ namespace BusinessLogic.Controllers
     { 
         Repository repository = Repository.Instance;
         private List<Author> authors;
-        public const int MAX_CHARS_IN_USERNAME = 10;
+        private const int MAX_CHARS_IN_USERNAME = 10;
+        private const string USERNAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
 
         public AuthorController()
         {
@@ -22,7 +23,7 @@ namespace BusinessLogic.Controllers
             if (author.Username == null || author.Name == null || author.Surname == null)
                 throw new LackOfObligatoryParametersException();
             else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
-                throw new UsernameIsTooLargeException();
+                throw new TooLargeException(USERNAME_IS_TOO_BIG);
             else
                 authors.Add(author);
         }

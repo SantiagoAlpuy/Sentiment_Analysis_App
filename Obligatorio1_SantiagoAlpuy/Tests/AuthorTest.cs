@@ -51,10 +51,18 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(UsernameIsTooLargeException))]
+        [ExpectedException(typeof(TooLargeException))]
         public void RegisterAuthorWithVeryBigUsername()
         {
             Author author = new Author() { Username = "ABCDEFGHIJKLMOP", Name = "name1", Surname = "surname1", Born = DateTime.Now };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotAlphaNumericalException))]
+        public void RegisterAuthorWithNotAlphanumericalUsername()
+        {
+            Author author = new Author() { Username = "%&###$", Name = "name1", Surname = "surname1", Born = DateTime.Now };
             authorController.AddAuthor(author);
         }
 
