@@ -13,12 +13,16 @@ namespace BusinessLogic.Controllers
         private List<Author> authors;
         private const int MAX_CHARS_IN_USERNAME = 10;
         private const int MAX_CHARS_IN_NAME = 15;
+        private const int LOWER_AGE_LIMIT = 13;
+        private const int UPPER_AGE_LIMIT = 100;
         private const string USERNAME_IS_TOO_BIG = "El usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
         private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
         private const string NAME_IS_TOO_BIG = "El nombre es mayor a {MAX_CHARS_IN_NAME} caracteres.";
         private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
         private const string SURNAME_IS_TOO_BIG = "El apellido del usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
         private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
+        private const string AGE_LOWER_THAN_LOWER_LIMIT = "La edad del autor es inferior a {LOWER_AGE_LIMIT}";
+        private const string AGE_BIGGER_THAN_UPPER_LIMIT = "La edad del autor es superior a {UPPER_AGE_LIMIT}";
 
         public AuthorController()
         {
@@ -41,6 +45,10 @@ namespace BusinessLogic.Controllers
                 throw new TooLargeException(SURNAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Surname))
                 throw new NotAlphabeticException(SURNAME_IS_NOT_ALPHABETIC);
+            else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author.Born.Year)
+                throw new DateNotInRangeException(AGE_LOWER_THAN_LOWER_LIMIT);
+            else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author.Born.Year)
+                throw new DateNotInRangeException(AGE_BIGGER_THAN_UPPER_LIMIT);
             else
                 authors.Add(author);
         }
