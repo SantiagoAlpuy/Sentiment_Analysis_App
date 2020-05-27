@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
@@ -17,7 +18,10 @@ namespace BusinessLogic.Controllers
 
         public void AddAuthor(Author author)
         {
-            authors.Add(author);
+            if (author.Username == null)
+                throw new LackOfObligatoryParametersException();
+            else
+                authors.Add(author);
         }
 
         public Author ObtainAuthorByUsername(string username)
