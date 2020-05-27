@@ -10,6 +10,7 @@ namespace BusinessLogic.Controllers
     { 
         Repository repository = Repository.Instance;
         private List<Author> authors;
+        public const int MAX_CHARS_IN_USERNAME = 10;
 
         public AuthorController()
         {
@@ -20,6 +21,8 @@ namespace BusinessLogic.Controllers
         {
             if (author.Username == null || author.Name == null || author.Surname == null)
                 throw new LackOfObligatoryParametersException();
+            else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
+                throw new UsernameIsTooLargeException();
             else
                 authors.Add(author);
         }
