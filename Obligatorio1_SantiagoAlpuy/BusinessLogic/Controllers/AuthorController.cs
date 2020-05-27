@@ -24,6 +24,7 @@ namespace BusinessLogic.Controllers
         private const string AGE_LOWER_THAN_LOWER_LIMIT = "La edad del autor es inferior a {LOWER_AGE_LIMIT}";
         private const string AGE_BIGGER_THAN_UPPER_LIMIT = "La edad del autor es superior a {UPPER_AGE_LIMIT}";
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
+        private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
 
         public AuthorController()
         {
@@ -34,6 +35,8 @@ namespace BusinessLogic.Controllers
         {
             if (author.Username == null || author.Name == null || author.Surname == null)
                 throw new LackOfObligatoryParametersException();
+            else if (author.Username == "")
+                throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
             else if (ObtainAuthorByUsername(author.Username) != null)
                 throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
             else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
