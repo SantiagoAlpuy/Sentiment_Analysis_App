@@ -13,12 +13,12 @@ namespace BusinessLogic.Controllers
         private List<Author> authors;
         private const int MAX_CHARS_IN_USERNAME = 10;
         private const int MAX_CHARS_IN_NAME = 15;
-        private const string USERNAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
+        private const string USERNAME_IS_TOO_BIG = "El usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
         private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
-        private const string NAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private const string NAME_IS_TOO_BIG = "El nombre es mayor a {MAX_CHARS_IN_NAME} caracteres.";
         private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
-        private const string SURNAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
-        private const string SURNAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
+        private const string SURNAME_IS_TOO_BIG = "El apellido del usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
 
         public AuthorController()
         {
@@ -37,6 +37,10 @@ namespace BusinessLogic.Controllers
                 throw new TooLargeException(NAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Name))
                 throw new NotAlphabeticException(NAME_IS_NOT_ALPHABETIC);
+            else if (author.Surname.Length >= MAX_CHARS_IN_NAME)
+                throw new TooLargeException(SURNAME_IS_TOO_BIG);
+            else if (!isAlphabetic(author.Surname))
+                throw new NotAlphabeticException(SURNAME_IS_NOT_ALPHABETIC);
             else
                 authors.Add(author);
         }
