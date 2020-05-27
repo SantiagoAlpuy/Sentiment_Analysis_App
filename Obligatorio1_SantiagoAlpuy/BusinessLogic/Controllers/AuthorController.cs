@@ -18,7 +18,7 @@ namespace BusinessLogic.Controllers
 
         public void AddAuthor(Author author)
         {
-            if (author.Username == null || author.Name == null)
+            if (author.Username == null || author.Name == null || author.Surname == null)
                 throw new LackOfObligatoryParametersException();
             else
                 authors.Add(author);
