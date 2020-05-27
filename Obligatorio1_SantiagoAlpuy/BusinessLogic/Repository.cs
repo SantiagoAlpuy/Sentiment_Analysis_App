@@ -11,8 +11,8 @@ namespace BusinessLogic
         public List<Sentiment> NegativeSentiments { get; set; }
         public List<Entity> Entities { get; set; }
         public List<Phrase> Phrases { get; set; }
-
         public List<Alert> Alerts { get; set; }
+        public List<Author> Authors { get; set; }
 
         private static Repository instance = null;
 
@@ -23,6 +23,7 @@ namespace BusinessLogic
             Entities = new List<Entity>();
             Phrases = new List<Phrase>();
             Alerts = new List<Alert>();
+            Authors = new List<Author>();
         }
 
         public static Repository Instance
@@ -42,6 +43,7 @@ namespace BusinessLogic
             Entities.Clear();
             Phrases.Clear();
             Alerts.Clear();
+            Authors.Clear();
         }
     }
 }
