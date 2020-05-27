@@ -58,7 +58,7 @@ namespace BusinessLogic.Controllers
 
         private bool IsAlphanumeric(string text)
         {
-            return text.All(char.IsLetterOrDigit);
+            return text.Trim().All(char.IsLetterOrDigit);
             
         }
 
@@ -70,7 +70,7 @@ namespace BusinessLogic.Controllers
 
         public Author ObtainAuthorByUsername(string username)
         {
-            return authors.Find(x => x.Username.ToLower() == username.ToLower());
+            return authors.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
         }
     }
 }
