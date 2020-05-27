@@ -159,6 +159,21 @@ namespace Tests
             authorController.AddAuthor(author);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(EmptyFieldException))]
+        public void RegisterAuthorWithEmptyName()
+        {
+            Author author = new Author() { Username = "testUser1", Name = "", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EmptyFieldException))]
+        public void RegisterAuthorWithEmptySurname()
+        {
+            Author author = new Author() { Username = "testUser1", Name = "nameA", Surname = "", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
 
 
     }

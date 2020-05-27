@@ -15,16 +15,18 @@ namespace BusinessLogic.Controllers
         private const int MAX_CHARS_IN_NAME = 15;
         private const int LOWER_AGE_LIMIT = 13;
         private const int UPPER_AGE_LIMIT = 100;
-        private const string USERNAME_IS_TOO_BIG = "El usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
+        private string USERNAME_IS_TOO_BIG = String.Format("El usuario es mayor a {0} caracteres.", MAX_CHARS_IN_USERNAME);
         private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
-        private const string NAME_IS_TOO_BIG = "El nombre es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private string NAME_IS_TOO_BIG = String.Format("El nombre es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
         private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
-        private const string SURNAME_IS_TOO_BIG = "El apellido del usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private string SURNAME_IS_TOO_BIG = String.Format("El apellido del usuario es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
         private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
-        private const string AGE_LOWER_THAN_LOWER_LIMIT = "La edad del autor es inferior a {LOWER_AGE_LIMIT}";
-        private const string AGE_BIGGER_THAN_UPPER_LIMIT = "La edad del autor es superior a {UPPER_AGE_LIMIT}";
+        private string AGE_LOWER_THAN_LOWER_LIMIT = String.Format("La edad del autor es inferior a {0}", LOWER_AGE_LIMIT);
+        private string AGE_BIGGER_THAN_UPPER_LIMIT = String.Format("La edad del autor es superior a {0}", UPPER_AGE_LIMIT);
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
         private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
+        private const string EMPTY_NAME_FIELD = "El campo 'nombre' esta vacío.";
+        private const string EMPTY_SURNAME_FIELD = "El campo 'apellido' esta vacío.";
 
         public AuthorController()
         {
@@ -37,6 +39,10 @@ namespace BusinessLogic.Controllers
                 throw new LackOfObligatoryParametersException();
             else if (author.Username == "")
                 throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
+            else if (author.Name == "")
+                throw new EmptyFieldException(EMPTY_NAME_FIELD);
+            else if (author.Surname == "")
+                throw new EmptyFieldException(EMPTY_SURNAME_FIELD);
             else if (ObtainAuthorByUsername(author.Username) != null)
                 throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
             else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
