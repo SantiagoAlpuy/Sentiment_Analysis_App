@@ -141,6 +141,16 @@ namespace Tests
             authorController.AddAuthor(author2);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(AlreadyExistsException))]
+        public void RegisterAuthorThatAlreadyExistsButWithBlankSpacesAtBegginingAndEnd()
+        {
+            Author author1 = new Author() { Username = "   testUser1    ", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Author author2 = new Author() { Username = "testuser1", Name = "nameB", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.AddAuthor(author2);
+        }
+
 
 
     }
