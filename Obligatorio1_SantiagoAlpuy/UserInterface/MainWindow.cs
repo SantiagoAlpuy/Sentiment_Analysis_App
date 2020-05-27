@@ -63,5 +63,11 @@ namespace UserInterface
             this.PrincipalPanel.Controls.Clear();
             this.PrincipalPanel.Controls.Add(new UC_AlertReport());
         }
+
+        private void btnManageAuthors_Click_1(object sender, EventArgs e)
+        {
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_ManageAuthors());
+        }
     }
 }

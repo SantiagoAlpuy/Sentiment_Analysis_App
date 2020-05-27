@@ -39,24 +39,27 @@ namespace BusinessLogic.Controllers
                 throw new LackOfObligatoryParametersException();
             else if (author.Username == "")
                 throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
-            else if (author.Name == "")
-                throw new EmptyFieldException(EMPTY_NAME_FIELD);
-            else if (author.Surname == "")
-                throw new EmptyFieldException(EMPTY_SURNAME_FIELD);
-            else if (ObtainAuthorByUsername(author.Username) != null)
-                throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
-            else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
-                throw new TooLargeException(USERNAME_IS_TOO_BIG);
             else if (!IsAlphanumeric(author.Username))
                 throw new NotAlphaNumericalException(USERNAME_IS_NOT_ALPHANUMERIC);
+            else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
+                throw new TooLargeException(USERNAME_IS_TOO_BIG);
+            else if (ObtainAuthorByUsername(author.Username) != null)
+                throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
+
+            else if (author.Name == "")
+                throw new EmptyFieldException(EMPTY_NAME_FIELD);
             else if (author.Name.Length >= MAX_CHARS_IN_NAME)
                 throw new TooLargeException(NAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Name))
                 throw new NotAlphabeticException(NAME_IS_NOT_ALPHABETIC);
+
+            else if (author.Surname == "")
+                throw new EmptyFieldException(EMPTY_SURNAME_FIELD);            
             else if (author.Surname.Length >= MAX_CHARS_IN_NAME)
                 throw new TooLargeException(SURNAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Surname))
                 throw new NotAlphabeticException(SURNAME_IS_NOT_ALPHABETIC);
+
             else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author.Born.Year)
                 throw new DateNotInRangeException(AGE_LOWER_THAN_LOWER_LIMIT);
             else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author.Born.Year)
