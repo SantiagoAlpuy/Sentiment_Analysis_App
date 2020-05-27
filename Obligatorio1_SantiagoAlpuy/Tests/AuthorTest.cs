@@ -25,5 +25,13 @@ namespace Tests
             Assert.AreEqual(authorController.ObtainAuthorByUsername("testUser1"), author1);
             Assert.AreEqual(authorController.ObtainAuthorByUsername("testUser2"), author2);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        public void RegisterAuthorWithoutUsername()
+        {
+            Author author = new Author() { Name = "name1", Surname = "surname1", Born = DateTime.Now };
+            authorController.AddAuthor(author);
+        }
     }
 }
