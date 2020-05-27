@@ -66,5 +66,21 @@ namespace Tests
             authorController.AddAuthor(author);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(TooLargeException))]
+        public void RegisterAuthorWithVeryBigName()
+        {
+            Author author = new Author() { Username = "testuser1", Name = "nameABCDEFGHI", Surname = "surname1", Born = DateTime.Now };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotAlphabeticException))]
+        public void RegisterAuthorWithNotAlphabeticName()
+        {
+            Author author = new Author() { Username = "%&###$", Name = "134556", Surname = "surname1", Born = DateTime.Now };
+            authorController.AddAuthor(author);
+        }
+
     }
 }
