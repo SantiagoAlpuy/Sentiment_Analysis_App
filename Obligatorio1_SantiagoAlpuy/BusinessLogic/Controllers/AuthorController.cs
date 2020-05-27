@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
-using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace BusinessLogic.Controllers
 {
@@ -12,8 +12,11 @@ namespace BusinessLogic.Controllers
         Repository repository = Repository.Instance;
         private List<Author> authors;
         private const int MAX_CHARS_IN_USERNAME = 10;
+        private const int MAX_CHARS_IN_NAME = 15;
         private const string USERNAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_USERNAME} caracteres.";
         private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
+        private const string NAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
 
         public AuthorController()
         {
@@ -28,16 +31,25 @@ namespace BusinessLogic.Controllers
                 throw new TooLargeException(USERNAME_IS_TOO_BIG);
             else if (!IsAlphanumeric(author.Username))
                 throw new NotAlphaNumericalException(USERNAME_IS_NOT_ALPHANUMERIC);
+            else if (author.Name.Length >= MAX_CHARS_IN_NAME)
+                throw new TooLargeException(NAME_IS_TOO_BIG);
+            else if (!isAlphabetic(author.Name))
+                throw new NotAlphabeticException(NAME_IS_NOT_ALPHABETIC);
             else
                 authors.Add(author);
         }
 
         private bool IsAlphanumeric(string text)
         {
-            Regex r = new Regex("^[a-zA-Z0-9]*$");
-            return r.IsMatch(text);
+            return text.All(char.IsLetterOrDigit);
             
         }
+
+        private bool isAlphabetic(string text)
+        {
+            return text.All(char.IsLetter);
+        }
+
 
         public Author ObtainAuthorByUsername(string username)
         {
