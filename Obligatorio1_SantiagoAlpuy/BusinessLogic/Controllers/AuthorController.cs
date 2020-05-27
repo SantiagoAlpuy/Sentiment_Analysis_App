@@ -17,6 +17,8 @@ namespace BusinessLogic.Controllers
         private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
         private const string NAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
         private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
+        private const string SURNAME_IS_TOO_BIG = "El nombre de usuario es mayor a {MAX_CHARS_IN_NAME} caracteres.";
+        private const string SURNAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
 
         public AuthorController()
         {
