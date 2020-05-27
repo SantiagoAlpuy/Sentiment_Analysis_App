@@ -70,7 +70,7 @@ namespace BusinessLogic.Controllers
 
         public Author ObtainAuthorByUsername(string username)
         {
-            return authors.Find(x => x.Username == username);
+            return authors.Find(x => x.Username.ToLower() == username.ToLower());
         }
     }
 }
