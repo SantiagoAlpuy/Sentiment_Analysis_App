@@ -218,5 +218,14 @@ namespace Tests
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
             Assert.AreEqual(CategoryType.Negative, phraseWithUpperAndLower2.Category);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void RegisterPhraseWithoutAuthor()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960,01,01)};
+            Phrase phrase = new Phrase() { Comment = "me gusta la hamburguesa", Date = currentDate, PhraseAuthor = author };
+            phraseController.AddPhraseToRepository(phrase);
+        }
     }
 }

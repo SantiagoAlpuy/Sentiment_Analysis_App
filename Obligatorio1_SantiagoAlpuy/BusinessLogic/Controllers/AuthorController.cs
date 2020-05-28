@@ -36,7 +36,7 @@ namespace BusinessLogic.Controllers
         public void AddAuthor(Author author)
         {
             if (author.Username == null || author.Name == null || author.Surname == null)
-                throw new LackOfObligatoryParametersException();
+                throw new LackOfObligatoryParametersException(); 
             else if (author.Username == "")
                 throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
             else if (!IsAlphanumeric(author.Username))
