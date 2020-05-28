@@ -175,6 +175,29 @@ namespace Tests
             authorController.AddAuthor(author);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(EmptyFieldException))]
+        public void RegisterAuthorWithUsernameWithOnlyBlankSpaces()
+        {
+            Author author = new Author() { Username = "    ", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EmptyFieldException))]
+        public void RegisterAuthorWithNameWithOnlyBlankSpaces()
+        {
+            Author author = new Author() { Username = "nameA", Name = "     ", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EmptyFieldException))]
+        public void RegisterAuthorWithSurnameWithOnlyBlankSpaces()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "    ", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
 
     }
 }
