@@ -127,6 +127,9 @@
             // 
             // autorComboBox
             // 
+            this.autorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.autorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.autorComboBox.FormattingEnabled = true;
             this.autorComboBox.Location = new System.Drawing.Point(44, 177);
             this.autorComboBox.Name = "autorComboBox";

@@ -32,7 +32,7 @@ namespace BusinessLogic.Controllers
         {
             authors = repository.Authors;
         }
-
+        
         public void AddAuthor(Author author)
         {
             if (author.Username == null || author.Name == null || author.Surname == null)
