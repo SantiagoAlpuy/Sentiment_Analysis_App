@@ -54,6 +54,7 @@
     <Compile Include="EntityTest.cs" />
     <Compile Include="PhraseTest.cs" />
     <Compile Include="AlertTest.cs" />
+    <Compile Include="AuthorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

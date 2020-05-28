@@ -16,6 +16,8 @@ namespace BusinessLogic.Controllers
         private List<Sentiment> negativeSentiments;
         private List<Entity> entities;
 
+        private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
+
         public PhraseController()
         {
             phrases = repository.Phrases;
@@ -42,6 +44,8 @@ namespace BusinessLogic.Controllers
                 throw new DateOlderThanOneYearException();
             else if (phrase.Date.CompareTo(DateTime.Now) > 0)
                 throw new DateFromFutureException();
+            else if (phrase.PhraseAuthor == null)
+                throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
         }
 
         public Phrase ObtainPhrase(string comment, DateTime date)

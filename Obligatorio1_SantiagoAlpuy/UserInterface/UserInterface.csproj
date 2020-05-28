@@ -72,6 +72,12 @@
     <Compile Include="UC_AnalysisReport.Designer.cs">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_ManageAuthors.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ManageAuthors.Designer.cs">
+      <DependentUpon>UC_ManageAuthors.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC_ManageEntities.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UC_AnalysisReport.resx">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ManageAuthors.resx">
+      <DependentUpon>UC_ManageAuthors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_ManageEntities.resx">
       <DependentUpon>UC_ManageEntities.cs</DependentUpon>
