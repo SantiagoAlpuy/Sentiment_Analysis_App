@@ -18,6 +18,7 @@ namespace UserInterface
     {
         IPhraseController phraseController;
         IAlertController alertController;
+        IAuthorController authorController;
         Repository repository;
         FlowLayoutPanel mainPanel;
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
@@ -32,6 +33,7 @@ namespace UserInterface
             InitializeComponent();
             phraseController = new PhraseController();
             alertController = new AlertController();
+            authorController = new AuthorController();
         }
 
         public UC_ManagePhrases(FlowLayoutPanel panel)
@@ -39,8 +41,16 @@ namespace UserInterface
             InitializeComponent();
             phraseController = new PhraseController();
             alertController = new AlertController();
+            authorController = new AuthorController();
             repository = Repository.Instance;
             mainPanel = panel;
+
+            autorComboBox.Items.Add("");
+            foreach (Author author in repository.Authors)
+            {
+                autorComboBox.Items.Add(author.Username);
+            }
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -56,7 +66,8 @@ namespace UserInterface
             try
             {
                 DateTime date = dateTimePicker1.Value;
-                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date };
+                Author author = authorController.ObtainAuthorByUsername((string) autorComboBox.SelectedItem);
+                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, PhraseAuthor = author };
                 phraseController.AddPhraseToRepository(phrase);
                 phraseController.AnalyzePhrase(phrase);
                 alertController.EvaluateAlert();
@@ -75,6 +86,10 @@ namespace UserInterface
             catch (DateFromFutureException e)
             {
                 MessageBox.Show(PHRASE_DATE_FROM_FUTURE);
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
