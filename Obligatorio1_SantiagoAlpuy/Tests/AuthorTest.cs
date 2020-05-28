@@ -197,5 +197,21 @@ namespace Tests
             authorController.AddAuthor(author);
         }
 
+        [TestMethod]
+        public void DeleteExistingAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+            authorController.RemoveAuthor("testUserA");
+            Assert.IsNull(authorController.ObtainAuthorByUsername("testUserA"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void DeleteNotExistingAuthor()
+        {
+            authorController.RemoveAuthor("ThisAuthorDoesNotExist");
+        }
+
     }
 }

@@ -8,5 +8,6 @@ namespace BusinessLogic.IControllers
     {
         void AddAuthor(Author author);
         Author ObtainAuthorByUsername(string username);
+        void RemoveAuthor(string username);
     }
 }

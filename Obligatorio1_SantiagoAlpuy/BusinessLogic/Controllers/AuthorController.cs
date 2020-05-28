@@ -6,7 +6,7 @@ using System.Linq;
 namespace BusinessLogic.Controllers
 {
     public class AuthorController : IAuthorController
-    { 
+    {
         Repository repository = Repository.Instance;
         private List<Author> authors;
         private const int MAX_CHARS_IN_USERNAME = 10;
@@ -28,10 +28,19 @@ namespace BusinessLogic.Controllers
         private const string NULL_USERNAME = "Seleccione una nombre de usuario válido.";
         private const string NULL_NAME = "Seleccione una nombre válido.";
         private const string NULL_SURNAME = "Seleccione un apellido válido.";
+        private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
 
         public AuthorController()
         {
             authors = repository.Authors;
+        }
+
+        public void RemoveAuthor(string username)
+        {
+            Author author = ObtainAuthorByUsername(username);
+            if (author == null)
+                throw new NullReferenceException(INEXISTENT_AUTHOR);
+            authors.Remove(author);
         }
         
         public void AddAuthor(Author author)

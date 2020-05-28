@@ -59,5 +59,14 @@ namespace UserInterface
                 Console.WriteLine(ex.Message);
             }
         }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in authorsDataGrid.SelectedRows)
+            {
+                authorController.RemoveAuthor(row.Cells[0].Value.ToString());
+            }
+            this.authorsDataGrid.DataSource = repository.Authors.ToList();
+        }
     }
 }
