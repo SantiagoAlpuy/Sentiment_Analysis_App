@@ -182,7 +182,7 @@
             this.PrincipalPanel.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
             this.PrincipalPanel.Location = new System.Drawing.Point(218, 1);
             this.PrincipalPanel.Name = "PrincipalPanel";
-            this.PrincipalPanel.Size = new System.Drawing.Size(759, 557);
+            this.PrincipalPanel.Size = new System.Drawing.Size(759, 544);
             this.PrincipalPanel.TabIndex = 8;
             // 
             // uC_ManagePosSentiment1

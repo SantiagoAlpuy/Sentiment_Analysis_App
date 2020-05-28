@@ -38,7 +38,8 @@ namespace UserInterface
                 else if (item.Equals(CategoryType.Negative))
                     categoryComboBox.Items.Add("Negativa");
             }
-            LoadDataGridAlerts();
+
+            this.dataGrid.DataSource = repository.Alerts.ToList();
             categoryComboBox.SelectedIndex = 0;
             dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
@@ -46,11 +47,6 @@ namespace UserInterface
             dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
             dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
             dataGrid.Columns[5].HeaderText = SIXTH_COLUMN_NAME;
-        }
-
-        private void LoadDataGridAlerts()
-        {
-            this.dataGrid.DataSource = repository.Alerts.ToList();
         }
 
 
@@ -88,7 +84,7 @@ namespace UserInterface
             alertController.EvaluateAlert();
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
-            LoadDataGridAlerts();
+            this.dataGrid.DataSource = repository.Alerts.ToList();
         }
 
         private CategoryType StringToCategory(string category)
