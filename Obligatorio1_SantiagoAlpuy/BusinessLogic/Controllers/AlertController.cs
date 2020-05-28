@@ -12,6 +12,8 @@ namespace BusinessLogic.Controllers
 
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
+        private const string EMPTY_ENTITY = "Ingrese una entidad no vacía.";
+        private const string NEUTRO_CATEGORY = "Debe seleccionar una categoría.";
         private const string NEGATIVE_POSTS = "No puede ingresar una cantidad negativa de posts.";
         private const string NEGATIVE_DAYS = "No puede ingresar una cantidad negativa de días.";
         private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
@@ -34,6 +36,10 @@ namespace BusinessLogic.Controllers
                 throw new NullReferenceException(NULL_ALERT);
             if (alert.Entity == null)
                 throw new NullReferenceException(NULL_ENTITY);
+            if (alert.Entity.Trim() == "")
+                throw new ArgumentException(EMPTY_ENTITY);
+            if (alert.Category.Equals(CategoryType.Neutro))
+                throw new ArgumentException(NEUTRO_CATEGORY);
             else if (alert.Posts < 0)
                 throw new ArgumentException(NEGATIVE_POSTS);
             else if (alert.Days < 0)

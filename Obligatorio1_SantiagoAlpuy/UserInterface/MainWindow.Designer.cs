@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnManageAuthors = new System.Windows.Forms.Button();
             this.btnManagePositiveSentiment = new System.Windows.Forms.Button();
             this.btnManageNegativeSentiment = new System.Windows.Forms.Button();
             this.btnManageEntities = new System.Windows.Forms.Button();
@@ -37,7 +38,7 @@
             this.btnAlertConfig = new System.Windows.Forms.Button();
             this.btnAnalysisReport = new System.Windows.Forms.Button();
             this.btnAlertReport = new System.Windows.Forms.Button();
-            this.btnManageAuthors = new System.Windows.Forms.Button();
+            this.PrincipalPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.uC_ManagePosSentiment1 = new UserInterface.UC_ManagePosSentiment();
             this.uC_ManagePhrases1 = new UserInterface.UC_ManagePhrases();
             this.uC_ManageNegSentiment1 = new UserInterface.UC_ManageNegSentiment();
@@ -45,7 +46,6 @@
             this.uC_AnalysisReport1 = new UserInterface.UC_AnalysisReport();
             this.uC_AlertReport1 = new UserInterface.UC_AlertReport();
             this.uC_AlertConfig1 = new UserInterface.UC_AlertConfig();
-            this.PrincipalPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +64,20 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(212, 558);
             this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // btnManageAuthors
+            // 
+            this.btnManageAuthors.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnManageAuthors.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnManageAuthors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnManageAuthors.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnManageAuthors.Location = new System.Drawing.Point(3, 3);
+            this.btnManageAuthors.Name = "btnManageAuthors";
+            this.btnManageAuthors.Size = new System.Drawing.Size(205, 52);
+            this.btnManageAuthors.TabIndex = 9;
+            this.btnManageAuthors.Text = "Gestionar Autores";
+            this.btnManageAuthors.UseVisualStyleBackColor = false;
+            this.btnManageAuthors.Click += new System.EventHandler(this.btnManageAuthors_Click_1);
             // 
             // btnManagePositiveSentiment
             // 
@@ -163,19 +177,13 @@
             this.btnAlertReport.UseVisualStyleBackColor = false;
             this.btnAlertReport.Click += new System.EventHandler(this.btnAlertReport_Click);
             // 
-            // btnManageAuthors
+            // PrincipalPanel
             // 
-            this.btnManageAuthors.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnManageAuthors.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnManageAuthors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btnManageAuthors.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnManageAuthors.Location = new System.Drawing.Point(3, 3);
-            this.btnManageAuthors.Name = "btnManageAuthors";
-            this.btnManageAuthors.Size = new System.Drawing.Size(205, 52);
-            this.btnManageAuthors.TabIndex = 9;
-            this.btnManageAuthors.Text = "Gestionar Autores";
-            this.btnManageAuthors.UseVisualStyleBackColor = false;
-            this.btnManageAuthors.Click += new System.EventHandler(this.btnManageAuthors_Click_1);
+            this.PrincipalPanel.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.PrincipalPanel.Location = new System.Drawing.Point(218, 1);
+            this.PrincipalPanel.Name = "PrincipalPanel";
+            this.PrincipalPanel.Size = new System.Drawing.Size(759, 557);
+            this.PrincipalPanel.TabIndex = 8;
             // 
             // uC_ManagePosSentiment1
             // 
@@ -232,14 +240,6 @@
             this.uC_AlertConfig1.Name = "uC_AlertConfig1";
             this.uC_AlertConfig1.Size = new System.Drawing.Size(762, 408);
             this.uC_AlertConfig1.TabIndex = 1;
-            // 
-            // PrincipalPanel
-            // 
-            this.PrincipalPanel.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
-            this.PrincipalPanel.Location = new System.Drawing.Point(218, 1);
-            this.PrincipalPanel.Name = "PrincipalPanel";
-            this.PrincipalPanel.Size = new System.Drawing.Size(759, 409);
-            this.PrincipalPanel.TabIndex = 8;
             // 
             // MainWindow
             // 

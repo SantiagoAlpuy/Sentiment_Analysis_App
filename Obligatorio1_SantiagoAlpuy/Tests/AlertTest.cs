@@ -135,20 +135,6 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ActivateAlertOfPhrasesWithNeutroCategory()
-        {
-            entity1 = new Entity() { Name = "pepsi" };
-            phrase1 = new Phrase() { Comment = "nacanaca pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Neutro, Posts = 2, Days = 5 };
-            entityController.AddEntity(entity1);
-            phraseController.AddPhraseToRepository(phrase1);
-            phraseController.AnalyzePhrase(phrase1);
-            alertController.AddAlert(alert);
-            alertController.EvaluateAlert();
-            Assert.IsFalse(alert.Activated);
-        }
-
-        [TestMethod]
         public void ActivateAlertOfPhrasesWithEntityWithDifferentLetterFormat()
         {
             entity1 = new Entity() { Name = "pepsi" };
@@ -203,5 +189,33 @@ namespace Tests
 
             Assert.IsFalse(alert.Activated);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GenerateAlertWithEmptyEntityField()
+        {
+            entity1 = new Entity() { Name = "" };
+            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Hours = 2 };
+            alertController.AddAlert(alert);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GenerateAlertWithMultipleBlankSpacesInEntityField()
+        {
+            entity1 = new Entity() { Name = "    " };
+            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Hours = 2 };
+            alertController.AddAlert(alert);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GenerateAlertWithNeutroCategory()
+        {
+            entity1 = new Entity() { Name = "pepsi" };
+            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Neutro, Posts = 2, Hours = 2 };
+            alertController.AddAlert(alert);
+        }
+
     }
 }

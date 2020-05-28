@@ -34,9 +34,6 @@
             this.btnAdd = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.postBox = new System.Windows.Forms.TextBox();
-            this.daysBox = new System.Windows.Forms.TextBox();
-            this.hoursBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.categoryComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -44,9 +41,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.postsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.daysUpDown = new System.Windows.Forms.NumericUpDown();
+            this.hoursUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.postsUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.daysUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hoursUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // entityBox
@@ -61,8 +64,6 @@
             this.entityBox.Size = new System.Drawing.Size(526, 35);
             this.entityBox.TabIndex = 10;
             this.entityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.entityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyDown);
-            this.entityBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyUp);
             // 
             // label1
             // 
@@ -126,54 +127,6 @@
             this.dataGrid.Size = new System.Drawing.Size(665, 100);
             this.dataGrid.TabIndex = 11;
             // 
-            // postBox
-            // 
-            this.postBox.AccessibleDescription = "";
-            this.postBox.AccessibleName = "";
-            this.postBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.postBox.ForeColor = System.Drawing.Color.Gray;
-            this.postBox.Location = new System.Drawing.Point(44, 237);
-            this.postBox.Multiline = true;
-            this.postBox.Name = "postBox";
-            this.postBox.Size = new System.Drawing.Size(526, 35);
-            this.postBox.TabIndex = 15;
-            this.postBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.postBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.postBox_KeyDown);
-            this.postBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.postBox_KeyPress);
-            this.postBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.postBox_KeyUp);
-            // 
-            // daysBox
-            // 
-            this.daysBox.AccessibleDescription = "";
-            this.daysBox.AccessibleName = "";
-            this.daysBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.daysBox.ForeColor = System.Drawing.Color.Gray;
-            this.daysBox.Location = new System.Drawing.Point(44, 294);
-            this.daysBox.Multiline = true;
-            this.daysBox.Name = "daysBox";
-            this.daysBox.Size = new System.Drawing.Size(526, 35);
-            this.daysBox.TabIndex = 16;
-            this.daysBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.daysBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.daysBox_KeyDown);
-            this.daysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.daysBox_KeyPress);
-            this.daysBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.daysBox_KeyUp);
-            // 
-            // hoursBox
-            // 
-            this.hoursBox.AccessibleDescription = "";
-            this.hoursBox.AccessibleName = "";
-            this.hoursBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hoursBox.ForeColor = System.Drawing.Color.Gray;
-            this.hoursBox.Location = new System.Drawing.Point(44, 351);
-            this.hoursBox.Multiline = true;
-            this.hoursBox.Name = "hoursBox";
-            this.hoursBox.Size = new System.Drawing.Size(526, 35);
-            this.hoursBox.TabIndex = 17;
-            this.hoursBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.hoursBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.hoursBox_KeyDown);
-            this.hoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.hoursBox_KeyPress);
-            this.hoursBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.hoursBox_KeyUp);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -199,7 +152,6 @@
             this.categoryComboBox.Name = "categoryComboBox";
             this.categoryComboBox.Size = new System.Drawing.Size(526, 24);
             this.categoryComboBox.TabIndex = 18;
-            this.categoryComboBox.SelectedValueChanged += new System.EventHandler(this.categoryComboBox_SelectedValueChanged);
             // 
             // label6
             // 
@@ -256,11 +208,56 @@
             this.label8.TabIndex = 35;
             this.label8.Text = "Ingrese un nombre de Entidad";
             // 
+            // postsUpDown
+            // 
+            this.postsUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.postsUpDown.Location = new System.Drawing.Point(44, 252);
+            this.postsUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.postsUpDown.Name = "postsUpDown";
+            this.postsUpDown.Size = new System.Drawing.Size(526, 26);
+            this.postsUpDown.TabIndex = 36;
+            this.postsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // daysUpDown
+            // 
+            this.daysUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.daysUpDown.Location = new System.Drawing.Point(44, 303);
+            this.daysUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.daysUpDown.Name = "daysUpDown";
+            this.daysUpDown.Size = new System.Drawing.Size(526, 26);
+            this.daysUpDown.TabIndex = 37;
+            this.daysUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // hoursUpDown
+            // 
+            this.hoursUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hoursUpDown.Location = new System.Drawing.Point(44, 351);
+            this.hoursUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.hoursUpDown.Name = "hoursUpDown";
+            this.hoursUpDown.Size = new System.Drawing.Size(526, 26);
+            this.hoursUpDown.TabIndex = 38;
+            this.hoursUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // UC_AlertConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.hoursUpDown);
+            this.Controls.Add(this.daysUpDown);
+            this.Controls.Add(this.postsUpDown);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -268,9 +265,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.categoryComboBox);
-            this.Controls.Add(this.hoursBox);
-            this.Controls.Add(this.daysBox);
-            this.Controls.Add(this.postBox);
             this.Controls.Add(this.entityBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -281,6 +275,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.postsUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.daysUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hoursUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,9 +291,6 @@
         private System.Windows.Forms.PictureBox btnAdd;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGrid;
-        private System.Windows.Forms.TextBox postBox;
-        private System.Windows.Forms.TextBox daysBox;
-        private System.Windows.Forms.TextBox hoursBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox categoryComboBox;
         private System.Windows.Forms.Label label6;
@@ -304,5 +298,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown postsUpDown;
+        private System.Windows.Forms.NumericUpDown daysUpDown;
+        private System.Windows.Forms.NumericUpDown hoursUpDown;
     }
 }

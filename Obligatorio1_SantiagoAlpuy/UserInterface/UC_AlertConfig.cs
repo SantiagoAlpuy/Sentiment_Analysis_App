@@ -21,7 +21,9 @@ namespace UserInterface
         private const string FOURTH_COLUMN_NAME = "Días";
         private const string FIFTH_COLUMN_NAME = "Horas";
         private const string SIXTH_COLUMN_NAME = "Activada";
-
+        private const string POST_COUNT_MISSING = "Debe ingresar una cantidad de posts.";
+        private const string DAY_COUNT_MISSING = "Debe ingresar una cantidad de días.";
+        private const string HOUR_COUNT_MISSING = "Debe ingresar una cantidad de horas.";
 
         public UC_AlertConfig()
         {
@@ -32,9 +34,9 @@ namespace UserInterface
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
             {
                 if (item.Equals(CategoryType.Positive))
-                    categoryComboBox.Items.Add("Positivo");
+                    categoryComboBox.Items.Add("Positiva");
                 else if (item.Equals(CategoryType.Negative))
-                    categoryComboBox.Items.Add("Negativo");
+                    categoryComboBox.Items.Add("Negativa");
             }
             LoadDataGridAlerts();
             categoryComboBox.SelectedIndex = 0;
@@ -54,161 +56,60 @@ namespace UserInterface
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (ValidateIfFieldsAreNotEmpty())
+            try
             {
-                CreateAndAddAlarm();
+                EvaluateAlert();
             }
-            else
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(FIELDS_NOT_ADDED);
+                MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
-        private bool ValidateIfFieldsAreNotEmpty()
+        private void EvaluateAlert()
         {
-            return (postBox.Text != "" && daysBox.Text != "" &&
-                hoursBox.Text != "" && (string) categoryComboBox.SelectedItem != "");
-        }
-        private void CreateAndAddAlarm()
-        {
-            try
+            Alert alert = new Alert()
             {
-                Alert alert = new Alert()
-                {
-                    Entity = entityBox.Text,
-                    Category = StringToCategory((string)categoryComboBox.SelectedItem),
-                    Posts = Int32.Parse(postBox.Text),
-                    Days = Int32.Parse(daysBox.Text),
-                    Hours = Int32.Parse(hoursBox.Text)
-                };
-                alertController.AddAlert(alert);
-                alertController.EvaluateAlert();
-                MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
-                SetFieldsToDefaultValue();
-                LoadDataGridAlerts();
-            }
-            catch (ArgumentException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (NullReferenceException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Entity = entityBox.Text,
+                Category = StringToCategory((string)categoryComboBox.SelectedItem),
+                Posts = (int) postsUpDown.Value,
+                Days = (int) daysUpDown.Value,
+                Hours = (int) hoursUpDown.Value
+            };
+            alertController.AddAlert(alert);
+            alertController.EvaluateAlert();
+            MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
+            SetFieldsToDefaultValue();
+            LoadDataGridAlerts();
         }
 
         private CategoryType StringToCategory(string category)
         {
             CategoryType cat = CategoryType.Neutro;
-            if (category.Equals("Positivo"))
+            if (category.Equals("Positiva"))
                 cat = CategoryType.Positive;
-            else
+            else if (category.Equals("Negativa"))
                 cat = CategoryType.Negative;
             return cat;
-
         }
 
         private void SetFieldsToDefaultValue()
         {
-            entityBox.Text = EMPTY_MESSAGE;
-            postBox.Text = EMPTY_MESSAGE;
-            daysBox.Text = EMPTY_MESSAGE;
-            hoursBox.Text = EMPTY_MESSAGE;
-            categoryComboBox.Text = EMPTY_MESSAGE;
+            entityBox.Text = "";
+            categoryComboBox.SelectedIndex = 0;
+            postsUpDown.Value = 0;
+            hoursUpDown.Value = 0;
+            daysUpDown.Value = 0;
         }
 
-        private void entityBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            IfEmptyLoadDefaultMessage(entityBox, EMPTY_MESSAGE);
-        }
-        
-        private void entityBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            IfDefaultMessageDeleteIt(entityBox, EMPTY_MESSAGE);
-        }
-        
-        private void categoryComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (categoryComboBox.SelectedIndex == 0)
-                categoryComboBox.ForeColor = Color.Gray;
-            else
-                categoryComboBox.ForeColor = Color.Black;
-        }
-        
-        private void postBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            IfDefaultMessageDeleteIt(postBox, EMPTY_MESSAGE);
-        }
-
-        private void postBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnlyNumbers(sender, e);
-        }
-
-        private void postBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            IfEmptyLoadDefaultMessage(postBox, EMPTY_MESSAGE);
-        }
-
-        private void daysBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            IfDefaultMessageDeleteIt(daysBox, EMPTY_MESSAGE);
-        }
-
-        private void daysBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnlyNumbers(sender, e);
-        }
-
-        private void daysBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            IfEmptyLoadDefaultMessage(daysBox, EMPTY_MESSAGE);
-        }
-
-        private void hoursBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            IfDefaultMessageDeleteIt(hoursBox, EMPTY_MESSAGE);
-        }
-
-        private void hoursBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnlyNumbers(sender, e);
-        }
-
-        private void hoursBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            IfEmptyLoadDefaultMessage(hoursBox, EMPTY_MESSAGE);
-        }
-
-        private void OnlyNumbers(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void IfEmptyLoadDefaultMessage(TextBox box, string message)
-        {
-            if (box.Text == EMPTY_MESSAGE)
-            {
-                box.Text = message;
-                box.ForeColor = Color.Gray;
-            }
-        }
-
-        private void IfDefaultMessageDeleteIt(TextBox box, string message)
-        {
-            if (box.Text == message)
-            {
-                box.Text = EMPTY_MESSAGE;
-                box.ForeColor = Color.Black;
-            }
-        }
 
     }
 }
