@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
@@ -18,6 +11,7 @@ namespace UserInterface
         IAuthorController authorController;
         private const int LOWER_AGE_LIMIT = 13;
         private const string EMPTY_STRING = "";
+        private const string AUTHOR_ADDED = "Autor agregado con éxito";
 
 
         public UC_ManageAuthors()
@@ -33,7 +27,7 @@ namespace UserInterface
             {
                 Author author = new Author() { Username = usernameBox.Text, Name = authorNameBox.Text, Surname = authorSurnameBox.Text, Born = birthDatePicker.Value };
                 authorController.AddAuthor(author);
-                MessageBox.Show("Autor agregado con éxito");
+                MessageBox.Show(AUTHOR_ADDED);
                 usernameBox.Text = EMPTY_STRING;
                 authorNameBox.Text = EMPTY_STRING;
                 authorSurnameBox.Text = EMPTY_STRING;
