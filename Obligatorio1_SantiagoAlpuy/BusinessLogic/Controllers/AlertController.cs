@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
@@ -12,6 +9,12 @@ namespace BusinessLogic.Controllers
         Repository repository = Repository.Instance;
         private List<Alert> alerts;
         private List<Phrase> phrases;
+
+        private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
+        private const string NULL_ENTITY = "Ingrese una entidad válida.";
+        private const string NEGATIVE_POSTS = "No puede ingresar una cantidad negativa de posts.";
+        private const string NEGATIVE_DAYS = "No puede ingresar una cantidad negativa de días.";
+        private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
 
         public AlertController()
         {
@@ -28,15 +31,15 @@ namespace BusinessLogic.Controllers
         private void ValidateAlert(Alert alert)
         {
             if (alert == null)
-                throw new NullAlertException();
+                throw new NullReferenceException(NULL_ALERT);
             if (alert.Entity == null)
-                throw new NullEntityException();
+                throw new NullReferenceException(NULL_ENTITY);
             else if (alert.Posts < 0)
-                throw new NegativePostCountException();
+                throw new ArgumentException(NEGATIVE_POSTS);
             else if (alert.Days < 0)
-                throw new NegativeDayException();
+                throw new ArgumentException(NEGATIVE_DAYS);
             else if (alert.Hours < 0)
-                throw new NegativeHourException();
+                throw new ArgumentException(NEGATIVE_HOURS);
         }
 
         public Alert ObtainAlert(Alert alert)

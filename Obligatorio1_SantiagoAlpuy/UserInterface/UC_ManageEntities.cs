@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace UserInterface
@@ -21,10 +15,7 @@ namespace UserInterface
         IPhraseController phraseController;
         Repository repository;
         private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
-        private const string ENTITY_NOT_ADDED = "Por favor ingrese una entidad valida.";
         private const string ENTITY_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
-        private const string NO_DESCRIPTION_ENTITY = "Agregue un nombre de entidad.";
-        private const string ENTITY_ALREADY_EXISTS = "Esa entidad ya ha sido agregada al sistema.";
         private const string MAIN_ENTITY_COLUMN_NAME = "Nombre";
         public UC_ManageEntities()
         {
@@ -55,10 +46,7 @@ namespace UserInterface
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (entityBox.Text != WRITE_ENTITY_MESSAGE)
-                CreateAndAddEntity();
-            else
-                MessageBox.Show(ENTITY_NOT_ADDED);
+            CreateAndAddEntity();
         }
 
         private void CreateAndAddEntity()
@@ -74,13 +62,21 @@ namespace UserInterface
                 entityBox.ForeColor = Color.Gray;
                 LoadDataGridEntities();
             }
-            catch (LackOfObligatoryParametersException e)
+            catch (ArgumentException e)
             {
-                MessageBox.Show(NO_DESCRIPTION_ENTITY);
+                MessageBox.Show(e.Message);
             }
-            catch (EntityAlreadyExistsException e)
+            catch (InvalidOperationException e)
             {
-                MessageBox.Show(ENTITY_ALREADY_EXISTS);
+                MessageBox.Show(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 

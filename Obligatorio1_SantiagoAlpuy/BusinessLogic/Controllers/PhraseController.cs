@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
@@ -17,6 +14,10 @@ namespace BusinessLogic.Controllers
         private List<Entity> entities;
 
         private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
+        private const string NULL_PHRASE = "Ingrese una frase válida.";
+        private const string EMPTY_PHRASE = "Debe ingresar una frase no vacía.";
+        private const string OLD_DATE = "La fecha no debe tener más de un año de antiguedad.";
+        private const string FUTURE_DATE = "La fecha no puede ser superior a la fecha actual.";
 
         public PhraseController()
         {
@@ -35,15 +36,15 @@ namespace BusinessLogic.Controllers
         private void ValidatePhrase(Phrase phrase)
         {
             if (phrase == null)
-                throw new NullPhraseException();
+                throw new NullReferenceException(NULL_PHRASE);
             else if (phrase.Comment == null)
-                throw new NullAttributeInObjectException();
+                throw new NullReferenceException(NULL_PHRASE);
             else if (phrase.Comment.Trim() == "")
-                throw new LackOfObligatoryParametersException();
+                throw new ArgumentException(EMPTY_PHRASE);
             else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
-                throw new DateOlderThanOneYearException();
+                throw new ArgumentException(OLD_DATE);
             else if (phrase.Date.CompareTo(DateTime.Now) > 0)
-                throw new DateFromFutureException();
+                throw new ArgumentException(FUTURE_DATE);
             else if (phrase.PhraseAuthor == null)
                 throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
         }
@@ -101,7 +102,7 @@ namespace BusinessLogic.Controllers
                 Entity ent = FindEntityInPhrase(phrase);
                 phrase.Entity = ent.Name;
             }
-            catch (NullEntityException)
+            catch (NullReferenceException)
             {
                 phrase.Entity = "";
             }
@@ -129,7 +130,7 @@ namespace BusinessLogic.Controllers
             if (ent != null)
                 return ent;
             else
-                throw new NullEntityException();
+                throw new NullReferenceException();
         }
 
         private bool PhraseContainsEntity(Phrase phrase, Entity entity)

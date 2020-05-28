@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
 
@@ -34,7 +32,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithoutUsername()
         {
             Author author = new Author() { Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -42,7 +40,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithoutName()
         {
             Author author = new Author() { Username= "testuser1", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -50,7 +48,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithoutSurname()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameA", Born = new DateTime(1960, 01, 01) };
@@ -58,7 +56,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TooLargeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithVeryBigUsername()
         {
             Author author = new Author() { Username = "ABCDEFGHIJKLMOP", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -66,7 +64,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotAlphaNumericalException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithNotAlphanumericalUsername()
         {
             Author author = new Author() { Username = "%&###$", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -74,7 +72,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TooLargeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithVeryBigName()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameABCDEFGHIJKLM", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -82,7 +80,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotAlphabeticException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithNotAlphabeticName()
         {
             Author author = new Author() { Username = "testuser1", Name = "134556", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -90,7 +88,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TooLargeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithVeryBigSurname()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameA", Surname = "surnameABCDEFGHIJK", Born = new DateTime(1960, 01, 01) };
@@ -98,7 +96,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotAlphabeticException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithNotAlphabeticSurname()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameA", Surname = "1234357", Born = new DateTime(1960, 01, 01) };
@@ -106,7 +104,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DateNotInRangeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithLessThanThirteenYearsOld()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameA", Surname = "surnameA", Born = new DateTime(2010, 01, 01) };
@@ -114,7 +112,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DateNotInRangeException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithMoreThanHundredYearsOld()
         {
             Author author = new Author() { Username = "testuser1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1899, 01, 01) };
@@ -122,7 +120,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAuthorThatAlreadyExists()
         {
             Author author1 = new Author() { Username = "testUser1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -132,7 +130,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAuthorThatAlreadyExistsButWithDifferentMayusMinusFormat()
         {
             Author author1 = new Author() { Username = "testUser1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -142,7 +140,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAuthorThatAlreadyExistsButWithBlankSpacesAtBegginingAndEnd()
         {
             Author author1 = new Author() { Username = "  santi  ", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -152,7 +150,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithEmptyUsername()
         {
             Author author = new Author() { Username = "", Name = "nameB", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
@@ -160,7 +158,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithEmptyName()
         {
             Author author = new Author() { Username = "testUser1", Name = "", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
@@ -168,7 +166,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithEmptySurname()
         {
             Author author = new Author() { Username = "testUser1", Name = "nameA", Surname = "", Born = new DateTime(1980, 01, 01) };
@@ -176,7 +174,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithUsernameWithOnlyBlankSpaces()
         {
             Author author = new Author() { Username = "    ", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
@@ -184,7 +182,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithNameWithOnlyBlankSpaces()
         {
             Author author = new Author() { Username = "nameA", Name = "     ", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
@@ -192,7 +190,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EmptyFieldException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithSurnameWithOnlyBlankSpaces()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "    ", Born = new DateTime(1980, 01, 01) };

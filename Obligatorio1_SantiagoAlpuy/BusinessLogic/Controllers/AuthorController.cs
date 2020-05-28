@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 using System.Linq;
 
@@ -27,6 +25,9 @@ namespace BusinessLogic.Controllers
         private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
         private const string EMPTY_NAME_FIELD = "El campo 'nombre' esta vacío.";
         private const string EMPTY_SURNAME_FIELD = "El campo 'apellido' esta vacío.";
+        private const string NULL_USERNAME = "Seleccione una nombre de usuario válido.";
+        private const string NULL_NAME = "Seleccione una nombre válido.";
+        private const string NULL_SURNAME = "Seleccione un apellido válido.";
 
         public AuthorController()
         {
@@ -35,35 +36,39 @@ namespace BusinessLogic.Controllers
         
         public void AddAuthor(Author author)
         {
-            if (author.Username == null || author.Name == null || author.Surname == null)
-                throw new LackOfObligatoryParametersException(); 
+            if (author.Username == null)
+                throw new ArgumentException(NULL_USERNAME);
+            else if (author.Name == null)
+                throw new ArgumentException(NULL_NAME);
+            else if (author.Surname == null)
+                throw new ArgumentException(NULL_SURNAME);
             else if (author.Username.Trim() == "")
-                throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
+                throw new ArgumentException(EMPTY_USERNAME_FIELD);
             else if (!IsAlphanumeric(author.Username))
-                throw new NotAlphaNumericalException(USERNAME_IS_NOT_ALPHANUMERIC);
+                throw new ArgumentException(USERNAME_IS_NOT_ALPHANUMERIC);
             else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
-                throw new TooLargeException(USERNAME_IS_TOO_BIG);
+                throw new ArgumentException(USERNAME_IS_TOO_BIG);
             else if (ObtainAuthorByUsername(author.Username) != null)
-                throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
+                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
 
             else if (author.Name.Trim() == "")
-                throw new EmptyFieldException(EMPTY_NAME_FIELD);
+                throw new ArgumentException(EMPTY_NAME_FIELD);
             else if (author.Name.Length >= MAX_CHARS_IN_NAME)
-                throw new TooLargeException(NAME_IS_TOO_BIG);
+                throw new ArgumentException(NAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Name))
-                throw new NotAlphabeticException(NAME_IS_NOT_ALPHABETIC);
+                throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
 
             else if (author.Surname.Trim() == "")
-                throw new EmptyFieldException(EMPTY_SURNAME_FIELD);            
+                throw new ArgumentException(EMPTY_SURNAME_FIELD);
             else if (author.Surname.Length >= MAX_CHARS_IN_NAME)
-                throw new TooLargeException(SURNAME_IS_TOO_BIG);
+                throw new ArgumentException(SURNAME_IS_TOO_BIG);
             else if (!isAlphabetic(author.Surname))
-                throw new NotAlphabeticException(SURNAME_IS_NOT_ALPHABETIC);
+                throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
 
             else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author.Born.Year)
-                throw new DateNotInRangeException(AGE_LOWER_THAN_LOWER_LIMIT);
+                throw new ArgumentException(AGE_LOWER_THAN_LOWER_LIMIT);
             else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author.Born.Year)
-                throw new DateNotInRangeException(AGE_BIGGER_THAN_UPPER_LIMIT);
+                throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
             else
                 authors.Add(author);
         }

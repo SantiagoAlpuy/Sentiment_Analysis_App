@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace UserInterface
@@ -23,11 +17,6 @@ namespace UserInterface
         private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
-        private const string SENTIMENT_NOT_ADDED = "Por favor, ingrese un sentimiento válido.";
-        private const string NO_DESCRIPTION_SENTIMENT = "No agrego una descripción.";
-        private const string SENTIMENT_HAS_NUMBERS = "No se supone que un sentimiento tenga numeros.";
-        private const string SENTIMENT_ALREADY_ADDED = "Ese sentimiento ya fue añadido!";
-        private const string SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST = "Ese sentimiento ya ha sido agregado como positivo.";
 
         public UC_ManageNegSentiment()
         {
@@ -48,10 +37,7 @@ namespace UserInterface
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (sentimentBox.Text != WRITE_NEGATIVE_WORD_MESSAGE)
-                CreateAndAddSentiment();
-            else
-                MessageBox.Show(SENTIMENT_NOT_ADDED);
+            CreateAndAddSentiment();
         }
 
         private void CreateAndAddSentiment()
@@ -67,21 +53,21 @@ namespace UserInterface
                 sentimentBox.ForeColor = Color.Gray;
                 LoadDataGridnegativeSentiments();
             }
-            catch (LackOfObligatoryParametersException e)
+            catch (InvalidOperationException e)
             {
-                MessageBox.Show(NO_DESCRIPTION_SENTIMENT);
+                MessageBox.Show(e.Message);
             }
-            catch (ContainsNumbersException e)
+            catch (ArgumentException e)
             {
-                MessageBox.Show(SENTIMENT_HAS_NUMBERS);
+                MessageBox.Show(e.Message);
             }
-            catch (SentimentAlreadyExistsException e)
+            catch (NullReferenceException e)
             {
-                MessageBox.Show(SENTIMENT_ALREADY_ADDED);
+                MessageBox.Show(e.Message);
             }
-            catch (SentimentRegisteredWithOppositeCategoryException)
+            catch (Exception e)
             {
-                MessageBox.Show(SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST);
+                Console.WriteLine(e.Message);
             }
         }
 

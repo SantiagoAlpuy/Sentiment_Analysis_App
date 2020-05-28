@@ -34,9 +34,17 @@ namespace UserInterface
                 birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
 
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
+using System;
+
 namespace Tests
 {
     [TestClass]
@@ -54,7 +55,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentRegisteredWithOppositeCategoryException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterPositiveSentimentThatWasAlreadyRegisteredAsNegative()
         {
             negativeSentiment1 = new Sentiment() { Description = "Lo Odio", Category = false };
@@ -64,7 +65,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentRegisteredWithOppositeCategoryException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterNegativeSentimentThatWasAlreadyRegisteredAsPositive()
         {
             negativeSentiment1 = new Sentiment() { Description = "Lo Odio", Category = false };
@@ -74,7 +75,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredNegativeSentiment()
         {
             negativeSentiment1 = new Sentiment() { Description = "No me gusta", Category = false };
@@ -84,7 +85,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredPositiveSentiment()
         {
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
@@ -94,7 +95,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredSentimentWithoutSpaceTrim()
         {
             positiveSentiment1 = new Sentiment() { Description = "   Me gusta   ", Category = true };
@@ -104,7 +105,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredSentimentWithDifferentMayusMinusFormat()
         {
             positiveSentiment1 = new Sentiment() { Description = "ME gUStA", Category = true };
@@ -115,7 +116,7 @@ namespace Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
@@ -125,14 +126,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveNonExistantPositiveSentimentFromRegister()
         {
             sentimentController.RemoveSentiment("sentimiento que no existe", true);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
             negativeSentiment1 = new Sentiment() { Description = "Lo odio", Category = false };
@@ -142,14 +143,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(SentimentDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveNonExistantNegativeSentimentFromRegister()
         {
             sentimentController.RemoveSentiment("sentimiento que no existe", false);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterSentimentWithEmptyDescription()
         {
             noDescriptionSentiment = new Sentiment() { Description = "" };
@@ -157,7 +158,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterSentimentWithManyBlankSpace()
         {
 
@@ -166,14 +167,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullSentimentException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterNullSentiment()
         {
             sentimentController.AddSentiment(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ContainsNumbersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterSentimentWithNumbersInItsDescriptionException()
         {
             containsNumberSentiment = new Sentiment() { Description = "1337" };
@@ -181,7 +182,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullAttributeInObjectException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterSentimentWithNullDescription()
         {
             nullDescriptionSentiment = new Sentiment();

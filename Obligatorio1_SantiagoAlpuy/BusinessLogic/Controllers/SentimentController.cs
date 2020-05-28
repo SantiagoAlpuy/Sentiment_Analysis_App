@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
@@ -11,6 +10,14 @@ namespace BusinessLogic.Controllers
         Repository repository = Repository.Instance;
         private List<Sentiment> positiveSentiments;
         private List<Sentiment> negativeSentiments;
+
+        private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
+        private const string NULL_DESCRIPTION = "Ingrese una descripción válida.";
+        private const string EMPTY_DESCRIPTION = "No puede ingresar una descripción vacía.";
+        private const string POSITIVE_SENTIMENT_ALREADY_REGISTERED = "Un sentimiento positivo con el mismo nombre ya ha sido agregado.";
+        private const string NEGATIVE_SENTIMENT_ALREADY_REGISTERED = "Un sentimiento negativo con el mismo nombre ya ha sido agregado.";
+        private const string CONTAINS_NUMBERS = "La descripción del sentimiento contiene números.";
+        private const string SENTIMENT_REGISTERED_OTHER_CATEGORY = "Sentimiento ya registrado pero con la categoría ";
 
         public SentimentController()
         {
@@ -35,21 +42,21 @@ namespace BusinessLogic.Controllers
         private void ValidateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
-                throw new NullSentimentException();
+                throw new NullReferenceException(NULL_SENTIMENT);
             else if (sentiment.Description == null)
-                throw new NullAttributeInObjectException();
+                throw new NullReferenceException(NULL_DESCRIPTION);
             else if (sentiment.Description.Trim() == "")
-                throw new LackOfObligatoryParametersException();
+                throw new ArgumentException(EMPTY_DESCRIPTION);
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
-                throw new ContainsNumbersException();
+                throw new ArgumentException(CONTAINS_NUMBERS);
             else if (sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
-                throw new SentimentAlreadyExistsException();
+                throw new InvalidOperationException(POSITIVE_SENTIMENT_ALREADY_REGISTERED);
             else if (!sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
-                throw new SentimentAlreadyExistsException();
+                throw new InvalidOperationException(NEGATIVE_SENTIMENT_ALREADY_REGISTERED);
             else if (sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
-                throw new SentimentRegisteredWithOppositeCategoryException();
+                throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " negativa.");
             else if (!sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
-                throw new SentimentRegisteredWithOppositeCategoryException();
+                throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " positiva.");
         }
 
         private bool IsSentimentInRepo(List<Sentiment> sentiments, Sentiment sentiment)
@@ -73,7 +80,7 @@ namespace BusinessLogic.Controllers
             if (sentiment != null)
                 return sentiment;
             else
-                throw new SentimentDoesNotExistsException();
+                throw new NullReferenceException("");
         }
 
         public void RemoveSentiment(string description, bool category)

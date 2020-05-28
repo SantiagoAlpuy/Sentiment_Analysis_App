@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
+using System;
 
 namespace Tests
 {
@@ -41,7 +41,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EntityAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredEntity()
         {
             Entity entity1 = new Entity() { Name = "Pepsi" };
@@ -51,7 +51,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EntityAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterEntityWithDescriptionWithBlankSpacesInBetween()
         {
             Entity entity1 = new Entity() { Name = "pepsi" };
@@ -61,7 +61,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EntityAlreadyExistsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterAlreadyRegisteredEntityWithDifferentMayusMinusFormat()
         {
             Entity entity1 = new Entity() { Name = "PepSI" };
@@ -71,7 +71,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EntityDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantEntityFromRegister()
         {
             entity1 = new Entity() { Name = "Pepsi" };
@@ -81,14 +81,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EntityDoesNotExistsException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveNonExistantEntityFromRegister()
         {
             entityController.RemoveEntity("una entidad que no existe ni existira jamas");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterEntityWithEmptyDescription()
         {
             emptyNameEntity = new Entity() { Name = "" };
@@ -96,7 +96,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterEntityWithDescriptionWithOnlyManyBlankSpaces()
         {
             Entity entity = new Entity() { Name = "   " };
@@ -104,14 +104,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullEntityException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterNullEntity()
         {
             entityController.AddEntity(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullAttributeInObjectException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterEntityWithNullName()
         {
             nullNameEntity = new Entity();

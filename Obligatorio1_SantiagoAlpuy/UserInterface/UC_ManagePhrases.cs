@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace UserInterface
@@ -24,9 +17,6 @@ namespace UserInterface
         private const string WRITE_PHRASE_MESSAGE = "Ingrese una frase";
         private const string PHRASE_NOT_ADDED = "Ingrese una frase válida.";
         private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente. ¿Quiere ver las alarmas activas?";
-        private const string NO_COMMENT_PHRASE = "Por favor, ingrese una frase o comentario.";
-        private const string PHRASE_DATE_OLDER_THAN_ONE_YEAR = "No puede ingresar una fecha más vieja que un año atras.";
-        private const string PHRASE_DATE_FROM_FUTURE = "No puede ingresar una fecha del futuro.";
 
         public UC_ManagePhrases()
         {
@@ -75,21 +65,17 @@ namespace UserInterface
                 phraseBox.Text = WRITE_PHRASE_MESSAGE;
                 phraseBox.ForeColor = Color.Gray;
             }
-            catch (LackOfObligatoryParametersException e)
-            {
-                MessageBox.Show(NO_COMMENT_PHRASE);
-            }
-            catch (DateOlderThanOneYearException e)
-            {
-                MessageBox.Show(PHRASE_DATE_OLDER_THAN_ONE_YEAR);
-            }
-            catch (DateFromFutureException e)
-            {
-                MessageBox.Show(PHRASE_DATE_FROM_FUTURE);
-            }
             catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 

@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
@@ -11,6 +8,11 @@ namespace BusinessLogic.Controllers
     {
         Repository repository = Repository.Instance;
         private List<Entity> entities;
+
+        private const string NULL_ENTITY = "Ingrese una entidad válida.";
+        private const string NULL_NAME = "Ingrese un nombre de entidad válida.";
+        private const string EMPTY_NAME = "Ingrese un nombre de entidad no vacío.";
+        private const string ENTITY_ALREADY_EXISTS = "La entidad '{0}' ya fue ingresada anteriormente.";
 
         public EntityController()
         {
@@ -26,13 +28,13 @@ namespace BusinessLogic.Controllers
         private void ValidateEntity(Entity entity)
         {
             if (entity == null)
-                throw new NullEntityException();
+                throw new NullReferenceException(NULL_ENTITY);
             else if (entity.Name == null)
-                throw new NullAttributeInObjectException();
+                throw new NullReferenceException(NULL_NAME);
             else if (entity.Name.Trim() == "")
-                throw new LackOfObligatoryParametersException();
+                throw new ArgumentException(EMPTY_NAME);
             else if (IsEntityInRepo(entity))
-                throw new EntityAlreadyExistsException();
+                throw new InvalidOperationException(String.Format(ENTITY_ALREADY_EXISTS, entity.Name));
         }
 
         private bool IsEntityInRepo(Entity entity)
@@ -46,7 +48,7 @@ namespace BusinessLogic.Controllers
             if (entity != null)
                 return entity;
             else
-                throw new EntityDoesNotExistsException();
+                throw new NullReferenceException("");
         }
 
         public void RemoveEntity(string name)

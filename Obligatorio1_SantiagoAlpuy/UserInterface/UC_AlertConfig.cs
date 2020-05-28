@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace UserInterface
@@ -99,17 +93,17 @@ namespace UserInterface
                 SetFieldsToDefaultValue();
                 LoadDataGridAlerts();
             }
-            catch (NegativePostCountException e)
+            catch (ArgumentException e)
             {
-                MessageBox.Show(NEGATIVE_POST_COUNT);
+                MessageBox.Show(e.Message);
             }
-            catch (NegativeDayException e)
+            catch (NullReferenceException e)
             {
-                MessageBox.Show(NEGATIVE_DAY_COUNT);
+                MessageBox.Show(e.Message);
             }
-            catch (NegativeHourException e)
+            catch (Exception e)
             {
-                MessageBox.Show(NEGATIVE_HOUR_COUNT);
+                Console.WriteLine(e.Message);
             }
         }
 

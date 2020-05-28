@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
 
@@ -53,7 +52,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullEntityException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GenerateAlertWithNullEntity()
         {
             alert = new Alert() { Entity = null, Category = CategoryType.Positive, Posts = 10, Days = 2 };
@@ -62,7 +61,7 @@ namespace Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(NegativePostCountException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void GenerateAlertWithNegativePosts()
         {
             entity1 = new Entity() { Name = "pepsi" };
@@ -71,7 +70,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NegativeDayException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void GenerateAlertWithNegativeDays()
         {
             entity1 = new Entity() { Name = "pepsi" };
@@ -80,7 +79,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NegativeHourException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void GenerateAlertWithNegativeHours()
         {
             entity1 = new Entity() { Name = "pepsi" };
@@ -89,7 +88,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullAlertException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void AddNullAlertToRepository()
         {
             alertController.AddAlert(null);

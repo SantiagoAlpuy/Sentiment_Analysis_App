@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
 
@@ -64,14 +63,14 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullPhraseException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterNullPhrase()
         {
             phraseController.AddPhraseToRepository(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWithEmptyDescription()
         {
             phraseWithEmptyComment = new Phrase() { Comment = "", Date = currentDate, PhraseAuthor = author };
@@ -79,7 +78,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(LackOfObligatoryParametersException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWhoseDescriptionHasManyBlankSpaces()
         {
             phraseWithEmptyComment = new Phrase() { Comment = "   ", Date = currentDate, PhraseAuthor = author };
@@ -87,7 +86,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullAttributeInObjectException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void RegisterPhraseWithNullComment()
         {
             nullCommentPhrase = new Phrase();
@@ -95,7 +94,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DateOlderThanOneYearException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWithDateOlderThanOneYear()
         {
             oldPhrase = new Phrase() { Comment = "Frase con fecha inferior a un año", Date = new DateTime(2019, 01, 01) };
@@ -103,7 +102,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DateFromFutureException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWithDateFromFuture()
         {
             futurePhrase = new Phrase() { Comment = "Frase con fecha del futuro", Date = new DateTime(2025, 01, 1), PhraseAuthor = author };
