@@ -24,13 +24,56 @@ namespace UserInterface
             phraseController = new PhraseController();
             alertController = new AlertController();
             repository = Repository.Instance;
-            LoadDataGridPositiveSentiments();
+            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
             dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGrid.Columns[1].Visible = false;
         }
 
-        private void LoadDataGridPositiveSentiments()
+        private void btnRemove_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataGrid.SelectedRows)
+            {
+                sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
+                phraseController.AnalyzeAllPhrases();
+                alertController.EvaluateAlert();
+            }
+
+            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EvaluateSentimentInsertion();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void EvaluateSentimentInsertion()
+        {
+            Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AnalyzeAllPhrases();
+            alertController.EvaluateAlert();
+            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
+            sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
+            sentimentBox.ForeColor = Color.Gray;
             this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
         }
 
@@ -52,52 +95,5 @@ namespace UserInterface
             }
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGrid.SelectedRows)
-            {
-                sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
-            }
-
-            LoadDataGridPositiveSentiments();
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            CreateAndAddSentiment();
-        }
-
-        private void CreateAndAddSentiment()
-        {
-            try
-            {
-                Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
-                sentimentController.AddSentiment(sentiment);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
-                MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
-                sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-                LoadDataGridPositiveSentiments();
-            }
-            catch (InvalidOperationException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (ArgumentException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (NullReferenceException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
     }
 }

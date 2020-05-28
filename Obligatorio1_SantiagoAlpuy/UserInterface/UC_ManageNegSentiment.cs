@@ -25,50 +25,45 @@ namespace UserInterface
             phraseController = new PhraseController();
             alertController = new AlertController();
             repository = Repository.Instance;
-            LoadDataGridnegativeSentiments();
+            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
             dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGrid.Columns[1].Visible = false;
-        }
-
-        private void LoadDataGridnegativeSentiments()
-        {
-            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
-        }      
+        }  
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CreateAndAddSentiment();
-        }
-
-        private void CreateAndAddSentiment()
-        {
             try
             {
-                Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
-                sentimentController.AddSentiment(sentiment);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
-                MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
-                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-                LoadDataGridnegativeSentiments();
+                EvaluateSentimentInsertion();
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
+        }
+
+        private void EvaluateSentimentInsertion()
+        {
+            Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AnalyzeAllPhrases();
+            alertController.EvaluateAlert();
+            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
+            sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
+            sentimentBox.ForeColor = Color.Gray;
+            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -80,7 +75,7 @@ namespace UserInterface
                 alertController.EvaluateAlert();
             }
 
-            LoadDataGridnegativeSentiments();
+            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
         }
         
 

@@ -45,38 +45,35 @@ namespace UserInterface
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (phraseBox.Text != WRITE_PHRASE_MESSAGE)
-                CreateAndAddPhrase();
-            else
-                MessageBox.Show(PHRASE_NOT_ADDED);
-        }
-
-        private void CreateAndAddPhrase()
-        {
             try
             {
-                DateTime date = dateTimePicker1.Value;
-                Author author = authorController.ObtainAuthorByUsername((string) autorComboBox.SelectedItem);
-                Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, PhraseAuthor = author };
-                phraseController.AddPhraseToRepository(phrase);
-                phraseController.AnalyzePhrase(phrase);
-                alertController.EvaluateAlert();
-                ShowMessageAndGoToAlerts();
-                phraseBox.Text = WRITE_PHRASE_MESSAGE;
-                phraseBox.ForeColor = Color.Gray;
+                EvaluatePhraseInsertion();
             }
-            catch (ArgumentException e)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
+        }
+
+        private void EvaluatePhraseInsertion()
+        {
+            DateTime date = dateTimePicker1.Value;
+            Author author = authorController.ObtainAuthorByUsername((string)autorComboBox.SelectedItem);
+            Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, PhraseAuthor = author };
+            phraseController.AddPhraseToRepository(phrase);
+            phraseController.AnalyzePhrase(phrase);
+            alertController.EvaluateAlert();
+            ShowMessageAndGoToAlerts();
+            phraseBox.Text = WRITE_PHRASE_MESSAGE;
+            phraseBox.ForeColor = Color.Gray;
         }
 
         private void ShowMessageAndGoToAlerts()

@@ -24,13 +24,8 @@ namespace UserInterface
             alertController = new AlertController();
             phraseController = new PhraseController();
             repository = Repository.Instance;
-            LoadDataGridEntities();
-            dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
-        }
-
-        private void LoadDataGridEntities()
-        {
             this.dataGrid.DataSource = repository.Entities.ToList();
+            dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -41,43 +36,43 @@ namespace UserInterface
                 phraseController.AnalyzeAllPhrases();
                 alertController.EvaluateAlert();
             }
-            LoadDataGridEntities();
+            this.dataGrid.DataSource = repository.Entities.ToList();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            CreateAndAddEntity();
-        }
-
-        private void CreateAndAddEntity()
-        {
             try
             {
-                Entity entity = new Entity() { Name = entityBox.Text };
-                entityController.AddEntity(entity);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
-                MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
-                entityBox.Text = WRITE_ENTITY_MESSAGE;
-                entityBox.ForeColor = Color.Gray;
-                LoadDataGridEntities();
+                EvaluateEntityInsertion();
             }
-            catch (ArgumentException e)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
+        }
+
+        private void EvaluateEntityInsertion()
+        {
+            Entity entity = new Entity() { Name = entityBox.Text };
+            entityController.AddEntity(entity);
+            phraseController.AnalyzeAllPhrases();
+            alertController.EvaluateAlert();
+            MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
+            entityBox.Text = WRITE_ENTITY_MESSAGE;
+            entityBox.ForeColor = Color.Gray;
+            this.dataGrid.DataSource = repository.Entities.ToList();
         }
 
 
