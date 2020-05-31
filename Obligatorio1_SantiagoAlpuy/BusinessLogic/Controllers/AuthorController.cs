@@ -113,7 +113,13 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
             else if (author2.Surname.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(NAME_IS_TOO_BIG);
+            else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author2.Born.Year)
+                throw new ArgumentException(AGE_LOWER_THAN_LOWER_LIMIT);
+            else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author2.Born.Year)
+                throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
             author1.Name = author2.Name;
+            author1.Surname = author2.Surname;
+            author1.Born = author2.Born;
         }
     }
 }
