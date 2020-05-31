@@ -101,7 +101,9 @@ namespace BusinessLogic.Controllers
 
         public void ModifyAuthor(Author author1, Author author2)
         {
-            if (author2.Name.Trim() == "")
+            if (author2.Name == null)
+                throw new ArgumentException(NULL_NAME);
+            else if (author2.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);
             else if (!isAlphabetic(author2.Name))
                 throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
