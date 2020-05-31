@@ -211,6 +211,7 @@
             this.btnAdd.Size = new System.Drawing.Size(37, 38);
             this.btnAdd.TabIndex = 5;
             this.btnAdd.TabStop = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // UC_EditAuthors
             // 

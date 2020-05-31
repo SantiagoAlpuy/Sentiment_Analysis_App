@@ -18,7 +18,7 @@ namespace UserInterface
         Repository repository;
         IAuthorController authorController;
 
-        private const string INVALID_AUTHOR = "Elija un autor válido.";
+        private const string AUTHOR_MODIFIED = "El usuario {0} ha sido modificado con éxito.";
 
         public UC_EditAuthors()
         {
@@ -26,12 +26,20 @@ namespace UserInterface
             authorController = new AuthorController();
             repository = Repository.Instance;
 
+            UpdateComboBox();
+        }
+
+        private void UpdateComboBox()
+        {
+            autorComboBox.Items.Clear();
             autorComboBox.Items.Add("");
             foreach (Author author in repository.Authors)
             {
                 autorComboBox.Items.Add(author.Username);
             }
         }
+
+
 
         private void autorComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -42,21 +50,60 @@ namespace UserInterface
                 authorNameBox.Text = selectedAuthor.Name;
                 authorSurnameBox.Text = selectedAuthor.Surname;
                 birthDatePicker.Value = selectedAuthor.Born;
-                authorNameBox.Enabled = true;
-                authorSurnameBox.Enabled = true;
-                birthDatePicker.Enabled = true;
+                EnableFields();
             }
             else
+                ClearFields();
+        }
+
+        private void EnableFields()
+        {
+            authorNameBox.Enabled = true;
+            authorSurnameBox.Enabled = true;
+            birthDatePicker.Enabled = true;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
             {
-                authorNameBox.Enabled = false;
-                authorSurnameBox.Enabled = false;
-                birthDatePicker.Enabled = false;
-                usernameBox.Text = "";
-                authorNameBox.Text = "";
-                authorSurnameBox.Text = "";
-                birthDatePicker.Value = DateTime.Now;
-                MessageBox.Show(INVALID_AUTHOR);
+                Author authorToBeModified = authorController.ObtainAuthorByUsername(usernameBox.Text);
+                Author changedAuthor = authorToBeModified;
+                changedAuthor.Name = authorNameBox.Text;
+                changedAuthor.Surname = authorSurnameBox.Text;
+                changedAuthor.Born = birthDatePicker.Value;
+                authorController.ModifyAuthor(authorToBeModified, changedAuthor);
+                MessageBox.Show(String.Format(AUTHOR_MODIFIED, usernameBox.Text));
+                UpdateComboBox();
+                ClearFields();
             }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show(AUTHOR_MODIFIED);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void ClearFields()
+        {
+            authorNameBox.Enabled = false;
+            authorSurnameBox.Enabled = false;
+            birthDatePicker.Enabled = false;
+            usernameBox.Text = "";
+            authorNameBox.Text = "";
+            authorSurnameBox.Text = "";
+            birthDatePicker.Value = DateTime.Now;
         }
     }
 }

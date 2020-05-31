@@ -28,6 +28,7 @@ namespace BusinessLogic.Controllers
         private const string NULL_USERNAME = "Seleccione una nombre de usuario válido.";
         private const string NULL_NAME = "Seleccione una nombre válido.";
         private const string NULL_SURNAME = "Seleccione un apellido válido.";
+        private const string NULL_AUTHOR = "Los autores no pueden ser nulos.";
         private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
 
         public AuthorController()
@@ -45,7 +46,9 @@ namespace BusinessLogic.Controllers
         
         public void AddAuthor(Author author)
         {
-            if (author.Username == null)
+            if (author == null)
+                throw new ArgumentException(NULL_AUTHOR);
+            else if (author.Username == null)
                 throw new ArgumentException(NULL_USERNAME);
             else if (author.Name == null)
                 throw new ArgumentException(NULL_NAME);
@@ -101,7 +104,9 @@ namespace BusinessLogic.Controllers
 
         public void ModifyAuthor(Author author1, Author author2)
         {
-            if (author2.Name == null)
+            if (author1 == null || author2 == null)
+                throw new ArgumentException(NULL_AUTHOR);
+            else if (author2.Name == null)
                 throw new ArgumentException(NULL_NAME);
             else if (author2.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);

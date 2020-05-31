@@ -33,6 +33,13 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
+        public void RegisterNullAuthor()
+        {
+            authorController.AddAuthor(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithoutUsername()
         {
             Author author = new Author() { Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -314,13 +321,35 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void ModifyAuthorSurnameForNullSurame()
+        public void ModifyAuthorSurnameForNullSurname()
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
-            Author author2 = new Author() { Username = "testUserA", Name= "nameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserA", Name = "nameA", Born = new DateTime(1980, 01, 01) };
             authorController.ModifyAuthor(author1, author2);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorForNullAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.ModifyAuthor(author, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyNullAuthorWithAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.ModifyAuthor(null, author);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorWithBothParametersAsNull()
+        {
+            authorController.ModifyAuthor(null, null);
+        }
 
     }
 }
