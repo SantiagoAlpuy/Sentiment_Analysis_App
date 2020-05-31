@@ -249,7 +249,6 @@ namespace Tests
             authorController.ModifyAuthor(author1, author2);
         }
 
-        /***************************/
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ModifyAuthorSurnameToEmpty()
@@ -283,6 +282,24 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "veryveryverybigsurname", Born = new DateTime(1980, 01, 01) };
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorBirthDateWithDateWithLessThanThirteenYearsOld()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(2010, 01, 01) };
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorBirthDateWithDateWithMoreThanHundredYearsOld()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1899, 01, 01) };
             authorController.ModifyAuthor(author1, author2);
         }
 
