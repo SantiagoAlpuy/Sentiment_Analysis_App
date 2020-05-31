@@ -205,6 +205,20 @@ namespace Tests
         }
 
         [TestMethod]
+        public void RegisterAuthorWithNameWithBlankSpacesInTheMiddleOftheName()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "San Tiago", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
+        public void RegisterAuthorWithSurnameWithBlankSpacesInTheMiddleOftheSurname()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "Al Puy", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+        }
+
+        [TestMethod]
         public void DeleteExistingAuthor()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
