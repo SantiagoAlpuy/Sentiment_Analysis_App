@@ -222,5 +222,16 @@ namespace Tests
             authorController.ModifyAuthor(author1, author2);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorNameToNameWithOnlyBlankSpaces()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserA", Name = "    ", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+
+
     }
 }
