@@ -103,6 +103,8 @@ namespace BusinessLogic.Controllers
         {
             if (author2.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);
+            else if (!isAlphabetic(author2.Name))
+                throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
             author1.Name = author2.Name;
         }
     }
