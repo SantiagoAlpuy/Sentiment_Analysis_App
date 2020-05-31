@@ -98,5 +98,10 @@ namespace BusinessLogic.Controllers
         {
             return authors.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
         }
+
+        public void ModifyAuthor(Author author1, Author author2)
+        {
+
+        }
     }
 }
