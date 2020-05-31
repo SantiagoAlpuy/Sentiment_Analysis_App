@@ -93,7 +93,7 @@ namespace BusinessLogic.Controllers
 
         private bool isAlphabetic(string text)
         {
-            return text.All(char.IsLetter);
+            return text.All(char.IsLetter) || text.Replace(" ","").All(char.IsLetter);
         }
 
 
