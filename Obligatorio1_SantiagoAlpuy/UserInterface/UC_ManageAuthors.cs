@@ -18,10 +18,11 @@ namespace UserInterface
         private const string SECOND_COLUMN_NAME = "Nombre";
         private const string THIRD_COLUMN_NAME = "Apellido";
         private const string FOURTH_COLUMN_NAME = "Nacimiento";
+        FlowLayoutPanel PrincipalPanel;
 
-
-        public UC_ManageAuthors()
+        public UC_ManageAuthors(FlowLayoutPanel panel)
         {
+            PrincipalPanel = panel;
             InitializeComponent();
             authorController = new AuthorController();
             repository = Repository.Instance;
@@ -67,6 +68,12 @@ namespace UserInterface
                 authorController.RemoveAuthor(row.Cells[0].Value.ToString());
             }
             this.authorsDataGrid.DataSource = repository.Authors.ToList();
+        }
+
+        private void editBox_Click(object sender, EventArgs e)
+        {
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_EditAuthors());
         }
     }
 }

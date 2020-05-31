@@ -45,11 +45,16 @@
             this.btnDelete = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.btnRemove = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.editBox = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorsDataGrid)).BeginInit();
             this.btnDelete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -252,11 +257,47 @@
             this.btnRemove.TabStop = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.editBox);
+            this.panel2.Location = new System.Drawing.Point(460, 492);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(282, 38);
+            this.panel2.TabIndex = 34;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(41, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(224, 24);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Ir a Edición de Autores";
+            // 
+            // editBox
+            // 
+            this.editBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.editBox.BackColor = System.Drawing.Color.Transparent;
+            this.editBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.editBox.Image = global::UserInterface.Properties.Resources.icons8_edit_36__1_;
+            this.editBox.Location = new System.Drawing.Point(0, 2);
+            this.editBox.Name = "editBox";
+            this.editBox.Size = new System.Drawing.Size(37, 38);
+            this.editBox.TabIndex = 5;
+            this.editBox.TabStop = false;
+            this.editBox.Click += new System.EventHandler(this.editBox_Click);
+            // 
             // UC_ManageAuthors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.authorsDataGrid);
@@ -279,6 +320,9 @@
             this.btnDelete.ResumeLayout(false);
             this.btnDelete.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,5 +347,8 @@
         private System.Windows.Forms.Panel btnDelete;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox btnRemove;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.PictureBox editBox;
     }
 }

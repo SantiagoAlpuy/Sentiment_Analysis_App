@@ -72,6 +72,12 @@
     <Compile Include="UC_AnalysisReport.Designer.cs">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_EditAuthors.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_EditAuthors.Designer.cs">
+      <DependentUpon>UC_EditAuthors.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC_ManageAuthors.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UC_AnalysisReport.resx">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_EditAuthors.resx">
+      <DependentUpon>UC_EditAuthors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_ManageAuthors.resx">
       <DependentUpon>UC_ManageAuthors.cs</DependentUpon>
@@ -175,6 +184,15 @@
       <Project>{fdbeaaa9-4789-493b-8a4c-f3b81f91e18f}</Project>
       <Name>BusinessLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-edit-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-edit-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-edit-36 %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

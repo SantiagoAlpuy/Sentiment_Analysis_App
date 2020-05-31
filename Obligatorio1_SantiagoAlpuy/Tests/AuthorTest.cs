@@ -23,7 +23,7 @@ namespace Tests
         [TestMethod]
         public void RegisterAuthors()
         {
-            Author author1 = new Author() { Username = "testUser1", Name = "nameA", Surname= "surnameA", Born= new DateTime(1960, 01, 01) };
+            Author author1 = new Author() { Username = "testUser1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             Author author2 = new Author() { Username = "testUser2", Name = "nameB", Surname = "surnameB", Born = new DateTime(1960, 01, 01) };
             authorController.AddAuthor(author1);
             authorController.AddAuthor(author2);
@@ -43,7 +43,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterAuthorWithoutName()
         {
-            Author author = new Author() { Username= "testuser1", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Author author = new Author() { Username = "testuser1", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             authorController.AddAuthor(author);
         }
 
