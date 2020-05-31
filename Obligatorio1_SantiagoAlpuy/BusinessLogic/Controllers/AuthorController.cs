@@ -107,6 +107,12 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
             else if (author2.Name.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(NAME_IS_TOO_BIG);
+            else if (author2.Surname.Trim() == "")
+                throw new ArgumentException(EMPTY_SURNAME_FIELD);
+            else if (!isAlphabetic(author2.Surname))
+                throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
+            else if (author2.Surname.Length >= MAX_CHARS_IN_NAME)
+                throw new ArgumentException(NAME_IS_TOO_BIG);
             author1.Name = author2.Name;
         }
     }
