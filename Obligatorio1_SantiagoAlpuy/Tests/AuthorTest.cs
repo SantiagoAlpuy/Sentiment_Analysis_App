@@ -303,5 +303,14 @@ namespace Tests
             authorController.ModifyAuthor(author1, author2);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorNameForNullName()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.ModifyAuthor(author, null);
+        }
+
+
     }
 }
