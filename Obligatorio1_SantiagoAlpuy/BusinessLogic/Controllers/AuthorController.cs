@@ -101,7 +101,9 @@ namespace BusinessLogic.Controllers
 
         public void ModifyAuthor(Author author1, Author author2)
         {
-
+            if (author2.Name == "")
+                throw new ArgumentException(EMPTY_NAME_FIELD);
+            author1.Name = author2.Name;
         }
     }
 }
