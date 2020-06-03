@@ -9,6 +9,7 @@ namespace BusinessLogic.Controllers
     {
         Repository repository = Repository.Instance;
         private List<Author> authors;
+        private List<Phrase> phrases;
         private const int MAX_CHARS_IN_USERNAME = 10;
         private const int MAX_CHARS_IN_NAME = 15;
         private const int LOWER_AGE_LIMIT = 13;
@@ -34,6 +35,7 @@ namespace BusinessLogic.Controllers
         public AuthorController()
         {
             authors = repository.Authors;
+            phrases = repository.Phrases;
         }
 
         public void RemoveAuthor(string username)
@@ -41,9 +43,19 @@ namespace BusinessLogic.Controllers
             Author author = ObtainAuthorByUsername(username);
             if (author == null)
                 throw new NullReferenceException(INEXISTENT_AUTHOR);
+            DeleteAllPhrasesFromAuthor(author);
             authors.Remove(author);
         }
-        
+
+        private void DeleteAllPhrasesFromAuthor(Author author)
+        {
+            List<Phrase> phrasesToBeDeleted = phrases.FindAll(x => x.PhraseAuthor.Equals(author));
+            foreach (Phrase phrase in phrasesToBeDeleted)
+            {
+                phrases.Remove(phrase);
+            }
+        }
+
         public void AddAuthor(Author author)
         {
             if (author == null)

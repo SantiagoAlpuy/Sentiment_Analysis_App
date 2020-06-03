@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
-
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -12,6 +12,7 @@ namespace Tests
     {
         Repository repository = Repository.Instance;
         IAuthorController authorController = new AuthorController();
+        IPhraseController phraseController = new PhraseController();
 
 
         [TestCleanup]
@@ -232,6 +233,21 @@ namespace Tests
         public void DeleteNotExistingAuthor()
         {
             authorController.RemoveAuthor("ThisAuthorDoesNotExist");
+        }
+
+        [TestMethod]
+        public void DeleteExistingAuthorAndAllHisPhrases()
+        {
+            List<Phrase> phrases = repository.Phrases;
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, PhraseAuthor = author };
+            Phrase phrase2 = new Phrase() { Comment = "Odio la Limol", Date = DateTime.Now, PhraseAuthor = author };
+            phraseController.AddPhraseToRepository(phrase1);
+            phraseController.AddPhraseToRepository(phrase2);
+            authorController.AddAuthor(author);
+            authorController.RemoveAuthor("testUserA");
+            List<Phrase> phrasesToBeDeleted = phrases.FindAll(x => x.PhraseAuthor.Equals(author));
+            Assert.AreEqual(0, phrasesToBeDeleted.Count);
         }
 
         [TestMethod]
