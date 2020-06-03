@@ -58,6 +58,12 @@ namespace BusinessLogic.Controllers
 
         public void AddAuthor(Author author)
         {
+            ValidateAuthorAdition(author);
+            authors.Add(author);
+        }
+
+        private void ValidateAuthorAdition(Author author)
+        {
             if (author == null)
                 throw new ArgumentException(NULL_AUTHOR);
             else if (author.Username == null)
@@ -74,27 +80,22 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(USERNAME_IS_TOO_BIG);
             else if (ObtainAuthorByUsername(author.Username) != null)
                 throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
-
             else if (author.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);
             else if (author.Name.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(NAME_IS_TOO_BIG);
-            else if (!isAlphabetic(author.Name))
+            else if (!IsAlphabetic(author.Name))
                 throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
-
             else if (author.Surname.Trim() == "")
                 throw new ArgumentException(EMPTY_SURNAME_FIELD);
             else if (author.Surname.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(SURNAME_IS_TOO_BIG);
-            else if (!isAlphabetic(author.Surname))
+            else if (!IsAlphabetic(author.Surname))
                 throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
-
             else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author.Born.Year)
                 throw new ArgumentException(AGE_LOWER_THAN_LOWER_LIMIT);
             else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author.Born.Year)
                 throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
-            else
-                authors.Add(author);
         }
 
         private bool IsAlphanumeric(string text)
@@ -103,7 +104,7 @@ namespace BusinessLogic.Controllers
             
         }
 
-        private bool isAlphabetic(string text)
+        private bool IsAlphabetic(string text)
         {
             return text.All(char.IsLetter) || text.Replace(" ","").All(char.IsLetter);
         }
@@ -116,13 +117,21 @@ namespace BusinessLogic.Controllers
 
         public void ModifyAuthor(Author author1, Author author2)
         {
+            ValidateAuthorModification(author1, author2);
+            author1.Name = author2.Name;
+            author1.Surname = author2.Surname;
+            author1.Born = author2.Born;
+        }
+
+        private void ValidateAuthorModification(Author author1, Author author2)
+        {
             if (author1 == null || author2 == null)
                 throw new ArgumentException(NULL_AUTHOR);
             else if (author2.Name == null)
                 throw new ArgumentException(NULL_NAME);
             else if (author2.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);
-            else if (!isAlphabetic(author2.Name))
+            else if (!IsAlphabetic(author2.Name))
                 throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
             else if (author2.Name.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(NAME_IS_TOO_BIG);
@@ -130,7 +139,7 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(NULL_SURNAME);
             else if (author2.Surname.Trim() == "")
                 throw new ArgumentException(EMPTY_SURNAME_FIELD);
-            else if (!isAlphabetic(author2.Surname))
+            else if (!IsAlphabetic(author2.Surname))
                 throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
             else if (author2.Surname.Length >= MAX_CHARS_IN_NAME)
                 throw new ArgumentException(NAME_IS_TOO_BIG);
@@ -138,9 +147,6 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(AGE_LOWER_THAN_LOWER_LIMIT);
             else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author2.Born.Year)
                 throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
-            author1.Name = author2.Name;
-            author1.Surname = author2.Surname;
-            author1.Born = author2.Born;
         }
     }
 }
