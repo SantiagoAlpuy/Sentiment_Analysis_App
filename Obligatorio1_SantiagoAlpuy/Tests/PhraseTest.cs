@@ -166,7 +166,7 @@ namespace Tests
             phrase1 = new Phrase() { Comment = "Me gusta la Pepsi",  Date = currentDate, PhraseAuthor = author };
             sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AnalyzePhrase(phrase1);
-            Assert.AreEqual(CategoryType.Positive, phrase1.Category);
+            Assert.AreEqual(CategoryType.Positiva, phrase1.Category);
         }
 
         [TestMethod]
@@ -176,7 +176,7 @@ namespace Tests
             phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, PhraseAuthor = author };
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AnalyzePhrase(phrase2);
-            Assert.AreEqual(CategoryType.Negative, phrase2.Category);
+            Assert.AreEqual(CategoryType.Negativa, phrase2.Category);
         }
 
         [TestMethod]
@@ -205,7 +205,7 @@ namespace Tests
 
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
 
-            Assert.AreEqual(CategoryType.Positive, phraseWithUpperAndLower1.Category);
+            Assert.AreEqual(CategoryType.Positiva, phraseWithUpperAndLower1.Category);
         }
 
         [TestMethod]
@@ -216,7 +216,7 @@ namespace Tests
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AddPhraseToRepository(phraseWithUpperAndLower2);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
-            Assert.AreEqual(CategoryType.Negative, phraseWithUpperAndLower2.Category);
+            Assert.AreEqual(CategoryType.Negativa, phraseWithUpperAndLower2.Category);
         }
 
         [TestMethod]

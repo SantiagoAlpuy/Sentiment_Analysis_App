@@ -9,7 +9,7 @@ namespace BusinessLogic
         public List<Sentiment> NegativeSentiments { get; set; }
         public List<Entity> Entities { get; set; }
         public List<Phrase> Phrases { get; set; }
-        public List<Alert> Alerts { get; set; }
+        public List<IAlert> Alerts { get; set; }
         public List<Author> Authors { get; set; }
 
         private static Repository instance = null;
@@ -20,7 +20,7 @@ namespace BusinessLogic
             NegativeSentiments = new List<Sentiment>();
             Entities = new List<Entity>();
             Phrases = new List<Phrase>();
-            Alerts = new List<Alert>();
+            Alerts = new List<IAlert>();
             Authors = new List<Author>();
         }
 

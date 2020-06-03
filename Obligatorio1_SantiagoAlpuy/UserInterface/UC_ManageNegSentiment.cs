@@ -59,7 +59,7 @@ namespace UserInterface
             Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
             sentimentController.AddSentiment(sentiment);
             phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
             sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
             sentimentBox.ForeColor = Color.Gray;
@@ -72,7 +72,7 @@ namespace UserInterface
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
                 phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
+                alertController.EvaluateAlerts();
             }
 
             this.dataGrid.DataSource = repository.NegativeSentiments.ToList();

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Data;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
@@ -8,23 +13,20 @@ using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
-    public partial class UC_AlertConfig : UserControl
-    { 
-
-        Repository repository;
+    public partial class UC_AlertBConfig : UserControl
+    {
+        Repository repository = Repository.Instance;
         IAlertController alertController;
+        private const string FIRST_COLUMN_NAME = "Categoría";
+        private const string SECOND_COLUMN_NAME = "Posts";
+        private const string THIRD_COLUMN_NAME = "Días";
+        private const string FOURTH_COLUMN_NAME = "Horas";
+        private const string FIFTH_COLUMN_NAME = "Activada";
         private const string ALERT_ADDED_SUCCESFULLY = "Alerta agregada satisfactoriamente.";
-        private const string FIRST_COLUMN_NAME = "Entidad";
-        private const string SECOND_COLUMN_NAME = "Categoría";
-        private const string THIRD_COLUMN_NAME = "Posts";
-        private const string FOURTH_COLUMN_NAME = "Días";
-        private const string FIFTH_COLUMN_NAME = "Horas";
-        private const string SIXTH_COLUMN_NAME = "Activada";
 
-        public UC_AlertConfig()
+        public UC_AlertBConfig()
         {
             InitializeComponent();
-            repository = Repository.Instance;
             alertController = new AlertController();
             categoryComboBox.Items.Add("");
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
@@ -33,16 +35,15 @@ namespace UserInterface
                     categoryComboBox.Items.Add(item);
             }
 
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList();
+            this.dataGrid.DataSource = repository.Alerts.OfType<AlertB>().ToList();
             categoryComboBox.SelectedIndex = 0;
             dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
             dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
             dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
-            dataGrid.Columns[5].HeaderText = SIXTH_COLUMN_NAME;
-        }
 
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -66,19 +67,18 @@ namespace UserInterface
 
         private void AddAlert()
         {
-            AlertA alert = new AlertA()
+            IAlert alert = new AlertB()
             {
-                Entity = entityBox.Text,
                 Category = StringToCategory(categoryComboBox.SelectedItem.ToString()),
-                Posts = (int) postsUpDown.Value,
-                Days = (int) daysUpDown.Value,
-                Hours = (int) hoursUpDown.Value
+                Posts = (int)postsUpDown.Value,
+                Days = (int)daysUpDown.Value,
+                Hours = (int)hoursUpDown.Value
             };
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList();
+            this.dataGrid.DataSource = repository.Alerts.OfType<AlertB>().ToList();
         }
 
         private CategoryType StringToCategory(string category)
@@ -93,13 +93,11 @@ namespace UserInterface
 
         private void SetFieldsToDefaultValue()
         {
-            entityBox.Text = "";
             categoryComboBox.SelectedIndex = 0;
             postsUpDown.Value = 0;
             hoursUpDown.Value = 0;
             daysUpDown.Value = 0;
         }
-
 
     }
 }

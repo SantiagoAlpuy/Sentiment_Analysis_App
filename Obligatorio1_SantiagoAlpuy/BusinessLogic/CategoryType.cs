@@ -6,8 +6,8 @@ namespace BusinessLogic
 {
     public enum CategoryType
     {
-        Positive,
-        Negative,
+        Positiva,
+        Negativa,
         Neutro,
     }
 }

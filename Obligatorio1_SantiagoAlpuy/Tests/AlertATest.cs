@@ -7,7 +7,7 @@ using BusinessLogic.IControllers;
 namespace Tests
 {
     [TestClass]
-    public class AlertTest
+    public class AlertATest
     {
         Repository repository;
         AlertController alertController;
@@ -17,7 +17,7 @@ namespace Tests
 
         Entity entity1;
         Entity entity2;
-        Alert alert;
+        AlertA alert;
         Phrase positive1PhraseEntity1;
         Phrase positive2PhraseEntity1;
         Phrase phrase1;
@@ -46,7 +46,7 @@ namespace Tests
         public void GenerateAlertToEntity()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 10, Days = 12 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 10, Days = 12 };
             alertController.AddAlert(alert);
             Assert.AreEqual(alert, alertController.ObtainAlert(alert));
         }
@@ -55,7 +55,7 @@ namespace Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void GenerateAlertWithNullEntity()
         {
-            alert = new Alert() { Entity = null, Category = CategoryType.Positive, Posts = 10, Days = 2 };
+            alert = new AlertA() { Entity = null, Category = CategoryType.Positiva, Posts = 10, Days = 2 };
             alertController.AddAlert(alert);
         }
 
@@ -65,7 +65,7 @@ namespace Tests
         public void GenerateAlertWithNegativePosts()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = -2, Days = 3 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = -2, Days = 3 };
             alertController.AddAlert(alert);
         }
 
@@ -74,7 +74,7 @@ namespace Tests
         public void GenerateAlertWithNegativeDays()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Days = -34 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Days = -34 };
             alertController.AddAlert(alert);
         }
 
@@ -83,7 +83,7 @@ namespace Tests
         public void GenerateAlertWithNegativeHours()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Hours = -2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Hours = -2 };
             alertController.AddAlert(alert);
         }
 
@@ -102,7 +102,7 @@ namespace Tests
             entity1 = new Entity() { Name = "pepsi" };
             positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
             positive2PhraseEntity1 = new Phrase() { Comment = "Amo tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Days = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Days = 2 };
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
@@ -112,25 +112,25 @@ namespace Tests
             phraseController.AnalyzePhrase(positive2PhraseEntity1);
             alertController.AddAlert(alert);
 
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
 
             Assert.IsTrue(alert.Activated);
         }
 
         [TestMethod]
-        public void ActivateAlertIfDateNotInActivationRange()
+        public void DontIncreaseAlertCountIfPhraseDateIsOlderThanAnYear()
         {
             entity1 = new Entity() { Name = "pepsi" };
             entity2 = new Entity() { Name = "PEpSI" };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), PhraseAuthor = author };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);            
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             Assert.IsFalse(alert.Activated);
         }
 
@@ -141,13 +141,13 @@ namespace Tests
             entity2 = new Entity() { Name = "PEpSI" };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             Assert.IsTrue(alert.Activated);
         }
 
@@ -158,21 +158,21 @@ namespace Tests
             entity2 = new Entity() { Name = "  pepsi   " };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
-            alert = new Alert() { Entity = entity2.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
+            alert = new AlertA() { Entity = entity2.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity1);
             sentimentController.AddSentiment(positive1);
             phraseController.AddPhraseToRepository(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             Assert.IsTrue(alert.Activated);
         }
 
         [TestMethod]
-        public void ActivateAlertAndThenTurnItOff()
+        public void ActivateAlert()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 1, Days = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positive1);
@@ -180,13 +180,26 @@ namespace Tests
             phraseController.AddPhraseToRepository(phrase1);
             entityController.AddEntity(entity1);
             phraseController.AnalyzePhrase(phrase1);
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             Assert.IsTrue(alert.Activated);
+        }
+
+        [TestMethod]
+        public void DeactivateAlert()
+        {
+            entity1 = new Entity() { Name = "pepsi" };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
+            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            positive1 = new Sentiment() { Description = "Me encanta", Category = true };
+            sentimentController.AddSentiment(positive1);
+            alertController.AddAlert(alert);
+            phraseController.AddPhraseToRepository(phrase1);
+            entityController.AddEntity(entity1);
+            phraseController.AnalyzePhrase(phrase1);
+            alertController.EvaluateAlerts();
             entityController.RemoveEntity(entity1.Name);
-
             phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlert();
-
+            alertController.EvaluateAlerts();
             Assert.IsFalse(alert.Activated);
         }
 
@@ -195,7 +208,7 @@ namespace Tests
         public void GenerateAlertWithEmptyEntityField()
         {
             entity1 = new Entity() { Name = "" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Hours = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Hours = 2 };
             alertController.AddAlert(alert);
         }
 
@@ -204,7 +217,7 @@ namespace Tests
         public void GenerateAlertWithMultipleBlankSpacesInEntityField()
         {
             entity1 = new Entity() { Name = "    " };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Positive, Posts = 2, Hours = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Hours = 2 };
             alertController.AddAlert(alert);
         }
 
@@ -213,7 +226,7 @@ namespace Tests
         public void GenerateAlertWithNeutroCategory()
         {
             entity1 = new Entity() { Name = "pepsi" };
-            alert = new Alert() { Entity = entity1.Name, Category = CategoryType.Neutro, Posts = 2, Hours = 2 };
+            alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Neutro, Posts = 2, Hours = 2 };
             alertController.AddAlert(alert);
         }
 

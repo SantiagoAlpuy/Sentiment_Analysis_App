@@ -58,10 +58,10 @@
             this.entityBox.AccessibleName = "";
             this.entityBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entityBox.ForeColor = System.Drawing.Color.Gray;
-            this.entityBox.Location = new System.Drawing.Point(44, 134);
+            this.entityBox.Location = new System.Drawing.Point(44, 93);
             this.entityBox.Multiline = true;
             this.entityBox.Name = "entityBox";
-            this.entityBox.Size = new System.Drawing.Size(526, 35);
+            this.entityBox.Size = new System.Drawing.Size(665, 35);
             this.entityBox.TabIndex = 10;
             this.entityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -72,11 +72,11 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(185, 13);
+            this.label1.Location = new System.Drawing.Point(232, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(336, 25);
+            this.label1.Size = new System.Drawing.Size(293, 25);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Crear Configuración de Alarma";
+            this.label1.Text = "Configuración de Alarma A";
             // 
             // label3
             // 
@@ -108,7 +108,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Location = new System.Drawing.Point(599, 348);
+            this.panel1.Location = new System.Drawing.Point(312, 354);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
             this.panel1.TabIndex = 13;
@@ -136,9 +136,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label2.Location = new System.Drawing.Point(300, 425);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 16);
+            this.label2.Size = new System.Drawing.Size(153, 16);
             this.label2.TabIndex = 19;
-            this.label2.Text = "Todas las Alarmas";
+            this.label2.Text = "Todas las Alarmas A";
             // 
             // categoryComboBox
             // 
@@ -148,9 +148,9 @@
             this.categoryComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.categoryComboBox.ForeColor = System.Drawing.Color.Gray;
             this.categoryComboBox.FormattingEnabled = true;
-            this.categoryComboBox.Location = new System.Drawing.Point(44, 191);
+            this.categoryComboBox.Location = new System.Drawing.Point(44, 150);
             this.categoryComboBox.Name = "categoryComboBox";
-            this.categoryComboBox.Size = new System.Drawing.Size(526, 24);
+            this.categoryComboBox.Size = new System.Drawing.Size(665, 24);
             this.categoryComboBox.TabIndex = 18;
             // 
             // label6
@@ -158,7 +158,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(142, 332);
+            this.label6.Location = new System.Drawing.Point(234, 291);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(342, 16);
             this.label6.TabIndex = 31;
@@ -169,7 +169,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(142, 275);
+            this.label4.Location = new System.Drawing.Point(234, 240);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(333, 16);
             this.label4.TabIndex = 32;
@@ -180,7 +180,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(142, 218);
+            this.label5.Location = new System.Drawing.Point(219, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(361, 16);
             this.label5.TabIndex = 33;
@@ -191,7 +191,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(212, 172);
+            this.label7.Location = new System.Drawing.Point(300, 131);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(187, 16);
             this.label7.TabIndex = 34;
@@ -202,7 +202,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(197, 115);
+            this.label8.Location = new System.Drawing.Point(288, 74);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(215, 16);
             this.label8.TabIndex = 35;
@@ -211,42 +211,42 @@
             // postsUpDown
             // 
             this.postsUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.postsUpDown.Location = new System.Drawing.Point(44, 252);
+            this.postsUpDown.Location = new System.Drawing.Point(44, 211);
             this.postsUpDown.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.postsUpDown.Name = "postsUpDown";
-            this.postsUpDown.Size = new System.Drawing.Size(526, 26);
+            this.postsUpDown.Size = new System.Drawing.Size(665, 26);
             this.postsUpDown.TabIndex = 36;
             this.postsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // daysUpDown
             // 
             this.daysUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.daysUpDown.Location = new System.Drawing.Point(44, 303);
+            this.daysUpDown.Location = new System.Drawing.Point(44, 262);
             this.daysUpDown.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.daysUpDown.Name = "daysUpDown";
-            this.daysUpDown.Size = new System.Drawing.Size(526, 26);
+            this.daysUpDown.Size = new System.Drawing.Size(665, 26);
             this.daysUpDown.TabIndex = 37;
             this.daysUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // hoursUpDown
             // 
             this.hoursUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hoursUpDown.Location = new System.Drawing.Point(44, 351);
+            this.hoursUpDown.Location = new System.Drawing.Point(44, 310);
             this.hoursUpDown.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.hoursUpDown.Name = "hoursUpDown";
-            this.hoursUpDown.Size = new System.Drawing.Size(526, 26);
+            this.hoursUpDown.Size = new System.Drawing.Size(665, 26);
             this.hoursUpDown.TabIndex = 38;
             this.hoursUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 

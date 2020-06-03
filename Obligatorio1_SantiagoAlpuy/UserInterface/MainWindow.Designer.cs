@@ -39,6 +39,7 @@
             this.btnAnalysisReport = new System.Windows.Forms.Button();
             this.btnAlertReport = new System.Windows.Forms.Button();
             this.PrincipalPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAlertConfigB = new System.Windows.Forms.Button();
             this.uC_ManagePosSentiment1 = new UserInterface.UC_ManagePosSentiment();
             this.uC_ManagePhrases1 = new UserInterface.UC_ManagePhrases();
             this.uC_ManageNegSentiment1 = new UserInterface.UC_ManageNegSentiment();
@@ -46,6 +47,7 @@
             this.uC_AnalysisReport1 = new UserInterface.UC_AnalysisReport();
             this.uC_AlertReport1 = new UserInterface.UC_AlertReport();
             this.uC_AlertConfig1 = new UserInterface.UC_AlertConfig();
+            this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,8 +60,10 @@
             this.flowLayoutPanel1.Controls.Add(this.btnManageEntities);
             this.flowLayoutPanel1.Controls.Add(this.btnManagePhrases);
             this.flowLayoutPanel1.Controls.Add(this.btnAlertConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnAlertConfigB);
             this.flowLayoutPanel1.Controls.Add(this.btnAnalysisReport);
             this.flowLayoutPanel1.Controls.Add(this.btnAlertReport);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(212, 558);
@@ -73,7 +77,7 @@
             this.btnManageAuthors.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnManageAuthors.Location = new System.Drawing.Point(3, 3);
             this.btnManageAuthors.Name = "btnManageAuthors";
-            this.btnManageAuthors.Size = new System.Drawing.Size(205, 52);
+            this.btnManageAuthors.Size = new System.Drawing.Size(205, 47);
             this.btnManageAuthors.TabIndex = 9;
             this.btnManageAuthors.Text = "Gestionar Autores";
             this.btnManageAuthors.UseVisualStyleBackColor = false;
@@ -85,9 +89,9 @@
             this.btnManagePositiveSentiment.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnManagePositiveSentiment.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnManagePositiveSentiment.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnManagePositiveSentiment.Location = new System.Drawing.Point(3, 61);
+            this.btnManagePositiveSentiment.Location = new System.Drawing.Point(3, 56);
             this.btnManagePositiveSentiment.Name = "btnManagePositiveSentiment";
-            this.btnManagePositiveSentiment.Size = new System.Drawing.Size(205, 52);
+            this.btnManagePositiveSentiment.Size = new System.Drawing.Size(205, 47);
             this.btnManagePositiveSentiment.TabIndex = 0;
             this.btnManagePositiveSentiment.Text = "Gestionar Sentimientos Positivos";
             this.btnManagePositiveSentiment.UseVisualStyleBackColor = false;
@@ -99,9 +103,9 @@
             this.btnManageNegativeSentiment.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnManageNegativeSentiment.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnManageNegativeSentiment.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnManageNegativeSentiment.Location = new System.Drawing.Point(3, 119);
+            this.btnManageNegativeSentiment.Location = new System.Drawing.Point(3, 109);
             this.btnManageNegativeSentiment.Name = "btnManageNegativeSentiment";
-            this.btnManageNegativeSentiment.Size = new System.Drawing.Size(205, 52);
+            this.btnManageNegativeSentiment.Size = new System.Drawing.Size(205, 47);
             this.btnManageNegativeSentiment.TabIndex = 1;
             this.btnManageNegativeSentiment.Text = "Gestionar Sentimientos Negativos";
             this.btnManageNegativeSentiment.UseVisualStyleBackColor = false;
@@ -113,9 +117,9 @@
             this.btnManageEntities.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnManageEntities.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnManageEntities.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnManageEntities.Location = new System.Drawing.Point(3, 177);
+            this.btnManageEntities.Location = new System.Drawing.Point(3, 162);
             this.btnManageEntities.Name = "btnManageEntities";
-            this.btnManageEntities.Size = new System.Drawing.Size(205, 52);
+            this.btnManageEntities.Size = new System.Drawing.Size(205, 47);
             this.btnManageEntities.TabIndex = 2;
             this.btnManageEntities.Text = "Gestionar Entidades";
             this.btnManageEntities.UseVisualStyleBackColor = false;
@@ -127,9 +131,9 @@
             this.btnManagePhrases.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnManagePhrases.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnManagePhrases.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnManagePhrases.Location = new System.Drawing.Point(3, 235);
+            this.btnManagePhrases.Location = new System.Drawing.Point(3, 215);
             this.btnManagePhrases.Name = "btnManagePhrases";
-            this.btnManagePhrases.Size = new System.Drawing.Size(205, 52);
+            this.btnManagePhrases.Size = new System.Drawing.Size(205, 47);
             this.btnManagePhrases.TabIndex = 3;
             this.btnManagePhrases.Text = "Agregar Frase";
             this.btnManagePhrases.UseVisualStyleBackColor = false;
@@ -141,11 +145,11 @@
             this.btnAlertConfig.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAlertConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAlertConfig.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAlertConfig.Location = new System.Drawing.Point(3, 293);
+            this.btnAlertConfig.Location = new System.Drawing.Point(3, 268);
             this.btnAlertConfig.Name = "btnAlertConfig";
-            this.btnAlertConfig.Size = new System.Drawing.Size(205, 52);
+            this.btnAlertConfig.Size = new System.Drawing.Size(205, 47);
             this.btnAlertConfig.TabIndex = 4;
-            this.btnAlertConfig.Text = "Crear Configuraciones de Alarmas";
+            this.btnAlertConfig.Text = "Configuraciones de Alarmas A";
             this.btnAlertConfig.UseVisualStyleBackColor = false;
             this.btnAlertConfig.Click += new System.EventHandler(this.btnAlertConfig_Click);
             // 
@@ -155,9 +159,9 @@
             this.btnAnalysisReport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAnalysisReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAnalysisReport.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAnalysisReport.Location = new System.Drawing.Point(3, 351);
+            this.btnAnalysisReport.Location = new System.Drawing.Point(3, 374);
             this.btnAnalysisReport.Name = "btnAnalysisReport";
-            this.btnAnalysisReport.Size = new System.Drawing.Size(205, 52);
+            this.btnAnalysisReport.Size = new System.Drawing.Size(205, 47);
             this.btnAnalysisReport.TabIndex = 5;
             this.btnAnalysisReport.Text = "Reporte de Análisis";
             this.btnAnalysisReport.UseVisualStyleBackColor = false;
@@ -169,9 +173,9 @@
             this.btnAlertReport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAlertReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.btnAlertReport.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAlertReport.Location = new System.Drawing.Point(3, 409);
+            this.btnAlertReport.Location = new System.Drawing.Point(3, 427);
             this.btnAlertReport.Name = "btnAlertReport";
-            this.btnAlertReport.Size = new System.Drawing.Size(205, 52);
+            this.btnAlertReport.Size = new System.Drawing.Size(205, 47);
             this.btnAlertReport.TabIndex = 6;
             this.btnAlertReport.Text = "Reporte de Alarmas Activas";
             this.btnAlertReport.UseVisualStyleBackColor = false;
@@ -184,6 +188,20 @@
             this.PrincipalPanel.Name = "PrincipalPanel";
             this.PrincipalPanel.Size = new System.Drawing.Size(759, 557);
             this.PrincipalPanel.TabIndex = 8;
+            // 
+            // btnAlertConfigB
+            // 
+            this.btnAlertConfigB.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnAlertConfigB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAlertConfigB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnAlertConfigB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAlertConfigB.Location = new System.Drawing.Point(3, 321);
+            this.btnAlertConfigB.Name = "btnAlertConfigB";
+            this.btnAlertConfigB.Size = new System.Drawing.Size(205, 47);
+            this.btnAlertConfigB.TabIndex = 10;
+            this.btnAlertConfigB.Text = "Configuraciones de Alarmas B";
+            this.btnAlertConfigB.UseVisualStyleBackColor = false;
+            this.btnAlertConfigB.Click += new System.EventHandler(this.btnAlertConfigB_Click);
             // 
             // uC_ManagePosSentiment1
             // 
@@ -241,6 +259,19 @@
             this.uC_AlertConfig1.Size = new System.Drawing.Size(762, 408);
             this.uC_AlertConfig1.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(3, 480);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(205, 45);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Reporte de Autores";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +323,8 @@
         private UC_ManagePosSentiment uC_ManagePosSentiment1;
         private System.Windows.Forms.FlowLayoutPanel PrincipalPanel;
         private System.Windows.Forms.Button btnManageAuthors;
+        private System.Windows.Forms.Button btnAlertConfigB;
+        private System.Windows.Forms.Button button1;
     }
 }
 

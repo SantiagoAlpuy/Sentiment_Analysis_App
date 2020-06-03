@@ -35,7 +35,7 @@ namespace UserInterface
             {
                 sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
                 phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
+                alertController.EvaluateAlerts();
             }
 
             this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
@@ -70,7 +70,7 @@ namespace UserInterface
             Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
             sentimentController.AddSentiment(sentiment);
             phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlert();
+            alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
             sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
             sentimentBox.ForeColor = Color.Gray;

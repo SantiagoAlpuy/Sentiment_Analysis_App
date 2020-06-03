@@ -36,7 +36,7 @@ namespace UserInterface
 
         private void LoadDataGridAlerts()
         {
-            this.dataGrid.DataSource = repository.Alerts.ToList().FindAll(x => x.Activated);
+            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList().FindAll( x => x.Activated);
         }
     }
 }

@@ -32,6 +32,7 @@ namespace BusinessLogic.Controllers
             ValidatePhrase(phrase);
             phrases.Add(phrase);
         }
+        
 
         private void ValidatePhrase(Phrase phrase)
         {
@@ -71,9 +72,9 @@ namespace BusinessLogic.Controllers
             else if (hasPositive && hasNegative)
                 phrase.Category = CategoryType.Neutro;
             else if (hasPositive)
-                phrase.Category = CategoryType.Positive;
+                phrase.Category = CategoryType.Positiva;
             else
-                phrase.Category = CategoryType.Negative;
+                phrase.Category = CategoryType.Negativa;
         }
 
         private bool IsSentimentOnRepo(Phrase phrase, List<Sentiment> sentiments)

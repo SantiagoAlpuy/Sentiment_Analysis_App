@@ -54,6 +54,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UC_AlertBConfig.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_AlertBConfig.Designer.cs">
+      <DependentUpon>UC_AlertBConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC_AlertConfig.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +121,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_AlertBConfig.resx">
+      <DependentUpon>UC_AlertBConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_AlertConfig.resx">
       <DependentUpon>UC_AlertConfig.cs</DependentUpon>

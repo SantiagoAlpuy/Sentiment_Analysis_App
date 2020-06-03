@@ -6,8 +6,8 @@ namespace BusinessLogic.IControllers
 {
     public interface IAlertController
     {
-        void AddAlert(Alert alert);
+        void AddAlert(IAlert alert);
 
-        void EvaluateAlert();
+        void EvaluateAlerts();
     }
 }
