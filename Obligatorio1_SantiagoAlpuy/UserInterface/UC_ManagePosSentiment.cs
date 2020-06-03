@@ -14,7 +14,6 @@ namespace UserInterface
         IPhraseController phraseController;
         IAlertController alertController;
         Repository repository;
-        private const string WRITE_POSITIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones positivas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         public UC_ManagePosSentiment()
@@ -46,6 +45,8 @@ namespace UserInterface
             try
             {
                 EvaluateSentimentInsertion();
+                sentimentBox.Text = "";
+                this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
             }
             catch (InvalidOperationException ex)
             {
@@ -72,27 +73,6 @@ namespace UserInterface
             phraseController.AnalyzeAllPhrases();
             alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
-            sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
-            sentimentBox.ForeColor = Color.Gray;
-            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
-        }
-
-        private void sentimentBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (sentimentBox.Text == WRITE_POSITIVE_WORD_MESSAGE)
-            {
-                sentimentBox.Text = "";
-                sentimentBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void sentimentBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (sentimentBox.Text == "")
-            {
-                sentimentBox.Text = WRITE_POSITIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-            }
         }
 
     }

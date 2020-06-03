@@ -14,7 +14,6 @@ namespace UserInterface
         IAlertController alertController;
         IPhraseController phraseController;
         Repository repository;
-        private const string WRITE_ENTITY_MESSAGE = "Ingrese una entidad";
         private const string ENTITY_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         private const string MAIN_ENTITY_COLUMN_NAME = "Nombre";
         public UC_ManageEntities()
@@ -44,6 +43,8 @@ namespace UserInterface
             try
             {
                 EvaluateEntityInsertion();
+                entityBox.Text = "";
+                this.dataGrid.DataSource = repository.Entities.ToList();
             }
             catch (ArgumentException ex)
             {
@@ -70,28 +71,6 @@ namespace UserInterface
             phraseController.AnalyzeAllPhrases();
             alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
-            entityBox.Text = WRITE_ENTITY_MESSAGE;
-            entityBox.ForeColor = Color.Gray;
-            this.dataGrid.DataSource = repository.Entities.ToList();
-        }
-
-
-        private void entityBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (entityBox.Text == WRITE_ENTITY_MESSAGE)
-            {
-                entityBox.Text = "";
-                entityBox.ForeColor = Color.Black;
-            }
-        }
-
-        private void entityBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (entityBox.Text == "")
-            {
-                entityBox.Text = WRITE_ENTITY_MESSAGE;
-                entityBox.ForeColor = Color.Gray;
-            }
         }
     }
 }

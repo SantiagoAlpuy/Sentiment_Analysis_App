@@ -14,7 +14,6 @@ namespace UserInterface
         IPhraseController phraseController;
         IAlertController alertController;
         Repository repository;
-        private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
 
@@ -35,6 +34,8 @@ namespace UserInterface
             try
             {
                 EvaluateSentimentInsertion();
+                sentimentBox.Text = "";
+                this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
             }
             catch (InvalidOperationException ex)
             {
@@ -61,9 +62,6 @@ namespace UserInterface
             phraseController.AnalyzeAllPhrases();
             alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
-            sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-            sentimentBox.ForeColor = Color.Gray;
-            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -78,23 +76,5 @@ namespace UserInterface
             this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
         }
         
-
-        private void sentimentBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (sentimentBox.Text == "")
-            {
-                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-            }
-        }
-
-        private void sentimentBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (sentimentBox.Text == WRITE_NEGATIVE_WORD_MESSAGE)
-            {
-                sentimentBox.Text = "";
-                sentimentBox.ForeColor = Color.Black;
-            }
-        }
     }
 }
