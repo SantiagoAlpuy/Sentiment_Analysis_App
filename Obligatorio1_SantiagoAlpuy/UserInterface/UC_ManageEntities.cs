@@ -23,7 +23,6 @@ namespace UserInterface
             alertController = new AlertController();
             phraseController = new PhraseController();
             repositoryA = new RepositoryA<Entity>();
-            //this.dataGrid.DataSource = repository.Entities.ToList();
             this.dataGrid.DataSource = repositoryA.GetAll();
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = MAIN_ENTITY_COLUMN_NAME;
@@ -37,7 +36,6 @@ namespace UserInterface
                 phraseController.AnalyzeAllPhrases();
                 alertController.EvaluateAlerts();
             }
-            //this.dataGrid.DataSource = repository.Entities.ToList();
             this.dataGrid.DataSource = repositoryA.GetAll();
         }
 
@@ -47,7 +45,6 @@ namespace UserInterface
             {
                 EvaluateEntityInsertion();
                 entityBox.Text = "";
-                //this.dataGrid.DataSource = repository.Entities.ToList();
                 this.dataGrid.DataSource = repositoryA.GetAll();
             }
             catch (ArgumentException ex)

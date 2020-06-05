@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Drawing;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
@@ -24,7 +23,7 @@ namespace UserInterface
             phraseController = new PhraseController();
             alertController = new AlertController();
             repositoryA = new RepositoryA<Sentiment>();
-            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+            this.dataGrid.DataSource = GetNegativeSentiments();
             dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[2].Visible = false;
@@ -36,7 +35,7 @@ namespace UserInterface
             {
                 EvaluateSentimentInsertion();
                 sentimentBox.Text = "";
-                this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+                this.dataGrid.DataSource = GetNegativeSentiments();
             }
             catch (InvalidOperationException ex)
             {
@@ -74,8 +73,13 @@ namespace UserInterface
                 alertController.EvaluateAlerts();
             }
 
-            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+            this.dataGrid.DataSource = GetNegativeSentiments();
         }
-        
+
+        private ICollection<Sentiment> GetNegativeSentiments()
+        {
+            return repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+        }
+
     }
 }

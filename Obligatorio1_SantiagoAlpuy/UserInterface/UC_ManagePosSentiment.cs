@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Drawing;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
@@ -23,7 +22,7 @@ namespace UserInterface
             phraseController = new PhraseController();
             alertController = new AlertController();
             repositoryA = new RepositoryA<Sentiment>();
-            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
+            this.dataGrid.DataSource = GetPositiveSentiments();
             dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[2].Visible = false;
@@ -38,7 +37,7 @@ namespace UserInterface
                 alertController.EvaluateAlerts();
             }
 
-            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
+            this.dataGrid.DataSource = GetPositiveSentiments();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -47,7 +46,7 @@ namespace UserInterface
             {
                 EvaluateSentimentInsertion();
                 sentimentBox.Text = "";
-                this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
+                this.dataGrid.DataSource = GetPositiveSentiments();
             }
             catch (InvalidOperationException ex)
             {
@@ -74,6 +73,11 @@ namespace UserInterface
             phraseController.AnalyzeAllPhrases();
             alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
+        }
+
+        private ICollection<Sentiment> GetPositiveSentiments()
+        {
+            return repositoryA.GetEntitiesByPredicate(x => x.Category == true);
         }
 
     }
