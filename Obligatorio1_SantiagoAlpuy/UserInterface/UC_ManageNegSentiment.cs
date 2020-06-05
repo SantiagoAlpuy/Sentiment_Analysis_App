@@ -78,7 +78,7 @@ namespace UserInterface
 
         private ICollection<Sentiment> GetNegativeSentiments()
         {
-            return repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+            return sentimentController.GetAllEntitiesByCategory(CategoryType.Negativa);
         }
 
     }

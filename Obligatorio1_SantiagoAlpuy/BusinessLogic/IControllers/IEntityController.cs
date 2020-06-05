@@ -11,6 +11,7 @@ namespace BusinessLogic.IControllers
         Entity ObtainEntity(string name);
 
         void RemoveEntity(string name);
+        ICollection<Entity> GetAllEntities();
 
     }
 }

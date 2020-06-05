@@ -77,7 +77,7 @@ namespace UserInterface
 
         private ICollection<Sentiment> GetPositiveSentiments()
         {
-            return repositoryA.GetEntitiesByPredicate(x => x.Category == true);
+            return sentimentController.GetAllEntitiesByCategory(CategoryType.Positiva);
         }
 
     }

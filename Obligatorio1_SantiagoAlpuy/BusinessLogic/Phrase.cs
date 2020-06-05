@@ -12,6 +12,6 @@ namespace BusinessLogic
         public string Entity { get; set; }
         public CategoryType Category { get; set; }
 
-        public Author PhraseAuthor { get; set; }
+        public virtual Author PhraseAuthor { get; set; }
     }
 }

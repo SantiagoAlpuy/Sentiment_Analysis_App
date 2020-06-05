@@ -11,7 +11,6 @@ namespace UserInterface
         IPhraseController phraseController;
         IAlertController alertController;
         IAuthorController authorController;
-        Repository repository;
         FlowLayoutPanel mainPanel;
         private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente. ¿Quiere ver las alarmas activas?";
 
@@ -29,12 +28,11 @@ namespace UserInterface
             phraseController = new PhraseController();
             alertController = new AlertController();
             authorController = new AuthorController();
-            repository = Repository.Instance;
             mainPanel = panel;
 
             autorComboBox.Items.Add("");
             autorComboBox.SelectedIndex = 0;
-            foreach (Author author in repository.Authors)
+            foreach (Author author in authorController.GetAllEntities())
             {
                 autorComboBox.Items.Add(author.Username);
             }

@@ -72,5 +72,13 @@ namespace BusinessLogic.Controllers
                 repositoryA.Remove(sentiment);
         }
 
+        public ICollection<Sentiment> GetAllEntitiesByCategory(CategoryType category)
+        {
+            bool sentimentCategory = false;
+            if (category.Equals(CategoryType.Positiva))
+                sentimentCategory = true;
+            return repositoryA.GetEntitiesByPredicate(x => x.Category == sentimentCategory);
+        }
+
     }
 }

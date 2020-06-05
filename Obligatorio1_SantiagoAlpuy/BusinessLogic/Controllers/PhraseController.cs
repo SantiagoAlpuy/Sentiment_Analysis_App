@@ -6,12 +6,12 @@ namespace BusinessLogic.Controllers
 {
     public class PhraseController : IPhraseController
     {
-        Repository repository = Repository.Instance;
-        AlertController alertController = new AlertController();
-        private List<Phrase> phrases;
-        private List<Sentiment> positiveSentiments;
-        private List<Sentiment> negativeSentiments;
-        private List<Entity> entities;
+
+        AlertController alertController;
+        IEntityController entityController;
+        ISentimentController sentimentController;
+        IAuthorController authorController;
+        RepositoryA<Phrase> repositoryA;
 
         private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
         private const string NULL_PHRASE = "Ingrese una frase válida.";
@@ -21,16 +21,17 @@ namespace BusinessLogic.Controllers
 
         public PhraseController()
         {
-            phrases = repository.Phrases;
-            positiveSentiments = repository.PositiveSentiments;
-            negativeSentiments = repository.NegativeSentiments;
-            entities = repository.Entities;
+            alertController = new AlertController();
+            entityController = new EntityController();
+            sentimentController = new SentimentController();
+            authorController = new AuthorController();
+            repositoryA = new RepositoryA<Phrase>();
         }
 
         public void AddPhraseToRepository(Phrase phrase)
         {
             ValidatePhrase(phrase);
-            phrases.Add(phrase);
+            repositoryA.Add(phrase);
         }
         
 
@@ -52,16 +53,16 @@ namespace BusinessLogic.Controllers
 
         public Phrase ObtainPhrase(string comment, DateTime date)
         {
-            return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
+            return repositoryA.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
 
         public void AnalyzePhrase(Phrase phrase)
         {
-            bool hasPositive;
-            bool hasNegative;
+            bool hasPositive = false;
+            bool hasNegative = false;
             AnalyzeEntityFromPhrase(phrase);
-            hasPositive = IsSentimentOnRepo(phrase, positiveSentiments);
-            hasNegative = IsSentimentOnRepo(phrase, negativeSentiments);
+            hasPositive = IsSentimentOnRepo(phrase, CategoryType.Positiva);
+            hasNegative = IsSentimentOnRepo(phrase, CategoryType.Negativa);
             SetPhraseCategory(phrase, hasPositive, hasNegative);
         }
 
@@ -75,11 +76,13 @@ namespace BusinessLogic.Controllers
                 phrase.Category = CategoryType.Positiva;
             else
                 phrase.Category = CategoryType.Negativa;
+            repositoryA.Update(phrase);
         }
 
-        private bool IsSentimentOnRepo(Phrase phrase, List<Sentiment> sentiments)
+        private bool IsSentimentOnRepo(Phrase phrase, CategoryType category)
         {
             bool hasSentiment = false;
+            ICollection<Sentiment> sentiments = sentimentController.GetAllEntitiesByCategory(category);
             foreach (Sentiment sentiment in sentiments)
             {
                 if (IsSentimentOnPhrase(phrase, sentiment))
@@ -111,6 +114,7 @@ namespace BusinessLogic.Controllers
 
         public void AnalyzeAllPhrases()
         {
+            ICollection<Phrase> phrases = repositoryA.GetAll();
             foreach(Phrase phrase in phrases)
             {
                 AnalyzePhrase(phrase);
@@ -120,6 +124,7 @@ namespace BusinessLogic.Controllers
         private Entity FindEntityInPhrase(Phrase phrase)
         {
             Entity ent = null;
+            ICollection<Entity> entities = entityController.GetAllEntities();
             foreach (Entity entity in entities)
             {
                 if (PhraseContainsEntity(phrase, entity))
