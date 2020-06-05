@@ -13,7 +13,7 @@ namespace UserInterface
         IEntityController entityController;
         IAlertController alertController;
         IPhraseController phraseController;
-        Repository repository;
+        RepositoryA<Entity> repositoryA;
         private const string ENTITY_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         private const string MAIN_ENTITY_COLUMN_NAME = "Nombre";
         public UC_ManageEntities()
@@ -22,20 +22,23 @@ namespace UserInterface
             entityController = new EntityController();
             alertController = new AlertController();
             phraseController = new PhraseController();
-            repository = Repository.Instance;
-            this.dataGrid.DataSource = repository.Entities.ToList();
-            dataGrid.Columns[0].HeaderText = MAIN_ENTITY_COLUMN_NAME;
+            repositoryA = new RepositoryA<Entity>();
+            //this.dataGrid.DataSource = repository.Entities.ToList();
+            this.dataGrid.DataSource = repositoryA.GetAll();
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[1].HeaderText = MAIN_ENTITY_COLUMN_NAME;
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
-                entityController.RemoveEntity(row.Cells[0].Value.ToString());
+                entityController.RemoveEntity(row.Cells[1].Value.ToString());
                 phraseController.AnalyzeAllPhrases();
                 alertController.EvaluateAlerts();
             }
-            this.dataGrid.DataSource = repository.Entities.ToList();
+            //this.dataGrid.DataSource = repository.Entities.ToList();
+            this.dataGrid.DataSource = repositoryA.GetAll();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -44,7 +47,8 @@ namespace UserInterface
             {
                 EvaluateEntityInsertion();
                 entityBox.Text = "";
-                this.dataGrid.DataSource = repository.Entities.ToList();
+                //this.dataGrid.DataSource = repository.Entities.ToList();
+                this.dataGrid.DataSource = repositoryA.GetAll();
             }
             catch (ArgumentException ex)
             {

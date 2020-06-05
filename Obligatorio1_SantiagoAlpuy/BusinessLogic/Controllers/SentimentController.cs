@@ -7,9 +7,8 @@ namespace BusinessLogic.Controllers
 {
     public class SentimentController : ISentimentController
     {
-        Repository repository = Repository.Instance;
-        private List<Sentiment> positiveSentiments;
-        private List<Sentiment> negativeSentiments;
+
+        RepositoryA<Sentiment> repositoryA;
 
         private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
         private const string NULL_DESCRIPTION = "Ingrese una descripción válida.";
@@ -21,23 +20,23 @@ namespace BusinessLogic.Controllers
 
         public SentimentController()
         {
-            positiveSentiments = repository.PositiveSentiments;
-            negativeSentiments = repository.NegativeSentiments;
+            repositoryA = new RepositoryA<Sentiment>();
         }
 
         public void AddSentiment(Sentiment sentiment)
         {
             ValidateSentiment(sentiment);
-            AddSentimentToRepository(sentiment);
+            repositoryA.Add(sentiment);
         }
 
-        private void AddSentimentToRepository(Sentiment sentiment)
+        /*private void AddSentimentToRepository(Sentiment sentiment)
         {
             if (sentiment.Category)
                 positiveSentiments.Add(sentiment);
             else
                 negativeSentiments.Add(sentiment);
-        }
+            repositoryA.Add(sentiment);
+        }*/
 
         private void ValidateSentiment(Sentiment sentiment)
         {
@@ -49,34 +48,26 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(EMPTY_DESCRIPTION);
             else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
                 throw new ArgumentException(CONTAINS_NUMBERS);
-            else if (sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
+            else if (sentiment.Category && IsSentimentInRepo(sentiment, true))
                 throw new InvalidOperationException(POSITIVE_SENTIMENT_ALREADY_REGISTERED);
-            else if (!sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
+            else if (!sentiment.Category && IsSentimentInRepo(sentiment, false))
                 throw new InvalidOperationException(NEGATIVE_SENTIMENT_ALREADY_REGISTERED);
-            else if (sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
+            else if (sentiment.Category && IsSentimentInRepo(sentiment, false))
                 throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " negativa.");
-            else if (!sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
+            else if (!sentiment.Category && IsSentimentInRepo(sentiment, true))
                 throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " positiva.");
         }
 
-        private bool IsSentimentInRepo(List<Sentiment> sentiments, Sentiment sentiment)
+        private bool IsSentimentInRepo(Sentiment sentiment, bool category)
         {
-            return sentiments.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()) != null;
+            return repositoryA.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()
+                                    && x.Category == category) != null;
         }
 
         public Sentiment ObtainSentiment(string description, bool category)
         {
-            Sentiment sentiment = null;
-            if (category)
-                sentiment = ObtainSentiment(description, positiveSentiments);
-            else
-                sentiment = ObtainSentiment(description, negativeSentiments);
-            return sentiment;
-        }
-
-        private Sentiment ObtainSentiment(string description, List<Sentiment> sentiments)
-        {
-            Sentiment sentiment = sentiments.Find(x => x.Description == description);
+            Sentiment sentiment = repositoryA.Find(x => x.Description.Trim().ToLower() == description.Trim().ToLower() 
+                                    && x.Category == category);
             if (sentiment != null)
                 return sentiment;
             else
@@ -85,16 +76,9 @@ namespace BusinessLogic.Controllers
 
         public void RemoveSentiment(string description, bool category)
         {
-            if (category)
-                RemoveSentiment(description, positiveSentiments);
-            else
-                RemoveSentiment(description, negativeSentiments);
+            Sentiment sentiment = ObtainSentiment(description, category);
+            repositoryA.Remove(sentiment);
         }
 
-        private void RemoveSentiment(string description, List<Sentiment> sentiments)
-        {
-            Sentiment sentiment = ObtainSentiment(description, sentiments);
-            sentiments.Remove(sentiment);
-        }
     }
 }

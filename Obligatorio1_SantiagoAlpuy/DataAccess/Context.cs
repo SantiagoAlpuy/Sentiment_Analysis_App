@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
+using BusinessLogic;
 
-namespace BusinessLogic
+namespace DataAccess
 {
     public class Context : DbContext
     {
@@ -11,9 +12,5 @@ namespace BusinessLogic
         public DbSet<AlertB> AlertsB { get; set; }
         public DbSet<Author> Authors { get; set; }
         
-        public Context()
-        {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
-        }
     }
 }

@@ -15,6 +15,7 @@ namespace BusinessLogic
         private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
         private const string POST_COUNT_EXCEEDED = "No puede ingresar una cantidad superior a {0}";
 
+        public int AlertBId { get; set; }
         public CategoryType Category { get; set; }
         public int Posts { get; set; }
         public int Days { get; set; }

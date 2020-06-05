@@ -15,7 +15,7 @@ namespace BusinessLogic
         private const string NEGATIVE_DAYS = "No puede ingresar una cantidad negativa de días.";
         private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
 
-        
+        public int AlertAId { get; set; }
         public string Entity { get; set; }
         public CategoryType Category { get; set; }
         public int Posts { get; set; }

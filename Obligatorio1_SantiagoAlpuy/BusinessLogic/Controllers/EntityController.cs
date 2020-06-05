@@ -6,8 +6,7 @@ namespace BusinessLogic.Controllers
 {
     public class EntityController : IEntityController
     {
-        Repository repository = Repository.Instance;
-        private List<Entity> entities;
+        private RepositoryA<Entity> repositoryA;
 
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
         private const string NULL_NAME = "Ingrese un nombre de entidad válida.";
@@ -16,13 +15,13 @@ namespace BusinessLogic.Controllers
 
         public EntityController()
         {
-            entities = repository.Entities;
+            repositoryA = new RepositoryA<Entity>();
         }
 
         public void AddEntity(Entity entity)
         {
             ValidateEntity(entity);
-            entities.Add(entity);
+            repositoryA.Add(entity);
         }
 
         private void ValidateEntity(Entity entity)
@@ -39,12 +38,16 @@ namespace BusinessLogic.Controllers
 
         private bool IsEntityInRepo(Entity entity)
         {
-            return entities.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower()) != null;
+            Entity entity1 = repositoryA.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower());
+            if (entity1 != null)
+                return true;
+            else
+                return false;
         }
 
         public Entity ObtainEntity(string name)
         {
-            Entity entity = entities.Find(x => x.Name == name);
+            Entity entity = repositoryA.Find(x => x.Name.Trim().ToLower() == name.Trim().ToLower());
             if (entity != null)
                 return entity;
             else
@@ -53,7 +56,13 @@ namespace BusinessLogic.Controllers
 
         public void RemoveEntity(string name)
         {
-            entities.Remove(ObtainEntity(name));
+            Entity entity = ObtainEntity(name);
+            repositoryA.Remove(entity);
+        }
+
+        public ICollection<Entity> GetAllEntities()
+        {
+            return repositoryA.GetAll();
         }
     }
 }

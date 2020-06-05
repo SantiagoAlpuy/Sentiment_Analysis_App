@@ -13,7 +13,7 @@ namespace UserInterface
         ISentimentController sentimentController;
         IPhraseController phraseController;
         IAlertController alertController;
-        Repository repository;
+        RepositoryA<Sentiment> repositoryA;
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         public UC_ManagePosSentiment()
@@ -22,22 +22,23 @@ namespace UserInterface
             sentimentController = new SentimentController();
             phraseController = new PhraseController();
             alertController = new AlertController();
-            repository = Repository.Instance;
-            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
-            dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
-            dataGrid.Columns[1].Visible = false;
+            repositoryA = new RepositoryA<Sentiment>();
+            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
+            dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[2].Visible = false;
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
-                sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), true);
+                sentimentController.RemoveSentiment(row.Cells[1].Value.ToString(), true);
                 phraseController.AnalyzeAllPhrases();
                 alertController.EvaluateAlerts();
             }
 
-            this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
+            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -46,7 +47,7 @@ namespace UserInterface
             {
                 EvaluateSentimentInsertion();
                 sentimentBox.Text = "";
-                this.dataGrid.DataSource = repository.PositiveSentiments.ToList();
+                this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == true);
             }
             catch (InvalidOperationException ex)
             {

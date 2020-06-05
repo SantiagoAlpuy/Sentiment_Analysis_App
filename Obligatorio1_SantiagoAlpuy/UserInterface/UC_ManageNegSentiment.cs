@@ -13,7 +13,7 @@ namespace UserInterface
         ISentimentController sentimentController;
         IPhraseController phraseController;
         IAlertController alertController;
-        Repository repository;
+        RepositoryA<Sentiment> repositoryA;
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
 
@@ -23,10 +23,11 @@ namespace UserInterface
             sentimentController = new SentimentController();
             phraseController = new PhraseController();
             alertController = new AlertController();
-            repository = Repository.Instance;
-            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
-            dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
-            dataGrid.Columns[1].Visible = false;
+            repositoryA = new RepositoryA<Sentiment>();
+            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
+            dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[2].Visible = false;
         }  
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace UserInterface
             {
                 EvaluateSentimentInsertion();
                 sentimentBox.Text = "";
-                this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
+                this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
             }
             catch (InvalidOperationException ex)
             {
@@ -68,12 +69,12 @@ namespace UserInterface
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
-                sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
+                sentimentController.RemoveSentiment(row.Cells[1].Value.ToString(), false);
                 phraseController.AnalyzeAllPhrases();
                 alertController.EvaluateAlerts();
             }
 
-            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
+            this.dataGrid.DataSource = repositoryA.GetEntitiesByPredicate(x => x.Category == false);
         }
         
     }

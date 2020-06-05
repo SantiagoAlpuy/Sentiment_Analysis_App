@@ -200,12 +200,6 @@
     <None Include="Resources\icons8-delete-36.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
-      <Project>{fdbeaaa9-4789-493b-8a4c-f3b81f91e18f}</Project>
-      <Name>BusinessLogic</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-edit-64.png" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +207,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-edit-36 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{fdbeaaa9-4789-493b-8a4c-f3b81f91e18f}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
