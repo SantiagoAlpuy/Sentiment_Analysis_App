@@ -18,7 +18,7 @@ namespace UserInterface
         {
             InitializeComponent();
             phraseController = new PhraseController();
-            alertController = new AlertController();
+            alertController = new AlertAController();
             authorController = new AuthorController();
         }
 
@@ -26,7 +26,7 @@ namespace UserInterface
         {
             InitializeComponent();
             phraseController = new PhraseController();
-            alertController = new AlertController();
+            alertController = new AlertAController();
             authorController = new AuthorController();
             mainPanel = panel;
 

@@ -9,5 +9,6 @@ namespace BusinessLogic.IControllers
         void AddAlert(IAlert alert);
 
         void EvaluateAlerts();
+        void UpdateAlert(IAlert alert);
     }
 }

@@ -10,9 +10,7 @@ namespace UserInterface
 {
     public partial class UC_AlertConfig : UserControl
     { 
-
-        Repository repository;
-        IAlertController alertController;
+        AlertAController alertController;
         private const string ALERT_ADDED_SUCCESFULLY = "Alerta agregada satisfactoriamente.";
         private const string FIRST_COLUMN_NAME = "Entidad";
         private const string SECOND_COLUMN_NAME = "Categoría";
@@ -24,8 +22,7 @@ namespace UserInterface
         public UC_AlertConfig()
         {
             InitializeComponent();
-            repository = Repository.Instance;
-            alertController = new AlertController();
+            alertController = new AlertAController();
             categoryComboBox.Items.Add("");
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
             {
@@ -33,14 +30,20 @@ namespace UserInterface
                     categoryComboBox.Items.Add(item);
             }
 
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList();
+            this.dataGrid.DataSource = alertController.GetAllEntities();
+            InitializeDataGrid();
+        }
+
+        private void InitializeDataGrid()
+        {
             categoryComboBox.SelectedIndex = 0;
-            dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
-            dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
-            dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
-            dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
-            dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
-            dataGrid.Columns[5].HeaderText = SIXTH_COLUMN_NAME;
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[1].HeaderText = FIRST_COLUMN_NAME;
+            dataGrid.Columns[2].HeaderText = SECOND_COLUMN_NAME;
+            dataGrid.Columns[3].HeaderText = THIRD_COLUMN_NAME;
+            dataGrid.Columns[4].HeaderText = FOURTH_COLUMN_NAME;
+            dataGrid.Columns[5].HeaderText = FIFTH_COLUMN_NAME;
+            dataGrid.Columns[6].HeaderText = SIXTH_COLUMN_NAME;
         }
 
 
@@ -78,7 +81,7 @@ namespace UserInterface
             alertController.EvaluateAlerts();
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList();
+            this.dataGrid.DataSource = alertController.GetAllEntities();
         }
 
         private CategoryType StringToCategory(string category)

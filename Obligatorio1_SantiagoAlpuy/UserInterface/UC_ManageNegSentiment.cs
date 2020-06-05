@@ -21,7 +21,7 @@ namespace UserInterface
             InitializeComponent();
             sentimentController = new SentimentController();
             phraseController = new PhraseController();
-            alertController = new AlertController();
+            alertController = new AlertAController();
             repositoryA = new RepositoryA<Sentiment>();
             this.dataGrid.DataSource = GetNegativeSentiments();
             dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;

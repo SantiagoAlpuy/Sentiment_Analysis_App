@@ -27,7 +27,7 @@ namespace UserInterface
         public UC_AlertBConfig()
         {
             InitializeComponent();
-            alertController = new AlertController();
+            alertController = new AlertAController();
             categoryComboBox.Items.Add("");
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
             {

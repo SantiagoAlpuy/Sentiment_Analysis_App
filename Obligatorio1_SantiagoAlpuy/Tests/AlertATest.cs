@@ -10,7 +10,7 @@ namespace Tests
     public class AlertATest
     {
         Repository repository;
-        AlertController alertController;
+        AlertAController alertController;
         IPhraseController phraseController;
         ISentimentController sentimentController;
         IEntityController entityController;
@@ -30,7 +30,7 @@ namespace Tests
         public void Setup()
         {
             repository = Repository.Instance;
-            alertController = new AlertController();
+            alertController = new AlertAController();
             phraseController = new PhraseController();
             sentimentController = new SentimentController();
             entityController = new EntityController();

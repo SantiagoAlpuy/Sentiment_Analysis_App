@@ -13,5 +13,6 @@ namespace BusinessLogic.IControllers
         void AnalyzePhrase(Phrase phrase);
 
         void AnalyzeAllPhrases();
+        List<Phrase> GetAllEntities();
     }
 }

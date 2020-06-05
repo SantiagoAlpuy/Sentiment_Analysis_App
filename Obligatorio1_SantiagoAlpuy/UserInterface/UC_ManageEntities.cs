@@ -20,7 +20,7 @@ namespace UserInterface
         {
             InitializeComponent();
             entityController = new EntityController();
-            alertController = new AlertController();
+            alertController = new AlertAController();
             phraseController = new PhraseController();
             repositoryA = new RepositoryA<Entity>();
             this.dataGrid.DataSource = repositoryA.GetAll();

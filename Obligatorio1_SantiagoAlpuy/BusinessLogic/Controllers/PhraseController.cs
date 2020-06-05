@@ -7,7 +7,6 @@ namespace BusinessLogic.Controllers
     public class PhraseController : IPhraseController
     {
 
-        AlertController alertController;
         IEntityController entityController;
         ISentimentController sentimentController;
         IAuthorController authorController;
@@ -21,7 +20,6 @@ namespace BusinessLogic.Controllers
 
         public PhraseController()
         {
-            alertController = new AlertController();
             entityController = new EntityController();
             sentimentController = new SentimentController();
             authorController = new AuthorController();
@@ -142,6 +140,11 @@ namespace BusinessLogic.Controllers
         private bool PhraseContainsEntity(Phrase phrase, Entity entity)
         {
             return phrase.Comment.ToUpper().Contains(entity.Name.ToUpper());
+        }
+
+        public List<Phrase> GetAllEntities()
+        {
+            return (List<Phrase>) repositoryA.GetAll();
         }
 
     }

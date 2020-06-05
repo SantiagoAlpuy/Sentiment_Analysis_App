@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLogic
@@ -6,6 +8,7 @@ namespace BusinessLogic
     public class AlertA : IAlert
     {
 
+        IAlertController alertController;
 
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
@@ -22,6 +25,11 @@ namespace BusinessLogic
         public int Days { get; set; }
         public int Hours { get; set; }
         public bool Activated { get; set; }
+
+        public AlertA()
+        {
+             alertController = new AlertAController();
+        }
 
         public void ValidateAlert()
         {
@@ -84,6 +92,7 @@ namespace BusinessLogic
                 alert.Activated = true;
             else
                 alert.Activated = false;
+            alertController.UpdateAlert(alert);
         }
 
     }

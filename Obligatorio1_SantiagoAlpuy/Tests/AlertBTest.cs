@@ -19,7 +19,7 @@ namespace Tests
         public void Setup()
         {
             repository = Repository.Instance;
-            alertController = new AlertController();
+            alertController = new AlertAController();
             phraseController = new PhraseController();
             sentimentController = new SentimentController();
         }
