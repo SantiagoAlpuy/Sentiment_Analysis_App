@@ -57,7 +57,8 @@ namespace BusinessLogic.Controllers
         public void RemoveEntity(string name)
         {
             Entity entity = ObtainEntity(name);
-            repositoryA.Remove(entity);
+            if (entity != null)
+                repositoryA.Remove(entity);
         }
 
         public ICollection<Entity> GetAllEntities()

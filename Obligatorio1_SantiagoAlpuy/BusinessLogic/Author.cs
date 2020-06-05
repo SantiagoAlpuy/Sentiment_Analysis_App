@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BusinessLogic
 {
@@ -9,6 +10,12 @@ namespace BusinessLogic
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime Born { get; set; }
+        public ICollection<Phrase> Phrases { get; set; }
+
+        public Author()
+        {
+            Phrases = new List<Phrase>();
+        }
 
         public override string ToString()
         {

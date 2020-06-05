@@ -8,7 +8,8 @@ namespace BusinessLogic.Controllers
     public class AuthorController : IAuthorController
     {
         Repository repository = Repository.Instance;
-        private List<Author> authors;
+        RepositoryA<Author> repositoryA = new RepositoryA<Author>();
+        RepositoryA<Phrase> repositoryPhrase = new RepositoryA<Phrase>();
         private List<Phrase> phrases;
         private const int MAX_CHARS_IN_USERNAME = 10;
         private const int MAX_CHARS_IN_NAME = 15;
@@ -34,8 +35,13 @@ namespace BusinessLogic.Controllers
 
         public AuthorController()
         {
-            authors = repository.Authors;
             phrases = repository.Phrases;
+        }
+
+        public void AddAuthor(Author author)
+        {
+            ValidateAuthorAdition(author);
+            repositoryA.Add(author);
         }
 
         public void RemoveAuthor(string username)
@@ -43,24 +49,10 @@ namespace BusinessLogic.Controllers
             Author author = ObtainAuthorByUsername(username);
             if (author == null)
                 throw new NullReferenceException(INEXISTENT_AUTHOR);
-            DeleteAllPhrasesFromAuthor(author);
-            authors.Remove(author);
+
+            repositoryA.Remove(author);
         }
 
-        private void DeleteAllPhrasesFromAuthor(Author author)
-        {
-            List<Phrase> phrasesToBeDeleted = phrases.FindAll(x => x.PhraseAuthor.Equals(author));
-            foreach (Phrase phrase in phrasesToBeDeleted)
-            {
-                phrases.Remove(phrase);
-            }
-        }
-
-        public void AddAuthor(Author author)
-        {
-            ValidateAuthorAdition(author);
-            authors.Add(author);
-        }
 
         private void ValidateAuthorAdition(Author author)
         {
@@ -112,7 +104,7 @@ namespace BusinessLogic.Controllers
 
         public Author ObtainAuthorByUsername(string username)
         {
-            return authors.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
+            return repositoryA.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
         }
 
         public void ModifyAuthor(Author author1, Author author2)
@@ -121,6 +113,7 @@ namespace BusinessLogic.Controllers
             author1.Name = author2.Name;
             author1.Surname = author2.Surname;
             author1.Born = author2.Born;
+            repositoryA.Update(author1);
         }
 
         private void ValidateAuthorModification(Author author1, Author author2)
@@ -148,5 +141,11 @@ namespace BusinessLogic.Controllers
             else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author2.Born.Year)
                 throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
         }
+
+        public ICollection<Author> GetAllEntities()
+        {
+            return repositoryA.GetAll();
+        }
+
     }
 }

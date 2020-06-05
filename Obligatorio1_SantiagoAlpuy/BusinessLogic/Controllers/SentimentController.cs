@@ -29,15 +29,6 @@ namespace BusinessLogic.Controllers
             repositoryA.Add(sentiment);
         }
 
-        /*private void AddSentimentToRepository(Sentiment sentiment)
-        {
-            if (sentiment.Category)
-                positiveSentiments.Add(sentiment);
-            else
-                negativeSentiments.Add(sentiment);
-            repositoryA.Add(sentiment);
-        }*/
-
         private void ValidateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
@@ -77,7 +68,8 @@ namespace BusinessLogic.Controllers
         public void RemoveSentiment(string description, bool category)
         {
             Sentiment sentiment = ObtainSentiment(description, category);
-            repositoryA.Remove(sentiment);
+            if (sentiment != null)
+                repositoryA.Remove(sentiment);
         }
 
     }

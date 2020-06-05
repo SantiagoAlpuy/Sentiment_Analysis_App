@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.IControllers;
@@ -15,7 +9,6 @@ namespace UserInterface
 {
     public partial class UC_EditAuthors : UserControl
     {
-        Repository repository;
         IAuthorController authorController;
 
         private const string AUTHOR_MODIFIED = "El usuario {0} ha sido modificado con éxito.";
@@ -24,8 +17,6 @@ namespace UserInterface
         {
             InitializeComponent();
             authorController = new AuthorController();
-            repository = Repository.Instance;
-
             UpdateComboBox();
         }
 
@@ -33,7 +24,8 @@ namespace UserInterface
         {
             autorComboBox.Items.Clear();
             autorComboBox.Items.Add("");
-            foreach (Author author in repository.Authors)
+            ICollection<Author> authors = authorController.GetAllEntities();
+            foreach (Author author in authors)
             {
                 autorComboBox.Items.Add(author.Username);
             }

@@ -15,5 +15,10 @@ namespace BusinessLogic
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new AuthorConfiguration());
+        }
     }
 }

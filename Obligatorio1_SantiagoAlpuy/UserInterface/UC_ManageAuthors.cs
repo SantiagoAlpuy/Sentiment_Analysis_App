@@ -10,7 +10,6 @@ namespace UserInterface
     public partial class UC_ManageAuthors : UserControl
     {
         IAuthorController authorController;
-        Repository repository;
         private const int LOWER_AGE_LIMIT = 13;
         private const string EMPTY_STRING = "";
         private const string AUTHOR_ADDED = "Autor agregado con éxito";
@@ -25,13 +24,19 @@ namespace UserInterface
             PrincipalPanel = panel;
             InitializeComponent();
             authorController = new AuthorController();
-            repository = Repository.Instance;
             birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
-            this.authorsDataGrid.DataSource = repository.Authors.ToList();
-            authorsDataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
-            authorsDataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
-            authorsDataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
-            authorsDataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
+            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
+            InitializeDataGrid();
+        }
+
+        private void InitializeDataGrid()
+        {
+            authorsDataGrid.Columns[0].Visible = false;
+            authorsDataGrid.Columns[1].HeaderText = FIRST_COLUMN_NAME;
+            authorsDataGrid.Columns[2].HeaderText = SECOND_COLUMN_NAME;
+            authorsDataGrid.Columns[3].HeaderText = THIRD_COLUMN_NAME;
+            authorsDataGrid.Columns[4].HeaderText = FOURTH_COLUMN_NAME;
+            authorsDataGrid.Columns[5].Visible = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -45,7 +50,7 @@ namespace UserInterface
                 authorNameBox.Text = EMPTY_STRING;
                 authorSurnameBox.Text = EMPTY_STRING;
                 birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
-                this.authorsDataGrid.DataSource = repository.Authors.ToList();
+                this.authorsDataGrid.DataSource = authorController.GetAllEntities();
             }
             catch (ArgumentException ex)
             {
@@ -65,9 +70,9 @@ namespace UserInterface
         {
             foreach (DataGridViewRow row in authorsDataGrid.SelectedRows)
             {
-                authorController.RemoveAuthor(row.Cells[0].Value.ToString());
+                authorController.RemoveAuthor(row.Cells[1].Value.ToString());
             }
-            this.authorsDataGrid.DataSource = repository.Authors.ToList();
+            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
         }
 
         private void editBox_Click(object sender, EventArgs e)
