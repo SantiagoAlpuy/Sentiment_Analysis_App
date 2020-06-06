@@ -8,7 +8,7 @@ namespace BusinessLogic.IControllers
     {
         void AddPhrase(Phrase phrase);
 
-        Phrase ObtainPhrase(string comment, DateTime date);
+        Phrase ObtainPhrase(int phraseId);
 
         void AnalyzePhrase(Phrase phrase);
 

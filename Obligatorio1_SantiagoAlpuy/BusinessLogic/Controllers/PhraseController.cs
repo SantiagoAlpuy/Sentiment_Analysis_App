@@ -31,8 +31,8 @@ namespace BusinessLogic.Controllers
         public void AddPhrase(Phrase phrase)
         {
             ValidatePhrase(phrase);
-            AnalyzePhrase(phrase);
             repositoryA.Add(phrase);
+            AnalyzePhrase(phrase);
             AnalyzeAlerts();
         }
 
@@ -58,9 +58,9 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
         }
 
-        public Phrase ObtainPhrase(string comment, DateTime date)
+        public Phrase ObtainPhrase(int phraseId)
         {
-            return repositoryA.Find(x => x.Comment == comment && x.Date.Equals(date));
+            return repositoryA.Find(x => x.PhraseId.Equals(phraseId));
         }
 
         public void AnalyzeAllPhrases()
@@ -69,7 +69,6 @@ namespace BusinessLogic.Controllers
             foreach (Phrase phrase in phrases)
             {
                 AnalyzePhrase(phrase);
-                repositoryA.Update(phrase);
             }
         }
 
@@ -81,6 +80,7 @@ namespace BusinessLogic.Controllers
             hasPositive = IsSentimentOnRepo(phrase, CategoryType.Positiva);
             hasNegative = IsSentimentOnRepo(phrase, CategoryType.Negativa);
             SetPhraseCategory(phrase, hasPositive, hasNegative);
+            repositoryA.Update(phrase);
         }
 
         private void SetPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
