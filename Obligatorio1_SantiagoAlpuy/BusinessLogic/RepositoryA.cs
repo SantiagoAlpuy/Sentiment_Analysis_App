@@ -102,5 +102,15 @@ namespace BusinessLogic
                 context.SaveChanges();
             }
         }
+
+        public void ClearAll()
+        {
+            using (Context context = new Context())
+            {
+                contextEntity = context.Set<T>();
+                contextEntity.RemoveRange(contextEntity);
+                context.SaveChanges();
+            }
+        }
     }
 }

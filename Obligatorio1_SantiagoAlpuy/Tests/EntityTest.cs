@@ -9,7 +9,6 @@ namespace Tests
     [TestClass]
     public class EntityTest
     {
-        Repository repository;
         IEntityController entityController;
         Entity entity1;
         Entity entity2;
@@ -19,14 +18,14 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
-            repository = Repository.Instance;
             entityController = new EntityController();
+            entityController.RemoveAllEntities();
         }
 
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.CleanLists();
+            entityController.RemoveAllEntities();
         }
 
         [TestMethod]
@@ -36,8 +35,10 @@ namespace Tests
             entity2 = new Entity() { Name = "Limol" };
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
-            Assert.AreEqual(entity1, entityController.ObtainEntity(entity1.Name));
-            Assert.AreEqual(entity2, entityController.ObtainEntity(entity2.Name));
+            Entity entity3 = entityController.ObtainEntity(entity1.Name);
+            Entity entity4 = entityController.ObtainEntity(entity2.Name);
+            Assert.AreEqual(entity1.EntityId, entity3.EntityId);
+            Assert.AreEqual(entity2.EntityId, entity4.EntityId);
         }
 
         [TestMethod]

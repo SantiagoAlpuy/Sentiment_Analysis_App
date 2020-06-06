@@ -69,6 +69,11 @@ namespace BusinessLogic.Controllers
             }
         }
 
+        public void RemoveAllEntities()
+        {
+            repositoryA.ClearAll();
+        }
+
         private void AnalyzePhrasesAndAlerts()
         {
             phraseController = new PhraseController();
