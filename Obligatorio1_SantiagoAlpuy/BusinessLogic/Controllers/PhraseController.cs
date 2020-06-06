@@ -77,7 +77,7 @@ namespace BusinessLogic.Controllers
         {
             bool hasPositive = false;
             bool hasNegative = false;
-            AnalyzeEntityFromPhrase(phrase);
+            SetEntityOnPhrase(phrase);
             hasPositive = IsSentimentOnRepo(phrase, CategoryType.Positiva);
             hasNegative = IsSentimentOnRepo(phrase, CategoryType.Negativa);
             SetPhraseCategory(phrase, hasPositive, hasNegative);
@@ -115,7 +115,7 @@ namespace BusinessLogic.Controllers
             return phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper());
         }
 
-        private void AnalyzeEntityFromPhrase(Phrase phrase)
+        private void SetEntityOnPhrase(Phrase phrase)
         {
             try
             {

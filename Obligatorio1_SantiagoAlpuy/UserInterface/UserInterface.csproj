@@ -88,11 +88,23 @@
     <Compile Include="UC_AnalysisReport.Designer.cs">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_AuthorReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_AuthorReport.Designer.cs">
+      <DependentUpon>UC_AuthorReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC_EditAuthors.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UC_EditAuthors.Designer.cs">
       <DependentUpon>UC_EditAuthors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_Help.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Help.Designer.cs">
+      <DependentUpon>UC_Help.cs</DependentUpon>
     </Compile>
     <Compile Include="UC_ManageAuthors.cs">
       <SubType>UserControl</SubType>
@@ -144,8 +156,14 @@
     <EmbeddedResource Include="UC_AnalysisReport.resx">
       <DependentUpon>UC_AnalysisReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC_AuthorReport.resx">
+      <DependentUpon>UC_AuthorReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UC_EditAuthors.resx">
       <DependentUpon>UC_EditAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_Help.resx">
+      <DependentUpon>UC_Help.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_ManageAuthors.resx">
       <DependentUpon>UC_ManageAuthors.cs</DependentUpon>

@@ -34,7 +34,7 @@ namespace UserInterface
                     categoryComboBox.Items.Add(item);
             }
 
-            this.dataGrid.DataSource = alertController.GetAllEntities();
+            this.dataGrid.DataSource = alertController.GetAllAlerts();
             categoryComboBox.SelectedIndex = 0;
             InitializeDataGrid();
         }
@@ -82,7 +82,7 @@ namespace UserInterface
             alertController.EvaluateSingleAlert(alert);
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
-            this.dataGrid.DataSource = alertController.GetAllEntities();
+            this.dataGrid.DataSource = alertController.GetAllAlerts();
         }
 
         private CategoryType StringToCategory(string category)

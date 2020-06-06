@@ -48,10 +48,15 @@ namespace BusinessLogic.Controllers
             repositoryA.Update((AlertA) alert);
         }
 
-        public ICollection<AlertA> GetAllEntities()
+        public ICollection<AlertA> GetAllAlerts()
         {
             return repositoryA.GetAll();
         }
-        
+
+        public ICollection<AlertA> GetActivatedAlerts()
+        {
+            return repositoryA.GetEntitiesByPredicate(x => x.Activated);
+        }
+
     }
 }
