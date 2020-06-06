@@ -31,6 +31,7 @@ namespace BusinessLogic.Controllers
         public void AddPhrase(Phrase phrase)
         {
             ValidatePhrase(phrase);
+            AnalyzePhrase(phrase);
             repositoryA.Add(phrase);
             AnalyzeAlerts();
         }
@@ -62,6 +63,16 @@ namespace BusinessLogic.Controllers
             return repositoryA.Find(x => x.Comment == comment && x.Date.Equals(date));
         }
 
+        public void AnalyzeAllPhrases()
+        {
+            ICollection<Phrase> phrases = repositoryA.GetAll();
+            foreach (Phrase phrase in phrases)
+            {
+                AnalyzePhrase(phrase);
+                repositoryA.Update(phrase);
+            }
+        }
+
         public void AnalyzePhrase(Phrase phrase)
         {
             bool hasPositive = false;
@@ -82,7 +93,6 @@ namespace BusinessLogic.Controllers
                 phrase.Category = CategoryType.Positiva;
             else
                 phrase.Category = CategoryType.Negativa;
-            repositoryA.Update(phrase);
         }
 
         private bool IsSentimentOnRepo(Phrase phrase, CategoryType category)
@@ -116,16 +126,7 @@ namespace BusinessLogic.Controllers
             {
                 phrase.Entity = "";
             }
-        }
-
-        public void AnalyzeAllPhrases()
-        {
-            ICollection<Phrase> phrases = repositoryA.GetAll();
-            foreach(Phrase phrase in phrases)
-            {
-                AnalyzePhrase(phrase);
-            }
-        }
+        }        
 
         private Entity FindEntityInPhrase(Phrase phrase)
         {

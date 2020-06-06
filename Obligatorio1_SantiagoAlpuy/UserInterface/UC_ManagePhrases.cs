@@ -9,7 +9,6 @@ namespace UserInterface
     public partial class UC_ManagePhrases : UserControl
     {
         IPhraseController phraseController;
-        IAlertController alertController;
         IAuthorController authorController;
         FlowLayoutPanel mainPanel;
         private const string PHRASE_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente. ¿Quiere ver las alarmas activas?";
@@ -18,7 +17,6 @@ namespace UserInterface
         {
             InitializeComponent();
             phraseController = new PhraseController();
-            alertController = new AlertAController();
             authorController = new AuthorController();
         }
 
@@ -26,7 +24,6 @@ namespace UserInterface
         {
             InitializeComponent();
             phraseController = new PhraseController();
-            alertController = new AlertAController();
             authorController = new AuthorController();
             mainPanel = panel;
 

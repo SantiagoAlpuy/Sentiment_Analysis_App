@@ -1,12 +1,15 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
+using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
     public partial class UC_AlertReport : UserControl
     {
-        Repository repository;
+        AlertAController alertController;
+
         private const string FIRST_COLUMN_NAME = "Entidad";
         private const string SECOND_COLUMN_NAME = "Categoría";
         private const string THIRD_COLUMN_NAME = "Posts";
@@ -16,7 +19,7 @@ namespace UserInterface
         public UC_AlertReport()
         {
             InitializeComponent();
-            repository = Repository.Instance;
+            alertController = new AlertAController();
             LoadDataGridAlerts();
             InitializeDataGrid();
         }
@@ -33,7 +36,7 @@ namespace UserInterface
 
         private void LoadDataGridAlerts()
         {
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertA>().ToList().FindAll( x => x.Activated);
+            this.dataGrid.DataSource = alertController.GetAllEntities();
         }
     }
 }
