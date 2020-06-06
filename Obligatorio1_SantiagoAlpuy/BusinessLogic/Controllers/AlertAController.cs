@@ -12,18 +12,18 @@ namespace BusinessLogic.Controllers
         public AlertAController()
         {
             repositoryA = new RepositoryA<AlertA>();
-            
+
         }
 
         public void AddAlert(IAlert alert)
         {
             alert.ValidateAlert();
-            repositoryA.Add((AlertA) alert);
-        }        
+            repositoryA.Add((AlertA)alert);
+        }
 
-        public IAlert ObtainAlert(IAlert alert)
+        public AlertA ObtainAlert(int alertAId)
         {
-            return repositoryA.Find(x => x.Equals(alert));
+            return repositoryA.Find(x => x.AlertAId.Equals(alertAId));
         }
 
         public void EvaluateAlerts()
@@ -32,7 +32,7 @@ namespace BusinessLogic.Controllers
             ICollection<Phrase> phrases = phraseController.GetAllEntities();
             foreach (IAlert alert in repositoryA.GetAll())
             {
-                alert.EvaluateAlert((List<Phrase>) phrases);
+                alert.EvaluateAlert((List<Phrase>)phrases);
             }
         }
 
@@ -45,7 +45,7 @@ namespace BusinessLogic.Controllers
 
         public void UpdateAlert(IAlert alert)
         {
-            repositoryA.Update((AlertA) alert);
+            repositoryA.Update((AlertA)alert);
         }
 
         public ICollection<AlertA> GetAllAlerts()
@@ -56,6 +56,11 @@ namespace BusinessLogic.Controllers
         public ICollection<AlertA> GetActivatedAlerts()
         {
             return repositoryA.GetEntitiesByPredicate(x => x.Activated);
+        }
+
+        public void RemoveAllAlerts()
+        {
+            repositoryA.ClearAll();
         }
 
     }

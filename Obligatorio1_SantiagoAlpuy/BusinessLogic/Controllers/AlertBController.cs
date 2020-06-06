@@ -21,9 +21,9 @@ namespace BusinessLogic.Controllers
             repositoryA.Add((AlertB)alert);
         }
 
-        public IAlert ObtainAlert(IAlert alert)
+        public AlertB ObtainAlert(int alertAId)
         {
-            return repositoryA.Find(x => x.Equals(alert));
+            return repositoryA.Find(x => x.AlertBId.Equals(alertAId));
         }
 
         public void EvaluateAlerts()
@@ -56,6 +56,11 @@ namespace BusinessLogic.Controllers
         public ICollection<AlertB> GetActivatedAlerts()
         {
             return repositoryA.GetEntitiesByPredicate(x => x.Activated);
+        }
+
+        public void RemoveAllAlerts()
+        {
+            repositoryA.ClearAll();
         }
 
     }
