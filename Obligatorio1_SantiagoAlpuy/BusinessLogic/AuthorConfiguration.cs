@@ -7,7 +7,7 @@ namespace BusinessLogic
     {
         public AuthorConfiguration()
         {
-            this.HasMany<Phrase>(x => x.Phrases).WithRequired(y => y.PhraseAuthor).WillCascadeOnDelete();
+            this.HasMany<Phrase>(x => x.Phrases).WithRequired(y => y.Author).WillCascadeOnDelete();
         }
     }
 }

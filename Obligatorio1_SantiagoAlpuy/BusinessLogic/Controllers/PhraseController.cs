@@ -45,7 +45,7 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(OLD_DATE);
             else if (phrase.Date.CompareTo(DateTime.Now) > 0)
                 throw new ArgumentException(FUTURE_DATE);
-            else if (phrase.PhraseAuthor == null)
+            else if (phrase.Author == null)
                 throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
         }
 
@@ -145,6 +145,11 @@ namespace BusinessLogic.Controllers
         public List<Phrase> GetAllEntities()
         {
             return (List<Phrase>) repositoryA.GetAll();
+        }
+
+        public List<Phrase> GetAllEntitiesWithIncludes(string entityToInclude)
+        {
+            return (List<Phrase>)repositoryA.GetAllWithInclude(entityToInclude);
         }
 
     }

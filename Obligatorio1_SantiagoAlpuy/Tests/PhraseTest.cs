@@ -54,8 +54,8 @@ namespace Tests
         [TestMethod]
         public void RegisterPhrase()
         {
-            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, PhraseAuthor = author };
-            phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, Author = author };
+            phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, Author = author };
             phraseController.AddPhraseToRepository(phrase1);
             phraseController.AddPhraseToRepository(phrase2);
             Assert.AreEqual(phrase1, phraseController.ObtainPhrase(phrase1.Comment, phrase1.Date));
@@ -73,7 +73,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWithEmptyDescription()
         {
-            phraseWithEmptyComment = new Phrase() { Comment = "", Date = currentDate, PhraseAuthor = author };
+            phraseWithEmptyComment = new Phrase() { Comment = "", Date = currentDate, Author = author };
             phraseController.AddPhraseToRepository(phraseWithEmptyComment);
         }
 
@@ -81,7 +81,7 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWhoseDescriptionHasManyBlankSpaces()
         {
-            phraseWithEmptyComment = new Phrase() { Comment = "   ", Date = currentDate, PhraseAuthor = author };
+            phraseWithEmptyComment = new Phrase() { Comment = "   ", Date = currentDate, Author = author };
             phraseController.AddPhraseToRepository(phraseWithEmptyComment);
         }
 
@@ -105,14 +105,14 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterPhraseWithDateFromFuture()
         {
-            futurePhrase = new Phrase() { Comment = "Frase con fecha del futuro", Date = new DateTime(2025, 01, 1), PhraseAuthor = author };
+            futurePhrase = new Phrase() { Comment = "Frase con fecha del futuro", Date = new DateTime(2025, 01, 1), Author = author };
             phraseController.AddPhraseToRepository(futurePhrase);
         }
 
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithNoRegisteredEntityInEntitiesList()
         {
-            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, Author = author };
             phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual("", phrase1.Entity);
         }
@@ -120,7 +120,7 @@ namespace Tests
         [TestMethod]
         public void AnalyzeEntityOfPhraseWithOnlyOneEntityInEntitiesList()
         {
-            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, Author = author };
             entity = new Entity()  { Name = "Pepsi" };
             entityController.AddEntity(entity);
             phraseController.AnalyzePhrase(phrase1);
@@ -136,7 +136,7 @@ namespace Tests
             entityController.AddEntity(entity);
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
-            phraseWith3Entities = new Phrase() { Comment = "Me gusta la Pepsi la Coca y la Nix", Date = currentDate, PhraseAuthor = author };
+            phraseWith3Entities = new Phrase() { Comment = "Me gusta la Pepsi la Coca y la Nix", Date = currentDate, Author = author };
             phraseController.AnalyzePhrase(phraseWith3Entities);
             Assert.AreEqual("Pepsi", phraseWith3Entities.Entity);
         }
@@ -145,7 +145,7 @@ namespace Tests
         public void AnalyzeEntityOfPhraseWithDifferentUpperAndLowerLettersFormat()
         {
             entity = new Entity() { Name = "Pepsi" };
-            phraseWithUpperAndLower1 = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = currentDate, PhraseAuthor = author };
+            phraseWithUpperAndLower1 = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = currentDate, Author = author };
             entityController.AddEntity(entity);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
             Assert.AreEqual("Pepsi", phraseWithUpperAndLower1.Entity);
@@ -163,7 +163,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithOnePositiveSentiment()
         {
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
-            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi",  Date = currentDate, PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me gusta la Pepsi",  Date = currentDate, Author = author };
             sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AnalyzePhrase(phrase1);
             Assert.AreEqual(CategoryType.Positiva, phrase1.Category);
@@ -173,7 +173,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithOneNegativeSentiment()
         {
             negativeSentiment1 = new Sentiment() { Description = "Odio", Category = false };
-            phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, PhraseAuthor = author };
+            phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, Author = author };
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AnalyzePhrase(phrase2);
             Assert.AreEqual(CategoryType.Negativa, phrase2.Category);
@@ -190,7 +190,7 @@ namespace Tests
             sentimentController.AddSentiment(positiveSentiment1);
             sentimentController.AddSentiment(negativeSentiment2);
             sentimentController.AddSentiment(positiveSentiment2);
-            neutroPhrase = new Phrase() { Comment = "Me gusta, Me encanta la Coca pero Odio la Nix y la detesto", PhraseAuthor = author };
+            neutroPhrase = new Phrase() { Comment = "Me gusta, Me encanta la Coca pero Odio la Nix y la detesto", Author = author };
             phraseController.AnalyzePhrase(neutroPhrase);
             Assert.AreEqual(CategoryType.Neutro, neutroPhrase.Category);
         }
@@ -199,7 +199,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatPositiveSentiment()
         {
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
-            phraseWithUpperAndLower1 = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = currentDate, PhraseAuthor = author };
+            phraseWithUpperAndLower1 = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = currentDate, Author = author };
             sentimentController.AddSentiment(positiveSentiment1);
             phraseController.AddPhraseToRepository(phraseWithUpperAndLower1);
 
@@ -212,7 +212,7 @@ namespace Tests
         public void AnalyzeCategoryOfPhraseWithDifferentUpperAndLowerLettersFormatNegativeSentiment()
         {
             negativeSentiment1 = new Sentiment() { Description = "Odio", Category = false };
-            phraseWithUpperAndLower2 = new Phrase() { Comment = "oDIo la guaRaNA", Date = currentDate, PhraseAuthor = author };
+            phraseWithUpperAndLower2 = new Phrase() { Comment = "oDIo la guaRaNA", Date = currentDate, Author = author };
             sentimentController.AddSentiment(negativeSentiment1);
             phraseController.AddPhraseToRepository(phraseWithUpperAndLower2);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);

@@ -240,13 +240,13 @@ namespace Tests
         {
             List<Phrase> phrases = repository.Phrases;
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
-            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, PhraseAuthor = author };
-            Phrase phrase2 = new Phrase() { Comment = "Odio la Limol", Date = DateTime.Now, PhraseAuthor = author };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Odio la Limol", Date = DateTime.Now, Author = author };
             phraseController.AddPhraseToRepository(phrase1);
             phraseController.AddPhraseToRepository(phrase2);
             authorController.AddAuthor(author);
             authorController.RemoveAuthor("testUserA");
-            List<Phrase> phrasesToBeDeleted = phrases.FindAll(x => x.PhraseAuthor.Equals(author));
+            List<Phrase> phrasesToBeDeleted = phrases.FindAll(x => x.Author.Equals(author));
             Assert.AreEqual(0, phrasesToBeDeleted.Count);
         }
 

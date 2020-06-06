@@ -70,7 +70,7 @@ namespace UserInterface
         {
             DateTime date = dateTimePicker1.Value;
             Author author = authorController.ObtainAuthorByUsername(autorComboBox.SelectedItem.ToString());
-            Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, PhraseAuthor = author };
+            Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, Author = author };
             phraseController.AddPhraseToRepository(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.EvaluateAlerts();

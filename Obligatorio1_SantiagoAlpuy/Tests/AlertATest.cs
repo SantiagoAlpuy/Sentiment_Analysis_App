@@ -100,8 +100,8 @@ namespace Tests
             positive2 = new Sentiment() { Description = "Amo", Category = true };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             entity1 = new Entity() { Name = "pepsi" };
-            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
-            positive2PhraseEntity1 = new Phrase() { Comment = "Amo tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
+            positive2PhraseEntity1 = new Phrase() { Comment = "Amo tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 2, Days = 2 };
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
@@ -123,7 +123,7 @@ namespace Tests
             entity1 = new Entity() { Name = "pepsi" };
             entity2 = new Entity() { Name = "PEpSI" };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
-            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), PhraseAuthor = author };
+            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), Author = author };
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);            
@@ -140,7 +140,7 @@ namespace Tests
             entity1 = new Entity() { Name = "pepsi" };
             entity2 = new Entity() { Name = "PEpSI" };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
-            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
@@ -157,7 +157,7 @@ namespace Tests
             entity1 = new Entity() { Name = "pepsi" };
             entity2 = new Entity() { Name = "  pepsi   " };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
-            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            positive1PhraseEntity1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             alert = new AlertA() { Entity = entity2.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity1);
             sentimentController.AddSentiment(positive1);
@@ -173,7 +173,7 @@ namespace Tests
         {
             entity1 = new Entity() { Name = "pepsi" };
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positive1);
             alertController.AddAlert(alert);
@@ -189,7 +189,7 @@ namespace Tests
         {
             entity1 = new Entity() { Name = "pepsi" };
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positive1);
             alertController.AddAlert(alert);

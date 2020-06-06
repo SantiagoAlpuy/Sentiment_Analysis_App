@@ -82,7 +82,7 @@ namespace Tests
         {
             IAlert alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             Author author = new Author { Username = "username1", Name = "name1", Surname = "surname1", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(sentiment);
             alertController.AddAlert(alert);
@@ -97,7 +97,7 @@ namespace Tests
         {
             IAlert alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             Author author = new Author { Username = "username1", Name = "name1", Surname = "surname1", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), PhraseAuthor = author };
+            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
             Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(sentiment);
             alertController.AddAlert(alert);
@@ -115,7 +115,7 @@ namespace Tests
         {
             Author author = new Author { Username = "username1", Name = "name1", Surname = "surname1", Born = new DateTime(1960, 01, 01) };
             Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), PhraseAuthor = author };
+            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), Author = author };
             IAlert alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             sentimentController.AddSentiment(sentiment);
             phraseController.AddPhraseToRepository(phrase);

@@ -14,5 +14,7 @@ namespace BusinessLogic.IControllers
 
         void AnalyzeAllPhrases();
         List<Phrase> GetAllEntities();
+
+        List<Phrase> GetAllEntitiesWithIncludes(string entityToInclude);
     }
 }

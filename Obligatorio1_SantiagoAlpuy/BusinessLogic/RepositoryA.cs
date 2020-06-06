@@ -78,6 +78,20 @@ namespace BusinessLogic
             return collection;
         }
 
+        public ICollection<T> GetAllWithInclude(string entityToInclude)
+        {
+            ICollection<T> collection = null;
+            using (Context context = new Context())
+            {
+                contextEntity = context.Set<T>();
+                var query = from row in contextEntity.Include(entityToInclude)
+                            select row;
+                collection = query.ToList<T>();
+                context.SaveChanges();
+            }
+            return collection;
+        }
+
         public void Remove(T entity)
         {
             using (Context context = new Context())
