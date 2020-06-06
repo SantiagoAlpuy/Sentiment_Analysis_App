@@ -9,7 +9,6 @@ namespace BusinessLogic.Controllers
 
         IEntityController entityController;
         ISentimentController sentimentController;
-        IAuthorController authorController;
         IAlertController alertAController;
         IAlertController alertBController;
         RepositoryA<Phrase> repositoryA;
@@ -22,12 +21,11 @@ namespace BusinessLogic.Controllers
 
         public PhraseController()
         {
+            repositoryA = new RepositoryA<Phrase>();
             entityController = new EntityController();
             sentimentController = new SentimentController();
-            authorController = new AuthorController();
             alertAController = new AlertAController();
             alertBController = new AlertBController();
-            repositoryA = new RepositoryA<Phrase>();
         }
 
         public void AddPhrase(Phrase phrase)

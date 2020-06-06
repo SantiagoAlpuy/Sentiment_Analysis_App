@@ -19,8 +19,7 @@ namespace BusinessLogic.Controllers
         public EntityController()
         {
             repositoryA = new RepositoryA<Entity>();
-            alertAController = new AlertAController();
-            alertBController = new AlertBController();
+            
         }
 
         public void AddEntity(Entity entity)
@@ -72,6 +71,9 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzePhrasesAndAlerts()
         {
+            phraseController = new PhraseController();
+            alertAController = new AlertAController();
+            alertBController = new AlertBController();
             phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();

@@ -11,7 +11,6 @@ namespace BusinessLogic.Controllers
 
         public AlertBController()
         {
-            phraseController = new PhraseController();
             repositoryA = new RepositoryA<AlertB>();
 
         }
@@ -29,6 +28,7 @@ namespace BusinessLogic.Controllers
 
         public void EvaluateAlerts()
         {
+            phraseController = new PhraseController();
             ICollection<Phrase> phrases = phraseController.GetAllEntities();
             foreach (IAlert alert in repositoryA.GetAll())
             {
@@ -38,6 +38,7 @@ namespace BusinessLogic.Controllers
 
         public void EvaluateSingleAlert(IAlert alert)
         {
+            phraseController = new PhraseController();
             ICollection<Phrase> phrases = phraseController.GetAllEntities();
             alert.EvaluateAlert((List<Phrase>)phrases);
         }

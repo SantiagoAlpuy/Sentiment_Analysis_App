@@ -24,9 +24,6 @@ namespace BusinessLogic.Controllers
         public SentimentController()
         {
             repositoryA = new RepositoryA<Sentiment>();
-            alertAController = new AlertAController();
-            alertBController = new AlertBController();
-            phraseController = new PhraseController();
         }
 
         public void AddSentiment(Sentiment sentiment)
@@ -84,6 +81,9 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzePhrasesAndAlerts()
         {
+            alertAController = new AlertAController();
+            alertBController = new AlertBController();
+            phraseController = new PhraseController();
             phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
