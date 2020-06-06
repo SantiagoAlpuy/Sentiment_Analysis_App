@@ -15,6 +15,7 @@ namespace BusinessLogic
             using (Context context = new Context())
             {
                 contextEntity = context.Set<T>();
+                contextEntity.Attach(entity);
                 contextEntity.Add(entity);
                 context.SaveChanges();
             }
