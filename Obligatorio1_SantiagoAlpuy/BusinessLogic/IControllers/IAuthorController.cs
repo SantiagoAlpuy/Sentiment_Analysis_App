@@ -9,6 +9,7 @@ namespace BusinessLogic.IControllers
         void AddAuthor(Author author);
         Author ObtainAuthorByUsername(string username);
         void RemoveAuthor(string username);
+        void RemoveAllAuthors();
         void ModifyAuthor(Author author1, Author author2);
         ICollection<Author> GetAllEntities();
     }

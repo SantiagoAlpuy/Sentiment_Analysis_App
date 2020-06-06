@@ -161,5 +161,10 @@ namespace BusinessLogic.Controllers
             return (List<Phrase>)repositoryA.GetAllWithInclude(entityToInclude);
         }
 
+        public void RemoveAllPhrases()
+        {
+            repositoryA.ClearAll();
+        }
+
     }
 }

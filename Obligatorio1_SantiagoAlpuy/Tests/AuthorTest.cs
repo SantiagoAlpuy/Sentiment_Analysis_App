@@ -10,15 +10,23 @@ namespace Tests
     [TestClass]
     public class AuthorTest
     {
-        Repository repository = Repository.Instance;
-        IAuthorController authorController = new AuthorController();
-        IPhraseController phraseController = new PhraseController();
+        IAuthorController authorController;
+        IPhraseController phraseController;
 
+        [TestInitialize]
+        public void Setup()
+        {
+            authorController = new AuthorController();
+            phraseController = new PhraseController();
+            authorController.RemoveAllAuthors();
+            phraseController.RemoveAllPhrases();
+        }
 
         [TestCleanup]
         public void ClassCleanup()
         {
-            repository.CleanLists();
+            authorController.RemoveAllAuthors();
+            phraseController.RemoveAllPhrases();
         }
 
         [TestMethod]
@@ -28,8 +36,10 @@ namespace Tests
             Author author2 = new Author() { Username = "testUser2", Name = "nameB", Surname = "surnameB", Born = new DateTime(1960, 01, 01) };
             authorController.AddAuthor(author1);
             authorController.AddAuthor(author2);
-            Assert.AreEqual(authorController.ObtainAuthorByUsername("testUser1"), author1);
-            Assert.AreEqual(authorController.ObtainAuthorByUsername("testUser2"), author2);
+            Author author3 = authorController.ObtainAuthorByUsername("testUser1");
+            Author author4 = authorController.ObtainAuthorByUsername("testUser2");
+            Assert.AreEqual(author1.AuthorId, author3.AuthorId);
+            Assert.AreEqual(author2.AuthorId, author4.AuthorId);
         }
 
         [TestMethod]
@@ -222,10 +232,11 @@ namespace Tests
         [TestMethod]
         public void DeleteExistingAuthor()
         {
-            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
-            authorController.AddAuthor(author);
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.RemoveAuthor("testUserA");
-            Assert.IsNull(authorController.ObtainAuthorByUsername("testUserA"));
+            Author author2 = authorController.ObtainAuthorByUsername("testUserA");
+            Assert.IsNull(author2);
         }
 
         [TestMethod]
@@ -238,7 +249,7 @@ namespace Tests
         [TestMethod]
         public void DeleteExistingAuthorAndAllHisPhrases()
         {
-            List<Phrase> phrases = repository.Phrases;
+            List<Phrase> phrases = phraseController.GetAllEntities();
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
             Phrase phrase2 = new Phrase() { Comment = "Odio la Limol", Date = DateTime.Now, Author = author };
@@ -256,6 +267,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -265,6 +277,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "    ", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -274,6 +287,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "$234", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -283,6 +297,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "veryverybigname", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -292,6 +307,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -301,6 +317,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "    ", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -310,6 +327,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "%234", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -319,6 +337,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "veryveryverybigsurname", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -328,6 +347,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(2010, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -337,6 +357,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1899, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -346,6 +367,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -355,6 +377,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -363,6 +386,7 @@ namespace Tests
         public void ModifyAuthorForNullAuthor()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
             authorController.ModifyAuthor(author, null);
         }
 
@@ -371,6 +395,7 @@ namespace Tests
         public void ModifyNullAuthorWithAuthor()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
             authorController.ModifyAuthor(null, author);
         }
 
@@ -386,6 +411,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "Santiago", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "San Tiago", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 
@@ -394,6 +420,7 @@ namespace Tests
         {
             Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "Alpuy", Born = new DateTime(1980, 01, 01) };
             Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "Al Puy", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
         }
 

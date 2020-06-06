@@ -16,13 +16,13 @@ namespace Tests
         public void Setup()
         {
             sentimentController = new SentimentController();
-            sentimentController.RemoveAllEntities();
+            sentimentController.RemoveAllSentiments();
         }
 
         [TestCleanup]
         public void ClassCleanup()
         {
-            sentimentController.RemoveAllEntities();
+            sentimentController.RemoveAllSentiments();
         }
 
         [TestMethod]

@@ -60,6 +60,11 @@ namespace BusinessLogic.Controllers
             AnalyzePhrasesAndAlerts();
         }
 
+        public void RemoveAllAuthors()
+        {
+            repositoryA.ClearAll();
+        }
+
         private void AnalyzePhrasesAndAlerts()
         {
             phraseController.AnalyzeAllPhrases();

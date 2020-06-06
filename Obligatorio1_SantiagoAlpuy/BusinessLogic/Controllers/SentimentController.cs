@@ -79,7 +79,7 @@ namespace BusinessLogic.Controllers
             }
         }
 
-        public void RemoveAllEntities()
+        public void RemoveAllSentiments()
         {
             repositoryA.ClearAll();
         }

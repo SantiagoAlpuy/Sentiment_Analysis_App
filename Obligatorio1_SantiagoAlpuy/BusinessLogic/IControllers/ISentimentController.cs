@@ -11,7 +11,7 @@ namespace BusinessLogic.IControllers
         Sentiment ObtainSentiment(string description, bool category);
 
         void RemoveSentiment(string description, bool category);
-        void RemoveAllEntities();
+        void RemoveAllSentiments();
         ICollection<Sentiment> GetAllEntitiesByCategory(CategoryType category);
     }
 }
