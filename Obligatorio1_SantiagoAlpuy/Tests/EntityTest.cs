@@ -10,10 +10,6 @@ namespace Tests
     public class EntityTest
     {
         IEntityController entityController;
-        Entity entity1;
-        Entity entity2;
-        Entity emptyNameEntity;
-        Entity nullNameEntity;
 
         [TestInitialize]
         public void Setup()
@@ -31,8 +27,8 @@ namespace Tests
         [TestMethod]
         public void RegisterEntity()
         {
-            entity1 = new Entity() { Name = "Pepsi" };
-            entity2 = new Entity() { Name = "Limol" };
+            Entity entity1 = new Entity() { Name = "Pepsi" };
+            Entity entity2 = new Entity() { Name = "Limol" };
             entityController.AddEntity(entity1);
             entityController.AddEntity(entity2);
             Entity entity3 = entityController.ObtainEntity(entity1.Name);
@@ -75,10 +71,10 @@ namespace Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantEntityFromRegister()
         {
-            entity1 = new Entity() { Name = "Pepsi" };
-            entityController.AddEntity(entity1);
-            entityController.RemoveEntity(entity1.Name);
-            Entity ent = entityController.ObtainEntity(entity1.Name);
+            Entity entity = new Entity() { Name = "Pepsi" };
+            entityController.AddEntity(entity);
+            entityController.RemoveEntity(entity.Name);
+            Entity ent = entityController.ObtainEntity(entity.Name);
         }
 
         [TestMethod]
@@ -92,8 +88,8 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterEntityWithEmptyDescription()
         {
-            emptyNameEntity = new Entity() { Name = "" };
-            entityController.AddEntity(emptyNameEntity);
+            Entity entity = new Entity() { Name = "" };
+            entityController.AddEntity(entity);
         }
 
         [TestMethod]
@@ -115,8 +111,8 @@ namespace Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void RegisterEntityWithNullName()
         {
-            nullNameEntity = new Entity();
-            entityController.AddEntity(nullNameEntity);
+            Entity entity = new Entity();
+            entityController.AddEntity(entity);
         }
 
 

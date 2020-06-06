@@ -79,6 +79,11 @@ namespace BusinessLogic.Controllers
             }
         }
 
+        public void RemoveAllEntities()
+        {
+            repositoryA.ClearAll();
+        }
+
         private void AnalyzePhrasesAndAlerts()
         {
             alertAController = new AlertAController();
