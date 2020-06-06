@@ -43,9 +43,8 @@ namespace UserInterface
         {
             try
             {
-                EvaluatePhraseInsertion();
-                ShowMessage();
-                phraseBox.Text = "";
+                AddPhrase();
+                ReactToSuccessfulAddition();
             }
             catch (ArgumentException ex)
             {
@@ -66,17 +65,15 @@ namespace UserInterface
         }
 
 
-        private void EvaluatePhraseInsertion()
+        private void AddPhrase()
         {
             DateTime date = dateTimePicker1.Value;
             Author author = authorController.ObtainAuthorByUsername(autorComboBox.SelectedItem.ToString());
             Phrase phrase = new Phrase() { Comment = phraseBox.Text, Date = date, Author = author };
-            phraseController.AddPhraseToRepository(phrase);
-            phraseController.AnalyzePhrase(phrase);
-            alertController.EvaluateAlerts();
+            phraseController.AddPhrase(phrase);
         }
 
-        private void ShowMessage()
+        private void ReactToSuccessfulAddition()
         {
             DialogResult messageWindow = MessageBox.Show(String.Format(PHRASE_ADDED_SUCCESFULLY, phraseBox.Text), "", MessageBoxButtons.YesNo);
             if (messageWindow == DialogResult.Yes)
@@ -84,6 +81,7 @@ namespace UserInterface
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(new UC_AlertReport());
             }
+            phraseBox.Text = "";
         }
     }
 }

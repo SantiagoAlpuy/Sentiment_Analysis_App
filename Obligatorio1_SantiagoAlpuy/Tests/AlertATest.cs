@@ -106,8 +106,8 @@ namespace Tests
             sentimentController.AddSentiment(positive1);
             sentimentController.AddSentiment(positive2);
             entityController.AddEntity(entity1);
-            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
-            phraseController.AddPhraseToRepository(positive2PhraseEntity1);
+            phraseController.AddPhrase(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive2PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive2PhraseEntity1);
             alertController.AddAlert(alert);
@@ -127,7 +127,7 @@ namespace Tests
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);            
-            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();
@@ -144,7 +144,7 @@ namespace Tests
             alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(positive1);
-            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();
@@ -161,7 +161,7 @@ namespace Tests
             alert = new AlertA() { Entity = entity2.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             entityController.AddEntity(entity1);
             sentimentController.AddSentiment(positive1);
-            phraseController.AddPhraseToRepository(positive1PhraseEntity1);
+            phraseController.AddPhrase(positive1PhraseEntity1);
             phraseController.AnalyzePhrase(positive1PhraseEntity1);
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();
@@ -177,7 +177,7 @@ namespace Tests
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positive1);
             alertController.AddAlert(alert);
-            phraseController.AddPhraseToRepository(phrase1);
+            phraseController.AddPhrase(phrase1);
             entityController.AddEntity(entity1);
             phraseController.AnalyzePhrase(phrase1);
             alertController.EvaluateAlerts();
@@ -193,7 +193,7 @@ namespace Tests
             positive1 = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(positive1);
             alertController.AddAlert(alert);
-            phraseController.AddPhraseToRepository(phrase1);
+            phraseController.AddPhrase(phrase1);
             entityController.AddEntity(entity1);
             phraseController.AnalyzePhrase(phrase1);
             alertController.EvaluateAlerts();

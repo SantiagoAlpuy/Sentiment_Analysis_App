@@ -56,8 +56,8 @@ namespace Tests
         {
             phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = currentDate, Author = author };
             phrase2 = new Phrase() { Comment = "Odio la Limol", Date = currentDate, Author = author };
-            phraseController.AddPhraseToRepository(phrase1);
-            phraseController.AddPhraseToRepository(phrase2);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
             Assert.AreEqual(phrase1, phraseController.ObtainPhrase(phrase1.Comment, phrase1.Date));
             Assert.AreEqual(phrase2, phraseController.ObtainPhrase(phrase2.Comment, phrase2.Date));
         }
@@ -66,7 +66,7 @@ namespace Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void RegisterNullPhrase()
         {
-            phraseController.AddPhraseToRepository(null);
+            phraseController.AddPhrase(null);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace Tests
         public void RegisterPhraseWithEmptyDescription()
         {
             phraseWithEmptyComment = new Phrase() { Comment = "", Date = currentDate, Author = author };
-            phraseController.AddPhraseToRepository(phraseWithEmptyComment);
+            phraseController.AddPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace Tests
         public void RegisterPhraseWhoseDescriptionHasManyBlankSpaces()
         {
             phraseWithEmptyComment = new Phrase() { Comment = "   ", Date = currentDate, Author = author };
-            phraseController.AddPhraseToRepository(phraseWithEmptyComment);
+            phraseController.AddPhrase(phraseWithEmptyComment);
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace Tests
         public void RegisterPhraseWithNullComment()
         {
             nullCommentPhrase = new Phrase();
-            phraseController.AddPhraseToRepository(nullCommentPhrase);
+            phraseController.AddPhrase(nullCommentPhrase);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace Tests
         public void RegisterPhraseWithDateOlderThanOneYear()
         {
             oldPhrase = new Phrase() { Comment = "Frase con fecha inferior a un año", Date = new DateTime(2019, 01, 01) };
-            phraseController.AddPhraseToRepository(oldPhrase);
+            phraseController.AddPhrase(oldPhrase);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace Tests
         public void RegisterPhraseWithDateFromFuture()
         {
             futurePhrase = new Phrase() { Comment = "Frase con fecha del futuro", Date = new DateTime(2025, 01, 1), Author = author };
-            phraseController.AddPhraseToRepository(futurePhrase);
+            phraseController.AddPhrase(futurePhrase);
         }
 
         [TestMethod]
@@ -201,7 +201,7 @@ namespace Tests
             positiveSentiment1 = new Sentiment() { Description = "Me gusta", Category = true };
             phraseWithUpperAndLower1 = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = currentDate, Author = author };
             sentimentController.AddSentiment(positiveSentiment1);
-            phraseController.AddPhraseToRepository(phraseWithUpperAndLower1);
+            phraseController.AddPhrase(phraseWithUpperAndLower1);
 
             phraseController.AnalyzePhrase(phraseWithUpperAndLower1);
 
@@ -214,7 +214,7 @@ namespace Tests
             negativeSentiment1 = new Sentiment() { Description = "Odio", Category = false };
             phraseWithUpperAndLower2 = new Phrase() { Comment = "oDIo la guaRaNA", Date = currentDate, Author = author };
             sentimentController.AddSentiment(negativeSentiment1);
-            phraseController.AddPhraseToRepository(phraseWithUpperAndLower2);
+            phraseController.AddPhrase(phraseWithUpperAndLower2);
             phraseController.AnalyzePhrase(phraseWithUpperAndLower2);
             Assert.AreEqual(CategoryType.Negativa, phraseWithUpperAndLower2.Category);
         }
@@ -225,7 +225,7 @@ namespace Tests
         {
             
             Phrase phrase = new Phrase() { Comment = "me gusta la hamburguesa", Date = currentDate};
-            phraseController.AddPhraseToRepository(phrase);
+            phraseController.AddPhrase(phrase);
         }
     }
 }

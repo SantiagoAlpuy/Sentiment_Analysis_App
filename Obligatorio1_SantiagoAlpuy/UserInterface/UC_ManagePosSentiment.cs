@@ -33,8 +33,6 @@ namespace UserInterface
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 sentimentController.RemoveSentiment(row.Cells[1].Value.ToString(), true);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlerts();
             }
 
             this.dataGrid.DataSource = GetPositiveSentiments();
@@ -44,9 +42,9 @@ namespace UserInterface
         {
             try
             {
-                EvaluateSentimentInsertion();
-                sentimentBox.Text = "";
-                this.dataGrid.DataSource = GetPositiveSentiments();
+                Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
+                sentimentController.AddSentiment(sentiment);
+                ReactToSuccessfulAdition();
             }
             catch (InvalidOperationException ex)
             {
@@ -66,12 +64,10 @@ namespace UserInterface
             }
         }
 
-        private void EvaluateSentimentInsertion()
+        private void ReactToSuccessfulAdition()
         {
-            Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = true };
-            sentimentController.AddSentiment(sentiment);
-            phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlerts();
+            sentimentBox.Text = "";
+            this.dataGrid.DataSource = GetPositiveSentiments();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
         }
 

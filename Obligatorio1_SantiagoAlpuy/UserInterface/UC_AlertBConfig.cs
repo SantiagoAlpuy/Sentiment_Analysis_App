@@ -15,8 +15,7 @@ namespace UserInterface
 {
     public partial class UC_AlertBConfig : UserControl
     {
-        Repository repository = Repository.Instance;
-        IAlertController alertController;
+        AlertBController alertController;
         private const string FIRST_COLUMN_NAME = "Categoría";
         private const string SECOND_COLUMN_NAME = "Posts";
         private const string THIRD_COLUMN_NAME = "Días";
@@ -27,7 +26,7 @@ namespace UserInterface
         public UC_AlertBConfig()
         {
             InitializeComponent();
-            alertController = new AlertAController();
+            alertController = new AlertBController();
             categoryComboBox.Items.Add("");
             foreach (CategoryType item in Enum.GetValues(typeof(CategoryType)))
             {
@@ -35,14 +34,19 @@ namespace UserInterface
                     categoryComboBox.Items.Add(item);
             }
 
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertB>().ToList();
+            this.dataGrid.DataSource = alertController.GetAllEntities();
             categoryComboBox.SelectedIndex = 0;
-            dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
-            dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
-            dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
-            dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
-            dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
+            InitializeDataGrid();
+        }
 
+        private void InitializeDataGrid()
+        { 
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[1].HeaderText = FIRST_COLUMN_NAME;
+            dataGrid.Columns[2].HeaderText = SECOND_COLUMN_NAME;
+            dataGrid.Columns[3].HeaderText = THIRD_COLUMN_NAME;
+            dataGrid.Columns[4].HeaderText = FOURTH_COLUMN_NAME;
+            dataGrid.Columns[5].HeaderText = FIFTH_COLUMN_NAME;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -75,10 +79,10 @@ namespace UserInterface
                 Hours = (int)hoursUpDown.Value
             };
             alertController.AddAlert(alert);
-            alertController.EvaluateAlerts();
+            alertController.EvaluateSingleAlert(alert);
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
-            this.dataGrid.DataSource = repository.Alerts.OfType<AlertB>().ToList();
+            this.dataGrid.DataSource = alertController.GetAllEntities();
         }
 
         private CategoryType StringToCategory(string category)

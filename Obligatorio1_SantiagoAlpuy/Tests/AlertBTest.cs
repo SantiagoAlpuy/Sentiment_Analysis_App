@@ -86,7 +86,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(sentiment);
             alertController.AddAlert(alert);
-            phraseController.AddPhraseToRepository(phrase);
+            phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.EvaluateAlerts();
             Assert.IsTrue(alert.Activated);
@@ -101,7 +101,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
             sentimentController.AddSentiment(sentiment);
             alertController.AddAlert(alert);
-            phraseController.AddPhraseToRepository(phrase);
+            phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.EvaluateAlerts();
             sentimentController.RemoveSentiment(sentiment.Description, true);
@@ -118,7 +118,7 @@ namespace Tests
             Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), Author = author };
             IAlert alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             sentimentController.AddSentiment(sentiment);
-            phraseController.AddPhraseToRepository(phrase);
+            phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();

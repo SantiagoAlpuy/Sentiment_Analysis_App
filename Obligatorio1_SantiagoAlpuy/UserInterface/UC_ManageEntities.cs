@@ -26,26 +26,16 @@ namespace UserInterface
             this.dataGrid.DataSource = repositoryA.GetAll();
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = MAIN_ENTITY_COLUMN_NAME;
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGrid.SelectedRows)
-            {
-                entityController.RemoveEntity(row.Cells[1].Value.ToString());
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlerts();
-            }
-            this.dataGrid.DataSource = repositoryA.GetAll();
-        }
+        }        
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                EvaluateEntityInsertion();
-                entityBox.Text = "";
-                this.dataGrid.DataSource = repositoryA.GetAll();
+                Entity entity = new Entity() { Name = entityBox.Text };
+                entityController.AddEntity(entity);
+                ReactToSuccessfulAddition();
+                
             }
             catch (ArgumentException ex)
             {
@@ -65,13 +55,21 @@ namespace UserInterface
             }
         }
 
-        private void EvaluateEntityInsertion()
+        private void ReactToSuccessfulAddition()
         {
-            Entity entity = new Entity() { Name = entityBox.Text };
-            entityController.AddEntity(entity);
-            phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlerts();
             MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
+            entityBox.Text = "";
+            this.dataGrid.DataSource = repositoryA.GetAll();
         }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGrid.SelectedRows)
+            {
+                entityController.RemoveEntity(row.Cells[1].Value.ToString());
+            }
+            this.dataGrid.DataSource = repositoryA.GetAll();
+        }
+
     }
 }

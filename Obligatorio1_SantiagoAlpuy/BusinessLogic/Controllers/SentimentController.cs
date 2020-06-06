@@ -9,6 +9,9 @@ namespace BusinessLogic.Controllers
     {
 
         RepositoryA<Sentiment> repositoryA;
+        private IAlertController alertAController;
+        private IAlertController alertBController;
+        private IPhraseController phraseController;
 
         private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
         private const string NULL_DESCRIPTION = "Ingrese una descripción válida.";
@@ -21,12 +24,16 @@ namespace BusinessLogic.Controllers
         public SentimentController()
         {
             repositoryA = new RepositoryA<Sentiment>();
+            alertAController = new AlertAController();
+            alertBController = new AlertBController();
+            phraseController = new PhraseController();
         }
 
         public void AddSentiment(Sentiment sentiment)
         {
             ValidateSentiment(sentiment);
             repositoryA.Add(sentiment);
+            AnalyzePhrasesAndAlerts();
         }
 
         private void ValidateSentiment(Sentiment sentiment)
@@ -69,7 +76,17 @@ namespace BusinessLogic.Controllers
         {
             Sentiment sentiment = ObtainSentiment(description, category);
             if (sentiment != null)
+            {
                 repositoryA.Remove(sentiment);
+                AnalyzePhrasesAndAlerts();
+            }
+        }
+
+        private void AnalyzePhrasesAndAlerts()
+        {
+            phraseController.AnalyzeAllPhrases();
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
         }
 
         public ICollection<Sentiment> GetAllEntitiesByCategory(CategoryType category)

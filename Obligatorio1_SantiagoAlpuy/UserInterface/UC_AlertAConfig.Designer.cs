@@ -1,6 +1,6 @@
 ﻿namespace UserInterface
 {
-    partial class UC_AlertConfig
+    partial class UC_AlertAConfig
     {
         /// <summary> 
         /// Required designer variable.

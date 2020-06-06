@@ -33,9 +33,9 @@ namespace UserInterface
         {
             try
             {
-                EvaluateSentimentInsertion();
-                sentimentBox.Text = "";
-                this.dataGrid.DataSource = GetNegativeSentiments();
+                Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
+                sentimentController.AddSentiment(sentiment);
+                ReactToSuccessfulAddition();
             }
             catch (InvalidOperationException ex)
             {
@@ -55,12 +55,10 @@ namespace UserInterface
             }
         }
 
-        private void EvaluateSentimentInsertion()
+        private void ReactToSuccessfulAddition()
         {
-            Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
-            sentimentController.AddSentiment(sentiment);
-            phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlerts();
+            sentimentBox.Text = "";
+            this.dataGrid.DataSource = GetNegativeSentiments();
             MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
         }
 
@@ -69,8 +67,6 @@ namespace UserInterface
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
                 sentimentController.RemoveSentiment(row.Cells[1].Value.ToString(), false);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlerts();
             }
 
             this.dataGrid.DataSource = GetNegativeSentiments();

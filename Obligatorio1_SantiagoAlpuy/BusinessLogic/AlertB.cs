@@ -1,10 +1,15 @@
-﻿using System;
+﻿using BusinessLogic.Controllers;
+using BusinessLogic.IControllers;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLogic
 {
     public class AlertB : IAlert
     {
+
+        IAlertController alertController;
+
         private int POST_UPPER_BOUND = 1000;
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
@@ -22,6 +27,11 @@ namespace BusinessLogic
         public int Hours { get; set; }
         public bool Activated { get; set; }
         
+        public AlertB()
+        {
+            alertController = new AlertBController();
+        }
+
         public void ValidateAlert()
         {
             if (this.Category.Equals(CategoryType.Neutro))
@@ -74,6 +84,7 @@ namespace BusinessLogic
                 alert.Activated = true;
             else
                 alert.Activated = false;
+            alertController.UpdateAlert(alert);
         }
 
     }

@@ -6,7 +6,7 @@ namespace BusinessLogic.IControllers
 {
     public interface IPhraseController
     {
-        void AddPhraseToRepository(Phrase phrase);
+        void AddPhrase(Phrase phrase);
 
         Phrase ObtainPhrase(string comment, DateTime date);
 

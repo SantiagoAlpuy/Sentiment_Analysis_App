@@ -46,7 +46,7 @@
             this.uC_ManageEntities1 = new UserInterface.UC_ManageEntities();
             this.uC_AnalysisReport1 = new UserInterface.UC_AnalysisReport();
             this.uC_AlertReport1 = new UserInterface.UC_AlertReport();
-            this.uC_AlertConfig1 = new UserInterface.UC_AlertConfig();
+            this.uC_AlertConfig1 = new UserInterface.UC_AlertAConfig();
             this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -314,7 +314,7 @@
         private System.Windows.Forms.Button btnAlertConfig;
         private System.Windows.Forms.Button btnAnalysisReport;
         private System.Windows.Forms.Button btnAlertReport;
-        private UC_AlertConfig uC_AlertConfig1;
+        private UC_AlertAConfig uC_AlertConfig1;
         private UC_AlertReport uC_AlertReport1;
         private UC_AnalysisReport uC_AnalysisReport1;
         private UC_ManageEntities uC_ManageEntities1;

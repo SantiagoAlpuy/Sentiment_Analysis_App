@@ -10,6 +10,8 @@ namespace BusinessLogic.Controllers
         IEntityController entityController;
         ISentimentController sentimentController;
         IAuthorController authorController;
+        IAlertController alertAController;
+        IAlertController alertBController;
         RepositoryA<Phrase> repositoryA;
 
         private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
@@ -23,15 +25,23 @@ namespace BusinessLogic.Controllers
             entityController = new EntityController();
             sentimentController = new SentimentController();
             authorController = new AuthorController();
+            alertAController = new AlertAController();
+            alertBController = new AlertBController();
             repositoryA = new RepositoryA<Phrase>();
         }
 
-        public void AddPhraseToRepository(Phrase phrase)
+        public void AddPhrase(Phrase phrase)
         {
             ValidatePhrase(phrase);
             repositoryA.Add(phrase);
+            AnalyzeAlerts();
         }
-        
+
+        private void AnalyzeAlerts()
+        {
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
+        }
 
         private void ValidatePhrase(Phrase phrase)
         {

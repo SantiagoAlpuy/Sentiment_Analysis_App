@@ -36,6 +36,12 @@ namespace BusinessLogic.Controllers
             }
         }
 
+        public void EvaluateSingleAlert(IAlert alert)
+        {
+            ICollection<Phrase> phrases = phraseController.GetAllEntities();
+            alert.EvaluateAlert((List<Phrase>)phrases);
+        }
+
         public void UpdateAlert(IAlert alert)
         {
             repositoryA.Update((AlertA) alert);

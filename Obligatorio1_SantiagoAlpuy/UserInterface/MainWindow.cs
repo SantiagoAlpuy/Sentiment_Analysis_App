@@ -42,7 +42,7 @@ namespace UserInterface
         private void btnAlertConfig_Click(object sender, EventArgs e)
         {
             this.PrincipalPanel.Controls.Clear();
-            this.PrincipalPanel.Controls.Add(new UC_AlertConfig());
+            this.PrincipalPanel.Controls.Add(new UC_AlertAConfig());
         }
 
         private void btnAnalysisReport_Click(object sender, EventArgs e)

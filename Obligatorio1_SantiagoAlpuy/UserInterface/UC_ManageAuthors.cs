@@ -45,12 +45,7 @@ namespace UserInterface
             {
                 Author author = new Author() { Username = usernameBox.Text, Name = authorNameBox.Text, Surname = authorSurnameBox.Text, Born = birthDatePicker.Value };
                 authorController.AddAuthor(author);
-                MessageBox.Show(AUTHOR_ADDED);
-                usernameBox.Text = EMPTY_STRING;
-                authorNameBox.Text = EMPTY_STRING;
-                authorSurnameBox.Text = EMPTY_STRING;
-                birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
-                this.authorsDataGrid.DataSource = authorController.GetAllEntities();
+                ReactToSuccessfulAddition();
             }
             catch (ArgumentException ex)
             {
@@ -64,6 +59,16 @@ namespace UserInterface
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ReactToSuccessfulAddition()
+        {
+            MessageBox.Show(AUTHOR_ADDED);
+            usernameBox.Text = EMPTY_STRING;
+            authorNameBox.Text = EMPTY_STRING;
+            authorSurnameBox.Text = EMPTY_STRING;
+            birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
+            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)

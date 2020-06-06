@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
 
@@ -25,13 +18,17 @@ namespace UserInterface
             InitializeComponent();
             repository = Repository.Instance;
             LoadDataGridAlerts();
+            InitializeDataGrid();
+        }
+
+        private void InitializeDataGrid()
+        {
             dataGrid.Columns[0].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
             dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
             dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
             dataGrid.Columns[5].HeaderText = SIXTH_COLUMN_NAME;
-
         }
 
         private void LoadDataGridAlerts()

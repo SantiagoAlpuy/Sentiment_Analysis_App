@@ -7,10 +7,12 @@ namespace BusinessLogic.Controllers
 {
     public class AuthorController : IAuthorController
     {
-        Repository repository = Repository.Instance;
-        RepositoryA<Author> repositoryA = new RepositoryA<Author>();
-        RepositoryA<Phrase> repositoryPhrase = new RepositoryA<Phrase>();
-        private List<Phrase> phrases;
+
+        RepositoryA<Author> repositoryA;
+        private IAlertController alertAController;
+        private IAlertController alertBController;
+        private IPhraseController phraseController;
+
         private const int MAX_CHARS_IN_USERNAME = 10;
         private const int MAX_CHARS_IN_NAME = 15;
         private const int LOWER_AGE_LIMIT = 13;
@@ -35,13 +37,17 @@ namespace BusinessLogic.Controllers
 
         public AuthorController()
         {
-            phrases = repository.Phrases;
+            repositoryA = new RepositoryA<Author>();
+            alertAController = new AlertAController();
+            alertBController = new AlertBController();
+            phraseController = new PhraseController();
         }
 
         public void AddAuthor(Author author)
         {
             ValidateAuthorAdition(author);
             repositoryA.Add(author);
+            AnalyzePhrasesAndAlerts();
         }
 
         public void RemoveAuthor(string username)
@@ -51,6 +57,14 @@ namespace BusinessLogic.Controllers
                 throw new NullReferenceException(INEXISTENT_AUTHOR);
 
             repositoryA.Remove(author);
+            AnalyzePhrasesAndAlerts();
+        }
+
+        private void AnalyzePhrasesAndAlerts()
+        {
+            phraseController.AnalyzeAllPhrases();
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
         }
 
 

@@ -8,7 +8,7 @@ using BusinessLogic.IControllers;
 
 namespace UserInterface
 {
-    public partial class UC_AlertConfig : UserControl
+    public partial class UC_AlertAConfig : UserControl
     { 
         AlertAController alertController;
         private const string ALERT_ADDED_SUCCESFULLY = "Alerta agregada satisfactoriamente.";
@@ -19,7 +19,7 @@ namespace UserInterface
         private const string FIFTH_COLUMN_NAME = "Horas";
         private const string SIXTH_COLUMN_NAME = "Activada";
 
-        public UC_AlertConfig()
+        public UC_AlertAConfig()
         {
             InitializeComponent();
             alertController = new AlertAController();
@@ -31,12 +31,12 @@ namespace UserInterface
             }
 
             this.dataGrid.DataSource = alertController.GetAllEntities();
+            categoryComboBox.SelectedIndex = 0;
             InitializeDataGrid();
         }
 
         private void InitializeDataGrid()
         {
-            categoryComboBox.SelectedIndex = 0;
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = SECOND_COLUMN_NAME;
@@ -78,7 +78,7 @@ namespace UserInterface
                 Hours = (int) hoursUpDown.Value
             };
             alertController.AddAlert(alert);
-            alertController.EvaluateAlerts();
+            alertController.EvaluateSingleAlert(alert);
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
             this.dataGrid.DataSource = alertController.GetAllEntities();
