@@ -275,5 +275,14 @@ namespace Tests
             alertController.AddAlert(alert);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GenerateAlertWithZeroPostCount()
+        {
+            Entity entity = new Entity() { Name = "pepsi" };
+            AlertA alert = new AlertA() { Entity = entity.Name, Category = CategoryType.Positiva, Posts = 0, Hours = 2 };
+            alertController.AddAlert(alert);
+        }
+
     }
 }

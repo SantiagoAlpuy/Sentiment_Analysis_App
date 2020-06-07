@@ -56,7 +56,7 @@ namespace BusinessLogic.Controllers
                 throw new NullReferenceException(INEXISTENT_AUTHOR);
 
             repositoryA.Remove(author);
-            AnalyzePhrasesAndAlerts();
+            AnalyzeAlerts();
         }
 
         public void RemoveAllAuthors()
@@ -64,9 +64,8 @@ namespace BusinessLogic.Controllers
             repositoryA.ClearAll();
         }
 
-        private void AnalyzePhrasesAndAlerts()
+        private void AnalyzeAlerts()
         {
-            phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }
