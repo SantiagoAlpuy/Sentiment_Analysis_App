@@ -127,29 +127,6 @@ namespace Tests
             Assert.IsTrue(alert.Activated);
         }
 
-        /*[TestMethod]
-        public void DontIncreaseAlertCountIfPhraseDateIsOlderThanAnYear()
-        {
-            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
-            Entity entity1 = new Entity() { Name = "pepsi" };
-            Entity entity2 = new Entity() { Name = "PEpSI" };
-            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddYears(-1), Author = author };
-            AlertA alert = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-
-            entityController.AddEntity(entity2);
-            sentimentController.AddSentiment(sentiment);            
-            phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
-            alertController.AddAlert(alert);
-
-            alertController.EvaluateAlerts();
-
-            alert = alertController.ObtainAlert(alert.AlertAId);
-
-            Assert.IsFalse(alert.Activated);
-        }*/
-
         [TestMethod]
         public void ActivateAlertOfPhrasesWithEntityWithDifferentLetterFormat()
         {
