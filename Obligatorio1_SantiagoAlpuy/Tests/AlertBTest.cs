@@ -126,6 +126,15 @@ namespace Tests
             Assert.IsFalse(alert.Activated);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GenerateAlertWithZeroPostCount()
+        {
+            Entity entity = new Entity() { Name = "pepsi" };
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 0, Hours = 2 };
+            alertController.AddAlert(alert);
+        }
+
         /*[TestMethod]
         public void DontIncreaseAlertCountIfPhraseDateIsOlderThanAnYear()
         {
