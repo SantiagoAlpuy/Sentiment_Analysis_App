@@ -15,7 +15,7 @@ namespace BusinessLogic
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
         private const string EMPTY_ENTITY = "Ingrese una entidad no vacía.";
         private const string NEUTRO_CATEGORY = "Debe seleccionar una categoría.";
-        private const string NEGATIVE_POSTS = "No puede ingresar una cantidad negativa de posts.";
+        private const string INVALID_POST_COUNT = "Debe seleccionar una cantidad positiva de posts.";
         private const string NEGATIVE_DAYS = "No puede ingresar una cantidad negativa de días.";
         private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
         private const string POST_COUNT_EXCEEDED = "No puede ingresar una cantidad superior a {0}";
@@ -36,8 +36,8 @@ namespace BusinessLogic
         {
             if (this.Category.Equals(CategoryType.Neutro))
                 throw new ArgumentException(NEUTRO_CATEGORY);
-            else if (this.Posts < 0)
-                throw new ArgumentException(NEGATIVE_POSTS);
+            else if (this.Posts <= 0)
+                throw new ArgumentException(INVALID_POST_COUNT);
             else if (this.Days < 0)
                 throw new ArgumentException(NEGATIVE_DAYS);
             else if (this.Hours < 0)
