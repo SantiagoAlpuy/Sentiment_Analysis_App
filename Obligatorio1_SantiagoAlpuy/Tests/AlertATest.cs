@@ -113,6 +113,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment1);
             sentimentController.AddSentiment(sentiment2);            
             entityController.AddEntity(entity);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase1);
             phraseController.AddPhrase(phrase2);
             phraseController.AnalyzePhrase(phrase1);
@@ -161,6 +162,7 @@ namespace Tests
 
             entityController.AddEntity(entity2);
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.AddAlert(alert);
@@ -184,6 +186,7 @@ namespace Tests
 
             entityController.AddEntity(entity1);
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.AddAlert(alert);
@@ -205,6 +208,7 @@ namespace Tests
 
             entityController.AddEntity(entity);
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             alertController.AddAlert(alert);
@@ -226,7 +230,8 @@ namespace Tests
             AlertA alert = new AlertA() { Entity = entity.Name, Category = CategoryType.Positiva, Posts = 1, Days = 2 };
 
             entityController.AddEntity(entity);
-            sentimentController.AddSentiment(sentiment);            
+            sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);            
             phraseController.AnalyzePhrase(phrase);
             alertController.AddAlert(alert);

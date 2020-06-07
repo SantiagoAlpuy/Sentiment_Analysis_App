@@ -47,7 +47,6 @@ namespace BusinessLogic.Controllers
         {
             ValidateAuthorAdition(author);
             repositoryA.Add(author);
-            AnalyzePhrasesAndAlerts();
         }
 
         public void RemoveAuthor(string username)

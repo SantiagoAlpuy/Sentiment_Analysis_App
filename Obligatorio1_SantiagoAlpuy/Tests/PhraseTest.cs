@@ -120,6 +120,7 @@ namespace Tests
         {
             Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             Phrase phrase = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual("", phrase.Entity);
@@ -132,6 +133,7 @@ namespace Tests
             Phrase phrase = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
             Entity entity = new Entity()  { Name = "Pepsi" };
             entityController.AddEntity(entity);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual("Pepsi", phrase.Entity);
@@ -148,6 +150,7 @@ namespace Tests
             entityController.AddEntity(entity2);
             entityController.AddEntity(entity3);
             Phrase phrase = new Phrase() { Comment = "Me gusta la Pepsi la Coca y la Nix", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual("Pepsi", phrase.Entity);
@@ -160,6 +163,7 @@ namespace Tests
             Entity entity = new Entity() { Name = "Pepsi" };
             Phrase phrase = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = DateTime.Now, Author = author };
             entityController.AddEntity(entity);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual("Pepsi", phrase.Entity);
@@ -170,6 +174,7 @@ namespace Tests
         {
             Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             Phrase phrase = new Phrase() { Comment = "Mike Tyson", Date = DateTime.Now, Author= author};
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Neutro, phrase.Category);
@@ -182,6 +187,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Me gusta", Category = true };
             Phrase phrase = new Phrase() { Comment = "Me gusta la Pepsi",  Date = DateTime.Now, Author = author };
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Positiva, phrase.Category);
@@ -194,6 +200,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Odio", Category = false };
             Phrase phrase = new Phrase() { Comment = "Odio la Limol", Date = DateTime.Now, Author = author };
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Negativa, phrase.Category);
@@ -212,6 +219,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment3);
             sentimentController.AddSentiment(sentiment4);
             Phrase phrase = new Phrase() { Comment = "Me gusta, Me encanta la Coca pero Odio la Nix y la detesto", Date= DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Neutro, phrase.Category);
@@ -224,6 +232,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Me gusta", Category = true };
             Phrase phrase = new Phrase() { Comment = "mE GUsTa La pEPsI", Date = DateTime.Now, Author = author };
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Positiva, phrase.Category);
@@ -236,6 +245,7 @@ namespace Tests
             Sentiment sentiment = new Sentiment() { Description = "Odio", Category = false };
             Phrase phrase = new Phrase() { Comment = "oDIo la guaRaNA", Date = DateTime.Now, Author = author };
             sentimentController.AddSentiment(sentiment);
+            authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
             phraseController.AnalyzePhrase(phrase);
             Assert.AreEqual(CategoryType.Negativa, phrase.Category);
