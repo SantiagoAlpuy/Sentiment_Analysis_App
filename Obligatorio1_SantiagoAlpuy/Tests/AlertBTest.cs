@@ -134,5 +134,22 @@ namespace Tests
             AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 0, Hours = 2 };
             alertController.AddAlert(alert);
         }
+
+        [TestMethod]
+        public void SetAuthorsOfActivatedPhrases()
+        {
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
+            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            sentimentController.AddSentiment(sentiment);
+            alertController.AddAlert(alert);
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase);
+            phraseController.AnalyzePhrase(phrase);
+            alertController.EvaluateAlerts();
+            alert = alertController.ObtainAlert(alert.AlertBId);
+            Assert.AreEqual(1,alert.AuthorsOfActivatedPhrases.Count());
+        }
     }
 }

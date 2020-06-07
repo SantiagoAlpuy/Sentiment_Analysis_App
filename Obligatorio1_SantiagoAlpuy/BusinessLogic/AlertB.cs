@@ -26,7 +26,7 @@ namespace BusinessLogic
         public int Days { get; set; }
         public int Hours { get; set; }
         public bool Activated { get; set; }
-        
+
         public AlertB()
         {
             alertController = new AlertBController();
