@@ -29,7 +29,7 @@ namespace UserInterface
 
             autorComboBox.Items.Add("");
             autorComboBox.SelectedIndex = 0;
-            foreach (Author author in authorController.GetAllEntities())
+            foreach (Author author in authorController.GetAll())
             {
                 autorComboBox.Items.Add(author.Username);
             }

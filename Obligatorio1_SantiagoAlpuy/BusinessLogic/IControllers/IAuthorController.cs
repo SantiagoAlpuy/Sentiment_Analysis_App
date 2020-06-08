@@ -11,6 +11,7 @@ namespace BusinessLogic.IControllers
         void RemoveAuthor(string username);
         void RemoveAllAuthors();
         void ModifyAuthor(Author author1, Author author2);
-        ICollection<Author> GetAllEntities();
+        ICollection<Author> GetAll();
+        Author GetAuthorById(int authorId);
     }
 }

@@ -55,42 +55,12 @@ namespace BusinessLogic.Controllers
 
         public ICollection<AlertB> GetActivatedAlerts()
         {
-            return repositoryA.GetEntitiesByPredicate(x => x.Activated);
+            return repositoryA.GetAllWithInclude("AlertBAuthors");
         }
 
         public void RemoveAllAlerts()
         {
             repositoryA.ClearAll();
-        }
-
-        public void CreateAssociationAlertAuthor(AlertB alert, Author author)
-        {
-            RepositoryA<AlertBAuthor> repository = new RepositoryA<AlertBAuthor>();
-            AlertBAuthor association = FindAssociationAlertAuthor(alert, author);
-            if (author != null && association == null)
-            {
-                association = new AlertBAuthor { AlertB = alert, AlertBId = alert.AlertBId, Author = author, AuthorId = author.AuthorId };
-                repository.Add(association);
-            }
-            
-
-        }
-
-        public AlertBAuthor FindAssociationAlertAuthor(AlertB alert, Author author)
-        {
-            RepositoryA<AlertBAuthor> repository = new RepositoryA<AlertBAuthor>();
-            AlertBAuthor association = repository.Find(x => x.AuthorId == author.AuthorId && x.AlertBId == alert.AlertBId);
-            return association;
-        }
-
-        public void RemoveAssociationAlertAuthor(AlertB alert)
-        {
-            RepositoryA<AlertBAuthor> repository = new RepositoryA<AlertBAuthor>();
-            ICollection<AlertBAuthor> collection = repository.GetEntitiesByPredicate(x => x.AlertBId == alert.AlertBId);
-            foreach(AlertBAuthor item in collection)
-            {
-                repository.Remove(item);
-            }
         }
 
     }

@@ -25,7 +25,7 @@ namespace UserInterface
             InitializeComponent();
             authorController = new AuthorController();
             birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
-            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
+            this.authorsDataGrid.DataSource = authorController.GetAll();
             InitializeDataGrid();
         }
 
@@ -37,6 +37,8 @@ namespace UserInterface
             authorsDataGrid.Columns[3].HeaderText = THIRD_COLUMN_NAME;
             authorsDataGrid.Columns[4].HeaderText = FOURTH_COLUMN_NAME;
             authorsDataGrid.Columns[5].Visible = false;
+            authorsDataGrid.Columns[6].Visible = false;
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace UserInterface
             authorNameBox.Text = EMPTY_STRING;
             authorSurnameBox.Text = EMPTY_STRING;
             birthDatePicker.Value = DateTime.Now.AddYears(-LOWER_AGE_LIMIT);
-            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
+            this.authorsDataGrid.DataSource = authorController.GetAll();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -77,7 +79,7 @@ namespace UserInterface
             {
                 authorController.RemoveAuthor(row.Cells[1].Value.ToString());
             }
-            this.authorsDataGrid.DataSource = authorController.GetAllEntities();
+            this.authorsDataGrid.DataSource = authorController.GetAll();
         }
 
         private void editBox_Click(object sender, EventArgs e)

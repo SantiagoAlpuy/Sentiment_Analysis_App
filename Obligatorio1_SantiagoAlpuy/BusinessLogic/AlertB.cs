@@ -9,6 +9,7 @@ namespace BusinessLogic
     {
 
         AlertBController alertController;
+        AlertBAuthorRelationController alertBAuthorController;
         IAuthorController authorController;
 
         private int POST_UPPER_BOUND = 1000;
@@ -34,6 +35,7 @@ namespace BusinessLogic
             alertController = new AlertBController();
             authorController = new AuthorController();
             AlertBAuthors = new List<AlertBAuthor>();
+            alertBAuthorController = new AlertBAuthorRelationController();
         }
 
         public void ValidateAlert()
@@ -107,12 +109,12 @@ namespace BusinessLogic
                 foreach(string item in collection)
                 {
                     Author author = authorController.ObtainAuthorByUsername(item);
-                    alertController.CreateAssociationAlertAuthor(this, author);
+                    alertBAuthorController.AddAssociationAlertAuthor(this, author);
                 }
             }
             else
             {
-                alertController.RemoveAssociationAlertAuthor(this);
+                alertBAuthorController.RemoveAssociationAlertAuthor(this);
             }
         }
 

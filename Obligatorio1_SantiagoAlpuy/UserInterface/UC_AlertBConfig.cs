@@ -47,6 +47,7 @@ namespace UserInterface
             dataGrid.Columns[3].HeaderText = THIRD_COLUMN_NAME;
             dataGrid.Columns[4].HeaderText = FOURTH_COLUMN_NAME;
             dataGrid.Columns[5].HeaderText = FIFTH_COLUMN_NAME;
+            dataGrid.Columns[6].Visible = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

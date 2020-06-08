@@ -32,7 +32,13 @@
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.alertTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.authorsBox = new System.Windows.Forms.ListBox();
+            this.listBoxPanel = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCloseWindow = new System.Windows.Forms.Button();
+            this.infoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            this.listBoxPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -44,9 +50,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(241, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(293, 25);
+            this.label1.Size = new System.Drawing.Size(304, 25);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Reporte de Alertas Activas";
+            this.label1.Text = "Reporte de Alarmas Activas";
             // 
             // dataGrid
             // 
@@ -61,6 +67,7 @@
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGrid.Size = new System.Drawing.Size(665, 314);
             this.dataGrid.TabIndex = 13;
+            this.dataGrid.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGrid_MouseDoubleClick);
             // 
             // label2
             // 
@@ -85,11 +92,65 @@
             this.alertTypeComboBox.TabIndex = 35;
             this.alertTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.alertTypeComboBox_SelectedIndexChanged);
             // 
+            // authorsBox
+            // 
+            this.authorsBox.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.authorsBox.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.authorsBox.FormattingEnabled = true;
+            this.authorsBox.Location = new System.Drawing.Point(3, 54);
+            this.authorsBox.Name = "authorsBox";
+            this.authorsBox.ScrollAlwaysVisible = true;
+            this.authorsBox.Size = new System.Drawing.Size(315, 134);
+            this.authorsBox.TabIndex = 37;
+            // 
+            // listBoxPanel
+            // 
+            this.listBoxPanel.Controls.Add(this.btnCloseWindow);
+            this.listBoxPanel.Controls.Add(this.label3);
+            this.listBoxPanel.Controls.Add(this.authorsBox);
+            this.listBoxPanel.Location = new System.Drawing.Point(228, 139);
+            this.listBoxPanel.Name = "listBoxPanel";
+            this.listBoxPanel.Size = new System.Drawing.Size(321, 230);
+            this.listBoxPanel.TabIndex = 38;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(24, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(271, 20);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "Autores de Alarma Seleccionada";
+            // 
+            // btnCloseWindow
+            // 
+            this.btnCloseWindow.Location = new System.Drawing.Point(3, 194);
+            this.btnCloseWindow.Name = "btnCloseWindow";
+            this.btnCloseWindow.Size = new System.Drawing.Size(315, 33);
+            this.btnCloseWindow.TabIndex = 39;
+            this.btnCloseWindow.Text = "Cerrar Ventana";
+            this.btnCloseWindow.UseVisualStyleBackColor = true;
+            this.btnCloseWindow.Click += new System.EventHandler(this.btnCloseWindow_Click);
+            // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoLabel.Location = new System.Drawing.Point(372, 123);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(367, 13);
+            this.infoLabel.TabIndex = 39;
+            this.infoLabel.Text = "Haga doble click en una alarma para ver los autores que activaron la misma.";
+            // 
             // UC_AlertReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.infoLabel);
+            this.Controls.Add(this.listBoxPanel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.alertTypeComboBox);
             this.Controls.Add(this.label1);
@@ -97,6 +158,8 @@
             this.Name = "UC_AlertReport";
             this.Size = new System.Drawing.Size(762, 600);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            this.listBoxPanel.ResumeLayout(false);
+            this.listBoxPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +171,10 @@
         private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox alertTypeComboBox;
+        private System.Windows.Forms.ListBox authorsBox;
+        private System.Windows.Forms.Panel listBoxPanel;
+        private System.Windows.Forms.Button btnCloseWindow;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label infoLabel;
     }
 }

@@ -159,9 +159,14 @@ namespace BusinessLogic.Controllers
                 throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
         }
 
-        public ICollection<Author> GetAllEntities()
+        public ICollection<Author> GetAll()
         {
             return repositoryA.GetAll();
+        }
+
+        public Author GetAuthorById(int authorId)
+        {
+            return repositoryA.Find(x => x.AuthorId == authorId);
         }
 
     }

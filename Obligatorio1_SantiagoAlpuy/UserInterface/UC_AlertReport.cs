@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
@@ -10,6 +11,8 @@ namespace UserInterface
     {
         AlertAController alertAController;
         AlertBController alertBController;
+        AuthorController authorController;
+        ICollection<AlertB> collection;
 
         private const string FIRST_COLUMN_NAME = "Entidad";
         private const string SECOND_COLUMN_NAME = "Categoría";
@@ -24,6 +27,10 @@ namespace UserInterface
             InitializeComponent();
             alertAController = new AlertAController();
             alertBController = new AlertBController();
+            authorController = new AuthorController();
+            ICollection<AlertB> collection = new List<AlertB>();
+            infoLabel.Visible = false;
+            listBoxPanel.Visible = false;
             InitializeComboBox();
         }
 
@@ -48,7 +55,8 @@ namespace UserInterface
 
         private void InitializeDataGridAlertA()
         {
-            this.dataGrid.DataSource = alertAController.GetActivatedAlerts();
+            infoLabel.Visible = false; 
+            dataGrid.DataSource = alertAController.GetActivatedAlerts();
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = FIRST_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = SECOND_COLUMN_NAME;
@@ -60,14 +68,38 @@ namespace UserInterface
 
         private void InitializeDataGridAlertB()
         {
-            this.dataGrid.DataSource = alertBController.GetActivatedAlerts();
+            infoLabel.Visible = true;
+            collection = alertBController.GetActivatedAlerts();
+            dataGrid.DataSource = collection.Where(x => x.Activated).ToList();
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;
             dataGrid.Columns[3].HeaderText = FOURTH_COLUMN_NAME;
             dataGrid.Columns[4].HeaderText = FIFTH_COLUMN_NAME;
             dataGrid.Columns[5].HeaderText = SIXTH_COLUMN_NAME;
+            dataGrid.Columns[6].Visible = false;
         }
 
+        private void dataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (alertTypeComboBox.Text == ALERT_B)
+            {
+                authorsBox.Items.Clear();
+                DataGridViewRow row = dataGrid.CurrentRow;
+                ICollection<AlertBAuthor> association = collection.ElementAt(row.Index).AlertBAuthors;
+                foreach (AlertBAuthor item in association)
+                {
+                    Author author = authorController.GetAuthorById(item.AuthorId);
+                    authorsBox.Items.Add(author.Username);
+                }
+                listBoxPanel.Visible = true;
+            }
+            
+        }
+
+        private void btnCloseWindow_Click(object sender, System.EventArgs e)
+        {
+            listBoxPanel.Visible = false;
+        }
     }
 }

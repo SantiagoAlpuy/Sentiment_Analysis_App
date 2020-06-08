@@ -66,9 +66,9 @@ namespace UserInterface
 
         private void ReactToSuccessfulAdition()
         {
+            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
             sentimentBox.Text = "";
             this.dataGrid.DataSource = GetPositiveSentiments();
-            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
         }
 
         private ICollection<Sentiment> GetPositiveSentiments()

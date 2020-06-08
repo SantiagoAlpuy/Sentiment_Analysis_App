@@ -57,9 +57,9 @@ namespace UserInterface
 
         private void ReactToSuccessfulAddition()
         {
+            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
             sentimentBox.Text = "";
             this.dataGrid.DataSource = GetNegativeSentiments();
-            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
         }
 
         private void btnRemove_Click(object sender, EventArgs e)

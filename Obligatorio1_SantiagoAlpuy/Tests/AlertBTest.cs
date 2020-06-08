@@ -11,6 +11,7 @@ namespace Tests
     public class AlertBTest
     {
         AlertBController alertController;
+        AlertBAuthorRelationController alertBAuthorController;
         IPhraseController phraseController;
         ISentimentController sentimentController;
         IAuthorController authorController;
@@ -33,6 +34,7 @@ namespace Tests
             phraseController = new PhraseController();
             authorController = new AuthorController();
             alertController = new AlertBController();
+            alertBAuthorController = new AlertBAuthorRelationController();
         }
 
         private void ClearDatabase()
@@ -136,7 +138,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void SetAuthorsOfActivatedPhrases()
+        public void SetAuthorsOfActivatedPhrase()
         {
             AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
             Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
@@ -146,8 +148,26 @@ namespace Tests
             alertController.AddAlert(alert);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            alert = alertController.ObtainAlert(alert.AlertBId);
-            Assert.AreEqual(1,alert.AlertBAuthors.Count);
+            ICollection<AlertBAuthor> collection = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
+            int elemCount = collection.Count;
+            Assert.AreEqual(1,elemCount);
+        }
+
+        [TestMethod]
+        public void DeleteAuthorsOfActivatedPhrase()
+        {
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
+            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            sentimentController.AddSentiment(sentiment);
+            alertController.AddAlert(alert);
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase);
+            authorController.RemoveAuthor(author.Username);
+            ICollection<AlertBAuthor> collection = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
+            int elemCount = collection.Count;
+            Assert.AreEqual(0, elemCount);
         }
     }
 }

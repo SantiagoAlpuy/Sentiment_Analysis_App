@@ -24,7 +24,7 @@ namespace UserInterface
         {
             autorComboBox.Items.Clear();
             autorComboBox.Items.Add("");
-            ICollection<Author> authors = authorController.GetAllEntities();
+            ICollection<Author> authors = authorController.GetAll();
             foreach (Author author in authors)
             {
                 autorComboBox.Items.Add(author.Username);
