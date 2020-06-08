@@ -13,7 +13,6 @@ namespace UserInterface
         IEntityController entityController;
         IAlertController alertController;
         IPhraseController phraseController;
-        RepositoryA<Entity> repositoryA;
         private const string ENTITY_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
         private const string MAIN_ENTITY_COLUMN_NAME = "Nombre";
         public UC_ManageEntities()
@@ -22,8 +21,7 @@ namespace UserInterface
             entityController = new EntityController();
             alertController = new AlertAController();
             phraseController = new PhraseController();
-            repositoryA = new RepositoryA<Entity>();
-            this.dataGrid.DataSource = repositoryA.GetAll();
+            LoadDataGrid();
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = MAIN_ENTITY_COLUMN_NAME;
         }        
@@ -59,7 +57,7 @@ namespace UserInterface
         {
             MessageBox.Show(String.Format(ENTITY_ADDED_SUCCESFULLY, entityBox.Text));
             entityBox.Text = "";
-            this.dataGrid.DataSource = repositoryA.GetAll();
+            LoadDataGrid();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -68,7 +66,12 @@ namespace UserInterface
             {
                 entityController.RemoveEntity(row.Cells[1].Value.ToString());
             }
-            this.dataGrid.DataSource = repositoryA.GetAll();
+            LoadDataGrid();
+        }
+
+        private void LoadDataGrid()
+        {
+            this.dataGrid.DataSource = entityController.GetAllEntities();
         }
 
     }

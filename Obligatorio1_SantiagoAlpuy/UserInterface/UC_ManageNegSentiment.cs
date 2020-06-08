@@ -12,7 +12,6 @@ namespace UserInterface
         ISentimentController sentimentController;
         IPhraseController phraseController;
         IAlertController alertController;
-        RepositoryA<Sentiment> repositoryA;
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
 
@@ -22,7 +21,6 @@ namespace UserInterface
             sentimentController = new SentimentController();
             phraseController = new PhraseController();
             alertController = new AlertAController();
-            repositoryA = new RepositoryA<Sentiment>();
             this.dataGrid.DataSource = GetNegativeSentiments();
             dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
             dataGrid.Columns[0].Visible = false;

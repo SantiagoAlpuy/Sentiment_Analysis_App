@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
 
-namespace BusinessLogic
+namespace BusinessLogic.DataAccess
 {
     public class RepositoryA<T>  where T : class
     {
