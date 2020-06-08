@@ -105,6 +105,7 @@
             // 
             // listBoxPanel
             // 
+            this.listBoxPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxPanel.Controls.Add(this.btnCloseWindow);
             this.listBoxPanel.Controls.Add(this.label3);
             this.listBoxPanel.Controls.Add(this.authorsBox);

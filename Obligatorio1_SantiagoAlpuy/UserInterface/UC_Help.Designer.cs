@@ -43,11 +43,11 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(353, 39);
+            this.label1.Location = new System.Drawing.Point(287, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 25);
+            this.label1.Size = new System.Drawing.Size(215, 25);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Ayuda";
+            this.label1.Text = "Información de Uso";
             // 
             // textBox2
             // 
