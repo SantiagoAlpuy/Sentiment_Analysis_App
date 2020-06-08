@@ -54,30 +54,30 @@ namespace BusinessLogic
             int count = 0;
             foreach (Phrase phrase in phrases)
             {
-                if (ValidateEntities(phrase, this) && ValidateCategories(phrase, this))
+                if (ValidateEntities(phrase) && ValidateCategories(phrase))
                 {
-                    lowerLimitAlert = CalculateLowerLimitAlert(this);
+                    lowerLimitAlert = CalculateLowerLimitAlert();
                     if (IsInsideAlertRange(lowerLimitAlert, phrase))
                         count++;
                 }
             }
-            ActivateAlarm(this, count);
+            ActivateAlarm(count);
         }
 
 
-        private bool ValidateEntities(Phrase phrase, AlertA alert)
+        private bool ValidateEntities(Phrase phrase)
         {
-            return phrase.Entity.ToUpper().Trim() == alert.Entity.ToUpper().Trim();
+            return phrase.Entity.ToUpper().Trim() == this.Entity.ToUpper().Trim();
         }
 
-        private bool ValidateCategories(Phrase phrase, AlertA alert)
+        private bool ValidateCategories(Phrase phrase)
         {
-            return phrase.Category.Equals(alert.Category) && !phrase.Category.Equals(CategoryType.Neutro);
+            return phrase.Category.Equals(this.Category) && !phrase.Category.Equals(CategoryType.Neutro);
         }
 
-        private DateTime CalculateLowerLimitAlert(AlertA alert)
+        private DateTime CalculateLowerLimitAlert()
         {
-            int hours = -(alert.Hours + alert.Days * 24);
+            int hours = -(this.Hours + this.Days * 24);
             return DateTime.Now.AddHours(hours);
         }
 
@@ -86,13 +86,13 @@ namespace BusinessLogic
             return date.CompareTo(phrase.Date) < 0;
         }
 
-        private void ActivateAlarm(AlertA alert, int count)
+        private void ActivateAlarm(int count)
         {
-            if (alert.Posts <= count)
-                alert.Activated = true;
+            if (this.Posts <= count)
+                this.Activated = true;
             else
-                alert.Activated = false;
-            alertController.UpdateAlert(alert);
+                this.Activated = false;
+            alertController.UpdateAlert(this);
         }
 
     }

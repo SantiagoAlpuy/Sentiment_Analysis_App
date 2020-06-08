@@ -8,7 +8,8 @@ namespace BusinessLogic
     public class AlertB : IAlert
     {
 
-        IAlertController alertController;
+        AlertBController alertController;
+        IAuthorController authorController;
 
         private int POST_UPPER_BOUND = 1000;
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
@@ -26,10 +27,13 @@ namespace BusinessLogic
         public int Days { get; set; }
         public int Hours { get; set; }
         public bool Activated { get; set; }
-
+        public virtual ICollection<AlertBAuthor> AlertBAuthors { get; set; }
+        
         public AlertB()
         {
             alertController = new AlertBController();
+            authorController = new AuthorController();
+            AlertBAuthors = new List<AlertBAuthor>();
         }
 
         public void ValidateAlert()
@@ -48,28 +52,33 @@ namespace BusinessLogic
 
         public void EvaluateAlert(List<Phrase> phrases)
         {
+            ICollection<string> authorsOfActivatedAlert = new HashSet<string>();
             DateTime lowerLimitAlert = new DateTime();
             int count = 0;
             foreach (Phrase phrase in phrases)
             {
-                if (ValidateCategories(phrase, this))
+                if (ValidateCategories(phrase))
                 {
-                    lowerLimitAlert = CalculateLowerLimitAlert(this);
+                    lowerLimitAlert = CalculateLowerLimitAlert();
                     if (IsInsideAlertRange(lowerLimitAlert, phrase))
+                    {
                         count++;
+                        authorsOfActivatedAlert.Add(phrase.Author.Username);
+                    }
                 }
             }
-            ActivateAlarm(this, count);
+            ActivateAlarm(count);
+            CheckAssociationAlertAuthor(authorsOfActivatedAlert);
         }
 
-        private bool ValidateCategories(Phrase phrase, AlertB alert)
+        private bool ValidateCategories(Phrase phrase)
         {
-            return phrase.Category.Equals(alert.Category) && !phrase.Category.Equals(CategoryType.Neutro);
+            return phrase.Category.Equals(this.Category) && !phrase.Category.Equals(CategoryType.Neutro);
         }
 
-        private DateTime CalculateLowerLimitAlert(AlertB alert)
+        private DateTime CalculateLowerLimitAlert()
         {
-            int hours = -(alert.Hours + alert.Days * 24);
+            int hours = -(this.Hours + this.Days * 24);
             return DateTime.Now.AddHours(hours);
         }
 
@@ -78,13 +87,33 @@ namespace BusinessLogic
             return date.CompareTo(phrase.Date) < 0;
         }
 
-        private void ActivateAlarm(AlertB alert, int count)
+        private void ActivateAlarm(int count)
         {
-            if (alert.Posts <= count)
-                alert.Activated = true;
+            if (this.Posts <= count)
+            {
+                this.Activated = true;
+            }
+            else{
+                this.Activated = false;
+            }
+                
+            alertController.UpdateAlert(this);
+        }
+
+        private void CheckAssociationAlertAuthor(ICollection<string> collection)
+        {
+            if (this.Activated)
+            {
+                foreach(string item in collection)
+                {
+                    Author author = authorController.ObtainAuthorByUsername(item);
+                    alertController.CreateAssociationAlertAuthor(this, author);
+                }
+            }
             else
-                alert.Activated = false;
-            alertController.UpdateAlert(alert);
+            {
+                alertController.RemoveAssociationAlertAuthor(this);
+            }
         }
 
     }

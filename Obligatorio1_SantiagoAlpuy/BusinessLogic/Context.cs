@@ -10,6 +10,7 @@ namespace BusinessLogic
         public DbSet<AlertA> AlertsA { get; set; }
         public DbSet<AlertB> AlertsB { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<AlertBAuthor> AlertsBPhrase { get; set; }
         
         public Context()
         {
@@ -18,7 +19,10 @@ namespace BusinessLogic
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AlertBAuthorConfiguration());
             modelBuilder.Configurations.Add(new AuthorConfiguration());
+            modelBuilder.Configurations.Add(new AlertBConfiguration());
+            
         }
     }
 }

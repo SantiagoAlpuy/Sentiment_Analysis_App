@@ -10,8 +10,6 @@ namespace BusinessLogic.IControllers
 
         Phrase ObtainPhrase(int phraseId);
 
-        void AnalyzePhrase(Phrase phrase);
-
         void AnalyzeAllPhrases();
         List<Phrase> GetAllEntities();
 

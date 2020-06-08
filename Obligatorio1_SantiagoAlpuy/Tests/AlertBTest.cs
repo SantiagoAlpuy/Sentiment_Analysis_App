@@ -101,7 +101,7 @@ namespace Tests
             alertController.AddAlert(alert);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.EvaluateAlerts();
             alert = alertController.ObtainAlert(alert.AlertBId);
             Assert.IsTrue(alert.Activated);
@@ -118,7 +118,7 @@ namespace Tests
             alertController.AddAlert(alert);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.EvaluateAlerts();
             sentimentController.RemoveSentiment(sentiment.Description, true);
             phraseController.AnalyzeAllPhrases();
@@ -146,10 +146,8 @@ namespace Tests
             alertController.AddAlert(alert);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
-            alertController.EvaluateAlerts();
             alert = alertController.ObtainAlert(alert.AlertBId);
-            Assert.AreEqual(1,alert.AuthorsOfActivatedPhrases.Count());
+            Assert.AreEqual(1,alert.AlertBAuthors.Count);
         }
     }
 }

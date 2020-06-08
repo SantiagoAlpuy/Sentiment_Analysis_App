@@ -11,10 +11,12 @@ namespace BusinessLogic
         public string Surname { get; set; }
         public DateTime Born { get; set; }
         public virtual ICollection<Phrase> Phrases { get; set; }
+        public virtual ICollection<AlertBAuthor> AlertBAuthors { get; set; }
 
         public Author()
         {
             Phrases = new List<Phrase>();
+            AlertBAuthors = new List<AlertBAuthor>();
         }
 
         public override string ToString()

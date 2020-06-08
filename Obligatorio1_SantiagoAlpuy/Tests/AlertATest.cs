@@ -116,8 +116,6 @@ namespace Tests
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase1);
             phraseController.AddPhrase(phrase2);
-            phraseController.AnalyzePhrase(phrase1);
-            phraseController.AnalyzePhrase(phrase2);
             alertController.AddAlert(alert);
 
             alertController.EvaluateAlerts();
@@ -141,7 +139,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.AddAlert(alert);
 
             alertController.EvaluateAlerts();
@@ -165,7 +163,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.AddAlert(alert);
 
             alertController.EvaluateAlerts();
@@ -187,7 +185,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.AddAlert(alert);
 
             alertController.EvaluateAlerts();
@@ -210,7 +208,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment);
             authorController.AddAuthor(author);
             phraseController.AddPhrase(phrase);            
-            phraseController.AnalyzePhrase(phrase);
+
             alertController.AddAlert(alert);
             alertController.EvaluateAlerts();
 

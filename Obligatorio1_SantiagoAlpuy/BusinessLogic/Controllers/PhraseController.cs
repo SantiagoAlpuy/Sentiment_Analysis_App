@@ -72,7 +72,7 @@ namespace BusinessLogic.Controllers
             }
         }
 
-        public void AnalyzePhrase(Phrase phrase)
+        private void AnalyzePhrase(Phrase phrase)
         {
             bool hasPositive = false;
             bool hasNegative = false;
