@@ -32,9 +32,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.criterionComboBox = new System.Windows.Forms.ComboBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.orderByComboBox = new System.Windows.Forms.ComboBox();
             this.btnFilterReport = new System.Windows.Forms.Button();
+            this.infoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,34 +90,10 @@
             this.dataGrid.Size = new System.Drawing.Size(665, 233);
             this.dataGrid.TabIndex = 49;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(271, 205);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(228, 16);
-            this.label2.TabIndex = 51;
-            this.label2.Text = "Seleccione Tipo de Ordenación";
-            // 
-            // orderByComboBox
-            // 
-            this.orderByComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.orderByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.orderByComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.orderByComboBox.ForeColor = System.Drawing.Color.Gray;
-            this.orderByComboBox.FormattingEnabled = true;
-            this.orderByComboBox.Location = new System.Drawing.Point(49, 224);
-            this.orderByComboBox.Name = "orderByComboBox";
-            this.orderByComboBox.Size = new System.Drawing.Size(665, 24);
-            this.orderByComboBox.TabIndex = 50;
-            // 
             // btnFilterReport
             // 
             this.btnFilterReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFilterReport.Location = new System.Drawing.Point(240, 258);
+            this.btnFilterReport.Location = new System.Drawing.Point(238, 214);
             this.btnFilterReport.Name = "btnFilterReport";
             this.btnFilterReport.Size = new System.Drawing.Size(291, 23);
             this.btnFilterReport.TabIndex = 52;
@@ -126,14 +101,25 @@
             this.btnFilterReport.UseVisualStyleBackColor = true;
             this.btnFilterReport.Click += new System.EventHandler(this.btnFilterReport_Click);
             // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoLabel.Location = new System.Drawing.Point(266, 271);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(493, 13);
+            this.infoLabel.TabIndex = 53;
+            this.infoLabel.Text = "Para ordenar de forma tanto ascendente como descendente, haga click en el nombre " +
+    "de las columnas.";
+            // 
             // UC_AuthorReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.btnFilterReport);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.orderByComboBox);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.criterionComboBox);
@@ -152,8 +138,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox criterionComboBox;
         private System.Windows.Forms.DataGridView dataGrid;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox orderByComboBox;
         private System.Windows.Forms.Button btnFilterReport;
+        private System.Windows.Forms.Label infoLabel;
     }
 }

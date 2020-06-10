@@ -21,15 +21,12 @@ namespace UserInterface
         private const string OPTION_B = "2- Porcentaje de frases negativas por cada autor";
         private const string OPTION_C = "3- Cantidad de entidades mencionadas por cada autor";
         private const string OPTION_D = "4- Promedio diario de frases por cada autor";
-        private const string ASCENDENT_OPTION = "Ascendente";
-        private const string DESCENDENT_OPTION = "Descendente";
 
         public UC_AuthorReport()
         {
             InitializeComponent();
             authorController = new AuthorController();
             InitializeCriterionComboBox();
-            InitializeOrderByComboBox();
         }
 
         private void InitializeCriterionComboBox()
@@ -40,14 +37,6 @@ namespace UserInterface
             criterionComboBox.Items.Add(OPTION_B);
             criterionComboBox.Items.Add(OPTION_C);
             criterionComboBox.Items.Add(OPTION_D);
-        }
-
-        private void InitializeOrderByComboBox()
-        {
-            orderByComboBox.Items.Clear();
-            orderByComboBox.Items.Add(ASCENDENT_OPTION);
-            orderByComboBox.Items.Add(DESCENDENT_OPTION);
-            orderByComboBox.SelectedIndex = 1;
         }
 
         private void CreateDataGrid(string lastColumnName)
@@ -77,25 +66,7 @@ namespace UserInterface
             }                
             else if (criterion == OPTION_D)
             {
-                CreateDataGrid("Promedio Diario de Comentarios");
-                foreach (Author author in authors)
-                {
-                    string[] row;
-                    if (author.Phrases.Count > 0)
-                    {
-                        int totalNumberPhrases = author.Phrases.Count();
-                        DateTime firstPostDate = author.Phrases.Min(x => x.Date);
-                        double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
-                        double mean = totalNumberPhrases / totalDays;
-                        row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
-                    }
-                    else
-                    {
-                        row = new string[] { author.Username, author.Name, author.Surname, "0" };
-                    }
-                    
-                    this.dataGrid.Rows.Add(row);
-                }
+                CalculatePostsMean(authors);
             }
             else
                 this.dataGrid.DataSource = null;
@@ -134,6 +105,29 @@ namespace UserInterface
                 string[] row = new string[] { author.Username, author.Name, author.Surname, entities.Count().ToString() };
                 this.dataGrid.Rows.Add(row);
 
+            }
+        }
+
+        private void CalculatePostsMean(ICollection<Author> authors)
+        {
+            CreateDataGrid("Promedio Diario de Comentarios");
+            foreach (Author author in authors)
+            {
+                string[] row;
+                if (author.Phrases.Count > 0)
+                {
+                    int totalNumberPhrases = author.Phrases.Count();
+                    DateTime firstPostDate = author.Phrases.Min(x => x.Date);
+                    double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
+                    double mean = totalNumberPhrases / totalDays;
+                    row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
+                }
+                else
+                {
+                    row = new string[] { author.Username, author.Name, author.Surname, "0" };
+                }
+
+                this.dataGrid.Rows.Add(row);
             }
         }
 
