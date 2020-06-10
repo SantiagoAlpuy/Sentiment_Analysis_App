@@ -170,5 +170,15 @@ namespace BusinessLogic.Controllers
             return repositoryA.Find(x => x.AuthorId == authorId);
         }
 
+        public Author GetAuthorByIdWithInclude(int authorId, string includeAttribute)
+        {
+            return repositoryA.GetAllWithInclude(includeAttribute).SingleOrDefault(x => x.AuthorId == authorId);
+        }
+
+        public ICollection<Author> GetAllAuthorsWithInclude()
+        {
+            return repositoryA.GetAllWithInclude("Phrases");
+        }
+        
     }
 }

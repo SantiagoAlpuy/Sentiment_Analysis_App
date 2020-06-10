@@ -54,7 +54,7 @@ namespace BusinessLogic
 
         public void EvaluateAlert(List<Phrase> phrases)
         {
-            ICollection<string> authorsOfActivatedAlert = new HashSet<string>();
+            ICollection<int> authorsOfActivatedAlert = new HashSet<int>();
             DateTime lowerLimitAlert = new DateTime();
             int count = 0;
             foreach (Phrase phrase in phrases)
@@ -65,7 +65,7 @@ namespace BusinessLogic
                     if (IsInsideAlertRange(lowerLimitAlert, phrase))
                     {
                         count++;
-                        authorsOfActivatedAlert.Add(phrase.Author.Username);
+                        authorsOfActivatedAlert.Add(phrase.Author.AuthorId);
                     }
                 }
             }
@@ -102,13 +102,13 @@ namespace BusinessLogic
             alertController.UpdateAlert(this);
         }
 
-        private void CheckAssociationAlertAuthor(ICollection<string> collection)
+        private void CheckAssociationAlertAuthor(ICollection<int> collection)
         {
             if (this.Activated)
             {
-                foreach(string item in collection)
+                foreach(int item in collection)
                 {
-                    Author author = authorController.ObtainAuthorByUsername(item);
+                    Author author = authorController.GetAuthorByIdWithInclude(item, "AlertBAuthors");
                     alertBAuthorController.AddAssociationAlertAuthor(this, author);
                 }
             }

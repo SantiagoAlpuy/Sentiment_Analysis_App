@@ -13,5 +13,7 @@ namespace BusinessLogic.IControllers
         void ModifyAuthor(Author author1, Author author2);
         ICollection<Author> GetAll();
         Author GetAuthorById(int authorId);
+        Author GetAuthorByIdWithInclude(int id, string includeAttribute);
+        ICollection<Author> GetAllAuthorsWithInclude();
     }
 }

@@ -56,6 +56,7 @@ namespace BusinessLogic.Controllers
 
         public ICollection<AlertB> GetActivatedAlerts()
         {
+            ;
             return repositoryA.GetAllWithInclude("AlertBAuthors");
         }
 

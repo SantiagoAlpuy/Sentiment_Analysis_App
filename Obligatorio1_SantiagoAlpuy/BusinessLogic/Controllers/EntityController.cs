@@ -82,7 +82,6 @@ namespace BusinessLogic.Controllers
             alertBController = new AlertBController();
             phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
-            alertBController.EvaluateAlerts();
         }
 
         public ICollection<Entity> GetAllEntities()

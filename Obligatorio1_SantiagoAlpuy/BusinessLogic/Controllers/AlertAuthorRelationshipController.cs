@@ -19,8 +19,9 @@ namespace BusinessLogic.Controllers
             AlertBAuthor association = FindAssociationAlertAuthor(alert, author);
             if (author != null && association == null)
             {
-                association = new AlertBAuthor { AlertB = alert, AlertBId = alert.AlertBId, Author = author, AuthorId = author.AuthorId };
-                repository.Add(association);
+                AlertBAuthor alertAuthor = new AlertBAuthor { AlertB = alert, Author = author, AlertBId = alert.AlertBId, AuthorId = author.AuthorId };
+                author.AlertBAuthors.Add(alertAuthor);
+                repository.Add(alertAuthor);
             }
         }
 

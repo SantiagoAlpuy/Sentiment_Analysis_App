@@ -71,24 +71,18 @@ namespace BusinessLogic.DataAccess
             using (Context context = new Context())
             {
                 contextEntity = context.Set<T>();
-                var query = from row in contextEntity
-                            select row;
-                collection = query.ToList<T>();
-                context.SaveChanges();
+                collection = contextEntity.ToList();
             }
             return collection;
         }
 
-        public ICollection<T> GetAllWithInclude(string entityToInclude)
+        public ICollection<T> GetAllWithInclude(string entitiesToInclude)
         {
             ICollection<T> collection = null;
             using (Context context = new Context())
             {
                 contextEntity = context.Set<T>();
-                var query = from row in contextEntity.Include(entityToInclude)
-                            select row;
-                collection = query.ToList<T>();
-                context.SaveChanges();
+                collection = contextEntity.Include(entitiesToInclude).ToList();
             }
             return collection;
         }
