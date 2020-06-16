@@ -31,7 +31,7 @@ namespace BusinessLogic
              alertController = new AlertAController();
         }
 
-        public void ValidateAlert()
+        public void Validate()
         {
             if (this.Entity == null)
                 throw new NullReferenceException(NULL_ENTITY);

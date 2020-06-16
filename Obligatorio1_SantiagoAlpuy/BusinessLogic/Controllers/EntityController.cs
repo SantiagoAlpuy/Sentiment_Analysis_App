@@ -20,7 +20,8 @@ namespace BusinessLogic.Controllers
         {
             ValidateEntity(entity);
             repositoryA.Add(entity);
-            AnalyzePhrasesAndAlerts();
+            AnalyzePhrases();
+            AnalyzeAlerts();
         }
 
         private void ValidateEntity(Entity entity)
@@ -45,7 +46,8 @@ namespace BusinessLogic.Controllers
             if (entity != null)
             {
                 repositoryA.Remove(entity);
-                AnalyzePhrasesAndAlerts();
+                AnalyzePhrases();
+                AnalyzeAlerts();
             }
         }
 
@@ -54,13 +56,17 @@ namespace BusinessLogic.Controllers
             repositoryA.ClearAll();
         }
 
-        private void AnalyzePhrasesAndAlerts()
+        private void AnalyzeAlerts()
         {
-            IPhraseController phraseController = new PhraseController();
             IAlertController alertAController = new AlertAController();
             IAlertController alertBController = new AlertBController();
-            phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
+        }
+
+        private void AnalyzePhrases()
+        {
+            IPhraseController phraseController = new PhraseController();
+            phraseController.AnalyzeAllPhrases();
         }
 
         public ICollection<Entity> GetAllEntities()

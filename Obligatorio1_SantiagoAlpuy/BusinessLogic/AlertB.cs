@@ -8,10 +8,6 @@ namespace BusinessLogic
     public class AlertB : IAlert
     {
 
-        AlertBController alertController;
-        AlertBAuthorRelationController alertBAuthorController;
-        IAuthorController authorController;
-
         private int POST_UPPER_BOUND = 1000;
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
@@ -32,13 +28,10 @@ namespace BusinessLogic
         
         public AlertB()
         {
-            alertController = new AlertBController();
-            authorController = new AuthorController();
             AlertBAuthors = new List<AlertBAuthor>();
-            alertBAuthorController = new AlertBAuthorRelationController();
         }
 
-        public void ValidateAlert()
+        public void Validate()
         {
             if (this.Category.Equals(CategoryType.Neutro))
                 throw new ArgumentException(NEUTRO_CATEGORY);
@@ -93,6 +86,7 @@ namespace BusinessLogic
 
         private void ActivateAlarm(int count)
         {
+            IAlertController alertController = new AlertBController();
             if (this.Posts <= count)
             {
                 this.Activated = true;
@@ -106,6 +100,8 @@ namespace BusinessLogic
 
         private void CheckAssociationAlertAuthor(ICollection<int> collection)
         {
+            IAuthorController authorController = new AuthorController();
+            AlertBAuthorRelationController alertBAuthorController = new AlertBAuthorRelationController();
             if (this.Activated)
             {
                 foreach(int item in collection)

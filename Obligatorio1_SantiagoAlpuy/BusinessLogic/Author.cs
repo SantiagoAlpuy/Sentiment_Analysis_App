@@ -20,14 +20,13 @@ namespace BusinessLogic
         private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
         private string AGE_LOWER_THAN_LOWER_LIMIT = String.Format("La edad del autor es inferior a {0}", LOWER_AGE_LIMIT);
         private string AGE_BIGGER_THAN_UPPER_LIMIT = String.Format("La edad del autor es superior a {0}", UPPER_AGE_LIMIT);
-        private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
         private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
         private const string EMPTY_NAME_FIELD = "El campo 'nombre' esta vacío.";
         private const string EMPTY_SURNAME_FIELD = "El campo 'apellido' esta vacío.";
         private const string NULL_USERNAME = "Seleccione una nombre de usuario válido.";
         private const string NULL_NAME = "Seleccione una nombre válido.";
         private const string NULL_SURNAME = "Seleccione un apellido válido.";
-        private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
+        
 
         public int AuthorId { get; set; }
         public string Username { get; set; }
@@ -57,8 +56,6 @@ namespace BusinessLogic
                 throw new ArgumentException(USERNAME_IS_NOT_ALPHANUMERIC);
             else if (this.Username.Length >= MAX_CHARS_IN_USERNAME)
                 throw new ArgumentException(USERNAME_IS_TOO_BIG);
-            else if (ObtainAuthorByUsername(this.Username) != null)
-                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
             else if (this.Name.Trim() == "")
                 throw new ArgumentException(EMPTY_NAME_FIELD);
             else if (this.Name.Length >= MAX_CHARS_IN_NAME)

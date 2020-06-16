@@ -7,18 +7,16 @@ namespace BusinessLogic.Controllers
 {
     public class AlertAController : IAlertController
     {
-        IPhraseController phraseController;
         RepositoryA<AlertA> repositoryA;
 
         public AlertAController()
         {
             repositoryA = new RepositoryA<AlertA>();
-
         }
 
         public void AddAlert(IAlert alert)
         {
-            alert.ValidateAlert();
+            alert.Validate();
             repositoryA.Add((AlertA)alert);
         }
 

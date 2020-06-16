@@ -7,7 +7,7 @@ namespace BusinessLogic
     public interface IAlert
     {
         bool Activated { get; set; }
-        void ValidateAlert();
+        void Validate();
         void EvaluateAlert();
     }
 }

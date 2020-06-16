@@ -22,7 +22,8 @@ namespace BusinessLogic.Controllers
         {
             ValidateSentiment(sentiment);
             repositoryA.Add(sentiment);
-            AnalyzePhrasesAndAlerts();
+            AnalyzePhrases();
+            AnalyzeAlerts();
         }
 
         private void ValidateSentiment(Sentiment sentiment)
@@ -49,7 +50,8 @@ namespace BusinessLogic.Controllers
             if (sentiment != null)
             {
                 repositoryA.Remove(sentiment);
-                AnalyzePhrasesAndAlerts();
+                AnalyzePhrases();
+                AnalyzeAlerts();
             }
         }
 
@@ -58,12 +60,16 @@ namespace BusinessLogic.Controllers
             repositoryA.ClearAll();
         }
 
-        private void AnalyzePhrasesAndAlerts()
+        private void AnalyzePhrases()
+        {
+            IPhraseController phraseController = new PhraseController();
+            phraseController.AnalyzeAllPhrases();
+        }
+
+        private void AnalyzeAlerts()
         {
             IAlertController alertAController = new AlertAController();
             IAlertController alertBController = new AlertBController();
-            IPhraseController phraseController = new PhraseController();
-            phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }

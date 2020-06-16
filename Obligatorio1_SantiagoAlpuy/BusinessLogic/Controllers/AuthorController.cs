@@ -10,37 +10,13 @@ namespace BusinessLogic.Controllers
     {
         private const string NULL_AUTHOR = "Los autores no pueden ser nulos.";
         private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
-        private const int MAX_CHARS_IN_USERNAME = 10;
-        private const int MAX_CHARS_IN_NAME = 15;
-        private const int LOWER_AGE_LIMIT = 13;
-        private const int UPPER_AGE_LIMIT = 100;
-        private string USERNAME_IS_TOO_BIG = String.Format("El usuario es mayor a {0} caracteres.", MAX_CHARS_IN_USERNAME);
-        private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
-        private string NAME_IS_TOO_BIG = String.Format("El nombre es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
-        private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
-        private string SURNAME_IS_TOO_BIG = String.Format("El apellido del usuario es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
-        private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
-        private string AGE_LOWER_THAN_LOWER_LIMIT = String.Format("La edad del autor es inferior a {0}", LOWER_AGE_LIMIT);
-        private string AGE_BIGGER_THAN_UPPER_LIMIT = String.Format("La edad del autor es superior a {0}", UPPER_AGE_LIMIT);
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
-        private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
-        private const string EMPTY_NAME_FIELD = "El campo 'nombre' esta vacío.";
-        private const string EMPTY_SURNAME_FIELD = "El campo 'apellido' esta vacío.";
-        private const string NULL_USERNAME = "Seleccione una nombre de usuario válido.";
-        private const string NULL_NAME = "Seleccione una nombre válido.";
-        private const string NULL_SURNAME = "Seleccione un apellido válido.";
 
         RepositoryA<Author> repositoryA;
-        private IAlertController alertAController;
-        private IAlertController alertBController;
-        private IPhraseController phraseController;
 
         public AuthorController()
         {
             repositoryA = new RepositoryA<Author>();
-            alertAController = new AlertAController();
-            alertBController = new AlertBController();
-            phraseController = new PhraseController();
         }
 
         public void AddAuthor(Author author)
@@ -66,6 +42,8 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzeAlerts()
         {
+            IAlertController alertAController = new AlertAController();
+            IAlertController alertBController = new AlertBController();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }
@@ -75,6 +53,8 @@ namespace BusinessLogic.Controllers
         {
             if (author == null)
                 throw new ArgumentException(NULL_AUTHOR);
+            else if (ObtainAuthorByUsername(author.Username) != null)
+                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
             else author.Validate();
         }
 
@@ -97,50 +77,16 @@ namespace BusinessLogic.Controllers
         {
             if (author1 == null || author2 == null)
                 throw new ArgumentException(NULL_AUTHOR);
-            else if (author2.Username.Trim() == "")
-                throw new ArgumentException(EMPTY_USERNAME_FIELD);
-            else if (UsernameChanged(author1, author2) 
+            else if (UsernameChanged(author1, author2)
                 && ObtainAuthorByUsername(author2.Username) != null)
                 throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
-            else if (!IsAlphanumeric(author2.Username))
-                throw new ArgumentException(USERNAME_IS_NOT_ALPHANUMERIC);
-            else if (author2.Username.Length >= MAX_CHARS_IN_USERNAME)
-                throw new ArgumentException(USERNAME_IS_TOO_BIG);
-            else if (author2.Name == null)
-                throw new ArgumentException(NULL_NAME);
-            else if (author2.Name.Trim() == "")
-                throw new ArgumentException(EMPTY_NAME_FIELD);
-            else if (!IsAlphabetic(author2.Name))
-                throw new ArgumentException(NAME_IS_NOT_ALPHABETIC);
-            else if (author2.Name.Length >= MAX_CHARS_IN_NAME)
-                throw new ArgumentException(NAME_IS_TOO_BIG);
-            else if (author2.Surname == null)
-                throw new ArgumentException(NULL_SURNAME);
-            else if (author2.Surname.Trim() == "")
-                throw new ArgumentException(EMPTY_SURNAME_FIELD);
-            else if (!IsAlphabetic(author2.Surname))
-                throw new ArgumentException(SURNAME_IS_NOT_ALPHABETIC);
-            else if (author2.Surname.Length >= MAX_CHARS_IN_NAME)
-                throw new ArgumentException(NAME_IS_TOO_BIG);
-            else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author2.Born.Year)
-                throw new ArgumentException(AGE_LOWER_THAN_LOWER_LIMIT);
-            else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author2.Born.Year)
-                throw new ArgumentException(AGE_BIGGER_THAN_UPPER_LIMIT);
+            else
+                author2.Validate();
         }
 
         private bool UsernameChanged(Author author1, Author author2)
         {
             return author1.Username.ToLower() != author2.Username.ToLower();
-        }
-
-        private bool IsAlphanumeric(string text)
-        {
-            return text.Trim().All(char.IsLetterOrDigit);
-        }
-
-        private bool IsAlphabetic(string text)
-        {
-            return text.All(char.IsLetter) || text.Replace(" ", "").All(char.IsLetter);
         }
 
         public ICollection<Author> GetAll()
