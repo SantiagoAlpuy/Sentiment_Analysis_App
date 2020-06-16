@@ -11,18 +11,28 @@ namespace BusinessLogic.Controllers
         private const string NULL_AUTHOR = "Los autores no pueden ser nulos.";
         private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
+        private const string INCLUDED_PHRASES = "Phrases";
 
-        RepositoryA<Author> repositoryA;
+        Repository<Author> repositoryA;
 
         public AuthorController()
         {
-            repositoryA = new RepositoryA<Author>();
+            repositoryA = new Repository<Author>();
         }
 
         public void AddAuthor(Author author)
         {
             ValidateAuthorAdition(author);
             repositoryA.Add(author);
+        }
+
+        private void ValidateAuthorAdition(Author author)
+        {
+            if (author == null)
+                throw new ArgumentException(NULL_AUTHOR);
+            else if (ObtainAuthorByUsername(author.Username) != null)
+                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
+            else author.Validate();
         }
 
         public void RemoveAuthor(string username)
@@ -35,27 +45,17 @@ namespace BusinessLogic.Controllers
             AnalyzeAlerts();
         }
 
-        public void RemoveAllAuthors()
-        {
-            repositoryA.ClearAll();
-        }
-
         private void AnalyzeAlerts()
         {
-            IAlertController alertAController = new AlertAController();
-            IAlertController alertBController = new AlertBController();
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }
 
-
-        private void ValidateAuthorAdition(Author author)
+        public void RemoveAllAuthors()
         {
-            if (author == null)
-                throw new ArgumentException(NULL_AUTHOR);
-            else if (ObtainAuthorByUsername(author.Username) != null)
-                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
-            else author.Validate();
+            repositoryA.ClearAll();
         }
 
         public Author ObtainAuthorByUsername(string username)
@@ -106,7 +106,7 @@ namespace BusinessLogic.Controllers
 
         public ICollection<Author> GetAllAuthorsWithInclude()
         {
-            return repositoryA.GetAllWithInclude("Phrases");
+            return repositoryA.GetAllWithInclude(INCLUDED_PHRASES);
         }
         
     }

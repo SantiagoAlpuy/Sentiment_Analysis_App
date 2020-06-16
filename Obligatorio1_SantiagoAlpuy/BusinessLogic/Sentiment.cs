@@ -37,7 +37,7 @@ namespace BusinessLogic
 
         private bool IsSentimentInRepo(Sentiment sentiment, bool category)
         {
-            RepositoryA<Sentiment> repositoryA = new RepositoryA<Sentiment>();
+            Repository<Sentiment> repositoryA = new Repository<Sentiment>();
             return repositoryA.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()
                                     && x.Category == category) != null;
         }

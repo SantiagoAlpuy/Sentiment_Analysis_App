@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BusinessLogic.DataAccess;
 using BusinessLogic.IControllers;
 
@@ -7,11 +6,11 @@ namespace BusinessLogic.Controllers
 {
     public class AlertAController : IAlertController
     {
-        RepositoryA<AlertA> repositoryA;
+        Repository<AlertA> repositoryA;
 
         public AlertAController()
         {
-            repositoryA = new RepositoryA<AlertA>();
+            repositoryA = new Repository<AlertA>();
         }
 
         public void AddAlert(IAlert alert)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BusinessLogic.DataAccess;
 using BusinessLogic.IControllers;
 using System.Linq;
@@ -8,11 +7,13 @@ namespace BusinessLogic.Controllers
 {
     public class AlertBController : IAlertController
     {
-        RepositoryA<AlertB> repositoryA;
+        private const string INCLUDED_ALERTB_AUTHORS = "AlertBAuthors";
+
+        Repository<AlertB> repositoryA;
 
         public AlertBController()
         {
-            repositoryA = new RepositoryA<AlertB>();
+            repositoryA = new Repository<AlertB>();
         }
 
         public void AddAlert(IAlert alert)
@@ -51,7 +52,7 @@ namespace BusinessLogic.Controllers
 
         public ICollection<AlertB> GetActivatedAlerts()
         {
-            return repositoryA.GetAllWithInclude("AlertBAuthors").Where(x => x.Activated).ToList();
+            return repositoryA.GetAllWithInclude(INCLUDED_ALERTB_AUTHORS).Where(x => x.Activated).ToList();
         }
 
         public void RemoveAllAlerts()

@@ -1,5 +1,4 @@
 ﻿using BusinessLogic.Controllers;
-using BusinessLogic.IControllers;
 using System;
 using System.Collections.Generic;
 
@@ -7,9 +6,6 @@ namespace BusinessLogic
 {
     public class AlertA : IAlert
     {
-
-        IAlertController alertController;
-
         private const string NULL_ALERT = "Ingrese una configuración de alerta válida.";
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
         private const string EMPTY_ENTITY = "Ingrese una entidad no vacía.";
@@ -25,11 +21,6 @@ namespace BusinessLogic
         public int Days { get; set; }
         public int Hours { get; set; }
         public bool Activated { get; set; }
-
-        public AlertA()
-        {
-             alertController = new AlertAController();
-        }
 
         public void Validate()
         {
@@ -50,7 +41,7 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            IPhraseController phraseController = new PhraseController();
+            PhraseController phraseController = new PhraseController();
             ICollection<Phrase> phrases = phraseController.GetAllEntities();
             DateTime lowerLimitAlert = new DateTime();
             int count = 0;
@@ -90,6 +81,7 @@ namespace BusinessLogic
 
         private void ActivateAlarm(int count)
         {
+            AlertAController alertController = new AlertAController();
             if (this.Posts <= count)
                 this.Activated = true;
             else

@@ -6,16 +6,16 @@ namespace BusinessLogic.Controllers
     public class AlertBAuthorRelationController
     {
 
-        RepositoryA<AlertBAuthor> repository;
+        Repository<AlertBAuthor> repository;
 
         public AlertBAuthorRelationController()
         {
-            repository = new RepositoryA<AlertBAuthor>();
+            repository = new Repository<AlertBAuthor>();
         }
 
         public void AddAssociationAlertAuthor(AlertB alert, Author author)
         {
-            RepositoryA<AlertBAuthor> repository = new RepositoryA<AlertBAuthor>();
+            Repository<AlertBAuthor> repository = new Repository<AlertBAuthor>();
             AlertBAuthor association = FindAssociationAlertAuthor(alert, author);
             if (author != null && association == null)
             {

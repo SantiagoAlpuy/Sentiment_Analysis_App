@@ -86,7 +86,7 @@ namespace BusinessLogic
 
         public Author ObtainAuthorByUsername(string username)
         {
-            IAuthorController authorController = new AuthorController();
+            AuthorController authorController = new AuthorController();
             return authorController.ObtainAuthorByUsername(username);
         }
 

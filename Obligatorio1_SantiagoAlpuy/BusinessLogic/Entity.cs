@@ -25,7 +25,7 @@ namespace BusinessLogic
 
         private bool IsEntityInRepo(Entity entity)
         {
-            RepositoryA<Entity> repositoryA = new RepositoryA<Entity>();
+            Repository<Entity> repositoryA = new Repository<Entity>();
             Entity entity1 = repositoryA.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower());
             return entity1 != null;
         }

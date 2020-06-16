@@ -17,6 +17,7 @@ namespace BusinessLogic
         private const string NEGATIVE_DAYS = "No puede ingresar una cantidad negativa de días.";
         private const string NEGATIVE_HOURS = "No puede ingresar una cantidad negativa de horas.";
         private const string POST_COUNT_EXCEEDED = "No puede ingresar una cantidad superior a {0}";
+        private const string INCLUDED_ALERTB_AUTHORS = "AlertBAuthors";
 
         public int AlertBId { get; set; }
         public CategoryType Category { get; set; }
@@ -47,7 +48,7 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            IPhraseController phraseController = new PhraseController();
+            PhraseController phraseController = new PhraseController();
             ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
             ICollection<int> authorsOfActivatedAlert = new HashSet<int>();
             DateTime lowerLimitAlert = new DateTime();
@@ -86,7 +87,7 @@ namespace BusinessLogic
 
         private void ActivateAlarm(int count)
         {
-            IAlertController alertController = new AlertBController();
+            AlertBController alertController = new AlertBController();
             if (this.Posts <= count)
             {
                 this.Activated = true;
@@ -100,13 +101,13 @@ namespace BusinessLogic
 
         private void CheckAssociationAlertAuthor(ICollection<int> collection)
         {
-            IAuthorController authorController = new AuthorController();
+            AuthorController authorController = new AuthorController();
             AlertBAuthorRelationController alertBAuthorController = new AlertBAuthorRelationController();
             if (this.Activated)
             {
                 foreach(int item in collection)
                 {
-                    Author author = authorController.GetAuthorByIdWithInclude(item, "AlertBAuthors");
+                    Author author = authorController.GetAuthorByIdWithInclude(item, INCLUDED_ALERTB_AUTHORS);
                     alertBAuthorController.AddAssociationAlertAuthor(this, author);
                 }
             }

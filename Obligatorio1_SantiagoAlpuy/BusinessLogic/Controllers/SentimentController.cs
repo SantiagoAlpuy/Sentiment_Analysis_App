@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using BusinessLogic.DataAccess;
 using BusinessLogic.IControllers;
 
@@ -9,13 +8,13 @@ namespace BusinessLogic.Controllers
     public class SentimentController : ISentimentController
     {
 
-        private RepositoryA<Sentiment> repositoryA;
+        private Repository<Sentiment> repositoryA;
 
         private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
         
         public SentimentController()
         {
-            repositoryA = new RepositoryA<Sentiment>();
+            repositoryA = new Repository<Sentiment>();
         }
 
         public void AddSentiment(Sentiment sentiment)
@@ -62,14 +61,14 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzePhrases()
         {
-            IPhraseController phraseController = new PhraseController();
+            PhraseController phraseController = new PhraseController();
             phraseController.AnalyzeAllPhrases();
         }
 
         private void AnalyzeAlerts()
         {
-            IAlertController alertAController = new AlertAController();
-            IAlertController alertBController = new AlertBController();
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }

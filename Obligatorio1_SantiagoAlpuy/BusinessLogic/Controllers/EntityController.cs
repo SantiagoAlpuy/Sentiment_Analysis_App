@@ -7,13 +7,13 @@ namespace BusinessLogic.Controllers
 {
     public class EntityController : IEntityController
     {
-        private RepositoryA<Entity> repositoryA;
+        private Repository<Entity> repositoryA;
 
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
         
         public EntityController()
         {
-            repositoryA = new RepositoryA<Entity>();
+            repositoryA = new Repository<Entity>();
         }
 
         public void AddEntity(Entity entity)
@@ -58,14 +58,13 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzeAlerts()
         {
-            IAlertController alertAController = new AlertAController();
-            IAlertController alertBController = new AlertBController();
+            AlertAController alertAController = new AlertAController();
             alertAController.EvaluateAlerts();
         }
 
         private void AnalyzePhrases()
         {
-            IPhraseController phraseController = new PhraseController();
+            PhraseController phraseController = new PhraseController();
             phraseController.AnalyzeAllPhrases();
         }
 

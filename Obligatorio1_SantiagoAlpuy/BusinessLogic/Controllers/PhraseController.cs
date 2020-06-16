@@ -7,22 +7,13 @@ namespace BusinessLogic.Controllers
 {
     public class PhraseController : IPhraseController
     {
-
-        IEntityController entityController;
-        ISentimentController sentimentController;
-        IAlertController alertAController;
-        IAlertController alertBController;
-        RepositoryA<Phrase> repositoryA;
+        Repository<Phrase> repositoryA;
 
         private const string NULL_PHRASE = "Ingrese una frase válida.";
         
         public PhraseController()
         {
-            repositoryA = new RepositoryA<Phrase>();
-            entityController = new EntityController();
-            sentimentController = new SentimentController();
-            alertAController = new AlertAController();
-            alertBController = new AlertBController();
+            repositoryA = new Repository<Phrase>();
         }
 
         public void AddPhrase(Phrase phrase)
@@ -35,6 +26,8 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzeAlerts()
         {
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
             alertAController.EvaluateAlerts();
             alertBController.EvaluateAlerts();
         }
@@ -85,6 +78,7 @@ namespace BusinessLogic.Controllers
 
         private bool IsSentimentOnRepo(Phrase phrase, CategoryType category)
         {
+            SentimentController sentimentController = new SentimentController();
             bool hasSentiment = false;
             ICollection<Sentiment> sentiments = sentimentController.GetAllEntitiesByCategory(category);
             foreach (Sentiment sentiment in sentiments)
@@ -118,6 +112,7 @@ namespace BusinessLogic.Controllers
 
         private Entity FindEntityInPhrase(Phrase phrase)
         {
+            EntityController entityController = new EntityController();
             Entity ent = null;
             ICollection<Entity> entities = entityController.GetAllEntities();
             foreach (Entity entity in entities)
