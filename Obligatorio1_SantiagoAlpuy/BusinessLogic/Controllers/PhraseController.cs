@@ -14,12 +14,8 @@ namespace BusinessLogic.Controllers
         IAlertController alertBController;
         RepositoryA<Phrase> repositoryA;
 
-        private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
         private const string NULL_PHRASE = "Ingrese una frase válida.";
-        private const string EMPTY_PHRASE = "Debe ingresar una frase no vacía.";
-        private const string OLD_DATE = "La fecha no debe tener más de un año de antiguedad.";
-        private const string FUTURE_DATE = "La fecha no puede ser superior a la fecha actual.";
-
+        
         public PhraseController()
         {
             repositoryA = new RepositoryA<Phrase>();
@@ -47,16 +43,7 @@ namespace BusinessLogic.Controllers
         {
             if (phrase == null)
                 throw new NullReferenceException(NULL_PHRASE);
-            else if (phrase.Comment == null)
-                throw new NullReferenceException(NULL_PHRASE);
-            else if (phrase.Comment.Trim() == "")
-                throw new ArgumentException(EMPTY_PHRASE);
-            else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
-                throw new ArgumentException(OLD_DATE);
-            else if (phrase.Date.CompareTo(DateTime.Now) > 0)
-                throw new ArgumentException(FUTURE_DATE);
-            else if (phrase.Author == null)
-                throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
+            else phrase.Validate();
         }
 
         public Phrase ObtainPhrase(int phraseId)

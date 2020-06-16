@@ -59,8 +59,9 @@ namespace UserInterface
         {
             try
             {
-                Author authorToBeModified = authorController.ObtainAuthorByUsername(usernameBox.Text);
+                Author authorToBeModified = authorController.ObtainAuthorByUsername(autorComboBox.Text);
                 Author changedAuthor = authorToBeModified;
+                changedAuthor.Username = usernameBox.Text;
                 changedAuthor.Name = authorNameBox.Text;
                 changedAuthor.Surname = authorSurnameBox.Text;
                 changedAuthor.Born = birthDatePicker.Value;

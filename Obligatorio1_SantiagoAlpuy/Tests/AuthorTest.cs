@@ -424,5 +424,68 @@ namespace Tests
             authorController.ModifyAuthor(author1, author2);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorUsernameToEmptyUsername()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "Alpuy", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorUsernameToUsernameWithManyBlankSpaces()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "Alpuy", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "   ", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        public void ModifyAuthorUsernameToSameUsername()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "Alpuy", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.ModifyAuthor(author1, author2);
+            Assert.AreEqual("testUserA", author1.Username);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ModifyAuthorUsernameToUsernameThatAlreadyExistsOtherThanHim()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserB", Name = "nameB", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
+            Author author3 = new Author() { Username = "testUserA", Name = "nameC", Surname = "surnameC", Born = new DateTime(1980, 01, 01) };
+
+            authorController.AddAuthor(author1);
+            authorController.AddAuthor(author2);
+            authorController.ModifyAuthor(author2, author3);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorUsernameToNotAlphanumericalUsername()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "%&###$", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModifyAuthorNameToVeryBigUsername()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "ABCDEFGHIJKLMOP", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.ModifyAuthor(author1, author2);
+        }
+
     }
 }

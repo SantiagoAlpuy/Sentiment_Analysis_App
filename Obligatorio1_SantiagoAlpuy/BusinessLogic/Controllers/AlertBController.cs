@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BusinessLogic.DataAccess;
 using BusinessLogic.IControllers;
+using System.Linq;
 
 namespace BusinessLogic.Controllers
 {
@@ -29,19 +30,15 @@ namespace BusinessLogic.Controllers
 
         public void EvaluateAlerts()
         {
-            phraseController = new PhraseController();
-            ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
             foreach (IAlert alert in repositoryA.GetAll())
             {
-                alert.EvaluateAlert((List<Phrase>)phrases);
+                alert.EvaluateAlert();
             }
         }
 
         public void EvaluateSingleAlert(IAlert alert)
         {
-            phraseController = new PhraseController();
-            ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
-            alert.EvaluateAlert((List<Phrase>)phrases);
+            alert.EvaluateAlert();
         }
 
         public void UpdateAlert(IAlert alert)
@@ -56,8 +53,7 @@ namespace BusinessLogic.Controllers
 
         public ICollection<AlertB> GetActivatedAlerts()
         {
-            ;
-            return repositoryA.GetAllWithInclude("AlertBAuthors");
+            return repositoryA.GetAllWithInclude("AlertBAuthors").Where(x => x.Activated).ToList();
         }
 
         public void RemoveAllAlerts()

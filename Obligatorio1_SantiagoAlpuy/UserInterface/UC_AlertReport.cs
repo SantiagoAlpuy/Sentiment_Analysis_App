@@ -70,7 +70,7 @@ namespace UserInterface
         {
             infoLabel.Visible = true;
             collection = alertBController.GetActivatedAlerts();
-            dataGrid.DataSource = collection.Where(x => x.Activated).ToList();
+            dataGrid.DataSource = collection;
             dataGrid.Columns[0].Visible = false;
             dataGrid.Columns[1].HeaderText = SECOND_COLUMN_NAME;
             dataGrid.Columns[2].HeaderText = THIRD_COLUMN_NAME;

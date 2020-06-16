@@ -8,19 +8,12 @@ namespace BusinessLogic.Controllers
     public class EntityController : IEntityController
     {
         private RepositoryA<Entity> repositoryA;
-        private IAlertController alertAController;
-        private IAlertController alertBController;
-        private IPhraseController phraseController;
 
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
-        private const string NULL_NAME = "Ingrese un nombre de entidad válida.";
-        private const string EMPTY_NAME = "Ingrese un nombre de entidad no vacío.";
-        private const string ENTITY_ALREADY_EXISTS = "La entidad '{0}' ya fue ingresada anteriormente.";
-
+        
         public EntityController()
         {
             repositoryA = new RepositoryA<Entity>();
-            
         }
 
         public void AddEntity(Entity entity)
@@ -34,21 +27,7 @@ namespace BusinessLogic.Controllers
         {
             if (entity == null)
                 throw new NullReferenceException(NULL_ENTITY);
-            else if (entity.Name == null)
-                throw new NullReferenceException(NULL_NAME);
-            else if (entity.Name.Trim() == "")
-                throw new ArgumentException(EMPTY_NAME);
-            else if (IsEntityInRepo(entity))
-                throw new InvalidOperationException(String.Format(ENTITY_ALREADY_EXISTS, entity.Name));
-        }
-
-        private bool IsEntityInRepo(Entity entity)
-        {
-            Entity entity1 = repositoryA.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower());
-            if (entity1 != null)
-                return true;
-            else
-                return false;
+            else entity.Validate();
         }
 
         public Entity ObtainEntity(string name)
@@ -77,9 +56,9 @@ namespace BusinessLogic.Controllers
 
         private void AnalyzePhrasesAndAlerts()
         {
-            phraseController = new PhraseController();
-            alertAController = new AlertAController();
-            alertBController = new AlertBController();
+            IPhraseController phraseController = new PhraseController();
+            IAlertController alertAController = new AlertAController();
+            IAlertController alertBController = new AlertBController();
             phraseController.AnalyzeAllPhrases();
             alertAController.EvaluateAlerts();
         }

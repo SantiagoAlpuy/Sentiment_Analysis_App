@@ -52,8 +52,10 @@ namespace BusinessLogic
                 throw new ArgumentException(String.Format(POST_COUNT_EXCEEDED, POST_UPPER_BOUND));
         }
 
-        public void EvaluateAlert(List<Phrase> phrases)
+        public void EvaluateAlert()
         {
+            IPhraseController phraseController = new PhraseController();
+            ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
             ICollection<int> authorsOfActivatedAlert = new HashSet<int>();
             DateTime lowerLimitAlert = new DateTime();
             int count = 0;

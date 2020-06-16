@@ -29,19 +29,15 @@ namespace BusinessLogic.Controllers
 
         public void EvaluateAlerts()
         {
-            phraseController = new PhraseController();
-            ICollection<Phrase> phrases = phraseController.GetAllEntities();
             foreach (IAlert alert in repositoryA.GetAll())
             {
-                alert.EvaluateAlert((List<Phrase>)phrases);
+                alert.EvaluateAlert();
             }
         }
 
         public void EvaluateSingleAlert(IAlert alert)
         {
-            phraseController = new PhraseController();
-            ICollection<Phrase> phrases = phraseController.GetAllEntities();
-            alert.EvaluateAlert((List<Phrase>)phrases);
+            alert.EvaluateAlert();
         }
 
         public void UpdateAlert(IAlert alert)

@@ -8,6 +8,6 @@ namespace BusinessLogic
     {
         bool Activated { get; set; }
         void ValidateAlert();
-        void EvaluateAlert(List<Phrase> phrases);
+        void EvaluateAlert();
     }
 }

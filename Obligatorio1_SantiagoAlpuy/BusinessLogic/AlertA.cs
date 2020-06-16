@@ -48,8 +48,10 @@ namespace BusinessLogic
         }
 
 
-        public void EvaluateAlert(List<Phrase> phrases)
+        public void EvaluateAlert()
         {
+            IPhraseController phraseController = new PhraseController();
+            ICollection<Phrase> phrases = phraseController.GetAllEntities();
             DateTime lowerLimitAlert = new DateTime();
             int count = 0;
             foreach (Phrase phrase in phrases)

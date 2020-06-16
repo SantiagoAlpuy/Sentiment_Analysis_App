@@ -168,7 +168,6 @@
             // 
             this.usernameBox.AccessibleDescription = "";
             this.usernameBox.AccessibleName = "";
-            this.usernameBox.Enabled = false;
             this.usernameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameBox.ForeColor = System.Drawing.Color.Gray;
             this.usernameBox.Location = new System.Drawing.Point(92, 156);
