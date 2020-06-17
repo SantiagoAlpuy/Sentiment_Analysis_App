@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace BusinessLogic.DataAccess
 {
-    public class Repository<T>  where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         DbSet<T> contextEntity;
 

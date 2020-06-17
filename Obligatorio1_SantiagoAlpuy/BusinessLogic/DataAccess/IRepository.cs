@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace BusinessLogic.DataAccess
 {
-    interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         void Add(T entity);
         void Update(T entity);
