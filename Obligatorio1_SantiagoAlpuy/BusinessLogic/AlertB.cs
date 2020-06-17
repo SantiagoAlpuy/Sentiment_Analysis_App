@@ -48,74 +48,7 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            PhraseController phraseController = new PhraseController();
-            ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
-            ICollection<int> authorsOfActivatedAlert = new HashSet<int>();
-            DateTime lowerLimitAlert = new DateTime();
-            int count = 0;
-            foreach (Phrase phrase in phrases)
-            {
-                if (ValidateCategories(phrase))
-                {
-                    lowerLimitAlert = CalculateLowerLimitAlert();
-                    if (IsInsideAlertRange(lowerLimitAlert, phrase))
-                    {
-                        count++;
-                        authorsOfActivatedAlert.Add(phrase.Author.AuthorId);
-                    }
-                }
-            }
-            ActivateAlarm(count);
-            CheckAssociationAlertAuthor(authorsOfActivatedAlert);
+            
         }
-
-        private bool ValidateCategories(Phrase phrase)
-        {
-            return phrase.Category.Equals(this.Category) && !phrase.Category.Equals(CategoryType.Neutro);
-        }
-
-        private DateTime CalculateLowerLimitAlert()
-        {
-            int hours = -(this.Hours + this.Days * 24);
-            return DateTime.Now.AddHours(hours);
-        }
-
-        private bool IsInsideAlertRange(DateTime date, Phrase phrase)
-        {
-            return date.CompareTo(phrase.Date) < 0;
-        }
-
-        private void ActivateAlarm(int count)
-        {
-            AlertBController alertController = new AlertBController();
-            if (this.Posts <= count)
-            {
-                this.Activated = true;
-            }
-            else{
-                this.Activated = false;
-            }
-                
-            alertController.UpdateAlert(this);
-        }
-
-        private void CheckAssociationAlertAuthor(ICollection<int> collection)
-        {
-            AuthorController authorController = new AuthorController();
-            AlertBAuthorRelationController alertBAuthorController = new AlertBAuthorRelationController();
-            if (this.Activated)
-            {
-                foreach(int item in collection)
-                {
-                    Author author = authorController.GetAuthorByIdWithInclude(item, INCLUDED_ALERTB_AUTHORS);
-                    alertBAuthorController.AddAssociationAlertAuthor(this, author);
-                }
-            }
-            else
-            {
-                alertBAuthorController.RemoveAssociationAlertAuthor(this);
-            }
-        }
-
     }
 }

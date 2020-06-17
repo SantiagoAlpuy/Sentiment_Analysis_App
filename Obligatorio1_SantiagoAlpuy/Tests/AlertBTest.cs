@@ -93,81 +93,27 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ActivateAlert()
-        {
-            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
-            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            sentimentController.AddSentiment(sentiment);
-            alertController.AddAlert(alert);
-            authorController.AddAuthor(author);
-            phraseController.AddPhrase(phrase);
-
-            alertController.EvaluateAlerts();
-            alert = alertController.ObtainAlert(alert.AlertBId);
-            Assert.IsTrue(alert.Activated);
-        }
-
-        [TestMethod]
-        public void DeactivateAlert()
-        {
-            IAlert alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
-            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            sentimentController.AddSentiment(sentiment);
-            alertController.AddAlert(alert);
-            authorController.AddAuthor(author);
-            phraseController.AddPhrase(phrase);
-
-            alertController.EvaluateAlerts();
-            sentimentController.RemoveSentiment(sentiment.Description, true);
-            phraseController.AnalyzeAllPhrases();
-            alertController.EvaluateAlerts();
-            Assert.IsFalse(alert.Activated);
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GenerateAlertWithZeroPostCount()
         {
-            Entity entity = new Entity() { Name = "pepsi" };
             AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 0, Hours = 2 };
             alertController.AddAlert(alert);
         }
 
         [TestMethod]
-        public void SetAuthorsOfActivatedPhrase()
+        public void ActivateAlert()
         {
-            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
-            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            sentimentController.AddSentiment(sentiment);
-            alertController.AddAlert(alert);
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Phrase phrase1 = new Phrase { Author = author, Category = CategoryType.Positiva, Comment = "me gusta la pepsi", Date = DateTime.Now, Entity = null};
+            Phrase phrase2 = new Phrase { Author = author, Category = CategoryType.Positiva, Comment = "me gusta la coca", Date = DateTime.Now, Entity = null };
+            AlertB alert = new AlertB() { Category = CategoryType.Negativa, Posts = 2, Hours = 2 };
             authorController.AddAuthor(author);
-            phraseController.AddPhrase(phrase);
-            ICollection<AlertBAuthor> collection = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
-            int elemCount = collection.Count;
-            Assert.AreEqual(1,elemCount);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alert.EvaluateAlert();
+            Assert.IsTrue(alert.Activated);
         }
 
-        [TestMethod]
-        public void DeleteAuthorsOfActivatedPhrase()
-        {
-            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 2 };
-            Author author = new Author { Username = "username1", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
-            Phrase phrase = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now.AddDays(-1), Author = author };
-            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
-            sentimentController.AddSentiment(sentiment);
-            alertController.AddAlert(alert);
-            authorController.AddAuthor(author);
-            phraseController.AddPhrase(phrase);
-            authorController.RemoveAuthor(author.Username);
-            ICollection<AlertBAuthor> collection = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
-            int elemCount = collection.Count;
-            Assert.AreEqual(0, elemCount);
-        }
+
     }
 }
