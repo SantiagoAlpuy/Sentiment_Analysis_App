@@ -11,7 +11,7 @@ namespace UserInterface
     {
         AlertAController alertAController;
         AlertBController alertBController;
-        AuthorController authorController;
+        IAuthorController authorController;
         ICollection<AlertB> collection;
 
         private const string FIRST_COLUMN_NAME = "Entidad";

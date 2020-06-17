@@ -67,11 +67,16 @@ namespace BusinessLogic.Controllers
         public void ModifyAuthor(Author author1, Author author2)
         {
             ValidateAuthorModification(author1, author2);
+            ModifyFields(author1, author2);
+            repositoryA.Update(author1);
+        }
+
+        private void ModifyFields(Author author1, Author author2)
+        {
             author1.Username = author2.Username;
             author1.Name = author2.Name;
             author1.Surname = author2.Surname;
             author1.Born = author2.Born;
-            repositoryA.Update(author1);
         }
 
         private void ValidateAuthorModification(Author author1, Author author2)
@@ -84,6 +89,7 @@ namespace BusinessLogic.Controllers
             else
                 author2.Validate();
         }
+
 
         private bool UsernameChanged(Author author1, Author author2)
         {

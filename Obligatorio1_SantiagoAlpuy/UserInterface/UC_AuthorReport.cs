@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic.IControllers;
 using BusinessLogic.Controllers;
@@ -123,7 +119,7 @@ namespace UserInterface
                     int totalNumberPhrases = author.Phrases.Count();
                     DateTime firstPostDate = author.Phrases.Min(x => x.Date);
                     double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
-                    double mean = totalDays > 0 ? totalNumberPhrases / totalDays : 0;
+                    double mean = totalDays > 0 ? Math.Round(totalNumberPhrases / totalDays, 4) : 0;
                     row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
                 }
                 else

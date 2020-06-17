@@ -10,7 +10,7 @@ namespace BusinessLogic
         public DbSet<AlertA> AlertsA { get; set; }
         public DbSet<AlertB> AlertsB { get; set; }
         public DbSet<Author> Authors { get; set; }
-        public DbSet<AlertBAuthor> AlertsBAuthors { get; set; }
+        public DbSet<AlertBAuthor> AlertBAuthors { get; set; }
         
         public Context()
         {
