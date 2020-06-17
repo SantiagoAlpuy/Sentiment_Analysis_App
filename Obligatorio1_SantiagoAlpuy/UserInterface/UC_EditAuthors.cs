@@ -53,6 +53,7 @@ namespace UserInterface
             authorNameBox.Enabled = true;
             authorSurnameBox.Enabled = true;
             birthDatePicker.Enabled = true;
+            usernameBox.Enabled = true;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -60,7 +61,8 @@ namespace UserInterface
             try
             {
                 Author authorToBeModified = authorController.ObtainAuthorByUsername(autorComboBox.Text);
-                Author changedAuthor = authorToBeModified;
+                Author changedAuthor = new Author { Username = authorToBeModified.Username, Name = authorToBeModified.Name,
+                Surname = authorToBeModified.Surname, Born = authorToBeModified.Born};
                 changedAuthor.Username = usernameBox.Text;
                 changedAuthor.Name = authorNameBox.Text;
                 changedAuthor.Surname = authorSurnameBox.Text;
@@ -93,6 +95,7 @@ namespace UserInterface
             authorNameBox.Enabled = false;
             authorSurnameBox.Enabled = false;
             birthDatePicker.Enabled = false;
+            usernameBox.Enabled = false;
             usernameBox.Text = "";
             authorNameBox.Text = "";
             authorSurnameBox.Text = "";

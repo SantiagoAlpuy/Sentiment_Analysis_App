@@ -142,7 +142,7 @@
             this.authorSurnameBox.AccessibleName = "";
             this.authorSurnameBox.Enabled = false;
             this.authorSurnameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.authorSurnameBox.ForeColor = System.Drawing.Color.Black;
+            this.authorSurnameBox.ForeColor = System.Drawing.Color.Gray;
             this.authorSurnameBox.Location = new System.Drawing.Point(92, 275);
             this.authorSurnameBox.Multiline = true;
             this.authorSurnameBox.Name = "authorSurnameBox";
@@ -156,7 +156,7 @@
             this.authorNameBox.AccessibleName = "";
             this.authorNameBox.Enabled = false;
             this.authorNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.authorNameBox.ForeColor = System.Drawing.Color.Black;
+            this.authorNameBox.ForeColor = System.Drawing.Color.Gray;
             this.authorNameBox.Location = new System.Drawing.Point(92, 214);
             this.authorNameBox.Multiline = true;
             this.authorNameBox.Name = "authorNameBox";
@@ -168,6 +168,7 @@
             // 
             this.usernameBox.AccessibleDescription = "";
             this.usernameBox.AccessibleName = "";
+            this.usernameBox.Enabled = false;
             this.usernameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameBox.ForeColor = System.Drawing.Color.Gray;
             this.usernameBox.Location = new System.Drawing.Point(92, 156);
