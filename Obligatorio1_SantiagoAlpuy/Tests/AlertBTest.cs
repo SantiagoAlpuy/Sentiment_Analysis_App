@@ -146,6 +146,24 @@ namespace Tests
             Assert.IsFalse(alert.Activated);
         }
 
+        [TestMethod]
+        public void DontActivateAlertIfEnoughPostsFromAuthorButNotOutOfTimeRange()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Sentiment sentiment1 = new Sentiment { Category = true, Description = "me gusta" };
+            Sentiment sentiment2 = new Sentiment { Category = true, Description = "me encanta" };
+            Phrase phrase1 = new Phrase { Author = author, Comment = "me gusta la pepsi", Date = DateTime.Now };
+            Phrase phrase2 = new Phrase { Author = author, Comment = "me encanta la cocacola", Date = DateTime.Now };
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 2, Hours = 2 };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alert.EvaluateAlert();
+            Assert.IsFalse(alert.Activated);
+        }
+
 
     }
 }
