@@ -126,6 +126,7 @@ namespace Tests
             authorController.AddAuthor(author);
             sentimentController.AddSentiment(sentiment);
             phraseController.AddPhrase(phrase);
+            alertController.AddAlert(alert);
             alert.EvaluateAlert();
             Assert.IsFalse(alert.Activated);
         }
@@ -144,6 +145,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment2);
             phraseController.AddPhrase(phrase1);
             phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert);
             alert.EvaluateAlert();
             Assert.IsFalse(alert.Activated);
         }
@@ -162,6 +164,7 @@ namespace Tests
             sentimentController.AddSentiment(sentiment2);
             phraseController.AddPhrase(phrase1);
             phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert);
             alert.EvaluateAlert();
             Assert.IsFalse(alert.Activated);
         }

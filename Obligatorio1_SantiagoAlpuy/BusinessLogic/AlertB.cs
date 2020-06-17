@@ -50,8 +50,10 @@ namespace BusinessLogic
         {
             AlertBAuthorController alertBAuthorController = new AlertBAuthorController();
             AuthorController authorController = new AuthorController();
+            AlertBController alertController = new AlertBController();
             ICollection<Author> authors = authorController.GetAllAuthorsWithInclude();
-            
+
+            this.Activated = false;
             foreach (Author author in authors)
             {
                 int count = 0;
@@ -76,6 +78,7 @@ namespace BusinessLogic
 
                 count = 0;
             }
+            alertController.UpdateAlert(this);
         }
 
         private DateTime CalculateLowerLimitAlert()
