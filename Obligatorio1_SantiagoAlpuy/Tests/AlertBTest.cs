@@ -124,6 +124,20 @@ namespace Tests
             Assert.IsFalse(alert.Activated);
         }
 
+        [TestMethod]
+        public void DontActivateAlertIfEnoughPostsFromAuthorButNotOfSameCategoryAsAlert()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Phrase phrase1 = new Phrase { Author = author, Category = CategoryType.Positiva, Comment = "me gusta la pepsi", Date = DateTime.Now, Entity = null };
+            Phrase phrase2 = new Phrase { Author = author, Category = CategoryType.Negativa, Comment = "me gusta la pepsi", Date = DateTime.Now, Entity = null };
+            AlertB alert = new AlertB() { Category = CategoryType.Negativa, Posts = 2, Hours = 2 };
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alert.EvaluateAlert();
+            Assert.IsFalse(alert.Activated);
+        }
+
 
     }
 }
