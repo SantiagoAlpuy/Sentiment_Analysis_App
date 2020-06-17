@@ -9,11 +9,12 @@ namespace BusinessLogic.Controllers
     {
         private const string INCLUDED_ALERTB_AUTHORS = "AlertBAuthors";
 
-        Repository<AlertB> repositoryA;
+        IRepository<AlertB> repositoryA;
+        FactoryRepository<AlertB> factoryRepository = new FactoryRepository<AlertB>();
 
         public AlertBController()
         {
-            repositoryA = new Repository<AlertB>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddAlert(IAlert alert)

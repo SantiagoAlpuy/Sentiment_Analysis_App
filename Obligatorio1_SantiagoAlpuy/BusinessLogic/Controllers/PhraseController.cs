@@ -7,13 +7,14 @@ namespace BusinessLogic.Controllers
 {
     public class PhraseController : IPhraseController
     {
-        Repository<Phrase> repositoryA;
+        IRepository<Phrase> repositoryA;
+        FactoryRepository<Phrase> factoryRepository = new FactoryRepository<Phrase>();
 
         private const string NULL_PHRASE = "Ingrese una frase válida.";
         
         public PhraseController()
         {
-            repositoryA = new Repository<Phrase>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddPhrase(Phrase phrase)

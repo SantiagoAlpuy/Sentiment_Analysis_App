@@ -8,13 +8,14 @@ namespace BusinessLogic.Controllers
     public class SentimentController : ISentimentController
     {
 
-        private Repository<Sentiment> repositoryA;
+        IRepository<Sentiment> repositoryA;
+        FactoryRepository<Sentiment> factoryRepository = new FactoryRepository<Sentiment>();
 
         private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
         
         public SentimentController()
         {
-            repositoryA = new Repository<Sentiment>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddSentiment(Sentiment sentiment)

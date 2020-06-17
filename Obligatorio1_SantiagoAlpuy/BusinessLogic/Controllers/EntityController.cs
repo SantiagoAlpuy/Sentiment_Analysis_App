@@ -7,13 +7,14 @@ namespace BusinessLogic.Controllers
 {
     public class EntityController : IEntityController
     {
-        private Repository<Entity> repositoryA;
+        IRepository<Entity> repositoryA;
+        FactoryRepository<Entity> factoryRepository = new FactoryRepository<Entity>();
 
         private const string NULL_ENTITY = "Ingrese una entidad válida.";
         
         public EntityController()
         {
-            repositoryA = new Repository<Entity>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddEntity(Entity entity)

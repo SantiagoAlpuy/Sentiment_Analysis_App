@@ -6,11 +6,12 @@ namespace BusinessLogic.Controllers
 {
     public class AlertAController : IAlertController
     {
-        Repository<AlertA> repositoryA;
+        IRepository<AlertA> repositoryA;
+        FactoryRepository<AlertA> factoryRepository = new FactoryRepository<AlertA>();
 
         public AlertAController()
         {
-            repositoryA = new Repository<AlertA>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddAlert(IAlert alert)

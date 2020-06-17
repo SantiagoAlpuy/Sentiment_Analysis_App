@@ -13,11 +13,12 @@ namespace BusinessLogic.Controllers
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
         private const string INCLUDED_PHRASES = "Phrases";
 
-        Repository<Author> repositoryA;
+        IRepository<Author> repositoryA;
+        FactoryRepository<Author> factoryRepository = new FactoryRepository<Author>();
 
         public AuthorController()
         {
-            repositoryA = new Repository<Author>();
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddAuthor(Author author)
