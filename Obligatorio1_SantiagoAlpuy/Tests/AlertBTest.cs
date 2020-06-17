@@ -184,7 +184,23 @@ namespace Tests
             alert.EvaluateAlert();
             ICollection<AlertBAuthor> alertAuthors = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
             Assert.AreEqual(1, alertAuthors.Count);
+        }
 
+        [TestMethod]
+        public void DeactivateAlarmThatWasPreviouslyActivated()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Sentiment sentiment = new Sentiment { Category = true, Description = "me gusta" };
+            Phrase phrase = new Phrase { Author = author, Comment = "me gusta la pepsi", Date = DateTime.Now };
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Hours = 2 };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase);
+            alertController.AddAlert(alert);
+            alert.EvaluateAlert();
+            phraseController.RemoveAllPhrases();
+            alert.EvaluateAlert();
+            Assert.IsFalse(alert.Activated);
         }
 
 
