@@ -152,7 +152,7 @@ namespace Tests
             Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             Sentiment sentiment1 = new Sentiment { Category = true, Description = "me gusta" };
             Sentiment sentiment2 = new Sentiment { Category = true, Description = "me encanta" };
-            Phrase phrase1 = new Phrase { Author = author, Comment = "me gusta la pepsi", Date = DateTime.Now };
+            Phrase phrase1 = new Phrase { Author = author, Comment = "me gusta la pepsi", Date = new DateTime(2019, 12, 12) };
             Phrase phrase2 = new Phrase { Author = author, Comment = "me encanta la cocacola", Date = DateTime.Now };
             AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 2, Hours = 2 };
             authorController.AddAuthor(author);

@@ -57,7 +57,13 @@ namespace BusinessLogic
                 foreach (Phrase phrase in phrases)
                 {
                     if (phrase.Category.Equals(this.Category))
-                        count++;
+                    {
+                        DateTime lowerLimitAlert = CalculateLowerLimitAlert();
+                        if (lowerLimitAlert.CompareTo(phrase.Date) < 0)
+                        {
+                            count++;
+                        }
+                    }
                 }
 
                 if (!this.Activated && count >= this.Posts)
@@ -67,6 +73,12 @@ namespace BusinessLogic
 
                 count = 0;
             }
+        }
+
+        private DateTime CalculateLowerLimitAlert()
+        {
+            int hours = -(this.Hours + this.Days * 24);
+            return DateTime.Now.AddHours(hours);
         }
 
 
