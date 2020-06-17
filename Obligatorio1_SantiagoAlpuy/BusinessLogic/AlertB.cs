@@ -48,7 +48,6 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            AlertBAuthorController alertBAuthorController = new AlertBAuthorController();
             AuthorController authorController = new AuthorController();
             AlertBController alertController = new AlertBController();
             ICollection<Author> authors = authorController.GetAllAuthorsWithInclude();
@@ -56,29 +55,41 @@ namespace BusinessLogic
             this.Activated = false;
             foreach (Author author in authors)
             {
-                int count = 0;
-                ICollection<Phrase> phrases = author.Phrases;
-                foreach (Phrase phrase in phrases)
-                {
-                    if (phrase.Category.Equals(this.Category))
-                    {
-                        DateTime lowerLimitAlert = CalculateLowerLimitAlert();
-                        if (lowerLimitAlert.CompareTo(phrase.Date) < 0)
-                        {
-                            count++;
-                        }
-                    }
-                }
-
-                if (count >= this.Posts)
-                {
-                    this.Activated = true;
-                    alertBAuthorController.AddAssociationAlertAuthor(this, author);
-                }
-
-                count = 0;
+                int count = CountValidPhrasesFromAuthor(author);
+                CheckIfActivationIsSuitable(count, author);
             }
             alertController.UpdateAlert(this);
+        }
+
+        private void CheckIfActivationIsSuitable(int count, Author author)
+        {
+            AlertBAuthorController alertBAuthorController = new AlertBAuthorController();
+            if (count >= this.Posts)
+            {
+                this.Activated = true;
+                alertBAuthorController.AddAssociationAlertAuthor(this, author);
+            }
+        }
+
+        private int CountValidPhrasesFromAuthor(Author author)
+        {
+            int count = 0;
+            ICollection<Phrase> phrases = author.Phrases;
+            foreach (Phrase phrase in phrases)
+            {
+                if (phrase.Category.Equals(this.Category))
+                {
+                    if (IsIfPhraseIsInAlertRange(phrase.Date))
+                        count++;
+                }
+            }
+            return count;
+        }
+
+        private bool IsIfPhraseIsInAlertRange(DateTime phraseDate)
+        {
+            DateTime lowerLimitAlert = CalculateLowerLimitAlert();
+            return lowerLimitAlert.CompareTo(phraseDate) < 0;
         }
 
         private DateTime CalculateLowerLimitAlert()
@@ -86,7 +97,6 @@ namespace BusinessLogic
             int hours = -(this.Hours + this.Days * 24);
             return DateTime.Now.AddHours(hours);
         }
-
 
 
 
