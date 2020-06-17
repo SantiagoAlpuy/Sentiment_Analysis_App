@@ -56,12 +56,12 @@ namespace BusinessLogic
             foreach (Author author in authors)
             {
                 int count = CountValidPhrasesFromAuthor(author);
-                CheckIfActivationIsSuitable(count, author);
+                AlertActivationAttempt(count, author);
             }
             alertController.UpdateAlert(this);
         }
 
-        private void CheckIfActivationIsSuitable(int count, Author author)
+        private void AlertActivationAttempt(int count, Author author)
         {
             AlertBAuthorController alertBAuthorController = new AlertBAuthorController();
             if (count >= this.Posts)

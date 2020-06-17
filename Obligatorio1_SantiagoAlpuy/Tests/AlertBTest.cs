@@ -34,7 +34,6 @@ namespace Tests
             phraseController = new PhraseController();
             authorController = new AuthorController();
             alertController = new AlertBController();
-            alertBAuthorController = new AlertBAuthorController();
         }
 
         private void ClearDatabase()
@@ -43,7 +42,6 @@ namespace Tests
             phraseController.RemoveAllPhrases();
             authorController.RemoveAllAuthors();
             alertController.RemoveAllAlerts();
-            alertBAuthorController.RemoveAllAlertAuthors();
         }
 
         [TestMethod]
@@ -206,6 +204,23 @@ namespace Tests
             Assert.IsFalse(alert.Activated);
         }
 
+        [TestMethod]
+        public void FinishAssociationBetweenAlertAndAuthorThatNoLongerAreAssociated()
+        {
+            AlertBAuthorController alertAuthorController = new AlertBAuthorController();
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Sentiment sentiment = new Sentiment { Category = true, Description = "me gusta" };
+            Phrase phrase = new Phrase { Author = author, Comment = "me gusta la pepsi", Date = DateTime.Now };
+            AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Hours = 2 };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase);
+            alertController.AddAlert(alert);
+            alert.EvaluateAlert();
+            alertAuthorController.RemoveAssociationAlertAuthor(alert, author);
+            ICollection<AlertBAuthor> alertAuthors = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
+            Assert.AreEqual(0, alertAuthors.Count);
+        }
 
     }
 }

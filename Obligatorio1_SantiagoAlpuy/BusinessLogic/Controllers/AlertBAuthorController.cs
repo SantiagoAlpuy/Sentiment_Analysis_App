@@ -35,24 +35,16 @@ namespace BusinessLogic.Controllers
             return association;
         }
 
-        public void RemoveAssociationAlertAuthor(AlertB alert)
+        public void RemoveAssociationAlertAuthor(AlertB alert, Author author)
         {
-            ICollection<AlertBAuthor> collection = repository.GetEntitiesByPredicate(x => x.AlertBId == alert.AlertBId);
-            foreach (AlertBAuthor item in collection)
-            {
-                repository.Remove(item);
-            }
+            AlertBAuthor alertAuthor = FindAssociationAlertAuthor(alert, author);
+            repository.Remove(alertAuthor);
         }
 
         public ICollection<AlertBAuthor> GetAllRelationsByAlertId(int alertBId)
         {
             ICollection<AlertBAuthor> collection = repository.GetEntitiesByPredicate(x => x.AlertBId == alertBId);
             return collection;
-        }
-
-        public void RemoveAllAlertAuthors()
-        {
-            repository.ClearAll();
         }
 
     }
