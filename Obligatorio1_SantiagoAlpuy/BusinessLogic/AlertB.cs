@@ -48,7 +48,11 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            
+            this.Activated = true;
         }
+
+
+
+
     }
 }
