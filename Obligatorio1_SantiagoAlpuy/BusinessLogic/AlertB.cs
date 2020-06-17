@@ -69,6 +69,10 @@ namespace BusinessLogic
                 this.Activated = true;
                 alertBAuthorController.AddAssociationAlertAuthor(this, author);
             }
+            else
+            {
+                alertBAuthorController.RemoveAssociationAlertAuthor(this, author);
+            }
         }
 
         private int CountValidPhrasesFromAuthor(Author author)

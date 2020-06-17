@@ -38,13 +38,19 @@ namespace BusinessLogic.Controllers
         public void RemoveAssociationAlertAuthor(AlertB alert, Author author)
         {
             AlertBAuthor alertAuthor = FindAssociationAlertAuthor(alert, author);
-            repository.Remove(alertAuthor);
+            if (alertAuthor != null)
+                repository.Remove(alertAuthor);
         }
 
         public ICollection<AlertBAuthor> GetAllRelationsByAlertId(int alertBId)
         {
             ICollection<AlertBAuthor> collection = repository.GetEntitiesByPredicate(x => x.AlertBId == alertBId);
             return collection;
+        }
+
+        public void RemoveAll()
+        {
+            repository.ClearAll();
         }
 
     }

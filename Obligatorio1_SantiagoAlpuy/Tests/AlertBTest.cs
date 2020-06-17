@@ -34,6 +34,7 @@ namespace Tests
             phraseController = new PhraseController();
             authorController = new AuthorController();
             alertController = new AlertBController();
+            alertBAuthorController = new AlertBAuthorController();
         }
 
         private void ClearDatabase()
@@ -42,6 +43,7 @@ namespace Tests
             phraseController.RemoveAllPhrases();
             authorController.RemoveAllAuthors();
             alertController.RemoveAllAlerts();
+            alertBAuthorController.RemoveAll();
         }
 
         [TestMethod]
