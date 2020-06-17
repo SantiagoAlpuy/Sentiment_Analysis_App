@@ -48,7 +48,24 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
-            this.Activated = true;
+            AuthorController authorController = new AuthorController();
+            ICollection<Author> authors = authorController.GetAllAuthorsWithInclude();
+            foreach (Author author in authors)
+            {
+                int count = 0;
+                ICollection<Phrase> phrases = author.Phrases;
+                foreach (Phrase phrase in phrases)
+                {
+                    count++;
+                }
+
+                if (!this.Activated && count >= this.Posts)
+                {
+                    this.Activated = true;
+                }
+
+                count = 0;
+            }
         }
 
 
