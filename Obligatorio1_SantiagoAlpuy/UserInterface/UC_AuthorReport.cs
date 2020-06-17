@@ -47,6 +47,7 @@ namespace UserInterface
             this.dataGrid.Columns[1].Name = "Nombre";
             this.dataGrid.Columns[2].Name = "Apellido";
             this.dataGrid.Columns[3].Name = lastColumnName;
+            this.dataGrid.ColumnHeadersVisible = true;
             ClearRows();
         }
 
@@ -63,13 +64,16 @@ namespace UserInterface
             else if (criterion == OPTION_C)
             {
                 CalculateAmmountOfEntities(authors);
-            }                
+            }
             else if (criterion == OPTION_D)
             {
                 CalculatePostsMean(authors);
             }
             else
-                this.dataGrid.DataSource = null;
+            {
+                this.dataGrid.ColumnHeadersVisible = false;
+                ClearRows();
+            }
         }
 
         private void ClearRows()
@@ -84,7 +88,7 @@ namespace UserInterface
             {
                 int totalNumberPhrases = author.Phrases.Count();
                 int totalNumberByCategory = author.Phrases.Where(x => x.Category == category).Count();
-                int percentage = totalNumberByCategory * 100 / totalNumberPhrases;
+                int percentage = totalNumberPhrases>0 ? totalNumberByCategory * 100 / totalNumberPhrases : 0;
 
                 string[] row = new string[] { author.Username, author.Name, author.Surname, percentage.ToString() };
                 this.dataGrid.Rows.Add(row);
@@ -119,7 +123,7 @@ namespace UserInterface
                     int totalNumberPhrases = author.Phrases.Count();
                     DateTime firstPostDate = author.Phrases.Min(x => x.Date);
                     double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
-                    double mean = totalNumberPhrases / totalDays;
+                    double mean = totalDays > 0 ? totalNumberPhrases / totalDays : 0;
                     row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
                 }
                 else
@@ -133,10 +137,7 @@ namespace UserInterface
 
         private void btnFilterReport_Click(object sender, EventArgs e)
         {
-            if (criterionComboBox.SelectedItem.ToString() != "")
-            {
-                InitializeDataGridOptionA(criterionComboBox.SelectedItem.ToString());
-            }
+            InitializeDataGridOptionA(criterionComboBox.Text);
         }
     }
 }
