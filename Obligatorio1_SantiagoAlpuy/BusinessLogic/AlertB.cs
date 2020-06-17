@@ -56,7 +56,8 @@ namespace BusinessLogic
                 ICollection<Phrase> phrases = author.Phrases;
                 foreach (Phrase phrase in phrases)
                 {
-                    count++;
+                    if (phrase.Category.Equals(this.Category))
+                        count++;
                 }
 
                 if (!this.Activated && count >= this.Posts)
