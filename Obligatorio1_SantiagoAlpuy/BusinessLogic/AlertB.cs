@@ -48,8 +48,10 @@ namespace BusinessLogic
 
         public void EvaluateAlert()
         {
+            AlertBAuthorController alertBAuthorController = new AlertBAuthorController();
             AuthorController authorController = new AuthorController();
             ICollection<Author> authors = authorController.GetAllAuthorsWithInclude();
+            
             foreach (Author author in authors)
             {
                 int count = 0;
@@ -66,9 +68,10 @@ namespace BusinessLogic
                     }
                 }
 
-                if (!this.Activated && count >= this.Posts)
+                if (count >= this.Posts)
                 {
                     this.Activated = true;
+                    alertBAuthorController.AddAssociationAlertAuthor(this, author);
                 }
 
                 count = 0;

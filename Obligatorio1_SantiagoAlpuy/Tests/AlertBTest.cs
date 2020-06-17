@@ -11,7 +11,7 @@ namespace Tests
     public class AlertBTest
     {
         AlertBController alertController;
-        AlertBAuthorRelationController alertBAuthorController;
+        AlertBAuthorController alertBAuthorController;
         IPhraseController phraseController;
         ISentimentController sentimentController;
         IAuthorController authorController;
@@ -34,7 +34,7 @@ namespace Tests
             phraseController = new PhraseController();
             authorController = new AuthorController();
             alertController = new AlertBController();
-            alertBAuthorController = new AlertBAuthorRelationController();
+            alertBAuthorController = new AlertBAuthorController();
         }
 
         private void ClearDatabase()
@@ -43,6 +43,7 @@ namespace Tests
             phraseController.RemoveAllPhrases();
             authorController.RemoveAllAuthors();
             alertController.RemoveAllAlerts();
+            alertBAuthorController.RemoveAllAlertAuthors();
         }
 
         [TestMethod]
@@ -109,7 +110,8 @@ namespace Tests
             AlertB alert = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Hours = 2 };
             authorController.AddAuthor(author);
             sentimentController.AddSentiment(sentiment);
-            phraseController.AddPhrase(phrase);          
+            phraseController.AddPhrase(phrase);
+            alertController.AddAlert(alert);
             alert.EvaluateAlert();
             Assert.IsTrue(alert.Activated);
         }
@@ -178,8 +180,9 @@ namespace Tests
             sentimentController.AddSentiment(sentiment2);
             phraseController.AddPhrase(phrase1);
             phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert);
             alert.EvaluateAlert();
-            ICollection<AlertBAuthor> alertAuthors = alert.AlertBAuthors;
+            ICollection<AlertBAuthor> alertAuthors = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
             Assert.AreEqual(1, alertAuthors.Count);
 
         }

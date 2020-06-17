@@ -28,6 +28,11 @@ namespace BusinessLogic.Controllers
             return repositoryA.Find(x => x.AlertBId.Equals(alertAId));
         }
 
+        public AlertB ObtainAlertWithInclude(int id)
+        {
+            return repositoryA.GetAllWithInclude(INCLUDED_ALERTB_AUTHORS).SingleOrDefault(x => x.AlertBId == id);
+        }
+
         public void EvaluateAlerts()
         {
             foreach (IAlert alert in repositoryA.GetAll())
@@ -50,7 +55,7 @@ namespace BusinessLogic.Controllers
         {
             return repositoryA.GetAll();
         }
-
+        
         public ICollection<AlertB> GetActivatedAlerts()
         {
             return repositoryA.GetAllWithInclude(INCLUDED_ALERTB_AUTHORS).Where(x => x.Activated).ToList();

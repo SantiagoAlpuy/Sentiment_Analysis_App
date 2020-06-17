@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace BusinessLogic.Controllers
 {
-    public class AlertBAuthorRelationController
+    public class AlertBAuthorController
     {
 
         IRepository<AlertBAuthor> repository;
         FactoryRepository<AlertBAuthor> factoryRepository = new FactoryRepository<AlertBAuthor>();
 
-        public AlertBAuthorRelationController()
+        public AlertBAuthorController()
         {
             repository = factoryRepository.CreateRepository();
         }
@@ -17,10 +17,14 @@ namespace BusinessLogic.Controllers
         public void AddAssociationAlertAuthor(AlertB alert, Author author)
         {
             AlertBAuthor association = FindAssociationAlertAuthor(alert, author);
+            AlertBController alertController = new AlertBController();
+            AuthorController authorController = new AuthorController();
+            alert = alertController.ObtainAlertWithInclude(alert.AlertBId);
+            author = authorController.GetAuthorByIdWithInclude(author.AuthorId, "AlertBAuthors");
             if (author != null && association == null)
             {
                 AlertBAuthor alertAuthor = new AlertBAuthor { AlertB = alert, Author = author, AlertBId = alert.AlertBId, AuthorId = author.AuthorId };
-                author.AlertBAuthors.Add(alertAuthor);
+                alert.AlertBAuthors.Add(alertAuthor);
                 repository.Add(alertAuthor);
             }
         }
@@ -44,6 +48,11 @@ namespace BusinessLogic.Controllers
         {
             ICollection<AlertBAuthor> collection = repository.GetEntitiesByPredicate(x => x.AlertBId == alertBId);
             return collection;
+        }
+
+        public void RemoveAllAlertAuthors()
+        {
+            repository.ClearAll();
         }
 
     }
