@@ -23,11 +23,6 @@ namespace BusinessLogic.Controllers
             repositoryA.Add((AlertB)alert);
         }
 
-        public AlertB ObtainAlert(int alertAId)
-        {
-            return repositoryA.Find(x => x.AlertBId.Equals(alertAId));
-        }
-
         public AlertB ObtainAlertWithInclude(int id)
         {
             return repositoryA.GetAllWithInclude(INCLUDED_ALERTB_AUTHORS).SingleOrDefault(x => x.AlertBId == id);

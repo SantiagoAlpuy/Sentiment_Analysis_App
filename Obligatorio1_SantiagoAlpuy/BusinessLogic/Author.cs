@@ -83,12 +83,6 @@ namespace BusinessLogic
             return text.All(char.IsLetter) || text.Replace(" ", "").All(char.IsLetter);
         }
 
-        public Author ObtainAuthorByUsername(string username)
-        {
-            AuthorController authorController = new AuthorController();
-            return authorController.ObtainAuthorByUsername(username);
-        }
-
         public override string ToString()
         {
             return Username;

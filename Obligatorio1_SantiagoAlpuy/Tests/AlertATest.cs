@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -257,6 +258,62 @@ namespace Tests
             Entity entity = new Entity() { Name = "pepsi" };
             AlertA alert = new AlertA() { Entity = entity.Name, Category = CategoryType.Positiva, Posts = 0, Hours = 2 };
             alertController.AddAlert(alert);
+        }
+
+        [TestMethod]
+        public void GetAllTheActivatedAlerts()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Entity entity1 = new Entity() { Name = "pepsi" };
+            Entity entity2 = new Entity() { Name = "cocacola" };
+            Entity entity3 = new Entity() { Name = "fanta" };
+            AlertA alert1 = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertA alert2 = new AlertA() { Entity = entity2.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertA alert3 = new AlertA() { Entity = entity3.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            Phrase phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta tomar cocacola", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            entityController.AddEntity(entity3);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert1);
+            alertController.AddAlert(alert2);
+            alertController.AddAlert(alert3);
+            alertController.EvaluateAlerts();
+            ICollection<AlertA> alerts = alertController.GetActivatedAlerts();
+            Assert.AreEqual(2, alerts.Count);
+        }
+
+        [TestMethod]
+        public void GetAllTheAlerts()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Entity entity1 = new Entity() { Name = "pepsi" };
+            Entity entity2 = new Entity() { Name = "cocacola" };
+            Entity entity3 = new Entity() { Name = "fanta" };
+            AlertA alert1 = new AlertA() { Entity = entity1.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertA alert2 = new AlertA() { Entity = entity2.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertA alert3 = new AlertA() { Entity = entity3.Name, Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            Phrase phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta tomar cocacola", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            entityController.AddEntity(entity3);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert1);
+            alertController.AddAlert(alert2);
+            alertController.AddAlert(alert3);
+            alertController.EvaluateAlerts();
+            ICollection<AlertA> alerts = alertController.GetAllAlerts();
+            Assert.AreEqual(3, alerts.Count);
         }
 
     }

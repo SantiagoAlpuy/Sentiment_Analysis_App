@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
 using BusinessLogic.Controllers;
 using BusinessLogic.IControllers;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -249,5 +251,18 @@ namespace Tests
             Phrase phrase = new Phrase() { Comment = "me gusta la hamburguesa", Date = DateTime.Now };
             phraseController.AddPhrase(phrase);
         }
+
+        [TestMethod]
+        public void GetAllPhrasesWithAuthorAsInclude()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            Phrase phrase = new Phrase() { Comment = "me gusta la hamburguesa", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase);
+            ICollection<Phrase> phrases = phraseController.GetAllEntitiesWithIncludes("Author");
+            Assert.AreEqual(1, phrases.Count);
+            Assert.AreEqual(phrases.FirstOrDefault().PhraseId, phrase.PhraseId);
+        }
+
     }
 }

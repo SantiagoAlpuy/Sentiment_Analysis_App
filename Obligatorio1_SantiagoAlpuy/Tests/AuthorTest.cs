@@ -262,6 +262,28 @@ namespace Tests
         }
 
         [TestMethod]
+        public void GetAllAuthors()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Author author2 = new Author() { Username = "testUserB", Name = "nameB", Surname = "surnameB", Born = new DateTime(1980, 01, 01) };
+            Author author3 = new Author() { Username = "testUserC", Name = "nameC", Surname = "surnameC", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            authorController.AddAuthor(author2);
+            authorController.AddAuthor(author3);
+            ICollection<Author> authors = authorController.GetAll();
+            Assert.AreEqual(3, authors.Count);
+        }
+
+        [TestMethod]
+        public void GetAuthorById()
+        {
+            Author author1 = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author1);
+            Author author2 = authorController.GetAuthorById(author1.AuthorId);
+            Assert.AreEqual(author1.AuthorId, author2.AuthorId);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ModifyAuthorNameToEmpty()
         {

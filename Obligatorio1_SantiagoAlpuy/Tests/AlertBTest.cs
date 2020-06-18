@@ -224,5 +224,49 @@ namespace Tests
             Assert.AreEqual(0, alertAuthors.Count);
         }
 
+        [TestMethod]
+        public void GetAllTheActivatedAlerts()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            AlertB alert1 = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertB alert2 = new AlertB() { Category = CategoryType.Positiva, Posts = 2, Days = 12 };
+            AlertB alert3 = new AlertB() { Category = CategoryType.Positiva, Posts = 5, Days = 12 };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            Phrase phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta tomar cocacola", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert1);
+            alertController.AddAlert(alert2);
+            alertController.AddAlert(alert3);
+            alertController.EvaluateAlerts();
+            ICollection<AlertB> alerts = alertController.GetActivatedAlerts();
+            Assert.AreEqual(2, alerts.Count);
+        }
+
+        [TestMethod]
+        public void GetAllTheAlerts()
+        {
+            Author author = new Author() { Username = "testUser", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
+            AlertB alert1 = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertB alert2 = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            AlertB alert3 = new AlertB() { Category = CategoryType.Positiva, Posts = 1, Days = 12 };
+            Sentiment sentiment = new Sentiment() { Description = "Me encanta", Category = true };
+            Phrase phrase1 = new Phrase() { Comment = "Me encanta tomar pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta tomar cocacola", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            alertController.AddAlert(alert1);
+            alertController.AddAlert(alert2);
+            alertController.AddAlert(alert3);
+            alertController.EvaluateAlerts();
+            ICollection<AlertB> alerts = alertController.GetAllAlerts();
+            Assert.AreEqual(3, alerts.Count);
+        }
+
     }
 }
