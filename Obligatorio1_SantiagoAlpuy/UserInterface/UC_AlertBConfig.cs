@@ -64,7 +64,7 @@ namespace UserInterface
 
         private void AddAlert()
         {
-            IAlert alert = new AlertB()
+            AlertB alert = new AlertB()
             {
                 Category = StringToCategory(categoryComboBox.SelectedItem.ToString()),
                 Posts = (int)postsUpDown.Value,

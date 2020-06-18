@@ -68,20 +68,13 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantEntityFromRegister()
         {
             Entity entity = new Entity() { Name = "Pepsi" };
             entityController.AddEntity(entity);
             entityController.RemoveEntity(entity.Name);
             Entity ent = entityController.ObtainEntity(entity.Name);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void RemoveNonExistantEntityFromRegister()
-        {
-            entityController.RemoveEntity("una entidad que no existe ni existira jamas");
+            Assert.IsNull(ent);
         }
 
         [TestMethod]
