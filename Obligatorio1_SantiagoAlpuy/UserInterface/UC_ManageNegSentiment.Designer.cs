@@ -37,6 +37,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.sentimentBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).BeginInit();
             this.btnDelete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
@@ -83,12 +85,12 @@
             this.dataGrid.AllowUserToResizeRows = false;
             this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(44, 125);
+            this.dataGrid.Location = new System.Drawing.Point(44, 224);
             this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.ReadOnly = true;
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGrid.Size = new System.Drawing.Size(665, 222);
+            this.dataGrid.Size = new System.Drawing.Size(665, 123);
             this.dataGrid.TabIndex = 10;
             // 
             // label3
@@ -121,7 +123,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Location = new System.Drawing.Point(577, 53);
+            this.panel1.Location = new System.Drawing.Point(328, 130);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
             this.panel1.TabIndex = 13;
@@ -132,15 +134,12 @@
             this.sentimentBox.AccessibleName = "";
             this.sentimentBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sentimentBox.ForeColor = System.Drawing.Color.Gray;
-            this.sentimentBox.Location = new System.Drawing.Point(44, 56);
+            this.sentimentBox.Location = new System.Drawing.Point(45, 89);
             this.sentimentBox.Multiline = true;
             this.sentimentBox.Name = "sentimentBox";
-            this.sentimentBox.Size = new System.Drawing.Size(526, 35);
+            this.sentimentBox.Size = new System.Drawing.Size(665, 35);
             this.sentimentBox.TabIndex = 11;
-            this.sentimentBox.Text = "Ingrese palabras o combinaciones negativas";
             this.sentimentBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.sentimentBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sentimentBox_KeyDown);
-            this.sentimentBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.sentimentBox_KeyUp);
             // 
             // label1
             // 
@@ -155,11 +154,35 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Gestión de Sentimientos Negativos";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(282, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(232, 16);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "Ingrese un Sentimiento Negativo";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(282, 205);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(231, 16);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "Lista de Sentimientos Negativos";
+            // 
             // UC_ManageNegSentiment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.panel1);
@@ -190,5 +213,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox sentimentBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label4;
     }
 }

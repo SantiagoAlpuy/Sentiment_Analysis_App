@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Controllers;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 
 namespace UserInterface
@@ -19,101 +12,68 @@ namespace UserInterface
         ISentimentController sentimentController;
         IPhraseController phraseController;
         IAlertController alertController;
-        Repository repository;
-        private const string WRITE_NEGATIVE_WORD_MESSAGE = "Ingrese palabras o combinaciones negativas";
         private const string MAIN_SENTIMENT_COLUMN_NAME = "Descripción";
         private const string SENTIMENT_ADDED_SUCCESFULLY = "Enhorabuena! '{0}' se ha agregado satisfactoriamente";
-        private const string SENTIMENT_NOT_ADDED = "Por favor, ingrese un sentimiento válido.";
-        private const string NO_DESCRIPTION_SENTIMENT = "No agrego una descripción.";
-        private const string SENTIMENT_HAS_NUMBERS = "No se supone que un sentimiento tenga numeros.";
-        private const string SENTIMENT_ALREADY_ADDED = "Ese sentimiento ya fue añadido!";
-        private const string SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST = "Ese sentimiento ya ha sido agregado como positivo.";
 
         public UC_ManageNegSentiment()
         {
             InitializeComponent();
             sentimentController = new SentimentController();
             phraseController = new PhraseController();
-            alertController = new AlertController();
-            repository = Repository.Instance;
-            LoadDataGridnegativeSentiments();
-            dataGrid.Columns[0].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
-            dataGrid.Columns[1].Visible = false;
-        }
-
-        private void LoadDataGridnegativeSentiments()
-        {
-            this.dataGrid.DataSource = repository.NegativeSentiments.ToList();
-        }      
+            alertController = new AlertAController();
+            this.dataGrid.DataSource = GetNegativeSentiments();
+            dataGrid.Columns[1].HeaderText = MAIN_SENTIMENT_COLUMN_NAME;
+            dataGrid.Columns[0].Visible = false;
+            dataGrid.Columns[2].Visible = false;
+        }  
 
         private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (sentimentBox.Text != WRITE_NEGATIVE_WORD_MESSAGE)
-                CreateAndAddSentiment();
-            else
-                MessageBox.Show(SENTIMENT_NOT_ADDED);
-        }
-
-        private void CreateAndAddSentiment()
         {
             try
             {
                 Sentiment sentiment = new Sentiment() { Description = sentimentBox.Text, Category = false };
                 sentimentController.AddSentiment(sentiment);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
-                MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
-                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-                LoadDataGridnegativeSentiments();
+                ReactToSuccessfulAddition();
             }
-            catch (LackOfObligatoryParametersException e)
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show(NO_DESCRIPTION_SENTIMENT);
+                MessageBox.Show(ex.Message);
             }
-            catch (ContainsNumbersException e)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show(SENTIMENT_HAS_NUMBERS);
+                MessageBox.Show(ex.Message);
             }
-            catch (SentimentAlreadyExistsException e)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show(SENTIMENT_ALREADY_ADDED);
+                MessageBox.Show(ex.Message);
             }
-            catch (SentimentRegisteredWithOppositeCategoryException)
+            catch (Exception ex)
             {
-                MessageBox.Show(SENTIMENT_ALREADY_ADDED_IN_OPPOSITE_SENTIMENT_LIST);
+                Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ReactToSuccessfulAddition()
+        {
+            MessageBox.Show(String.Format(SENTIMENT_ADDED_SUCCESFULLY, sentimentBox.Text));
+            sentimentBox.Text = "";
+            this.dataGrid.DataSource = GetNegativeSentiments();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGrid.SelectedRows)
             {
-                sentimentController.RemoveSentiment(row.Cells[0].Value.ToString(), false);
-                phraseController.AnalyzeAllPhrases();
-                alertController.EvaluateAlert();
+                sentimentController.RemoveSentiment(row.Cells[1].Value.ToString(), false);
             }
 
-            LoadDataGridnegativeSentiments();
+            this.dataGrid.DataSource = GetNegativeSentiments();
         }
-        
 
-        private void sentimentBox_KeyUp(object sender, KeyEventArgs e)
+        private ICollection<Sentiment> GetNegativeSentiments()
         {
-            if (sentimentBox.Text == "")
-            {
-                sentimentBox.Text = WRITE_NEGATIVE_WORD_MESSAGE;
-                sentimentBox.ForeColor = Color.Gray;
-            }
+            return sentimentController.GetAllEntitiesByCategory(CategoryType.Negativa);
         }
 
-        private void sentimentBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (sentimentBox.Text == WRITE_NEGATIVE_WORD_MESSAGE)
-            {
-                sentimentBox.Text = "";
-                sentimentBox.ForeColor = Color.Black;
-            }
-        }
     }
 }

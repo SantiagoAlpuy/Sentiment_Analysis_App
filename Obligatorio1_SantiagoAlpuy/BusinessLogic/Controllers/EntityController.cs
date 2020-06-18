@@ -1,57 +1,77 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
+using BusinessLogic.DataAccess;
 
 namespace BusinessLogic.Controllers
 {
     public class EntityController : IEntityController
     {
-        Repository repository = Repository.Instance;
-        private List<Entity> entities;
+        IRepository<Entity> repositoryA;
+        FactoryRepository<Entity> factoryRepository = new FactoryRepository<Entity>();
 
+        private const string NULL_ENTITY = "Ingrese una entidad válida.";
+        
         public EntityController()
         {
-            entities = repository.Entities;
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddEntity(Entity entity)
         {
             ValidateEntity(entity);
-            entities.Add(entity);
+            repositoryA.Add(entity);
+            AnalyzePhrases();
+            AnalyzeAlerts();
         }
 
         private void ValidateEntity(Entity entity)
         {
             if (entity == null)
-                throw new NullEntityException();
-            else if (entity.Name == null)
-                throw new NullAttributeInObjectException();
-            else if (entity.Name.Trim() == "")
-                throw new LackOfObligatoryParametersException();
-            else if (IsEntityInRepo(entity))
-                throw new EntityAlreadyExistsException();
-        }
-
-        private bool IsEntityInRepo(Entity entity)
-        {
-            return entities.Find(x => x.Name.Trim().ToLower() == entity.Name.Trim().ToLower()) != null;
+                throw new NullReferenceException(NULL_ENTITY);
+            else entity.Validate();
         }
 
         public Entity ObtainEntity(string name)
         {
-            Entity entity = entities.Find(x => x.Name == name);
+            Entity entity = repositoryA.Find(x => x.Name.Trim().ToLower() == name.Trim().ToLower());
             if (entity != null)
                 return entity;
             else
-                throw new EntityDoesNotExistsException();
+                throw new NullReferenceException("");
         }
 
         public void RemoveEntity(string name)
         {
-            entities.Remove(ObtainEntity(name));
+            Entity entity = ObtainEntity(name);
+            if (entity != null)
+            {
+                repositoryA.Remove(entity);
+                AnalyzePhrases();
+                AnalyzeAlerts();
+            }
+        }
+
+        public void RemoveAllEntities()
+        {
+            repositoryA.ClearAll();
+        }
+
+        private void AnalyzeAlerts()
+        {
+            AlertAController alertAController = new AlertAController();
+            alertAController.EvaluateAlerts();
+        }
+
+        private void AnalyzePhrases()
+        {
+            PhraseController phraseController = new PhraseController();
+            phraseController.AnalyzeAllPhrases();
+        }
+
+        public ICollection<Entity> GetAllEntities()
+        {
+            return repositoryA.GetAll();
         }
     }
 }

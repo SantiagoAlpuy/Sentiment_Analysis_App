@@ -37,6 +37,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.btnDelete.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemove)).BeginInit();
@@ -50,12 +52,12 @@
             this.dataGrid.AllowUserToResizeRows = false;
             this.dataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(44, 125);
+            this.dataGrid.Location = new System.Drawing.Point(44, 224);
             this.dataGrid.MultiSelect = false;
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.ReadOnly = true;
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGrid.Size = new System.Drawing.Size(665, 222);
+            this.dataGrid.Size = new System.Drawing.Size(665, 123);
             this.dataGrid.TabIndex = 15;
             // 
             // label2
@@ -97,15 +99,12 @@
             this.entityBox.AccessibleName = "";
             this.entityBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entityBox.ForeColor = System.Drawing.Color.Gray;
-            this.entityBox.Location = new System.Drawing.Point(44, 56);
+            this.entityBox.Location = new System.Drawing.Point(45, 89);
             this.entityBox.Multiline = true;
             this.entityBox.Name = "entityBox";
-            this.entityBox.Size = new System.Drawing.Size(526, 35);
+            this.entityBox.Size = new System.Drawing.Size(664, 35);
             this.entityBox.TabIndex = 16;
-            this.entityBox.Text = "Ingrese una entidad";
             this.entityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.entityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyDown);
-            this.entityBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.entityBox_KeyUp);
             // 
             // btnAdd
             // 
@@ -127,7 +126,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Location = new System.Drawing.Point(577, 53);
+            this.panel1.Location = new System.Drawing.Point(326, 130);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 38);
             this.panel1.TabIndex = 18;
@@ -149,17 +148,41 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(185, 13);
+            this.label1.Location = new System.Drawing.Point(275, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(238, 25);
             this.label1.TabIndex = 14;
             this.label1.Text = "Gestión de Entidades";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(318, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(146, 16);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Ingrese una Entidad";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(323, 205);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(137, 16);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Lista de Entidades";
             // 
             // UC_ManageEntities
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.entityBox);
@@ -190,5 +213,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label4;
     }
 }

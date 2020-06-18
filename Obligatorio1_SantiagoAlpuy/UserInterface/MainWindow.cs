@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UserInterface
@@ -49,7 +42,7 @@ namespace UserInterface
         private void btnAlertConfig_Click(object sender, EventArgs e)
         {
             this.PrincipalPanel.Controls.Clear();
-            this.PrincipalPanel.Controls.Add(new UC_AlertConfig());
+            this.PrincipalPanel.Controls.Add(new UC_AlertAConfig());
         }
 
         private void btnAnalysisReport_Click(object sender, EventArgs e)
@@ -67,7 +60,25 @@ namespace UserInterface
         private void btnManageAuthors_Click_1(object sender, EventArgs e)
         {
             this.PrincipalPanel.Controls.Clear();
-            this.PrincipalPanel.Controls.Add(new UC_ManageAuthors());
+            this.PrincipalPanel.Controls.Add(new UC_ManageAuthors(this.PrincipalPanel));
+        }
+
+        private void btnAlertConfigB_Click(object sender, EventArgs e)
+        {
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_AlertBConfig());
+        }
+
+        private void btnAuthorReport_Click(object sender, EventArgs e)
+        {
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_AuthorReport());
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            this.PrincipalPanel.Controls.Clear();
+            this.PrincipalPanel.Controls.Add(new UC_Help());
         }
     }
 }

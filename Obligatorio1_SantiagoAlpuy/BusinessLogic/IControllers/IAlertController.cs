@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BusinessLogic.IControllers
+﻿namespace BusinessLogic.IControllers
 {
     public interface IAlertController
     {
-        void AddAlert(Alert alert);
-
-        void EvaluateAlert();
+        void AddAlert(IAlert alert);
+        void EvaluateAlerts();
+        void UpdateAlert(IAlert alert);
+        void EvaluateSingleAlert(IAlert alert);
     }
 }

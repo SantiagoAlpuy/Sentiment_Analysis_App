@@ -1,66 +1,68 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
+using BusinessLogic.DataAccess;
 
 namespace BusinessLogic.Controllers
 {
     public class PhraseController : IPhraseController
     {
-        Repository repository = Repository.Instance;
-        AlertController alertController = new AlertController();
-        private List<Phrase> phrases;
-        private List<Sentiment> positiveSentiments;
-        private List<Sentiment> negativeSentiments;
-        private List<Entity> entities;
+        IRepository<Phrase> repositoryA;
+        FactoryRepository<Phrase> factoryRepository = new FactoryRepository<Phrase>();
 
-        private const string NULL_AUTHOR_IN_PHRASE = "Debe elegir un autor para agregar una frase.";
-
+        private const string NULL_PHRASE = "Ingrese una frase válida.";
+        
         public PhraseController()
         {
-            phrases = repository.Phrases;
-            positiveSentiments = repository.PositiveSentiments;
-            negativeSentiments = repository.NegativeSentiments;
-            entities = repository.Entities;
+            repositoryA = factoryRepository.CreateRepository();
         }
 
-        public void AddPhraseToRepository(Phrase phrase)
+        public void AddPhrase(Phrase phrase)
         {
             ValidatePhrase(phrase);
-            phrases.Add(phrase);
+            repositoryA.Add(phrase);
+            AnalyzePhrase(phrase);
+            AnalyzeAlerts();
+        }
+
+        private void AnalyzeAlerts()
+        {
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
         }
 
         private void ValidatePhrase(Phrase phrase)
         {
             if (phrase == null)
-                throw new NullPhraseException();
-            else if (phrase.Comment == null)
-                throw new NullAttributeInObjectException();
-            else if (phrase.Comment.Trim() == "")
-                throw new LackOfObligatoryParametersException();
-            else if (phrase.Date.CompareTo(DateTime.Now.AddYears(-1)) < 0)
-                throw new DateOlderThanOneYearException();
-            else if (phrase.Date.CompareTo(DateTime.Now) > 0)
-                throw new DateFromFutureException();
-            else if (phrase.PhraseAuthor == null)
-                throw new ArgumentException(NULL_AUTHOR_IN_PHRASE);
+                throw new NullReferenceException(NULL_PHRASE);
+            else phrase.Validate();
         }
 
-        public Phrase ObtainPhrase(string comment, DateTime date)
+        public Phrase ObtainPhrase(int phraseId)
         {
-            return phrases.Find(x => x.Comment == comment && x.Date.Equals(date));
+            return repositoryA.Find(x => x.PhraseId.Equals(phraseId));
         }
 
-        public void AnalyzePhrase(Phrase phrase)
+        public void AnalyzeAllPhrases()
         {
-            bool hasPositive;
-            bool hasNegative;
-            AnalyzeEntityFromPhrase(phrase);
-            hasPositive = IsSentimentOnRepo(phrase, positiveSentiments);
-            hasNegative = IsSentimentOnRepo(phrase, negativeSentiments);
+            ICollection<Phrase> phrases = repositoryA.GetAll();
+            foreach (Phrase phrase in phrases)
+            {
+                AnalyzePhrase(phrase);
+            }
+        }
+
+        private void AnalyzePhrase(Phrase phrase)
+        {
+            bool hasPositive = false;
+            bool hasNegative = false;
+            SetEntityOnPhrase(phrase);
+            hasPositive = IsSentimentOnRepo(phrase, CategoryType.Positiva);
+            hasNegative = IsSentimentOnRepo(phrase, CategoryType.Negativa);
             SetPhraseCategory(phrase, hasPositive, hasNegative);
+            repositoryA.Update(phrase);
         }
 
         private void SetPhraseCategory(Phrase phrase, bool hasPositive, bool hasNegative)
@@ -70,14 +72,16 @@ namespace BusinessLogic.Controllers
             else if (hasPositive && hasNegative)
                 phrase.Category = CategoryType.Neutro;
             else if (hasPositive)
-                phrase.Category = CategoryType.Positive;
+                phrase.Category = CategoryType.Positiva;
             else
-                phrase.Category = CategoryType.Negative;
+                phrase.Category = CategoryType.Negativa;
         }
 
-        private bool IsSentimentOnRepo(Phrase phrase, List<Sentiment> sentiments)
+        private bool IsSentimentOnRepo(Phrase phrase, CategoryType category)
         {
+            SentimentController sentimentController = new SentimentController();
             bool hasSentiment = false;
+            ICollection<Sentiment> sentiments = sentimentController.GetAllEntitiesByCategory(category);
             foreach (Sentiment sentiment in sentiments)
             {
                 if (IsSentimentOnPhrase(phrase, sentiment))
@@ -94,30 +98,24 @@ namespace BusinessLogic.Controllers
             return phrase.Comment.ToUpper().Contains(sentiment.Description.ToUpper());
         }
 
-        private void AnalyzeEntityFromPhrase(Phrase phrase)
+        private void SetEntityOnPhrase(Phrase phrase)
         {
             try
             {
                 Entity ent = FindEntityInPhrase(phrase);
                 phrase.Entity = ent.Name;
             }
-            catch (NullEntityException)
+            catch (NullReferenceException)
             {
                 phrase.Entity = "";
             }
-        }
-
-        public void AnalyzeAllPhrases()
-        {
-            foreach(Phrase phrase in phrases)
-            {
-                AnalyzePhrase(phrase);
-            }
-        }
+        }        
 
         private Entity FindEntityInPhrase(Phrase phrase)
         {
+            EntityController entityController = new EntityController();
             Entity ent = null;
+            ICollection<Entity> entities = entityController.GetAllEntities();
             foreach (Entity entity in entities)
             {
                 if (PhraseContainsEntity(phrase, entity))
@@ -129,12 +127,27 @@ namespace BusinessLogic.Controllers
             if (ent != null)
                 return ent;
             else
-                throw new NullEntityException();
+                throw new NullReferenceException();
         }
 
         private bool PhraseContainsEntity(Phrase phrase, Entity entity)
         {
             return phrase.Comment.ToUpper().Contains(entity.Name.ToUpper());
+        }
+
+        public List<Phrase> GetAllEntities()
+        {
+            return (List<Phrase>) repositoryA.GetAll();
+        }
+
+        public List<Phrase> GetAllEntitiesWithIncludes(string entityToInclude)
+        {
+            return (List<Phrase>)repositoryA.GetAllWithInclude(entityToInclude);
+        }
+
+        public void RemoveAllPhrases()
+        {
+            repositoryA.ClearAll();
         }
 
     }

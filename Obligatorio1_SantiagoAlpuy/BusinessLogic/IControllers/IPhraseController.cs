@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BusinessLogic.IControllers
 {
     public interface IPhraseController
     {
-        void AddPhraseToRepository(Phrase phrase);
-
-        Phrase ObtainPhrase(string comment, DateTime date);
-
-        void AnalyzePhrase(Phrase phrase);
-
+        void AddPhrase(Phrase phrase);
+        Phrase ObtainPhrase(int phraseId);
         void AnalyzeAllPhrases();
-
-
+        List<Phrase> GetAllEntities();
+        List<Phrase> GetAllEntitiesWithIncludes(string entityToInclude);
+        void RemoveAllPhrases();
     }
 }

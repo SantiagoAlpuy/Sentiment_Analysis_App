@@ -1,88 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BusinessLogic.Exceptions;
 using BusinessLogic.IControllers;
 using System.Linq;
+using BusinessLogic.DataAccess;
 
 namespace BusinessLogic.Controllers
 {
     public class AuthorController : IAuthorController
-    { 
-        Repository repository = Repository.Instance;
-        private List<Author> authors;
-        private const int MAX_CHARS_IN_USERNAME = 10;
-        private const int MAX_CHARS_IN_NAME = 15;
-        private const int LOWER_AGE_LIMIT = 13;
-        private const int UPPER_AGE_LIMIT = 100;
-        private string USERNAME_IS_TOO_BIG = String.Format("El usuario es mayor a {0} caracteres.", MAX_CHARS_IN_USERNAME);
-        private const string USERNAME_IS_NOT_ALPHANUMERIC = "El nombre de usuario contiene caracteres no alfanumericos.";
-        private string NAME_IS_TOO_BIG = String.Format("El nombre es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
-        private const string NAME_IS_NOT_ALPHABETIC = "El nombre contiene caracteres no alfabeticos.";
-        private string SURNAME_IS_TOO_BIG = String.Format("El apellido del usuario es mayor a {0} caracteres.", MAX_CHARS_IN_NAME);
-        private const string SURNAME_IS_NOT_ALPHABETIC = "El apellido contiene caracteres no alfabeticos.";
-        private string AGE_LOWER_THAN_LOWER_LIMIT = String.Format("La edad del autor es inferior a {0}", LOWER_AGE_LIMIT);
-        private string AGE_BIGGER_THAN_UPPER_LIMIT = String.Format("La edad del autor es superior a {0}", UPPER_AGE_LIMIT);
+    {
+        private const string NULL_AUTHOR = "Los autores no pueden ser nulos.";
+        private const string INEXISTENT_AUTHOR = "El usuario a eliminar no existe.";
         private const string AUTHOR_ALREADY_EXISTS = "El usuario que intento agregar ya ha sido agregado al sistema, pruebe otra combinación.";
-        private const string EMPTY_USERNAME_FIELD = "El campo de 'nombre de usuario' esta vacío.";
-        private const string EMPTY_NAME_FIELD = "El campo 'nombre' esta vacío.";
-        private const string EMPTY_SURNAME_FIELD = "El campo 'apellido' esta vacío.";
+        private const string INCLUDED_PHRASES = "Phrases";
+
+        IRepository<Author> repositoryA;
+        FactoryRepository<Author> factoryRepository = new FactoryRepository<Author>();
 
         public AuthorController()
         {
-            authors = repository.Authors;
+            repositoryA = factoryRepository.CreateRepository();
         }
-        
+
         public void AddAuthor(Author author)
         {
-            if (author.Username == null || author.Name == null || author.Surname == null)
-                throw new LackOfObligatoryParametersException(); 
-            else if (author.Username.Trim() == "")
-                throw new EmptyFieldException(EMPTY_USERNAME_FIELD);
-            else if (!IsAlphanumeric(author.Username))
-                throw new NotAlphaNumericalException(USERNAME_IS_NOT_ALPHANUMERIC);
-            else if (author.Username.Length >= MAX_CHARS_IN_USERNAME)
-                throw new TooLargeException(USERNAME_IS_TOO_BIG);
+            ValidateAuthorAdition(author);
+            repositoryA.Add(author);
+        }
+
+        private void ValidateAuthorAdition(Author author)
+        {
+            if (author == null)
+                throw new ArgumentException(NULL_AUTHOR);
             else if (ObtainAuthorByUsername(author.Username) != null)
-                throw new AlreadyExistsException(AUTHOR_ALREADY_EXISTS);
-
-            else if (author.Name.Trim() == "")
-                throw new EmptyFieldException(EMPTY_NAME_FIELD);
-            else if (author.Name.Length >= MAX_CHARS_IN_NAME)
-                throw new TooLargeException(NAME_IS_TOO_BIG);
-            else if (!isAlphabetic(author.Name))
-                throw new NotAlphabeticException(NAME_IS_NOT_ALPHABETIC);
-
-            else if (author.Surname.Trim() == "")
-                throw new EmptyFieldException(EMPTY_SURNAME_FIELD);            
-            else if (author.Surname.Length >= MAX_CHARS_IN_NAME)
-                throw new TooLargeException(SURNAME_IS_TOO_BIG);
-            else if (!isAlphabetic(author.Surname))
-                throw new NotAlphabeticException(SURNAME_IS_NOT_ALPHABETIC);
-
-            else if (DateTime.Now.AddYears(-LOWER_AGE_LIMIT).Year < author.Born.Year)
-                throw new DateNotInRangeException(AGE_LOWER_THAN_LOWER_LIMIT);
-            else if (DateTime.Now.AddYears(-UPPER_AGE_LIMIT).Year > author.Born.Year)
-                throw new DateNotInRangeException(AGE_BIGGER_THAN_UPPER_LIMIT);
-            else
-                authors.Add(author);
+                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
+            else author.Validate();
         }
 
-        private bool IsAlphanumeric(string text)
+        public void RemoveAuthor(string username)
         {
-            return text.Trim().All(char.IsLetterOrDigit);
-            
+            Author author = ObtainAuthorByUsername(username);
+            if (author == null)
+                throw new NullReferenceException(INEXISTENT_AUTHOR);
+
+            repositoryA.Remove(author);
+            AnalyzeAlerts();
         }
 
-        private bool isAlphabetic(string text)
+        private void AnalyzeAlerts()
         {
-            return text.All(char.IsLetter);
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
         }
 
+        public void RemoveAllAuthors()
+        {
+            repositoryA.ClearAll();
+        }
 
         public Author ObtainAuthorByUsername(string username)
         {
-            return authors.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
+            return repositoryA.Find(x => x.Username.ToLower().Trim() == username.ToLower().Trim());
         }
+
+        public void ModifyAuthor(Author author1, Author author2)
+        {
+            ValidateAuthorModification(author1, author2);
+            ModifyFields(author1, author2);
+            repositoryA.Update(author1);
+        }
+
+        private void ModifyFields(Author author1, Author author2)
+        {
+            author1.Username = author2.Username;
+            author1.Name = author2.Name;
+            author1.Surname = author2.Surname;
+            author1.Born = author2.Born;
+        }
+
+        private void ValidateAuthorModification(Author author1, Author author2)
+        {
+            if (author1 == null || author2 == null)
+                throw new ArgumentException(NULL_AUTHOR);
+            else if (UsernameChanged(author1, author2)
+                && ObtainAuthorByUsername(author2.Username) != null)
+                throw new InvalidOperationException(AUTHOR_ALREADY_EXISTS);
+            else
+                author2.Validate();
+        }
+
+
+        private bool UsernameChanged(Author author1, Author author2)
+        {
+            return author1.Username.ToLower() != author2.Username.ToLower();
+        }
+
+        public ICollection<Author> GetAll()
+        {
+            return repositoryA.GetAll();
+        }
+
+        public Author GetAuthorById(int authorId)
+        {
+            return repositoryA.Find(x => x.AuthorId == authorId);
+        }
+
+        public Author GetAuthorByIdWithInclude(int authorId, string includeAttribute)
+        {
+            return repositoryA.GetAllWithInclude(includeAttribute).SingleOrDefault(x => x.AuthorId == authorId);
+        }
+
+        public ICollection<Author> GetAllAuthorsWithInclude()
+        {
+            return repositoryA.GetAllWithInclude(INCLUDED_PHRASES);
+        }
+        
     }
 }

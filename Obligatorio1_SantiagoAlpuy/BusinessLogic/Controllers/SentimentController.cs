@@ -1,93 +1,86 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using BusinessLogic;
-using BusinessLogic.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using BusinessLogic.DataAccess;
 using BusinessLogic.IControllers;
 
 namespace BusinessLogic.Controllers
 {
     public class SentimentController : ISentimentController
     {
-        Repository repository = Repository.Instance;
-        private List<Sentiment> positiveSentiments;
-        private List<Sentiment> negativeSentiments;
 
+        IRepository<Sentiment> repositoryA;
+        FactoryRepository<Sentiment> factoryRepository = new FactoryRepository<Sentiment>();
+
+        private const string NULL_SENTIMENT = "Ingrese un sentimiento válido";
+        
         public SentimentController()
         {
-            positiveSentiments = repository.PositiveSentiments;
-            negativeSentiments = repository.NegativeSentiments;
+            repositoryA = factoryRepository.CreateRepository();
         }
 
         public void AddSentiment(Sentiment sentiment)
         {
             ValidateSentiment(sentiment);
-            AddSentimentToRepository(sentiment);
-        }
-
-        private void AddSentimentToRepository(Sentiment sentiment)
-        {
-            if (sentiment.Category)
-                positiveSentiments.Add(sentiment);
-            else
-                negativeSentiments.Add(sentiment);
+            repositoryA.Add(sentiment);
+            AnalyzePhrases();
+            AnalyzeAlerts();
         }
 
         private void ValidateSentiment(Sentiment sentiment)
         {
             if (sentiment == null)
-                throw new NullSentimentException();
-            else if (sentiment.Description == null)
-                throw new NullAttributeInObjectException();
-            else if (sentiment.Description.Trim() == "")
-                throw new LackOfObligatoryParametersException();
-            else if (sentiment.Description.Any(letter => char.IsDigit(letter)))
-                throw new ContainsNumbersException();
-            else if (sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
-                throw new SentimentAlreadyExistsException();
-            else if (!sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
-                throw new SentimentAlreadyExistsException();
-            else if (sentiment.Category && IsSentimentInRepo(negativeSentiments, sentiment))
-                throw new SentimentRegisteredWithOppositeCategoryException();
-            else if (!sentiment.Category && IsSentimentInRepo(positiveSentiments, sentiment))
-                throw new SentimentRegisteredWithOppositeCategoryException();
+                throw new NullReferenceException(NULL_SENTIMENT);
+            else sentiment.Validate();
         }
-
-        private bool IsSentimentInRepo(List<Sentiment> sentiments, Sentiment sentiment)
-        {
-            return sentiments.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()) != null;
-        }
+        
 
         public Sentiment ObtainSentiment(string description, bool category)
         {
-            Sentiment sentiment = null;
-            if (category)
-                sentiment = ObtainSentiment(description, positiveSentiments);
-            else
-                sentiment = ObtainSentiment(description, negativeSentiments);
-            return sentiment;
-        }
-
-        private Sentiment ObtainSentiment(string description, List<Sentiment> sentiments)
-        {
-            Sentiment sentiment = sentiments.Find(x => x.Description == description);
+            Sentiment sentiment = repositoryA.Find(x => x.Description.Trim().ToLower() == description.Trim().ToLower() 
+                                    && x.Category == category);
             if (sentiment != null)
                 return sentiment;
             else
-                throw new SentimentDoesNotExistsException();
+                throw new NullReferenceException("");
         }
 
         public void RemoveSentiment(string description, bool category)
         {
-            if (category)
-                RemoveSentiment(description, positiveSentiments);
-            else
-                RemoveSentiment(description, negativeSentiments);
+            Sentiment sentiment = ObtainSentiment(description, category);
+            if (sentiment != null)
+            {
+                repositoryA.Remove(sentiment);
+                AnalyzePhrases();
+                AnalyzeAlerts();
+            }
         }
 
-        private void RemoveSentiment(string description, List<Sentiment> sentiments)
+        public void RemoveAllSentiments()
         {
-            Sentiment sentiment = ObtainSentiment(description, sentiments);
-            sentiments.Remove(sentiment);
+            repositoryA.ClearAll();
         }
+
+        private void AnalyzePhrases()
+        {
+            PhraseController phraseController = new PhraseController();
+            phraseController.AnalyzeAllPhrases();
+        }
+
+        private void AnalyzeAlerts()
+        {
+            AlertAController alertAController = new AlertAController();
+            AlertBController alertBController = new AlertBController();
+            alertAController.EvaluateAlerts();
+            alertBController.EvaluateAlerts();
+        }
+
+        public ICollection<Sentiment> GetAllEntitiesByCategory(CategoryType category)
+        {
+            bool sentimentCategory = false;
+            if (category.Equals(CategoryType.Positiva))
+                sentimentCategory = true;
+            return repositoryA.GetEntitiesByPredicate(x => x.Category == sentimentCategory);
+        }
+
     }
 }
