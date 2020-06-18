@@ -90,7 +90,7 @@ namespace UserInterface
                 foreach (AlertBAuthor item in association)
                 {
                     Author author = authorController.GetAuthorById(item.AuthorId);
-                    authorsBox.Items.Add(author.Username + " - " + author.Name + " " + author.Surname);
+                    authorsBox.Items.Add("Usuario: " + author.Username + " - Nombre: " + author.Name + " " + author.Surname);
                 }
                 listBoxPanel.Visible = true;
             }
