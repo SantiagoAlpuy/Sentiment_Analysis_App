@@ -109,10 +109,14 @@ namespace BusinessLogic
 
         public double CalculateMeanOfPhrases()
         {
-            int totalNumberPhrases = this.Phrases.Count();
-            DateTime firstPostDate = this.Phrases.Min(x => x.Date);
-            double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
-            double mean = Math.Round(totalNumberPhrases / totalDays, 4);
+            double mean = 0;
+            if (this.Phrases.Count > 0)
+            {
+                int totalNumberPhrases = this.Phrases.Count();
+                DateTime firstPostDate = this.Phrases.Min(x => x.Date);
+                double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
+                mean = Math.Round(totalNumberPhrases / totalDays, 4);
+            }
             return mean;
         }
     }
