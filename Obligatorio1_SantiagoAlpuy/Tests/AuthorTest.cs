@@ -577,7 +577,7 @@ namespace Tests
             phraseController.AddPhrase(phrase2);
             phraseController.AddPhrase(phrase3);
             int percentage = author.CalculatePercentage(CategoryType.Negativa);
-            Assert.AreEqual(25, percentage);
+            Assert.AreEqual(0, percentage);
         }
 
     }

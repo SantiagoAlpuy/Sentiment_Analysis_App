@@ -92,7 +92,7 @@ namespace BusinessLogic
         {
             int totalNumberPhrases = this.Phrases.Count();
             int totalNumberByCategory = this.Phrases.Where(x => x.Category == category).Count();
-            int percentage = totalNumberByCategory * 100 / totalNumberPhrases;
+            int percentage = totalNumberPhrases > 0 ? totalNumberByCategory * 100 / totalNumberPhrases : 0;
             return percentage;  
         }
     }
