@@ -624,5 +624,18 @@ namespace Tests
             Assert.AreEqual(2, entityNumber);
         }
 
+        [TestMethod]
+        public void CalculatePostsMean()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now.AddDays(-1), Author = author };
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            double mean = author.CalculateMeanOfPhrases();
+            Assert.AreEqual(1, mean);
+        }
+
     }
 }

@@ -106,5 +106,10 @@ namespace BusinessLogic
             }
             return entities.Count();
         }
+
+        public double CalculateMeanOfPhrases()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
