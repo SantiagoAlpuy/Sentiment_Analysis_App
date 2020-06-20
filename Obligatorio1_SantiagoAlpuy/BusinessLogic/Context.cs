@@ -21,7 +21,6 @@ namespace BusinessLogic
         {
             modelBuilder.Configurations.Add(new AlertBAuthorConfiguration());
             modelBuilder.Configurations.Add(new AuthorConfiguration());
-            modelBuilder.Configurations.Add(new AlertBConfiguration());
             
         }
     }

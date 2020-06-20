@@ -35,10 +35,8 @@ namespace BusinessLogic.Controllers
         public Entity ObtainEntity(string name)
         {
             Entity entity = repositoryA.Find(x => x.Name.Trim().ToLower() == name.Trim().ToLower());
-            if (entity != null)
-                return entity;
-            else
-                throw new NullReferenceException("");
+            return entity;
+
         }
 
         public void RemoveEntity(string name)

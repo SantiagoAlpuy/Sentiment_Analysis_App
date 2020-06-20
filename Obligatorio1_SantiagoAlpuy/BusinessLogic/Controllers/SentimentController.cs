@@ -38,10 +38,7 @@ namespace BusinessLogic.Controllers
         {
             Sentiment sentiment = repositoryA.Find(x => x.Description.Trim().ToLower() == description.Trim().ToLower() 
                                     && x.Category == category);
-            if (sentiment != null)
-                return sentiment;
-            else
-                throw new NullReferenceException("");
+            return sentiment;
         }
 
         public void RemoveSentiment(string description, bool category)

@@ -64,7 +64,7 @@ namespace UserInterface
 
         private void AddAlert()
         {
-            IAlert alert = new AlertB()
+            AlertB alert = new AlertB()
             {
                 Category = StringToCategory(categoryComboBox.SelectedItem.ToString()),
                 Posts = (int)postsUpDown.Value,
@@ -72,7 +72,7 @@ namespace UserInterface
                 Hours = (int)hoursUpDown.Value
             };
             alertController.AddAlert(alert);
-            alertController.EvaluateSingleAlert(alert);
+            alert.EvaluateAlert();
             MessageBox.Show(ALERT_ADDED_SUCCESFULLY);
             SetFieldsToDefaultValue();
             this.dataGrid.DataSource = alertController.GetAllAlerts();

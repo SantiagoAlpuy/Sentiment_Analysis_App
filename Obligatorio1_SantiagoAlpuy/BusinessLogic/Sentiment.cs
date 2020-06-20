@@ -1,4 +1,5 @@
-﻿using BusinessLogic.DataAccess;
+﻿using BusinessLogic.Controllers;
+using BusinessLogic.DataAccess;
 using System;
 using System.Linq;
 
@@ -25,21 +26,21 @@ namespace BusinessLogic
                 throw new ArgumentException(EMPTY_DESCRIPTION);
             else if (this.Description.Any(letter => char.IsDigit(letter)))
                 throw new ArgumentException(CONTAINS_NUMBERS);
-            else if (this.Category && IsSentimentInRepo(this, true))
+            else if (this.Category && IsSentimentInRepo(this.Description, true))
                 throw new InvalidOperationException(POSITIVE_SENTIMENT_ALREADY_REGISTERED);
-            else if (!this.Category && IsSentimentInRepo(this, false))
+            else if (!this.Category && IsSentimentInRepo(this.Description, false))
                 throw new InvalidOperationException(NEGATIVE_SENTIMENT_ALREADY_REGISTERED);
-            else if (this.Category && IsSentimentInRepo(this, false))
+            else if (this.Category && IsSentimentInRepo(this.Description, false))
                 throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " negativa.");
-            else if (!this.Category && IsSentimentInRepo(this, true))
+            else if (!this.Category && IsSentimentInRepo(this.Description, true))
                 throw new ArgumentException(SENTIMENT_REGISTERED_OTHER_CATEGORY + " positiva.");
         }
 
-        private bool IsSentimentInRepo(Sentiment sentiment, bool category)
+        private bool IsSentimentInRepo(string description, bool category)
         {
-            Repository<Sentiment> repositoryA = new Repository<Sentiment>();
-            return repositoryA.Find(x => x.Description.Trim().ToLower() == sentiment.Description.Trim().ToLower()
-                                    && x.Category == category) != null;
+            SentimentController sentimentController = new SentimentController();
+            Sentiment sentiment = sentimentController.ObtainSentiment(description, category);
+            return (sentiment != null);
         }
 
     }

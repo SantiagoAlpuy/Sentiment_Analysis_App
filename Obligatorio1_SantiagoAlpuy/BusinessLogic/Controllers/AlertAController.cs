@@ -29,13 +29,8 @@ namespace BusinessLogic.Controllers
         {
             foreach (IAlert alert in repositoryA.GetAll())
             {
-                EvaluateSingleAlert(alert);
+                alert.EvaluateAlert();
             }
-        }
-
-        public void EvaluateSingleAlert(IAlert alert)
-        {
-            alert.EvaluateAlert();
         }
 
         public void UpdateAlert(IAlert alert)

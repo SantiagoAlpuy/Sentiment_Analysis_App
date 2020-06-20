@@ -186,6 +186,7 @@ namespace Tests
             alertController.AddAlert(alert);
             alert.EvaluateAlert();
             ICollection<AlertBAuthor> alertAuthors = alertBAuthorController.GetAllRelationsByAlertId(alert.AlertBId);
+            AlertB alert1 = alertController.ObtainAlertWithInclude(alert.AlertBId);
             Assert.AreEqual(1, alertAuthors.Count);
         }
 

@@ -113,37 +113,24 @@ namespace Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantPositiveSentimentFromRegister()
         {
             Sentiment sentiment = new Sentiment() { Description = "Me gusta", Category = true };
             sentimentController.AddSentiment(sentiment);
             sentimentController.RemoveSentiment(sentiment.Description, sentiment.Category);
             Sentiment sent = sentimentController.ObtainSentiment(sentiment.Description, sentiment.Category);
+            Assert.IsNull(sent);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void RemoveNonExistantPositiveSentimentFromRegister()
-        {
-            sentimentController.RemoveSentiment("sentimiento que no existe", true);
-        }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void RemoveExistantNegativeSentimentFromRegister()
         {
             Sentiment sentiment = new Sentiment() { Description = "Lo odio", Category = false };
             sentimentController.AddSentiment(sentiment);
             sentimentController.RemoveSentiment(sentiment.Description, sentiment.Category);
             Sentiment sent = sentimentController.ObtainSentiment(sentiment.Description, sentiment.Category);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void RemoveNonExistantNegativeSentimentFromRegister()
-        {
-            sentimentController.RemoveSentiment("sentimiento que no existe", false);
+            Assert.IsNull(sent);
         }
 
         [TestMethod]

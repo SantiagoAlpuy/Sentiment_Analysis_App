@@ -87,5 +87,37 @@ namespace BusinessLogic
         {
             return Username;
         }
+
+        public int CalculatePercentage(CategoryType category)
+        {
+            int totalNumberPhrases = this.Phrases.Count();
+            int totalNumberByCategory = this.Phrases.Where(x => x.Category == category).Count();
+            int percentage = totalNumberPhrases > 0 ? totalNumberByCategory * 100 / totalNumberPhrases : 0;
+            return percentage;  
+        }
+
+        public int CalculateEntitiesInPhrases()
+        {
+            HashSet<string> entities = new HashSet<string>();
+            foreach (Phrase phrase in this.Phrases)
+            {
+                if (phrase.Entity != "")
+                    entities.Add(phrase.Entity);
+            }
+            return entities.Count();
+        }
+
+        public double CalculateMeanOfPhrases()
+        {
+            double mean = 0;
+            if (this.Phrases.Count > 0)
+            {
+                int totalNumberPhrases = this.Phrases.Count();
+                DateTime firstPostDate = this.Phrases.Min(x => x.Date);
+                double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
+                mean = totalDays > 0 ? Math.Round(totalNumberPhrases / totalDays, 4) : 0;
+            }
+            return mean;
+        }
     }
 }

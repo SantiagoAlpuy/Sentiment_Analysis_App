@@ -33,6 +33,8 @@
             this.criterionComboBox = new System.Windows.Forms.ComboBox();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.btnFilterReport = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.sortComboBox = new System.Windows.Forms.ComboBox();
             this.infoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +57,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(259, 154);
+            this.label7.Location = new System.Drawing.Point(259, 103);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(255, 16);
             this.label7.TabIndex = 48;
@@ -69,7 +71,7 @@
             this.criterionComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.criterionComboBox.ForeColor = System.Drawing.Color.Gray;
             this.criterionComboBox.FormattingEnabled = true;
-            this.criterionComboBox.Location = new System.Drawing.Point(49, 173);
+            this.criterionComboBox.Location = new System.Drawing.Point(49, 122);
             this.criterionComboBox.Name = "criterionComboBox";
             this.criterionComboBox.Size = new System.Drawing.Size(665, 24);
             this.criterionComboBox.TabIndex = 47;
@@ -101,23 +103,48 @@
             this.btnFilterReport.UseVisualStyleBackColor = true;
             this.btnFilterReport.Click += new System.EventHandler(this.btnFilterReport_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(308, 156);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(175, 16);
+            this.label2.TabIndex = 55;
+            this.label2.Text = "Forma de Ordenamiento";
+            // 
+            // sortComboBox
+            // 
+            this.sortComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sortComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sortComboBox.ForeColor = System.Drawing.Color.Gray;
+            this.sortComboBox.FormattingEnabled = true;
+            this.sortComboBox.Location = new System.Drawing.Point(49, 175);
+            this.sortComboBox.Name = "sortComboBox";
+            this.sortComboBox.Size = new System.Drawing.Size(665, 24);
+            this.sortComboBox.TabIndex = 54;
+            // 
             // infoLabel
             // 
             this.infoLabel.AutoSize = true;
             this.infoLabel.BackColor = System.Drawing.Color.Transparent;
             this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoLabel.Location = new System.Drawing.Point(266, 271);
+            this.infoLabel.Location = new System.Drawing.Point(495, 264);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(493, 13);
+            this.infoLabel.Size = new System.Drawing.Size(219, 13);
             this.infoLabel.TabIndex = 53;
-            this.infoLabel.Text = "Para ordenar de forma tanto ascendente como descendente, haga click en el nombre " +
-    "de las columnas.";
+            this.infoLabel.Text = "El ordenamiento es según la cuarta columna.";
             // 
             // UC_AuthorReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterface.Properties.Resources.unnamed;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.sortComboBox);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.btnFilterReport);
             this.Controls.Add(this.dataGrid);
@@ -139,6 +166,8 @@
         private System.Windows.Forms.ComboBox criterionComboBox;
         private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.Button btnFilterReport;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox sortComboBox;
         private System.Windows.Forms.Label infoLabel;
     }
 }

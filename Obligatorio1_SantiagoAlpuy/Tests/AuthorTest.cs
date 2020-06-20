@@ -12,14 +12,20 @@ namespace Tests
     {
         IAuthorController authorController;
         IPhraseController phraseController;
+        ISentimentController sentimentController;
+        IEntityController entityController;
 
         [TestInitialize]
         public void Setup()
         {
             authorController = new AuthorController();
             phraseController = new PhraseController();
+            sentimentController = new SentimentController();
+            entityController = new EntityController();
             authorController.RemoveAllAuthors();
             phraseController.RemoveAllPhrases();
+            sentimentController.RemoveAllSentiments();
+            entityController.RemoveAllEntities();
         }
 
         [TestCleanup]
@@ -27,6 +33,8 @@ namespace Tests
         {
             authorController.RemoveAllAuthors();
             phraseController.RemoveAllPhrases();
+            sentimentController.RemoveAllSentiments();
+            entityController.RemoveAllEntities();
         }
 
         [TestMethod]
@@ -507,6 +515,135 @@ namespace Tests
             Author author2 = new Author() { Username = "ABCDEFGHIJKLMOP", Name = "nameA", Surname = "surnameA", Born = new DateTime(1960, 01, 01) };
             authorController.AddAuthor(author1);
             authorController.ModifyAuthor(author1, author2);
+        }
+
+        [TestMethod]
+        public void CalculatePercentageOfPositivePhrasesByAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Sentiment sentiment1 = new Sentiment { Description = "me gusta", Category = true };
+            Sentiment sentiment2 = new Sentiment { Description = "me encanta", Category = true };
+            Sentiment sentiment3 = new Sentiment { Description = "Odio", Category = false };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "odio la fanta", Date = DateTime.Now, Author = author };
+            Phrase phrase4 = new Phrase() { Comment = "odio la sevenup", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            sentimentController.AddSentiment(sentiment3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            phraseController.AddPhrase(phrase4);
+            int percentage = author.CalculatePercentage(CategoryType.Positiva);
+            Assert.AreEqual(50, percentage);
+        }
+
+        [TestMethod]
+        public void CalculatePercentageOfNegativePhrasesByAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Sentiment sentiment1 = new Sentiment { Description = "me gusta", Category = true };
+            Sentiment sentiment2 = new Sentiment { Description = "me encanta", Category = true };
+            Sentiment sentiment3 = new Sentiment { Description = "Odio", Category = false };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Phrase phrase4 = new Phrase() { Comment = "odio la sevenup", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            sentimentController.AddSentiment(sentiment3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            phraseController.AddPhrase(phrase4);
+            int percentage = author.CalculatePercentage(CategoryType.Negativa);
+            Assert.AreEqual(25, percentage);
+        }
+
+        [TestMethod]
+        public void CalculatedPercentageOfPhrasesIsZero()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Sentiment sentiment1 = new Sentiment { Description = "me gusta", Category = true };
+            Sentiment sentiment2 = new Sentiment { Description = "me encanta", Category = true };
+            Sentiment sentiment3 = new Sentiment { Description = "Odio", Category = false };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            sentimentController.AddSentiment(sentiment3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            int percentage = author.CalculatePercentage(CategoryType.Negativa);
+            Assert.AreEqual(0, percentage);
+        }
+
+        [TestMethod]
+        public void CalculateNumberOfEntitiesInAuthorPhrases()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Entity entity1 = new Entity { Name = "Pepsi" };
+            Entity entity2 = new Entity { Name = "Limol" };
+            Entity entity3 = new Entity { Name = "Fanta" };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            entityController.AddEntity(entity3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            int entityNumber = author.CalculateEntitiesInPhrases();
+            Assert.AreEqual(3, entityNumber);
+        }
+
+        [TestMethod]
+        public void CalculateNumberOfEntitiesInAuthorPhrasesWithRepeatedEntities()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Entity entity1 = new Entity { Name = "Pepsi" };
+            Entity entity2 = new Entity { Name = "Fanta" };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            int entityNumber = author.CalculateEntitiesInPhrases();
+            Assert.AreEqual(2, entityNumber);
+        }
+
+        [TestMethod]
+        public void CalculateAuthorsPostsMean()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now.AddDays(-1), Author = author };
+            authorController.AddAuthor(author);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            double mean = author.CalculateMeanOfPhrases();
+            Assert.AreEqual(1, mean);
+        }
+
+        [TestMethod]
+        public void CalculateAuthorsPostsMeanWithZeroPosts()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+            double mean = author.CalculateMeanOfPhrases();
+            Assert.AreEqual(0, mean);
         }
 
     }

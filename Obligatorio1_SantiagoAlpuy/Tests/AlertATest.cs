@@ -315,6 +315,5 @@ namespace Tests
             ICollection<AlertA> alerts = alertController.GetAllAlerts();
             Assert.AreEqual(3, alerts.Count);
         }
-
     }
 }
