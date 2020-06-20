@@ -605,5 +605,24 @@ namespace Tests
             Assert.AreEqual(3, entityNumber);
         }
 
+        [TestMethod]
+        public void CalculateNumberOfEntitiesInAuthorPhrasesWithRepeatedEntities()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Entity entity1 = new Entity { Name = "Pepsi" };
+            Entity entity2 = new Entity { Name = "Fanta" };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            int entityNumber = author.CalculateEntitiesInPhrases();
+            Assert.AreEqual(2, entityNumber);
+        }
+
     }
 }
