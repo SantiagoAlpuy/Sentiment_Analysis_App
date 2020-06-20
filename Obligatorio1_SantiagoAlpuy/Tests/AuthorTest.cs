@@ -625,7 +625,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void CalculatePostsMean()
+        public void CalculateAuthorsPostsMean()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
@@ -635,6 +635,15 @@ namespace Tests
             phraseController.AddPhrase(phrase2);
             double mean = author.CalculateMeanOfPhrases();
             Assert.AreEqual(1, mean);
+        }
+
+        [TestMethod]
+        public void CalculateAuthorsPostsMeanWithZeroPosts()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            authorController.AddAuthor(author);
+            double mean = author.CalculateMeanOfPhrases();
+            Assert.AreEqual(0, mean);
         }
 
     }
