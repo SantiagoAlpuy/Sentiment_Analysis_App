@@ -82,9 +82,7 @@ namespace UserInterface
             CreateDataGrid("Porcentaje");
             foreach (Author author in authors)
             {
-                int totalNumberPhrases = author.Phrases.Count();
-                int totalNumberByCategory = author.Phrases.Where(x => x.Category == category).Count();
-                int percentage = totalNumberPhrases>0 ? totalNumberByCategory * 100 / totalNumberPhrases : 0;
+                int percentage = author.CalculatePercentage(category);
 
                 string[] row = new string[] { author.Username, author.Name, author.Surname, percentage.ToString() };
                 this.dataGrid.Rows.Add(row);
