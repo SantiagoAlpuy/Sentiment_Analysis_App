@@ -94,13 +94,9 @@ namespace UserInterface
             CreateDataGrid("Cantidad de Entidades");
             foreach (Author author in authors)
             {
-                HashSet<string> entities = new HashSet<string>();
-                foreach (Phrase phrase in author.Phrases)
-                {
-                    if (phrase.Entity != "")
-                        entities.Add(phrase.Entity);
-                }
-                string[] row = new string[] { author.Username, author.Name, author.Surname, entities.Count().ToString() };
+                int entitiesNumber = author.CalculateEntitiesInPhrases();
+
+                string[] row = new string[] { author.Username, author.Name, author.Surname, entitiesNumber.ToString() };
                 this.dataGrid.Rows.Add(row);
 
             }
