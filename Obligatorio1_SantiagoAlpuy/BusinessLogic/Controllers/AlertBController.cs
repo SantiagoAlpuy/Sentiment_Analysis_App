@@ -32,7 +32,7 @@ namespace BusinessLogic.Controllers
         {
             foreach (IAlert alert in repositoryA.GetAll())
             {
-                EvaluateSingleAlert(alert);
+                alert.EvaluateAlert();
             }
         }
 
