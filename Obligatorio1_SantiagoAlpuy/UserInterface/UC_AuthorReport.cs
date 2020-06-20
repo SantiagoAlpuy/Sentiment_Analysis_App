@@ -66,6 +66,7 @@ namespace UserInterface
             this.dataGrid.Columns[1].Name = "Nombre";
             this.dataGrid.Columns[2].Name = "Apellido";
             this.dataGrid.Columns[3].Name = lastColumnName;
+            this.dataGrid.Columns[3].ValueType = typeof(double);
             this.dataGrid.ColumnHeadersVisible = true;
             ClearRows();
         }
@@ -107,7 +108,7 @@ namespace UserInterface
             {
                 int percentage = author.CalculatePercentage(category);
 
-                string[] row = new string[] { author.Username, author.Name, author.Surname, percentage.ToString() };
+                object[] row = new object[] { author.Username, author.Name, author.Surname, percentage };
                 this.dataGrid.Rows.Add(row);
             }
             SortDataGrid();
@@ -120,7 +121,7 @@ namespace UserInterface
             {
                 int entitiesNumber = author.CalculateEntitiesInPhrases();
 
-                string[] row = new string[] { author.Username, author.Name, author.Surname, entitiesNumber.ToString() };
+                object[] row = new object[] { author.Username, author.Name, author.Surname, entitiesNumber };
                 this.dataGrid.Rows.Add(row);
             }
             SortDataGrid();
@@ -132,7 +133,7 @@ namespace UserInterface
             foreach (Author author in authors)
             {
                 double mean = author.CalculateMeanOfPhrases();
-                string[] row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
+                object[] row = new object[] { author.Username, author.Name, author.Surname, mean };
 
                 this.dataGrid.Rows.Add(row);
             }
