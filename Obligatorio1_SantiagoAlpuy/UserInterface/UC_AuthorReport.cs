@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using BusinessLogic.IControllers;
 using BusinessLogic.Controllers;
 using BusinessLogic;
+using System.ComponentModel;
 
 namespace UserInterface
 {
@@ -17,12 +18,16 @@ namespace UserInterface
         private const string OPTION_B = "2- Porcentaje de frases negativas por cada autor";
         private const string OPTION_C = "3- Cantidad de entidades mencionadas por cada autor";
         private const string OPTION_D = "4- Promedio diario de frases por cada autor";
+        private const string ASCENDING = "Ascendente";
+        private const string DESCENDING = "Descendente";
+        private const int QUANTITY_COLUMNS = 4;
 
         public UC_AuthorReport()
         {
             InitializeComponent();
             authorController = new AuthorController();
             InitializeCriterionComboBox();
+            InitializeSortingComboBox();
         }
 
         private void InitializeCriterionComboBox()
@@ -35,9 +40,27 @@ namespace UserInterface
             criterionComboBox.Items.Add(OPTION_D);
         }
 
+        private void InitializeSortingComboBox()
+        {
+            sortComboBox.Items.Clear();
+            sortComboBox.Items.Add(ASCENDING);
+            sortComboBox.Items.Add(DESCENDING);
+            sortComboBox.SelectedIndex = 0;
+        }
+
+        private void SortDataGrid()
+        {
+            ListSortDirection sortDirection;
+            if (sortComboBox.Text == ASCENDING)
+                sortDirection = ListSortDirection.Ascending;
+            else
+                sortDirection = ListSortDirection.Descending;
+            this.dataGrid.Sort(this.dataGrid.Columns[QUANTITY_COLUMNS -1], sortDirection);
+        }
+
         private void CreateDataGrid(string lastColumnName)
         {
-            this.dataGrid.ColumnCount = 4;
+            this.dataGrid.ColumnCount = QUANTITY_COLUMNS;
             this.dataGrid.ColumnHeadersVisible = true;
             this.dataGrid.Columns[0].Name = "Nombre de Usuario";
             this.dataGrid.Columns[1].Name = "Nombre";
@@ -87,6 +110,7 @@ namespace UserInterface
                 string[] row = new string[] { author.Username, author.Name, author.Surname, percentage.ToString() };
                 this.dataGrid.Rows.Add(row);
             }
+            SortDataGrid();
         }
 
         private void CalculateAmmountOfEntities(ICollection<Author> authors)
@@ -98,8 +122,8 @@ namespace UserInterface
 
                 string[] row = new string[] { author.Username, author.Name, author.Surname, entitiesNumber.ToString() };
                 this.dataGrid.Rows.Add(row);
-
             }
+            SortDataGrid();
         }
 
         private void CalculatePostsMean(ICollection<Author> authors)
@@ -107,22 +131,12 @@ namespace UserInterface
             CreateDataGrid("Promedio Diario de Comentarios");
             foreach (Author author in authors)
             {
-                string[] row;
-                if (author.Phrases.Count > 0)
-                {
-                    int totalNumberPhrases = author.Phrases.Count();
-                    DateTime firstPostDate = author.Phrases.Min(x => x.Date);
-                    double totalDays = Math.Ceiling((DateTime.Now - firstPostDate).TotalDays);
-                    double mean = totalDays > 0 ? Math.Round(totalNumberPhrases / totalDays, 4) : 0;
-                    row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
-                }
-                else
-                {
-                    row = new string[] { author.Username, author.Name, author.Surname, "0" };
-                }
+                double mean = author.CalculateMeanOfPhrases();
+                string[] row = new string[] { author.Username, author.Name, author.Surname, mean.ToString() };
 
                 this.dataGrid.Rows.Add(row);
             }
+            SortDataGrid();
         }
 
         private void btnFilterReport_Click(object sender, EventArgs e)
