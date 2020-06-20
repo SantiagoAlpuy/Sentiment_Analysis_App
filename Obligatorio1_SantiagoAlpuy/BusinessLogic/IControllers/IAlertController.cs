@@ -5,6 +5,5 @@
         void AddAlert(IAlert alert);
         void EvaluateAlerts();
         void UpdateAlert(IAlert alert);
-        void EvaluateSingleAlert(IAlert alert);
     }
 }

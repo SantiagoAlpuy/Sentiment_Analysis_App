@@ -36,11 +36,6 @@ namespace BusinessLogic.Controllers
             }
         }
 
-        public void EvaluateSingleAlert(IAlert alert)
-        {
-            alert.EvaluateAlert();
-        }
-
         public void UpdateAlert(IAlert alert)
         {
             repositoryA.Update((AlertB)alert);
