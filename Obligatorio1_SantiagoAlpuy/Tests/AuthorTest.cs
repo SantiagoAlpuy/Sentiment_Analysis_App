@@ -13,6 +13,7 @@ namespace Tests
         IAuthorController authorController;
         IPhraseController phraseController;
         ISentimentController sentimentController;
+        IEntityController entityController;
 
         [TestInitialize]
         public void Setup()
@@ -20,9 +21,11 @@ namespace Tests
             authorController = new AuthorController();
             phraseController = new PhraseController();
             sentimentController = new SentimentController();
+            entityController = new EntityController();
             authorController.RemoveAllAuthors();
             phraseController.RemoveAllPhrases();
             sentimentController.RemoveAllSentiments();
+            entityController.RemoveAllEntities();
         }
 
         [TestCleanup]
@@ -31,6 +34,7 @@ namespace Tests
             authorController.RemoveAllAuthors();
             phraseController.RemoveAllPhrases();
             sentimentController.RemoveAllSentiments();
+            entityController.RemoveAllEntities();
         }
 
         [TestMethod]
@@ -578,6 +582,28 @@ namespace Tests
             phraseController.AddPhrase(phrase3);
             int percentage = author.CalculatePercentage(CategoryType.Negativa);
             Assert.AreEqual(0, percentage);
+        }
+
+        [TestMethod]
+        public void CalculateSetOfEntitiesInAuthorPhrases()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Entity entity1 = new Entity { Name = "Pepsi" };
+            Entity entity2 = new Entity { Name = "Limol" };
+            Entity entity3 = new Entity { Name = "Fanta" };
+            authorController.AddAuthor(author);
+            entityController.AddEntity(entity1);
+            entityController.AddEntity(entity2);
+            entityController.AddEntity(entity3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            int entityNumber = author.CalculateEntitiesInPhrases();
+            Assert.AreEqual(3, entityNumber);
+
         }
 
     }

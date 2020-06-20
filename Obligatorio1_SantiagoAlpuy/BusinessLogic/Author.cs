@@ -95,5 +95,10 @@ namespace BusinessLogic
             int percentage = totalNumberPhrases > 0 ? totalNumberByCategory * 100 / totalNumberPhrases : 0;
             return percentage;  
         }
+
+        public int CalculateEntitiesInPhrases()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
