@@ -98,7 +98,7 @@ namespace BusinessLogic
 
         public int CalculateEntitiesInPhrases()
         {
-            List<string> entities = new List<string>();
+            HashSet<string> entities = new HashSet<string>();
             foreach (Phrase phrase in this.Phrases)
             {
                 if (phrase.Entity != "")
