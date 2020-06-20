@@ -98,7 +98,13 @@ namespace BusinessLogic
 
         public int CalculateEntitiesInPhrases()
         {
-            throw new NotImplementedException();
+            List<string> entities = new List<string>();
+            foreach (Phrase phrase in this.Phrases)
+            {
+                if (phrase.Entity != "")
+                    entities.Add(phrase.Entity);
+            }
+            return entities.Count();
         }
     }
 }

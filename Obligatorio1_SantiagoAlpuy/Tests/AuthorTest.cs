@@ -585,7 +585,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void CalculateSetOfEntitiesInAuthorPhrases()
+        public void CalculateNumberOfEntitiesInAuthorPhrases()
         {
             Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
             Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
@@ -603,7 +603,6 @@ namespace Tests
             phraseController.AddPhrase(phrase3);
             int entityNumber = author.CalculateEntitiesInPhrases();
             Assert.AreEqual(3, entityNumber);
-
         }
 
     }
