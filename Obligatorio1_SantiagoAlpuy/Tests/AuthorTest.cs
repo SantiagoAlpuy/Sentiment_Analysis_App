@@ -534,5 +534,28 @@ namespace Tests
             Assert.AreEqual(50, percentage);
         }
 
+        [TestMethod]
+        public void CalculatePercentageOfNegativePhrasesByAuthor()
+        {
+            Author author = new Author() { Username = "testUserA", Name = "nameA", Surname = "surnameA", Born = new DateTime(1980, 01, 01) };
+            Sentiment sentiment1 = new Sentiment { Description = "me gusta", Category = true };
+            Sentiment sentiment2 = new Sentiment { Description = "me encanta", Category = true };
+            Sentiment sentiment3 = new Sentiment { Description = "Odio", Category = false };
+            Phrase phrase1 = new Phrase() { Comment = "Me gusta la Pepsi", Date = DateTime.Now, Author = author };
+            Phrase phrase2 = new Phrase() { Comment = "Me encanta la Limol", Date = DateTime.Now, Author = author };
+            Phrase phrase3 = new Phrase() { Comment = "me encanta la fanta", Date = DateTime.Now, Author = author };
+            Phrase phrase4 = new Phrase() { Comment = "odio la sevenup", Date = DateTime.Now, Author = author };
+            authorController.AddAuthor(author);
+            sentimentController.AddSentiment(sentiment1);
+            sentimentController.AddSentiment(sentiment2);
+            sentimentController.AddSentiment(sentiment3);
+            phraseController.AddPhrase(phrase1);
+            phraseController.AddPhrase(phrase2);
+            phraseController.AddPhrase(phrase3);
+            phraseController.AddPhrase(phrase4);
+            int percentage = author.CalculatePercentage(CategoryType.Positiva);
+            Assert.AreEqual(50, percentage);
+        }
+
     }
 }
